@@ -1,23 +1,28 @@
-name: komodo-wallet-desktop CI
+name: Pandacoin-multiwallet-DEX CI
 
 on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
   push:
-    branches:
-      - nogeo
+      branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
 
 env:
   DEX_API: "kdf_kwd"
   DEX_RPCPORT: 7762
   DEX_RPC: "http://127.0.0.1:7762"
-  DEX_PROJECT_NAME: "komodo-wallet"
-  DEX_DISPLAY_NAME: "Komodo Wallet"
-  DEX_COMPANY: "KomodoPlatform"
+  DEX_PROJECT_NAME: "Pandacoin-multiwallet-DEX"
+  DEX_DISPLAY_NAME: "Pandacoin-multiwallet-DEX"
+  DEX_COMPANY: "Pandacoin.tech"
   DEX_VERSION: "0.8.2"
   DEX_WEBSITE: "https://atomicdex.io/"
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/b/vcpkg_cache
   VCPKG_BINARY_SOURCES: clear;x-gha,readwrite
-  RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
-  VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
+  RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\cheetahdex-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
+  VCPKG_ROOT: ${{ github.workspace }}\cheetahdex-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
 
 jobs:
 
@@ -91,7 +96,7 @@ jobs:
       - name: Install MSVC
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1.12.0
-        
+
       - name: Build libwally (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -153,6 +158,7 @@ jobs:
           export SHELL=/bin/bash
           echo "CHOOSENIM_CHOOSE_VERSION=1.6.2" >> $GITHUB_ENV
           export CHOOSENIM_CHOOSE_VERSION=1.6.2
+          chmod +x ./ci_tools_atomic_dex/ci_scripts/choosenim.sh
           ./ci_tools_atomic_dex/ci_scripts/choosenim.sh -y
           export PATH=/home/runner/.nimble/bin:$PATH
           chmod +x /home/runner/.choosenim/toolchains/nim-1.6.2/bin/*
@@ -162,6 +168,7 @@ jobs:
         run: |
           echo "CHOOSENIM_CHOOSE_VERSION=1.6.2" >> $GITHUB_ENV
           export CHOOSENIM_CHOOSE_VERSION=1.6.2
+          chmod +x ./ci_tools_atomic_dex/ci_scripts/choosenim.sh
           ./ci_tools_atomic_dex/ci_scripts/choosenim.sh -y
           export PATH=/Users/runner/.nimble/bin:$PATH
           chmod +x /Users/runner/.choosenim/toolchains/nim-1.6.2/bin/*
@@ -171,11 +178,13 @@ jobs:
         run: |
           echo "DEBIAN_FRONTEND=noninteractive" >> $GITHUB_ENV
           echo ${{ github.sha }}
+          chmod +x ./ci_tools_atomic_dex/ci_scripts/linux_script.sh
           sudo ./ci_tools_atomic_dex/ci_scripts/linux_script.sh
 
       - name: Install deps (MacOS)
         if: runner.os == 'macOS'
         run: |
+          chmod +x ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
           ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
 
       - name: Upload env variable for vpkg (MacOS)
@@ -196,26 +205,8 @@ jobs:
           vcpkgDirectory: '${{ github.workspace }}/ci_tools_atomic_dex/vcpkg-repo'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: import code signing certificates (macos)
-        if: runner.os == 'macOS'  && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        uses: Apple-Actions/import-codesign-certs@v3
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
 
-      - name: import installer code signing certificates (macos)
-        if: runner.os == 'macOS'  && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        uses: apple-actions/import-codesign-certs@v3
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          create-keychain: false
-          p12-file-base64: ${{ secrets.CERTIFICATES_INSTALLER_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-
-      - name: Build Komodo Wallet (MacOS)
+      - name: Build Cheetahdex Wallet (MacOS)
         if: runner.os == 'macOS'
         run: |
           xcrun --sdk macosx --show-sdk-path
@@ -242,7 +233,7 @@ jobs:
           nimble build -y
           ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX14.2.sdk --compiler=clang++
 
-      - name: Build Komodo Wallet (Linux)
+      - name: Build Cheetahdex Wallet (Linux)
         if: runner.os == 'Linux'
         run: |
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/gcc_64/lib/cmake
@@ -259,7 +250,7 @@ jobs:
           ./ci_tools_atomic_dex build ${{ matrix.type }}
           ./ci_tools_atomic_dex bundle ${{ matrix.type }}
 
-      - name: Build Komodo Wallet (Windows)
+      - name: Build Cheetahdex Wallet (Windows)
         if: runner.os == 'Windows'
         shell: powershell
         run: |
@@ -349,7 +340,7 @@ jobs:
       - name: Running Tests (Linux)
         working-directory: ci_tools_atomic_dex
         continue-on-error: true
-        if: runner.os == 'Linux' && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
+        if: runner.os == 'Linux' && 'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
         run: |
           export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
           export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
@@ -368,7 +359,7 @@ jobs:
       - name: Running Tests (MacOS)
         working-directory: ci_tools_atomic_dex
         continue-on-error: true
-        if: runner.os == 'macOS' &&  'KomodoPlatform/komodo-wallet-desktop' == github.repository
+        if: runner.os == 'macOS' &&  'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
         run: |
           export MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
           export INSTALLER_MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
@@ -393,7 +384,7 @@ jobs:
       - name: Running Tests (Windows)
         shell: powershell
         continue-on-error: true
-        if: runner.os == 'Windows' && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
+        if: runner.os == 'Windows' && 'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
         run: |
           #echo "Running tests"
           $Env:REPORT_CI_TOKEN = "${{ secrets.REPORT_CI_TOKEN_SECRET }}"
