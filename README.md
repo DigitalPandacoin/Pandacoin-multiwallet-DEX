@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://atomicdex.io" alt="Komodo Wallet">
-	<img width="420" alt="komodo-wallet-logo_dark-theme" src="https://user-images.githubusercontent.com/24797699/252409662-eb03b0b1-5f6e-4494-9267-132eba827718.png">
+    <a href="https://atomicdex.io" alt="Pandacoin-multiwallet-DEX">
+	<img width="420" alt="Pandacoin-multiwallet-DEX-logo_dark-theme" src="https://raw.githubusercontent.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/assets/logo/dex-logo.png">
     </a>
 </p>
 
@@ -47,12 +47,12 @@
 </p>
 
 
-## What is Komodo Wallet?
+## What is Pandacoin-multiwallet-DEX?
 
-Komodo Wallet is a secure wallet and non-custodial decentralized exchange rolled into one application. Store your coins,
+Pandacoin-multiwallet-DEX is a secure wallet and non-custodial decentralized exchange rolled into one application. Store your coins,
 trade peer-to-peer with minimal fees and never give up control over your digital assets.
 
-Komodo Wallet has been tested on the following platforms:
+Pandacoin-multiwallet-DEX has been tested on the following platforms:
 
 - Windows 10
 - Linux (Ubuntu 18.04+)
