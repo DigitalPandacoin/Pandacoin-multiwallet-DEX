@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://atomicdex.io" alt="Pandacoin-multiwallet-DEX">
-	<img width="420" alt="Pandacoin-multiwallet-DEX-logo_dark-theme" src="https://raw.githubusercontent.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/assets/logo/dex-logo.png">
+	<img width="420" alt="Pandacoin-multiwallet-DEX-logo_dark-theme" src="https://raw.githubusercontent.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/blob/nogeo/assets/logo/dex-logo-big.png">
     </a>
 </p>
 
