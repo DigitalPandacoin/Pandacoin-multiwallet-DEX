@@ -1,13 +1,7 @@
 name: Pandacoin-multiwallet-DEX CI
 
 on:
-  pull_request:
-    types: [ opened, synchronize, reopened ]
-  push:
-      branches:
-      - main
-  schedule:
-    - cron: '0 0 * * 1'
+  
   workflow_dispatch:
 
 env:
