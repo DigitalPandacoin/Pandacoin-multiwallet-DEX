@@ -1,15 +1,15 @@
-name: komodo-wallet-desktop CD releases
+name: Pandacoin-multiwallet-DEX-desktop CD releases
 
 on:
   push:
     branches:
-    - temporary_disabled
+    - nogeo
 
 env:
-  DEX_PROJECT_NAME: "komodo-wallet"
-  DEX_DISPLAY_NAME: "Komodo Wallet"
-  DEX_COMPANY: "KomodoPlatform"
-  DEX_VERSION: "0.8.2"
+  DEX_PROJECT_NAME: "Pandacoin-multiwallet-DEX"
+  DEX_DISPLAY_NAME: "Pandacoin-multiwallet-DEX"
+  DEX_COMPANY: "Pandacoin Tech"
+  DEX_VERSION: "0.8.3"
   DEX_WEBSITE: "https://atomicdex.io/"
 
 jobs:
