@@ -3,7 +3,7 @@ name: Pandacoin-multiwallet-DEX-desktop CD releases
 on:
   push:
     branches:
-    - nogeo
+    - temporary_disabled
 
 env:
   DEX_PROJECT_NAME: "Pandacoin-multiwallet-DEX"
