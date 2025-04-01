@@ -15,8 +15,8 @@ env:
   DEX_WEBSITE: "https://atomicdex.io/"
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/b/vcpkg_cache
   VCPKG_BINARY_SOURCES: clear;x-gha,readwrite
-  RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\cheetahdex-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
-  VCPKG_ROOT: ${{ github.workspace }}\cheetahdex-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
+  RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\Pandacoin-multiwallet-DEX\ci_tools_atomic_dex\vcpkg-repo
+  VCPKG_ROOT: ${{ github.workspace }}\Pandacoin-multiwallet-DEX\ci_tools_atomic_dex\vcpkg-repo
 
 jobs:
 
@@ -200,7 +200,7 @@ jobs:
           vcpkgJsonGlob: 'vcpkg.json'
 
 
-      - name: Build Cheetahdex Wallet (MacOS)
+      - name: Build Pandacoin-multiwallet-DEX (MacOS)
         if: runner.os == 'macOS'
         run: |
           xcrun --sdk macosx --show-sdk-path
@@ -227,7 +227,7 @@ jobs:
           nimble build -y
           ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX14.2.sdk --compiler=clang++
 
-      - name: Build Cheetahdex Wallet (Linux)
+      - name: Build Pandacoin-multiwallet-DEX (Linux)
         if: runner.os == 'Linux'
         run: |
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/gcc_64/lib/cmake
@@ -244,7 +244,7 @@ jobs:
           ./ci_tools_atomic_dex build ${{ matrix.type }}
           ./ci_tools_atomic_dex bundle ${{ matrix.type }}
 
-      - name: Build Cheetahdex Wallet (Windows)
+      - name: Build Pandacoin-multiwallet-DEX (Windows)
         if: runner.os == 'Windows'
         shell: powershell
         run: |
@@ -334,7 +334,7 @@ jobs:
       - name: Running Tests (Linux)
         working-directory: ci_tools_atomic_dex
         continue-on-error: true
-        if: runner.os == 'Linux' && 'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
+        if: runner.os == 'Linux' && 'DigitalPandacoin/Pandacoin-multiwallet-DEX' == github.repository
         run: |
           export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
           export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
@@ -353,7 +353,7 @@ jobs:
       - name: Running Tests (MacOS)
         working-directory: ci_tools_atomic_dex
         continue-on-error: true
-        if: runner.os == 'macOS' &&  'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
+        if: runner.os == 'macOS' &&  'DigitalPandacoin/Pandacoin-multiwallet-DEX' == github.repository
         run: |
           export MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
           export INSTALLER_MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
@@ -378,7 +378,7 @@ jobs:
       - name: Running Tests (Windows)
         shell: powershell
         continue-on-error: true
-        if: runner.os == 'Windows' && 'ShorelineCrypto/cheetahdex-wallet-desktop' == github.repository
+        if: runner.os == 'Windows' && 'DigitalPandacoin/Pandacoin-multiwallet-DEX' == github.repository
         run: |
           #echo "Running tests"
           $Env:REPORT_CI_TOKEN = "${{ secrets.REPORT_CI_TOKEN_SECRET }}"
