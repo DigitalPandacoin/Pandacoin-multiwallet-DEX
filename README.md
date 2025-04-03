@@ -61,12 +61,12 @@ Pandacoin-multiwallet-DEX has been tested on the following platforms:
 
 ## Get Started
 
-You can [download](https://github.com/KomodoPlatform/komodo-wallet-desktop/releases) the pre-built <b>beta</b> binaries on
-our [GitHub release page](https://github.com/KomodoPlatform/komodo-wallet-desktop/releases).
+You can [download](https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/releases) the pre-built <b>beta</b> binaries on
+our [GitHub release page](https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/releases).
 
 Build instructions can be found [here](https://github.com/KomodoPlatform/komodo-wallet-desktop/wiki/Build-Instructions)
 
-Please join our [Discord Server](https://komodoplatform.com/discord) for support, discussions and general UI/UX
+Please join our [Discord Server](https://discord.gg/fHtc4BWQ) for support, discussions and general UI/UX
 feedback.
 
 
