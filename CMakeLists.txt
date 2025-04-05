@@ -63,7 +63,7 @@ if (APPLE)
             URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/mm2_b4581c2-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/mm2_b4581c2-linux-x86-64.zip)
+            URL https://sdk.devbuilds.komodo.earth/fix-utxo-tx-fee-no-doge/mm2_a1ef11a-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
             URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/mm2_b4581c2-win-x86-64.zip)
