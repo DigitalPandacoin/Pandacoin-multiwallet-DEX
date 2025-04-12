@@ -8,10 +8,10 @@
     <a href="https://github.com/komodoplatform/komodo-wallet-desktop/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/komodoplatform/komodo-wallet-desktop" />
     </a>
-    <a href="https://github.com/komodoplatform/komodo-wallet-desktop/releases">
+    <a href="https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/releases">
         <img src="https://img.shields.io/github/downloads/komodoplatform/komodo-wallet-desktop/total" alt="downloads">
     </a>
-    <a href="https://github.com/komodoplatform/komodo-wallet-desktop/">
+    <a href="https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/">
         <img src="https://img.shields.io/github/last-commit/komodoplatform/komodo-wallet-desktop" alt="last commit">
     </a>
     <a href="https://github.com/komodoplatform/komodo-wallet-desktop/pulse" alt="Activity">
@@ -34,13 +34,13 @@
     <a href="https://github.com/KomodoPlatform/komodo-wallet-desktop/actions/workflows/komodo-wallet-desktop-ci.yml">
         <img src="https://github.com/KomodoPlatform/komodo-wallet-desktop/actions/workflows/komodo-wallet-desktop-ci.yml/badge.svg?branch=master" alt="build status">
     </a>
-    <a href="https://github.com/KomodoPlatform/komodo-wallet-desktop/releases">
+    <a href="https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/releases">
         <img src="https://img.shields.io/github/v/release/komodoplatform/komodo-wallet-desktop" alt="release version">
     </a>
-    <a href="https://discord.gg/3rzDPAr">
+    <a href="https://discord.gg/9QvEgDp">
         <img src="https://img.shields.io/discord/302123079818149888?logo=discord" alt="chat on Discord">
     </a>
-    <a href="https://twitter.com/KomodoPlatform">
+    <a href="https://twitter.com/PandaCoinPND">
         <img src="https://img.shields.io/twitter/follow/komodoplatform?style=social&logo=twitter"
             alt="follow on Twitter">
     </a>
@@ -66,7 +66,7 @@ our [GitHub release page](https://github.com/DigitalPandacoin/Pandacoin-multiwal
 
 Build instructions can be found [here](https://github.com/KomodoPlatform/komodo-wallet-desktop/wiki/Build-Instructions)
 
-Please join our [Discord Server](https://discord.gg/fHtc4BWQ) for support, discussions and general UI/UX
+Please join our [Discord Server](https://discord.gg/9QvEgDp) for support, discussions and general UI/UX
 feedback.
 
 
