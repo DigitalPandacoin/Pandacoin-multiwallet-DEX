@@ -30,10 +30,7 @@
     <a href="https://github.com/komodoplatform/komodo-wallet-desktop/pulls?q=is%3Apr+is%3Aclosed">
         <img src="https://img.shields.io/github/issues-pr-closed/komodoplatform/komodo-wallet-desktop" alt="pulls closed">
     </a>
-	<br/>
-    <a href="https://github.com/KomodoPlatform/komodo-wallet-desktop/actions/workflows/komodo-wallet-desktop-ci.yml">
-        <img src="https://github.com/KomodoPlatform/komodo-wallet-desktop/actions/workflows/komodo-wallet-desktop-ci.yml/badge.svg?branch=master" alt="build status">
-    </a>
+	<br/>    
     <a href="https://github.com/DigitalPandacoin/Pandacoin-multiwallet-DEX/releases">
         <img src="https://img.shields.io/github/v/release/komodoplatform/komodo-wallet-desktop" alt="release version">
     </a>
@@ -41,7 +38,7 @@
         <img src="https://img.shields.io/discord/302123079818149888?logo=discord" alt="chat on Discord">
     </a>
     <a href="https://twitter.com/PandaCoinPND">
-        <img src="https://img.shields.io/twitter/follow/komodoplatform?style=social&logo=twitter"
+        <img src="https://img.shields.io/twitter/follow/PandaCoinPND?style=social&logo=twitter"
             alt="follow on Twitter">
     </a>
 </p>
