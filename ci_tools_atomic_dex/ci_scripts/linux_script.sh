@@ -26,6 +26,7 @@ sudo apt-get install build-essential \
                     libxcb-render-util0-dev \
                     libxcb-xinerama0 \
                     libgstreamer-plugins-base1.0-dev \
+                    libfuse2t64 \
                     git -y
                     
 sudo apt-get update
