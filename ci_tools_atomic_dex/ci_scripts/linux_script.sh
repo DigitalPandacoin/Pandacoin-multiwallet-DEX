@@ -26,9 +26,9 @@ sudo apt-get install build-essential \
                     libxcb-render-util0-dev \
                     libxcb-xinerama0 \
                     libgstreamer-plugins-base1.0-dev \
-                    libfuse2t64 \
+                    libfuse2 \
                     git -y
-                    
+
 sudo apt-get update
 sudo apt-get install clang llvm libc++abi-11-dev libc++-11-dev -y
 #export CXXFLAGS=-stdlib=libc++
