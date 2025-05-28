@@ -131,7 +131,7 @@ jobs:
           target: 'desktop'
           modules: 'qtcharts debug_info qtwebengine'
           setup-python: 'false'
-          cache: true
+          cache: false
 
       - name: Install QT (Windows)
         if: runner.os == 'Windows'
