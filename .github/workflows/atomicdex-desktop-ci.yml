@@ -15,7 +15,7 @@ env:
   DEX_VERSION: "0.8.2"
   DEX_WEBSITE: "https://atomicdex.io/"
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/b/vcpkg_cache
-  VCPKG_BINARY_SOURCES: clear;x-gha,readwrite
+  VCPKG_BINARY_SOURCES: clear
   RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
   VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
 
@@ -131,7 +131,7 @@ jobs:
           target: 'desktop'
           modules: 'qtcharts debug_info qtwebengine'
           setup-python: 'false'
-          cache: false
+          cache: true
 
       - name: Install QT (Windows)
         if: runner.os == 'Windows'
