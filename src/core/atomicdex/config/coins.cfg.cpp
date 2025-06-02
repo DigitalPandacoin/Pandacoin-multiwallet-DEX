@@ -58,7 +58,7 @@ namespace
         {
             return CoinType::PLG20;
         }
-        if (coin_type == "Matic")
+        if (coin_type == "Polygon")
         {
             return CoinType::PLG20;
         }
@@ -300,7 +300,7 @@ namespace atomic_dex
             break;
         case CoinType::PLG20:
             cfg.has_parent_fees_ticker = true;
-            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "MATICTEST" : "MATIC";
+            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "POLTEST" : "POL";
             cfg.is_erc_family          = true;
             break;
         case CoinType::Optimism:
