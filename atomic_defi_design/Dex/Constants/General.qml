@@ -228,7 +228,7 @@ QtObject {
                     return "https://ftmscan.com/token/" + coinContractAddress(ticker)
                 case "HT":
                     return "https://hecoinfo.com/token/" + coinContractAddress(ticker)
-                case "MATIC":
+                case "POL":
                     return "https://polygonscan.com/token/" + coinContractAddress(ticker)
                 case "AVAX":
                     return "https://avascan.info/blockchain/c/address/" + coinContractAddress(ticker)
@@ -263,7 +263,7 @@ QtObject {
                     return "Ethereum (ERC20 token)"
                 case "KCS":
                     return "KuCoin (KRC20 token)"
-                case "MATIC":
+                case "POL":
                     return "Polygon (PLG20 token)"
                 case "AVAX":
                     return "Avalanche (AVX20 token)"
@@ -786,7 +786,7 @@ QtObject {
         if (prevent_coin_disabling.running) return false
         if (ticker === atomic_app_primary_coin || ticker === atomic_app_secondary_coin) return false
         if (ticker === "ETH") return !General.isParentCoinNeeded("ETH", "ERC-20")
-        if (ticker === "MATIC") return !General.isParentCoinNeeded("MATIC", "PLG-20")
+        if (ticker === "POL") return !General.isParentCoinNeeded("POL", "PLG-20")
         if (ticker === "FTM") return !General.isParentCoinNeeded("FTM", "FTM-20")
         if (ticker === "AVAX") return !General.isParentCoinNeeded("AVAX", "AVX-20")
         if (ticker === "BNB") return !General.isParentCoinNeeded("BNB", "BEP-20")
@@ -828,7 +828,7 @@ QtObject {
     }
 
     function isParentCoin(ticker) {
-        return ["KMD", "ETH", "MATIC", "AVAX", "FTM", "QTUM", "BNB", "ONE", "KCS"].includes(ticker)
+        return ["KMD", "ETH", "POL", "AVAX", "FTM", "QTUM", "BNB", "ONE", "KCS"].includes(ticker)
     }
 
     function isTokenType(type) {
@@ -842,7 +842,7 @@ QtObject {
 
     function getParentCoin(type) {
         if(type === "ERC-20") return "ETH"
-        else if(type === "PLG-20") return "MATIC"
+        else if(type === "PLG-20") return "POL"
         else if(type === "AVX-20") return "AVAX"
         else if(type === "FTM-20") return "FTM"
         else if(type === "QRC-20") return "QTUM"
@@ -2205,23 +2205,23 @@ QtObject {
                                                 "MANA/TRYB": "BINANCE:MANATRY",
                                                 "MANA/BRZ": "BINANCE:MANABRL",
                                                 "MANA/BNB": "BINANCE:MANABNB",
-                                                "MATIC/BTC": "BINANCE:MATICBTC",
-                                                "MATIC/ETH": "HUOBI:MATICETH",
-                                                "MATIC/USDT": "BINANCE:MATICUSD",
-                                                "MATIC/BUSD": "BINANCE:MATICUSD",
-                                                "MATIC/USDC": "BINANCE:MATICUSD",
-                                                "MATIC/TUSD": "BINANCE:MATICUSD",
-                                                "MATIC/HUSD": "BINANCE:MATICUSD",
-                                                "MATIC/UST": "BINANCE:MATICUSD",
-                                                "MATIC/DAI": "BINANCE:MATICUSD",
-                                                "MATIC/PAX": "BINANCE:MATICUSD",
-                                                "MATIC/BNB": "BINANCE:MATICBNB",
-                                                "MATIC/EURS": "COINBASE:MATICEUR",
-                                                "MATIC/JEUR": "COINBASE:MATICEUR",
-                                                "MATIC/JGBP": "COINBASE:MATICGBP",
-                                                "MATIC/TRYB": "BINANCE:MATICTRY",
-                                                "MATIC/BIDR": "BINANCE:MATICBIDR",
-                                                "MATIC/BRZ": "BINANCE:MATICBRL",
+                                                "POL/BTC": "BINANCE:POLBTC",
+                                                "POL/ETH": "HUOBI:POLETH",
+                                                "POL/USDT": "BINANCE:POLUSD",
+                                                "POL/BUSD": "BINANCE:POLUSD",
+                                                "POL/USDC": "BINANCE:POLUSD",
+                                                "POL/TUSD": "BINANCE:POLUSD",
+                                                "POL/HUSD": "BINANCE:POLUSD",
+                                                "POL/UST": "BINANCE:POLUSD",
+                                                "POL/DAI": "BINANCE:POLUSD",
+                                                "POL/PAX": "BINANCE:POLUSD",
+                                                "POL/BNB": "BINANCE:POLBNB",
+                                                "POL/EURS": "COINBASE:POLEUR",
+                                                "POL/JEUR": "COINBASE:POLEUR",
+                                                "POL/JGBP": "COINBASE:POLGBP",
+                                                "POL/TRYB": "BINANCE:POLTRY",
+                                                "POL/BIDR": "BINANCE:POLBIDR",
+                                                "POL/BRZ": "BINANCE:POLBRL",
                                                 "MINDS/ETH": "UNISWAP:MINDSWETH",
                                                 "MIR/BTC": "BINANCE:MIRBTC",
                                                 "MIR/ETH": "HUOBI:MIRETH",

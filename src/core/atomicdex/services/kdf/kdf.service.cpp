@@ -2527,7 +2527,7 @@ namespace atomic_dex
                 out = construct_url_functor("BNB", "BNBT", "bnb_tx_history", "bep_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::PLG20:
-                out = construct_url_functor("MATIC", "MATICTEST", "plg_tx_history", "plg_tx_history", ticker, address);
+                out = construct_url_functor("POL", "POLTEST", "plg_tx_history", "plg_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Moonriver:
                 out = construct_url_functor("MOVR", "MOVRT", "moonriver_tx_history", "moonriver_tx_history", ticker, address);

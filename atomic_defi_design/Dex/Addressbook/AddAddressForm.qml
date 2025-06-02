@@ -33,7 +33,7 @@ Dex.Rectangle
             case "ERC-20":      return "ETH"
             case "AVX-20":      return "AVAX"
             case "FTM-20":      return "FTM"
-            case "PLG-20":      return "MATIC"
+            case "PLG-20":      return "POL"
             case "Smart Chain": return "KMD"
             case "SLP":         return "USDT-SLP"
         }

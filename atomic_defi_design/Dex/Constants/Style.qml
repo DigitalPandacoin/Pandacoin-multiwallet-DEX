@@ -203,8 +203,8 @@ QtObject {
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
             case 'KRC-20':            return dark_theme ? colorCoinDark["KCS"] : colorCoin["KCS"]
             case 'Smart Chain':       return dark_theme ? colorCoinDark["KMD"] : colorCoin["KMD"]
-            case 'Matic':
-            case 'PLG-20':            return dark_theme ? colorCoinDark["MATIC"] : colorCoin["MATIC"]
+            case 'Polygon':
+            case 'PLG-20':            return dark_theme ? colorCoinDark["POL"] : colorCoin["POL"]
             case 'Moonriver':         return dark_theme ? colorCoinDark["MOVR"] : colorCoin["MOVR"]
             case 'HRC-20':            return dark_theme ? colorCoinDark["ONE"] : colorCoin["ONE"]
             case 'SmartBCH':          return dark_theme ? colorCoinDark["SBCH"] : colorCoin["SBCH"]
@@ -246,8 +246,8 @@ QtObject {
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
             case 'KRC-20':            return dark_theme ? colorCoinDark["KCS"] : colorCoin["KCS"]
             case 'Smart Chain':       return dark_theme ? colorCoinDark["KMD"] : colorCoin["KMD"]
-            case 'Matic':
-            case 'PLG-20':            return dark_theme ? colorCoinDark["MATIC"] : colorCoin["MATIC"]
+            case 'Polygon':
+            case 'PLG-20':            return dark_theme ? colorCoinDark["POL"] : colorCoin["POL"]
             case 'Moonriver':         return dark_theme ? colorCoinDark["MOVR"] : colorCoin["MOVR"]
             case 'HRC-20':            return dark_theme ? colorCoinDark["ONE"] : colorCoin["ONE"]
             case 'SmartBCH':          return dark_theme ? colorCoinDark["SBCH"] : colorCoin["SBCH"]
@@ -290,7 +290,7 @@ QtObject {
                                           "KCS": "#25AF90",
                                           "KMD": "#2d4f86",
                                           "MOVR": "#52CCC9",
-                                          "MATIC": "#804EE1",
+                                          "POL": "#804EE1",
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
                                           "UBQ": "#00EB90",
@@ -316,7 +316,7 @@ QtObject {
                                           "KCS": "#25AF90",
                                           "KMD": "#799bd2",
                                           "MOVR": "#52CCC9",
-                                          "MATIC": "#804EE1",
+                                          "POL": "#804EE1",
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
                                           "UBQ": "#00EB90",
