@@ -2505,7 +2505,7 @@ namespace atomic_dex
             std::string out;
             if (ticker == main_ticker || ticker == test_ticker)
             {
-                out = "/api/v1/" + url + "/" + address;
+                out = "/api/v2/" + url + "/" + address;
             }
             else
             {

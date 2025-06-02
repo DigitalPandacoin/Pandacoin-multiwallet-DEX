@@ -568,11 +568,11 @@ namespace atomic_dex
             //         &kdf::g_qtum_proxy_http_client, "/contract/"s + contract_address.toStdString(), "QRC20"s, "QTUM"s, "QRC-20"s, "QTUM"s, "QRC20"s);
             case CoinTypeGadget::ERC20:
                 return std::make_tuple(
-                    &kdf::g_etherscan_proxy_http_client, "/api/v1/token_infos/erc20/"s + contract_address.toStdString(), "ERC20"s, "ETH"s, "ERC-20"s,
+                    &kdf::g_etherscan_proxy_http_client, "/api/v2/token_infos/erc20/"s + contract_address.toStdString(), "ERC20"s, "ETH"s, "ERC-20"s,
                     "ETH"s, "ERC20"s);
             case CoinTypeGadget::BEP20:
                 return std::make_tuple(
-                    &kdf::g_etherscan_proxy_http_client, "/api/v1/token_infos/bep20/"s + contract_address.toStdString(), "BEP20"s, "BNB"s, "BEP-20"s,
+                    &kdf::g_etherscan_proxy_http_client, "/api/v2/token_infos/bep20/"s + contract_address.toStdString(), "BEP20"s, "BNB"s, "BEP-20"s,
                     "BNB"s, "ERC20"s);
             default:
                 return std::make_tuple(&kdf::g_etherscan_proxy_http_client, ""s, ""s, ""s, ""s, ""s, ""s);
