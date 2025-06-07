@@ -2514,31 +2514,31 @@ namespace atomic_dex
             switch (coin_info.coin_type)
             {
             case CoinTypeGadget::ERC20:
-                out = construct_url_functor("ETH", "ETHR", "eth_tx_history", "erc_tx_history", ticker, address);
+                out = construct_url_functor("ETH", "ETHR", "eth_tx_history", "erc20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::BEP20:
-                out = construct_url_functor("BNB", "BNBT", "bnb_tx_history", "bep_tx_history", ticker, address);
+                out = construct_url_functor("BNB", "BNBT", "bnb_tx_history", "bep20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::PLG20:
-                out = construct_url_functor("POL", "POLTEST", "plg_tx_history", "plg_tx_history", ticker, address);
+                out = construct_url_functor("POL", "POLTEST", "matic_tx_history", "plg20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Moonriver:
-                out = construct_url_functor("MOVR", "MOVRT", "moonriver_tx_history", "moonriver_tx_history", ticker, address);
+                out = construct_url_functor("MOVR", "MOVRT", "movr_tx_history", "mvr20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Moonbeam:
-                out = construct_url_functor("GLMR", "GLMRT", "moonbeam_tx_history", "moonbeam_tx_history", ticker, address);
+                out = construct_url_functor("GLMR", "GLMRT", "glmr_tx_history", "glmr_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::FTM20:
-                out = construct_url_functor("FTM", "FTMT", "ftm_tx_history", "ftm_tx_history", ticker, address);
+                out = construct_url_functor("FTM", "FTMT", "ftm_tx_history", "ftm20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::HecoChain:
-                out = construct_url_functor("HT", "HTT", "heco_tx_history", "heco_tx_history", ticker, address);
+                out = construct_url_functor("HT", "HTT", "ht_tx_history", "hco20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Arbitrum:
-                out = construct_url_functor("ETH-ARB20", "ETHR-ARB20", "arbitrum_tx_history", "arbitrum_tx_history", ticker, address);
+                out = construct_url_functor("ETH-ARB20", "ETHR-ARB20", "arb_tx_history", "arb20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Optimism:
-                out = construct_url_functor("ETH-OPT20", "ETHK-OPT20", "optimism_tx_history", "optimism_tx_history", ticker, address);
+                out = construct_url_functor("ETH-OPT20", "ETHK-OPT20", "opt_tx_history", "opt20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::EthereumClassic:
                 out = construct_url_functor("ETC", "ETCT", "etc_tx_history", "etc_tx_history", ticker, address);
@@ -2547,7 +2547,7 @@ namespace atomic_dex
                 out = construct_url_functor("RBTC", "RBTCT", "rsk_tx_history", "rsk_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::AVX20:
-                out = construct_url_functor("AVAX", "AVAXT", "avx_tx_history", "avx_tx_history", ticker, address);
+                out = construct_url_functor("AVAX", "AVAXT", "avax_tx_history", "avx20_tx_history", ticker, address);
                 break;
             default:
                 break;
