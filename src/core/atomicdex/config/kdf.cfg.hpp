@@ -34,7 +34,8 @@ namespace atomic_dex
         std::string              gui{std::string(DEX_NAME) + " "s + atomic_dex::get_version()};
         int64_t                  netid{8762};
         int64_t                  rpcport{atomic_dex::g_dex_rpcport};
-        std::vector<std::string> seednodes{"46.4.78.11", "46.4.87.18", "38.91.100.29", "38.91.102.89", "162.55.5.83", "195.85.216.230", "188.241.240.110", "66.42.60.49", "160.191.224.187", "209.145.50.223", "163.172.74.144"};
+        // from https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json
+        std::vector<std::string> seednodes{"46.4.78.11", "46.4.87.18", "188.241.240.110", "66.42.60.49", "160.191.224.187", "209.145.50.223", "163.172.74.144"};
 #ifdef _WIN32
         std::string userhome{utils::u8string(std::filesystem::path(_wgetenv(L"HOMEPATH")))};
 #else
