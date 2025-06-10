@@ -63,7 +63,7 @@ if (APPLE)
             URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/kdf_54a1e0f-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/kdf_54a1e0f-linux-x86-64.zip)
+            URL https://dexapi.cipig.net/kdf_54a1e0f-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
             URL https://sdk.devbuilds.komodo.earth/fix-arrr-note-saving/kdf_54a1e0f-win-x86-64.zip)
