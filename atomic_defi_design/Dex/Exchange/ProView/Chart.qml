@@ -78,60 +78,6 @@ Item
             }
         }
         console.log(chart_html)
-
-        if (chart_html == "")
-        {
-            const pair = atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
-            const pair_reversed = atomic_qt_utilities.retrieve_main_ticker(right_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(left_ticker)
-
-            // Try checking if pair/reversed-pair exists
-            symbol = General.supported_pairs[pair]
-            if (!symbol) symbol = General.supported_pairs[pair_reversed]
-
-            if (!symbol)
-            {
-                pair_supported = false
-                console.log("pair not supported", pair, pair_reversed)
-                return
-            }
-
-            pair_supported = true
-
-            if (symbol === loaded_symbol && !force)
-            {
-                webEngineViewPlaceHolder.visible = true
-                return
-            }
-
-            loaded_symbol = symbol
-
-            chart_html = `
-            <style>
-            body { margin: 0; }
-            </style>
-
-            <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container">
-            <div id="tradingview_af406"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-            <script type="text/javascript">
-            new TradingView.widget(
-            {
-            "timezone": "Etc/UTC",
-            "locale": "en",
-            "autosize": true,
-            "symbol": "${symbol}",
-            "interval": "D",
-            "theme": "${theme}",
-            "style": "1",
-            "enable_publishing": false,
-            "save_image": false
-            }
-            );
-            </script>
-            </div>
-            <!-- TradingView Widget END -->`
-        }
         dashboard.webEngineView.loadHtml(chart_html)
     }
 
