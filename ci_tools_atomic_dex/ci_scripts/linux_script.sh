@@ -28,7 +28,7 @@ sudo apt-get install build-essential \
                     git -y
 
 # Qt
-sudo apt-get install qtbase5-dev qtdeclarative5-dev qttools5-dev -y
+sudo apt-get install qtbase5-dev qtdeclarative5-dev qttools5-dev libqt5svg5-dev -y
 
 # Qt WebEngine
 sudo apt-get install libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libxss-dev libdbus-1-dev libevent-dev libfontconfig1-dev libcap-dev libpulse-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libegl1-mesa-dev gperf bison nodejs -y
