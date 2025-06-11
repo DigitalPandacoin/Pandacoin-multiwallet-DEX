@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sudo apt-get update  # prevents repo404 errors on apt-remove below
-sudo apt-get remove php* msodbcsql17 mysql*
+sudo apt-get update
 
 # base deps
 sudo apt-get install build-essential \
@@ -30,9 +29,6 @@ sudo apt-get install build-essential \
 # Qt
 sudo apt-get install qtbase5-dev qtdeclarative5-dev qttools5-dev libqt5svg5-dev libqt5charts5-dev qtwebengine5-dev qtquickcontrols2-5-dev -y
 sudo apt-get install libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libxss-dev libdbus-1-dev libevent-dev libfontconfig1-dev libcap-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libegl1-mesa-dev gperf bison nodejs -y
-
-# clang
-sudo apt-get install clang llvm -y
 
 # get libwally
 git clone https://github.com/KomodoPlatform/libwally-core.git --recurse-submodules

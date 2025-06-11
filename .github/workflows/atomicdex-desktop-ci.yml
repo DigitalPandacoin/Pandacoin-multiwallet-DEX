@@ -170,12 +170,6 @@ jobs:
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
 
-      - name: Upload env variable for vpkg (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          echo "CXX=clang++" >> $GITHUB_ENV
-          echo "CC=clang" >> $GITHUB_ENV
-
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
         with:
