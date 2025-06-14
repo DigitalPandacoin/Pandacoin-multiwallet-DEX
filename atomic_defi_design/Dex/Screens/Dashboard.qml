@@ -171,6 +171,7 @@ Item
         {
             id: webEngineView
             backgroundColor: "transparent"
+            settings.localContentCanAccessRemoteUrls: true
         }
 
         DefaultLoader
