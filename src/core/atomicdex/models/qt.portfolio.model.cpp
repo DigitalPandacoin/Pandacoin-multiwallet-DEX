@@ -17,9 +17,6 @@
 //! Qt
 #include <QJSValue>
 
-//! Deps
-#include <taskflow/taskflow.hpp>
-
 //! Project Headers
 #include "atomicdex/events/qt.events.hpp"
 #include "atomicdex/managers/qt.wallet.manager.hpp"

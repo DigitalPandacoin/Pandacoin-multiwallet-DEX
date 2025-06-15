@@ -31,7 +31,6 @@
       "platform": "windows"
     },
     "date",
-    "cpprestsdk",
-    "taskflow"
+    "cpprestsdk"
   ]
 }
