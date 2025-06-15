@@ -18,8 +18,7 @@
     {
       "name": "spdlog",
       "features": [
-        "wchar",
-        "wchar-filenames"
+        "wchar"
       ],
       "platform": "windows"
     },
