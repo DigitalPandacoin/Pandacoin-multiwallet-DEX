@@ -32,7 +32,7 @@ sudo apt-get install qml-module-qtquick-controls qml-module-qtquick-controls2 qm
 sudo apt-get install libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libxss-dev libdbus-1-dev libevent-dev libfontconfig1-dev libcap-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libegl1-mesa-dev gperf bison nodejs -y
 
 # get libwally
-git clone https://github.com/KomodoPlatform/libwally-core.git --recurse-submodules
+git clone https://github.com/KomodoPlatform/libwally-core --recurse-submodules
 cd libwally-core
 ./tools/autogen.sh
 ./configure --disable-shared
