@@ -153,26 +153,6 @@ namespace atomic_dex
         m_global_cfg_mdl->update_status(coins, false);
     }
 
-    WalletChartsCategories
-    portfolio_page::get_chart_category() const
-    {
-        return m_current_chart_category;
-    }
-    void
-    portfolio_page::set_chart_category(WalletChartsCategories category)
-    {
-        SPDLOG_INFO("new m_current_chart_category: {}", m_current_chart_category);
-        SPDLOG_INFO("qint32(category): {}", qint32(category));
-        SPDLOG_INFO("new chart category: {}", QMetaEnum::fromType<WalletChartsCategories>().valueToKey(category));
-        if (m_current_chart_category != category)
-        {
-            m_current_chart_category = category;
-            QSettings& settings      = entity_registry_.ctx<QSettings>();
-            settings.setValue("WalletChartsCategory", qint32(category));
-            emit chartCategoryChanged();
-        }
-    }
-
     QString
     portfolio_page::get_main_balance_fiat_all() const
     {

@@ -38,12 +38,6 @@ namespace atomic_dex
         Q_PROPERTY(QString balance_fiat_all READ get_balance_fiat_all WRITE set_current_balance_fiat_all NOTIFY onFiatBalanceAllChanged)
         Q_PROPERTY(QString main_balance_fiat_all READ get_main_balance_fiat_all NOTIFY onMainFiatBalanceAllChanged)
         Q_PROPERTY(global_coins_cfg_model* global_cfg_mdl READ get_global_cfg NOTIFY globalCfgMdlChanged)
-        Q_PROPERTY(WalletChartsCategories chart_category READ get_chart_category WRITE set_chart_category NOTIFY chartCategoryChanged)
-        Q_PROPERTY(bool chart_busy_fetching READ is_chart_busy NOTIFY chartBusyChanged)
-        Q_PROPERTY(QVariant charts READ get_charts NOTIFY chartsChanged)
-        Q_PROPERTY(QString min_total_chart READ get_min_total_chart NOTIFY minTotalChartChanged)
-        Q_PROPERTY(QString max_total_chart READ get_max_total_chart NOTIFY maxTotalChartChanged)
-        Q_PROPERTY(QVariant wallet_stats READ get_wallet_stats NOTIFY walletStatsChanged)
 
         //! Private members fields
         ag::ecs::system_manager& m_system_manager;
@@ -51,7 +45,6 @@ namespace atomic_dex
         global_coins_cfg_model*  m_global_cfg_mdl;
         QString                  m_current_balance_all{"0"};
         QString                  m_main_current_balance_all{"0"};
-        WalletChartsCategories   m_current_chart_category{WalletChartsCategories::OneMonth};
 
       public:
         //! Constructor
@@ -70,19 +63,11 @@ namespace atomic_dex
         [[nodiscard]] Q_INVOKABLE QStringList get_all_enabled_coins() const;
         [[nodiscard]] Q_INVOKABLE QStringList get_all_coins_by_type(const QString& coin_type) const;
         [[nodiscard]] Q_INVOKABLE bool        is_coin_enabled(const QString& coin_name) const;
-        [[nodiscard]] Q_INVOKABLE int         get_neareast_point(int timestamp) const;
 
         [[nodiscard]] QString                get_balance_fiat_all() const;
         void                                 set_current_balance_fiat_all(QString current_fiat_all_balance);
         [[nodiscard]] QString                get_main_balance_fiat_all() const;
-        [[nodiscard]] WalletChartsCategories get_chart_category() const;
-        void                                 set_chart_category(WalletChartsCategories category);
-        [[nodiscard]] bool                   is_chart_busy() const;
-        [[nodiscard]] QVariant               get_charts() const;
-        [[nodiscard]] QVariant               get_wallet_stats() const;
         ;
-        [[nodiscard]] QString get_min_total_chart() const;
-        [[nodiscard]] QString get_max_total_chart() const;
 
         //! Events
         void on_update_portfolio_values_event(const update_portfolio_values&);
@@ -93,12 +78,6 @@ namespace atomic_dex
         void onFiatBalanceAllChanged();
         void onMainFiatBalanceAllChanged();
         void globalCfgMdlChanged();
-        void chartCategoryChanged();
-        void chartBusyChanged();
-        void chartsChanged();
-        void minTotalChartChanged();
-        void maxTotalChartChanged();
-        void walletStatsChanged();
     };
 } // namespace atomic_dex
 
