@@ -42,7 +42,6 @@
 #include "atomicdex/services/exporter/exporter.service.hpp"
 #include "atomicdex/services/kdf/auto.update.maker.order.service.hpp"
 #include "atomicdex/services/price/komodo_prices/komodo.prices.provider.hpp"
-#include "atomicdex/services/price/coingecko/coingecko.wallet.charts.hpp"
 #include "atomicdex/services/price/orderbook.scanner.service.hpp"
 #include "atomicdex/services/sync/timesync.checker.service.hpp"
 
@@ -392,10 +391,6 @@ namespace atomic_dex
                     system_manager_.get_system<qt_wallet_manager>().set_status("complete");
                 }
                 this->dispatcher_.trigger<update_portfolio_values>();
-                if (system_manager_.has_system<coingecko_wallet_charts_service>())
-                {
-                    system_manager_.get_system<coingecko_wallet_charts_service>().manual_refresh("tick");
-                }
             }
         }
 
@@ -500,7 +495,6 @@ namespace atomic_dex
         system_manager_.create_system<komodo_prices_provider>();
         system_manager_.create_system<update_checker_service>();
         system_manager_.create_system<timesync_checker_service>();
-        system_manager_.create_system<coingecko_wallet_charts_service>(system_manager_);
         system_manager_.create_system<exporter_service>(system_manager_);
         system_manager_.create_system<trading_page>(
             system_manager_, m_event_actions.at(events_action::about_to_exit_app), portfolio_system.get_portfolio(), this);
@@ -614,7 +608,6 @@ namespace atomic_dex
 
         //! Mark systems
         system_manager_.mark_system<kdf_service>();
-        //system_manager_.mark_system<coingecko_provider>();
 
         //! Disconnect signals
         get_trading_page()->disconnect_signals();

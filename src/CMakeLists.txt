@@ -111,7 +111,6 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/atomic.dex.wallet.config.tests.cpp
 
         ##! API
-        tests/api/coingecko/coingecko.tests.cpp
         tests/api/komodo_prices/komodo.prices.tests.cpp
         tests/api/kdf/kdf.api.address_format.tests.cpp
         tests/api/kdf/kdf.api.utxo_merge_params.tests.cpp
@@ -123,7 +122,6 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/config/coins.cfg.tests.cpp
         
         ##! API
-        tests/api/coingecko/coingecko.tests.cpp
         tests/api/komodo_prices/komodo.prices.tests.cpp
         tests/api/kdf/kdf.rpc2.trade_preimage.tests.cpp
         tests/api/kdf/kdf.fraction.tests.cpp
