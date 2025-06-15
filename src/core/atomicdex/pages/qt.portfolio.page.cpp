@@ -21,7 +21,6 @@
 #include "atomicdex/pages/qt.portfolio.page.hpp"
 #include "atomicdex/pages/qt.settings.page.hpp"
 #include "atomicdex/pages/qt.wallet.page.hpp"
-#include "atomicdex/services/price/coingecko/coingecko.wallet.charts.hpp"
 #include "atomicdex/services/price/global.provider.hpp"
 
 namespace atomic_dex
@@ -62,7 +61,6 @@ namespace atomic_dex
             {
                 m_main_current_balance_all = m_current_balance_all;
                 emit onMainFiatBalanceAllChanged();
-                m_system_manager.get_system<coingecko_wallet_charts_service>().manual_refresh("set_current_balance_fiat_all");
             }
         }
     }
@@ -171,42 +169,8 @@ namespace atomic_dex
             m_current_chart_category = category;
             QSettings& settings      = entity_registry_.ctx<QSettings>();
             settings.setValue("WalletChartsCategory", qint32(category));
-            if (m_system_manager.get_system<kdf_service>().is_kdf_running() && m_system_manager.has_system<coingecko_wallet_charts_service>())
-            {
-                m_system_manager.get_system<coingecko_wallet_charts_service>().manual_refresh("set_chart_category");
-            }
             emit chartCategoryChanged();
         }
-    }
-
-    bool
-    portfolio_page::is_chart_busy() const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().is_busy();
-    }
-
-    QVariant
-    portfolio_page::get_charts() const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().get_charts();
-    }
-
-    QString
-    portfolio_page::get_min_total_chart() const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().get_min_total();
-    }
-
-    QString
-    portfolio_page::get_max_total_chart() const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().get_max_total();
-    }
-
-    QVariant
-    portfolio_page::get_wallet_stats() const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().get_wallet_stats();
     }
 
     QString
@@ -215,9 +179,4 @@ namespace atomic_dex
         return m_main_current_balance_all;
     }
 
-    int
-    portfolio_page::get_neareast_point(int timestamp) const
-    {
-        return m_system_manager.get_system<coingecko_wallet_charts_service>().get_neareast_point(timestamp);
-    }
 } // namespace atomic_dex
