@@ -140,13 +140,6 @@ Item {
                     anchors.leftMargin: 40
                     spacing: 0
 
-                    AmountChart {
-                        id: willyBG
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        visible: false
-                    }
-
                     AssetPieChart {
                         id: pie
                         Layout.fillWidth: true
