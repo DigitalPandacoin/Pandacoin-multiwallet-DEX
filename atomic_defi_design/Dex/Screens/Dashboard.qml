@@ -171,7 +171,6 @@ Item
         {
             id: webEngineView
             backgroundColor: "transparent"
-            settings.localContentCanAccessFileUrls : true
             settings.localContentCanAccessRemoteUrls: true
         }
 

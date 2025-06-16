@@ -145,6 +145,7 @@ Item
         anchors.fill: parent
         anchors.centerIn: parent
         visible: true
+        settings.localContentCanAccessRemoteUrls: true
 
         Component.onCompleted:
         {
