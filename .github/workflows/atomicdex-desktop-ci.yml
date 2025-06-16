@@ -30,11 +30,11 @@ jobs:
       matrix:
         name: [
             ubuntu-release,
-            ubuntu-debug,
+#            ubuntu-debug,
             osx-release,
-            osx-debug,
-            windows-release,
-            windows-debug
+#            osx-debug,
+            windows-release
+#            windows-debug
         ]
 
         include:
@@ -43,10 +43,10 @@ jobs:
             type: 'Release'
             host: 'linux'
 
-          - name: ubuntu-debug
-            os: ubuntu-22.04
-            type: 'Debug'
-            host: 'linux'
+#          - name: ubuntu-debug
+#            os: ubuntu-22.04
+#            type: 'Debug'
+#            host: 'linux'
 
           - name: osx-release
             os: macos-13
@@ -54,11 +54,11 @@ jobs:
             type: 'Release'
             host: 'mac'
 
-          - name: osx-debug
-            os: macos-13
-            qt: '5.15.2'
-            type: 'Debug'
-            host: 'mac'
+#          - name: osx-debug
+#            os: macos-13
+#            qt: '5.15.2'
+#            type: 'Debug'
+#            host: 'mac'
 
           - name: windows-release
             os: windows-2022
@@ -66,11 +66,11 @@ jobs:
             type: 'Release'
             host: 'windows'
 
-          - name: windows-debug
-            os: windows-2022
-            qt: '5.15.2'
-            type: 'Debug'
-            host: 'windows'
+#          - name: windows-debug
+#            os: windows-2022
+#            qt: '5.15.2'
+#            type: 'Debug'
+#            host: 'windows'
 
     steps:
       - uses: actions/checkout@v3
