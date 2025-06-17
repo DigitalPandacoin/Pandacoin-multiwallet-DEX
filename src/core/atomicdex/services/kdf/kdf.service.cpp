@@ -306,7 +306,7 @@ namespace atomic_dex
             m_orders_clock = std::chrono::high_resolution_clock::now();
         }
 
-        if (s_activation >= 3s)
+        if (s_activation >= 4s)
         {
             auto                     coins = this->get_enabled_coins();
             std::vector<std::string> tickers;
