@@ -63,7 +63,7 @@ if (APPLE)
             URL https://sdk.devbuilds.komodo.earth/fix-utxo-tx-fee-no-doge/kdf_8c18b8d-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-utxo-tx-fee-no-doge/kdf_8c18b8d-linux-x86-64.zip)
+            URL https://dexapi.cipig.net/kdf_8c18b8d-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
             URL https://sdk.devbuilds.komodo.earth/fix-utxo-tx-fee-no-doge/kdf_8c18b8d-win-x86-64.zip)
