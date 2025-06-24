@@ -108,7 +108,7 @@ jobs:
 
       - name: Install QT (macOS)
         if: runner.os == 'macOS'
-        uses: jurplel/install-qt-action@v4.2.1
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ matrix.qt }}
           host: ${{ matrix.host }}
@@ -118,10 +118,12 @@ jobs:
           tools: 'tools_ifw'
           setup-python: 'false'
           cache: true
+          extra: '--base https://mirrors.dotsrc.org/qtproject --UNSAFE-ignore-hash'
+          aqtsource: 'git+https://github.com/Kidev/aqtinstall.git@fix_linux_version'
 
       - name: Install QT (Windows)
         if: runner.os == 'Windows'
-        uses: jurplel/install-qt-action@v4.2.1
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ matrix.qt }}
           host: ${{ matrix.host }}
@@ -131,6 +133,8 @@ jobs:
           tools: 'tools_ifw'
           arch: 'win64_msvc2019_64'
           cache: true
+          extra: '--base https://mirrors.dotsrc.org/qtproject --UNSAFE-ignore-hash'
+          aqtsource: 'git+https://github.com/Kidev/aqtinstall.git@fix_linux_version'
 
       - name: Install nim (Linux)
         if: runner.os == 'Linux'
