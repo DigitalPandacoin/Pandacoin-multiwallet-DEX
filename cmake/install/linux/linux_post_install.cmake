@@ -45,13 +45,13 @@ message(STATUS "Copying required libraries for QtWebEngine")
 list(APPEND LIST_LIBS
         "/usr/lib/x86_64-linux-gnu/libsmime3.so"
         "/usr/lib/x86_64-linux-gnu/libssl3.so"
-        "/usr/lib/x86_64-linux-gnu/libfreebl3.chk"
-        "/usr/lib/x86_64-linux-gnu/libfreebl3.so"
-        "/usr/lib/x86_64-linux-gnu/libnssckbi.so"
-        "/usr/lib/x86_64-linux-gnu/libnssdbm3.chk"
-        "/usr/lib/x86_64-linux-gnu/libnssdbm3.so"
-        "/usr/lib/x86_64-linux-gnu/libsoftokn3.chk"
-        "/usr/lib/x86_64-linux-gnu/libsoftokn3.so")
+        "/usr/lib/x86_64-linux-gnu/nss/libfreebl3.chk"
+        "/usr/lib/x86_64-linux-gnu/nss/libfreebl3.so"
+        "/usr/lib/x86_64-linux-gnu/nss/libnssckbi.so"
+        "/usr/lib/x86_64-linux-gnu/nss/libnssdbm3.chk"
+        "/usr/lib/x86_64-linux-gnu/nss/libnssdbm3.so"
+        "/usr/lib/x86_64-linux-gnu/nss/libsoftokn3.chk"
+        "/usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so")
 
 file(COPY ${PROJECT_APP_PATH}/usr/share/icons/default/64x64/apps/dex-logo-64.png DESTINATION ${PROJECT_APP_PATH})
 file(COPY ${PROJECT_APP_PATH}/usr/share/applications/dex.desktop DESTINATION ${PROJECT_APP_PATH})
