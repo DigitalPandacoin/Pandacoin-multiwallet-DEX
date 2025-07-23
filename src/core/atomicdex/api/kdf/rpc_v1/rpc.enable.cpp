@@ -64,7 +64,6 @@ namespace atomic_dex::kdf
         }
         default:
             j["urls"]                   = cfg.urls;
-            j["swap_gas_fee_policy"]    = "Medium";
             j["swap_contract_address"]  = cfg.swap_contract_address;
             if (cfg.fallback_swap_contract.has_value())
             {
