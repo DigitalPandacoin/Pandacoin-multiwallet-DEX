@@ -60,13 +60,13 @@ endif ()
 ##! We fetch our dependencies
 if (APPLE)
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_2b21fee-mac-x86-64.zip)
+            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_2b21fee-linux-x86-64.zip)
+            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
-            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_2b21fee-win-x86-64.zip)
+            URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-win-x86-64.zip)
 endif ()
 
 #FetchContent_Declare(qmaterial URL https://github.com/KomodoPlatform/Qaterial/archive/last-clang-working-2.zip)
