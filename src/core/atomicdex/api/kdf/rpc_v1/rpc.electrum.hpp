@@ -32,7 +32,7 @@ namespace atomic_dex::kdf
         std::vector<atomic_dex::electrum_server>     servers;
         CoinType                                     coin_type;
         bool                                         is_testnet{false};
-        bool                                         with_tx_history{true};
+        bool                                         with_tx_history{false};
         std::optional<std::string>                   swap_contract_address{std::nullopt};
         std::optional<std::string>                   fallback_swap_contract{std::nullopt};
         std::optional<address_format_t>              address_format;
