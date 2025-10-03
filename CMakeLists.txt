@@ -63,7 +63,7 @@ if (APPLE)
             URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://dexapi.cipig.net/kdf_ea91c0d-linux-x86-64.zip)
+            URL https://sdk.devbuilds.komodo.earth/rollback-2605-2580/kdf_98abd42-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
             URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-win-x86-64.zip)
