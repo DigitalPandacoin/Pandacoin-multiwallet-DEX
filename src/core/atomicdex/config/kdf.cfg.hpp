@@ -32,7 +32,7 @@ namespace atomic_dex
     struct kdf_config
     {
         std::string              gui{std::string(DEX_NAME) + " "s + atomic_dex::get_version()};
-        int64_t                  netid{9762};
+        int64_t                  netid{8762};
         int64_t                  rpcport{atomic_dex::g_dex_rpcport};
         // from https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json
         std::vector<std::string> seednodes{"seed01.kmdefi.net", "seed02.kmdefi.net", "balerion.dragon-seed.com", "falkor.dragon-seed.com", "drogon.dragon-seed.com", "icefyre.dragon-seed.com", "kalessin.dragon-seed.com", "karrigvestrit.dragon-seed.com", "relpda.dragon-seed.com", "sintara.dragon-seed.com", "tintaglia.dragon-seed.com", "viserion.dragon-seed.com"};
