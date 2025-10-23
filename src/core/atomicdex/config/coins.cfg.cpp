@@ -70,6 +70,10 @@ namespace
         {
             return CoinType::Arbitrum;
         }
+        if (coin_type == "Base")
+        {
+            return CoinType::Base;
+        }
         if (coin_type == "AVX-20")
         {
             return CoinType::AVX20;
@@ -311,6 +315,11 @@ namespace atomic_dex
         case CoinType::Arbitrum:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = "ETH-ARB20";
+            cfg.is_erc_family          = true;
+            break;
+        case CoinType::Base:
+            cfg.has_parent_fees_ticker = true;
+            cfg.fees_ticker            = "ETH-BASE";
             cfg.is_erc_family          = true;
             break;
         case CoinType::EWT:

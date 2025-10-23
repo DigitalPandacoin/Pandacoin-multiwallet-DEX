@@ -47,7 +47,7 @@ namespace atomic_dex
             KRC20           = 13,
             Moonriver       = 14,
             Moonbeam        = 15,
-            HecoChain       = 16,
+            Base            = 16,
             SmartBCH        = 17,
             EthereumClassic = 18,
             RSK             = 19,
