@@ -793,7 +793,6 @@ QtObject {
         if (ticker === "ONE") return !General.isParentCoinNeeded("ONE", "HRC-20")
         if (ticker === "QTUM") return !General.isParentCoinNeeded("QTUM", "QRC-20")
         if (ticker === "KCS") return !General.isParentCoinNeeded("KCS", "KRC-20")
-        if (ticker === "HT") return !General.isParentCoinNeeded("HT", "HecoChain")
         if (ticker === "BCH") return !General.isParentCoinNeeded("BCH", "SLP")
         if (ticker === "UBQ") return !General.isParentCoinNeeded("UBQ", "Ubiq")
         if (ticker === "MOVR") return !General.isParentCoinNeeded("MOVR", "Moonriver")

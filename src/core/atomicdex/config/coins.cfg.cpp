@@ -102,10 +102,6 @@ namespace
         {
             return CoinType::Moonbeam;
         }
-        if (coin_type == "HecoChain")
-        {
-            return CoinType::HecoChain;
-        }
         if (coin_type == "SmartBCH")
         {
             return CoinType::SmartBCH;
@@ -360,11 +356,6 @@ namespace atomic_dex
         case CoinType::Moonbeam:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "GLMRT" : "GLMR";
-            cfg.is_erc_family          = true;
-            break;
-        case CoinType::HecoChain:
-            cfg.has_parent_fees_ticker = true;
-            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "HTT" : "HT";
             cfg.is_erc_family          = true;
             break;
         case CoinType::SmartBCH:
