@@ -2539,9 +2539,6 @@ namespace atomic_dex
             case CoinTypeGadget::FTM20:
                 out = construct_url_functor("FTM", "FTMT", "ftm_tx_history", "ftm20_tx_history", ticker, address);
                 break;
-            case CoinTypeGadget::HecoChain:
-                out = construct_url_functor("HT", "HTT", "ht_tx_history", "hco20_tx_history", ticker, address);
-                break;
             case CoinTypeGadget::Arbitrum:
                 out = construct_url_functor("ETH-ARB20", "ETHR-ARB20", "arb_tx_history", "arb20_tx_history", ticker, address);
                 break;
