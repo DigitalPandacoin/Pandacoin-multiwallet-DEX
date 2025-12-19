@@ -35,7 +35,7 @@ namespace atomic_dex
         int64_t                  netid{8762};
         int64_t                  rpcport{atomic_dex::g_dex_rpcport};
         // from https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json
-        std::vector<std::string> seednodes{"seed01.kmdefi.net", "seed02.kmdefi.net", "seed03.kmdefi.net", "seed04.kmdefi.net", "balerion.dragon-seed.com", "drogon.dragon-seed.com", "mercor.dragon-seed.com", "sintara.dragon-seed.com", "tintaglia.dragon-seed.com"};
+        std::vector<std::string> seednodes{"seed01.kmdefi.net", "seed02.kmdefi.net", "seed03.kmdefi.net", "seed04.kmdefi.net", "balerion.dragon-seed.com", "drogon.dragon-seed.com", "mercor.dragon-seed.com", "sintara.dragon-seed.com"};
 #ifdef _WIN32
         std::string userhome{utils::u8string(std::filesystem::path(_wgetenv(L"HOMEPATH")))};
 #else
