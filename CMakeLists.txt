@@ -63,7 +63,7 @@ if (APPLE)
             URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_83057a1-linux-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_8404fa5-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
             URL https://sdk.devbuilds.komodo.earth/fix-orderbook-temp-bans/kdf_f69b690-win-x86-64.zip)
