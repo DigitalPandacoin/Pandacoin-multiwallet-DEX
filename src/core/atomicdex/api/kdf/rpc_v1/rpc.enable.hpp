@@ -40,7 +40,7 @@ namespace atomic_dex::kdf
         std::optional<std::string>  matic_gas_station_url{std::nullopt};
         std::optional<std::string>  testnet_matic_gas_station_url{std::nullopt};
         std::optional<std::string>  type; ///< QRC-20 ?
-        bool                        with_tx_history{false};
+        bool                        with_tx_history{true};
     };
 
     void to_json(nlohmann::json& j, const enable_request& cfg);
