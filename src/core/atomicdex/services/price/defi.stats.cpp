@@ -44,7 +44,7 @@ namespace
         }()
     };
 
-    t_http_client_ptr g_defi_stats_client = std::make_unique<web::http::client::http_client>(FROM_STD_STR("https://defi-stats.komodo.earth/"), g_defi_stats_cfg);
+    t_http_client_ptr g_defi_stats_client = std::make_unique<web::http::client::http_client>(FROM_STD_STR("https://defistats.gleec.com/"), g_defi_stats_cfg);
     pplx::cancellation_token_source d_token_source;
 
     pplx::task<web::http::http_response>
