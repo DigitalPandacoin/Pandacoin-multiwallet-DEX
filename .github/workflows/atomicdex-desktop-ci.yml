@@ -30,10 +30,10 @@ jobs:
       matrix:
         name: [
             ubuntu-release,
-            ubuntu-debug
-#            osx-release,
+            ubuntu-debug,
+            osx-release,
 #            osx-debug,
-#            windows-release
+            windows-release
 #            windows-debug
         ]
 
@@ -48,11 +48,11 @@ jobs:
             type: 'Debug'
             host: 'linux'
 
-#          - name: osx-release
-#            os: macos-14-large
-#            qt: '5.15.2'
-#            type: 'Release'
-#            host: 'mac'
+          - name: osx-release
+            os: macos-15-intel
+            qt: '5.15.2'
+            type: 'Release'
+            host: 'mac'
 
 #          - name: osx-debug
 #            os: macos-13
@@ -60,11 +60,11 @@ jobs:
 #            type: 'Debug'
 #            host: 'mac'
 
-#          - name: windows-release
-#            os: windows-2022
-#            qt: '5.15.2'
-#            type: 'Release'
-#            host: 'windows'
+          - name: windows-release
+            os: windows-2025
+            qt: '5.15.2'
+            type: 'Release'
+            host: 'windows'
 
 #          - name: windows-debug
 #            os: windows-2022
