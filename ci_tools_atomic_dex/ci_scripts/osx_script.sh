@@ -21,16 +21,7 @@ brew link --overwrite python@3.12
 pip3 install yq
 export CC=clang
 export CXX=clang++
-export MACOSX_DEPLOYMENT_TARGET=14.2
-
-# get curl
-#git clone https://github.com/KomodoPlatform/curl.git
-#cd curl
-#git checkout curl-7_70_0
-#./buildconf
-#./configure --disable-shared --enable-static --without-libidn2 --without-ssl --without-nghttp2 --disable-ldap --with-darwinssl
-#make -j3 install
-#cd ../
+export MACOSX_DEPLOYMENT_TARGET=15
 
 git clone https://github.com/KomodoPlatform/libwally-core.git --recurse-submodules
 cd libwally-core
