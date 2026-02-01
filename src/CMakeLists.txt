@@ -205,9 +205,6 @@ if (WIN32)
     else ()
         message(FATAL_ERROR "Didn't find windeployqt ${WINDEPLOYQT_PATH}")
     endif ()
-    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/ci_tools_atomic_dex/windows_misc $<TARGET_FILE_DIR:${PROJECT_NAME}>)
     message(STATUS "${WINDEPLOYQT_PATH} ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.exe --qmldir ${CMAKE_SOURCE_DIR}/atomic_defi_design/Dex")
     add_custom_command(TARGET ${PROJECT_NAME}
             POST_BUILD
