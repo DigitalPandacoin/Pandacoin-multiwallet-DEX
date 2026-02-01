@@ -112,7 +112,7 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 45s)
         {
-            SPDLOG_DEBUG("<<<<<<<<<<< orderbook_scanner_service update loop after 30 seconds >>>>>>>>>>>>>");
+            SPDLOG_DEBUG("<<<<<<<<<<< orderbook_scanner_service update loop after 45 seconds >>>>>>>>>>>>>");
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
         }
