@@ -212,14 +212,14 @@ jobs:
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
           export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
           export PATH=/Users/runner/.nimble/bin:$PATH
-          export MACOSX_DEPLOYMENT_TARGET=14.2
+          export MACOSX_DEPLOYMENT_TARGET=15.5
           export CC=clang
           export CXX=clang++
           export CXXFLAGS=-stdlib=libc++
           export LDFLAGS=-stdlib=libc++
           cd ci_tools_atomic_dex
           nimble build -y
-          ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX14.2.sdk --compiler=clang++
+          ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX15.5.sdk --compiler=clang++
 
       - name: Build Komodo Wallet (Linux)
         if: runner.os == 'Linux'
@@ -342,7 +342,7 @@ jobs:
           export APPLE_ATOMICDEX_PASSWORD="${{ secrets.APPLE_ATOMICDEX_PASSWORD }}"
           export APPLE_ID="${{ secrets.APPLE_ID }}"
           export ASC_PUBLIC_ID="${{ secrets.ASC_PUBLIC_ID }}"
-          export MACOSX_DEPLOYMENT_TARGET=14.2
+          export MACOSX_DEPLOYMENT_TARGET=15.5
           export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
           export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
           export ATOMICDEX_PASSWORD=${{ secrets.ATOMICDEX_PASSWORD }}
