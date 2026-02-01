@@ -61,7 +61,7 @@ jobs:
 #            host: 'mac'
 
           - name: windows-release
-            os: windows-2025
+            os: windows-2022
             qt: '5.15.2'
             type: 'Release'
             host: 'windows'
