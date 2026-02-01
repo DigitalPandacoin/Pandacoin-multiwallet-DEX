@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Workaround for https://github.com/actions/setup-python/issues/577
-
 brew update
 brew install autoconf \
             automake \
@@ -12,11 +10,8 @@ brew install autoconf \
             gnu-sed \
             coreutils \
             libtool \
-            gnu-getopt
-
-brew unlink python@3.12
-brew install llvm
-brew link --overwrite python@3.12
+            gnu-getopt \
+            llvm
 
 pip3 install yq
 export CC=clang

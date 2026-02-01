@@ -491,7 +491,7 @@ namespace atomic_dex
         system_manager_.create_system<global_defi_stats_service>(system_manager_);
         system_manager_.create_system<orderbook_scanner_service>(system_manager_);
         system_manager_.create_system<komodo_prices_provider>();
-        system_manager_.create_system<update_checker_service>();
+        //system_manager_.create_system<update_checker_service>();
         system_manager_.create_system<timesync_checker_service>();
         system_manager_.create_system<exporter_service>(system_manager_);
         system_manager_.create_system<trading_page>(
