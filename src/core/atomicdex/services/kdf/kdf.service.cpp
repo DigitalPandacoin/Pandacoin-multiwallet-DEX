@@ -1585,10 +1585,9 @@ namespace atomic_dex
         }
         else
         {
-            std::size_t     limit =  500;
+            std::size_t     limit =  200;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
-            //if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN || coin_info.coin_type == CoinTypeGadget::SLP || coin_info.ticker == "tBCH" || coin_info.ticker == "BCH")
             if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN || coin_info.coin_type == CoinTypeGadget::SLP)
             {
                 requires_v2 = true;
@@ -1597,7 +1596,7 @@ namespace atomic_dex
                     // Don't request balance / history if not completely activated.
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
                     {
-                        limit = 10;
+                        limit = 30;
                         method = "z_coin_tx_history";
                     }
                     else
