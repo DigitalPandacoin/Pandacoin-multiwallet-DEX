@@ -94,7 +94,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           cd '${{ github.workspace }}'
-          git clone -b v0.8.5 --recurse-submodules https://github.com/KomodoPlatform/libwally-core.git
+          git clone https://github.com/ElementsProject/libwally-core --recurse-submodules -b release_0.9.2
           cd '${{ github.workspace }}\libwally-core'
           git submodule init
           git submodule sync --recursive

@@ -34,7 +34,7 @@ sudo apt-get install libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-d
 #sudo apt-get dist-upgrade -t jammy-backports -y
 
 # get libwally
-git clone https://github.com/KomodoPlatform/libwally-core --recurse-submodules
+git clone https://github.com/ElementsProject/libwally-core --recurse-submodules -b release_0.9.2
 cd libwally-core
 ./tools/autogen.sh
 ./configure --disable-shared
