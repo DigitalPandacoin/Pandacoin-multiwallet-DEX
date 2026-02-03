@@ -155,14 +155,8 @@ namespace atomic_dex
             case orderbook_model::kind::bids:
                 break;
             case orderbook_model::kind::best_orders:
-                t_float_50  limit("10000");
-                t_float_50  rates               = safe_float(this->sourceModel()->data(idx, orderbook_model::CEXRatesRole).toString().toStdString());
-                t_float_50  fiat_price          = safe_float(this->sourceModel()->data(idx, orderbook_model::PriceFiatRole).toString().toStdString());
-                bool        is_cex_id_available = this->sourceModel()->data(idx, orderbook_model::HaveCEXIDRole).toBool();
-                const auto& provider            = this->m_system_mgr.get_system<komodo_prices_provider>();
                 std::string ticker              = this->sourceModel()->data(idx, orderbook_model::CoinRole).toString().toStdString();
                 const auto  coin_info           = this->m_system_mgr.get_system<portfolio_page>().get_global_cfg()->get_coin_info(ticker);
-                const auto  volume              = provider.get_total_volume(utils::retrieve_main_ticker(ticker));
                 std::string left_ticker         = this->m_system_mgr.get_system<trading_page>().get_market_pairs_mdl()->get_left_selected_coin().toStdString();
                 const auto  left_coin_info      = this->m_system_mgr.get_system<portfolio_page>().get_global_cfg()->get_coin_info(left_ticker);
 
