@@ -69,12 +69,10 @@ else ()
             URL https://devbuilds.gleec.com/dev/kdf_8404fa5-win-x86-64.zip)
 endif ()
 
-#FetchContent_Declare(qmaterial URL https://github.com/KomodoPlatform/Qaterial/archive/last-clang-working-2.zip)
-
 FetchContent_Declare(
         qmaterial
-        GIT_REPOSITORY https://github.com/KomodoPlatform/Qaterial.git
-        GIT_TAG 53669824261ae07bc0e8c2abb4b55431f65b2055
+        GIT_REPOSITORY https://github.com/OlivierLDff/Qaterial.git
+        GIT_TAG c2f32d23523baabe406a8de6809dc9d41f9a881e
 )
 
 FetchContent_Declare(jl777-coins
