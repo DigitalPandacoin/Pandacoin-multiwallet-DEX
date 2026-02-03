@@ -1704,7 +1704,7 @@ namespace atomic_dex
     void
     trading_page::reset_fees()
     {
-        SPDLOG_DEBUG("reset_fees");
+        //SPDLOG_DEBUG("reset_fees");
         this->set_fees(QVariantMap());
         this->determine_error_cases();
     }

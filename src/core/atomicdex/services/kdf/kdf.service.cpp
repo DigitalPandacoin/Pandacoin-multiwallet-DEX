@@ -338,7 +338,7 @@ namespace atomic_dex
                 m_activation_clock = std::chrono::high_resolution_clock::now();
             }
             else {
-                SPDLOG_DEBUG("Coins activation queue is empty.");
+                //SPDLOG_DEBUG("Coins activation queue is empty.");
                 m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(6));
             }
         }
