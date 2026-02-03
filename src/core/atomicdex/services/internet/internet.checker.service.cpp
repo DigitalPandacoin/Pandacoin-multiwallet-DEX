@@ -107,12 +107,12 @@ namespace atomic_dex
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        set_seconds_left_to_auto_retry(60.0 - s.count());
-        if (s >= 60s)
+        set_seconds_left_to_auto_retry(600.0 - s.count());
+        if (s >= 600s)
         {
             this->fetch_internet_connection();
             m_update_clock = std::chrono::high_resolution_clock::now();
-            set_seconds_left_to_auto_retry(60.0);
+            set_seconds_left_to_auto_retry(600.0);
         }
     }
 

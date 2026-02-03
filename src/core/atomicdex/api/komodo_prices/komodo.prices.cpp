@@ -79,7 +79,7 @@ namespace atomic_dex::komodo_prices::api
     {
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
-        std::string endpoint = "/api/v2/tickers?expire_at=259200";
+        std::string endpoint = "api/v2/tickers?expire_at=259200";
         if (fallback)
         {
             SPDLOG_INFO("url: {}", TO_STD_STR(g_komodo_prices_client_fallback->base_uri().to_string()) + endpoint);

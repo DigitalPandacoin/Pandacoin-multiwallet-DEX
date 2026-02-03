@@ -71,13 +71,13 @@ ColumnLayout
     Timer
     {
         id: check_trade_preimage
-        interval: 500;
+        interval: 1500;
         running: false;
         repeat: true;
         triggeredOnStart: true;
         onTriggered: {
             loop_count++;
-            console.log("Getting fees info... " + loop_count + "/50")
+            console.log("Getting fees info... " + loop_count + "/20")
             if (trade_preimage_ready)
             {
                 show_waiting_for_trade_preimage = false
@@ -93,7 +93,7 @@ ColumnLayout
                 show_waiting_for_trade_preimage = false
                 stop()
             }
-            else if (loop_count > 50)
+            else if (loop_count > 20)
             {
                 loop_count = 0
                 show_waiting_for_trade_preimage = false

@@ -105,7 +105,7 @@ namespace atomic_dex
     void
     orderbook_scanner_service::update() 
     {
-        //! Scan orderbook widget every 30 seconds if there is not any update
+        //! Scan orderbook widget every 45 seconds if there is not any update
         using namespace std::chrono_literals;
 
         const auto now = std::chrono::high_resolution_clock::now();
