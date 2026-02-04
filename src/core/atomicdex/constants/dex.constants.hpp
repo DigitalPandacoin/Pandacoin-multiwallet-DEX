@@ -25,8 +25,6 @@ namespace atomic_dex
         "ARRR-BEP20",
         "RBTC",
         "NVC",
-        "PAXG-ERC20",
-        "USDT-ERC20",
         "XPM",
         "ATOM"
     };
