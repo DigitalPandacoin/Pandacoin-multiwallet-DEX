@@ -224,8 +224,6 @@ QtObject {
             switch(token_platform) {
                 case "BNB":
                     return "https://bscscan.com/token/" + coinContractAddress(ticker)
-                case "HT":
-                    return "https://hecoinfo.com/token/" + coinContractAddress(ticker)
                 case "POL":
                     return "https://polygonscan.com/token/" + coinContractAddress(ticker)
                 case "AVAX":
@@ -263,8 +261,6 @@ QtObject {
                     return "Polygon (PLG20 token)"
                 case "AVAX":
                     return "Avalanche (AVX20 token)"
-                case "HT":
-                    return "Heco Chain (HCO20 token)"
                 case "MOVR":
                     return "Moonriver (MVR20 token)"
                 case "QTUM":
