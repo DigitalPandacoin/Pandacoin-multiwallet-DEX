@@ -21,7 +21,7 @@ Dex.Rectangle
     property string  addressKey
     property string  addressValue
 
-    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "BEP-20", "Smart Chain", "SLP"]
+    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "BEP-20", "Smart Chain"]
 
     // Return the asset type that will be used in the backend to validate the address
     function getTypeForAddressChecker(addressType)
@@ -32,14 +32,12 @@ Dex.Rectangle
             case "BEP-20":      return "BNB"
             case "ERC-20":      return "ETH"
             case "AVX-20":      return "AVAX"
-            case "FTM-20":      return "FTM"
             case "PLG-20":      return "POL"
             case "Smart Chain": return "KMD"
-            case "SLP":         return "USDT-SLP"
         }
 
         let coinInfo = Dex.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(addressType);
-        if (coinInfo.has_parent_fees_ticker && coinInfo.type !== "SLP")
+        if (coinInfo.has_parent_fees_ticker)
             return coinInfo.fees_ticker;
         return addressType
     }
@@ -54,9 +52,7 @@ Dex.Rectangle
             case "ERC-20":      return true
             case "PLG-20":      return true
             case "AVX-20":      return true
-            case "FTM-20":      return true
             case "Smart Chain": return true
-            case "SLP":         return true
         }
         return false
     }

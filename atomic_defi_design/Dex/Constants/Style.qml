@@ -189,7 +189,6 @@ QtObject {
             case 'AVX-20':            return dark_theme ? colorCoinDark["AVAX"] : colorCoin["AVAX"]
             case 'ZHTLC':             return dark_theme ? colorCoinDark["ARRR"] : colorCoin["ARRR"]
             case 'COSMOS':            return dark_theme ? colorCoinDark["ATOM"] : colorCoin["ATOM"]
-            case 'SLP':               return dark_theme ? colorCoinDark["BCH"] : colorCoin["BCH"]
             case 'BEP-20':            return dark_theme ? colorCoinDark["BNB"] : colorCoin["BNB"]
             case 'RSK Smart Bitcoin': return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'UTXO':              return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
@@ -198,7 +197,6 @@ QtObject {
             case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
-            case 'FTM-20':            return dark_theme ? colorCoinDark["FTM"] : colorCoin["FTM"]
             case 'Moonbeam':          return dark_theme ? colorCoinDark["GLMR"] : colorCoin["GLMR"]
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
             case 'KRC-20':            return dark_theme ? colorCoinDark["KCS"] : colorCoin["KCS"]
@@ -232,7 +230,6 @@ QtObject {
             case 'AVX-20':            return dark_theme ? colorCoinDark["AVAX"] : colorCoin["AVAX"]
             case 'ZHTLC':             return dark_theme ? colorCoinDark["ARRR"] : colorCoin["ARRR"]
             case 'COSMOS':            return dark_theme ? colorCoinDark["ATOM"] : colorCoin["ATOM"]
-            case 'SLP':               return dark_theme ? colorCoinDark["BCH"] : colorCoin["BCH"]
             case 'BEP-20':            return dark_theme ? colorCoinDark["BNB"] : colorCoin["BNB"]
             case 'RSK Smart Bitcoin': return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'UTXO':              return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
@@ -241,7 +238,6 @@ QtObject {
             case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
-            case 'FTM-20':            return dark_theme ? colorCoinDark["FTM"] : colorCoin["FTM"]
             case 'Moonbeam':          return dark_theme ? colorCoinDark["GLMR"] : colorCoin["GLMR"]
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
             case 'KRC-20':            return dark_theme ? colorCoinDark["KCS"] : colorCoin["KCS"]
@@ -283,8 +279,6 @@ QtObject {
                                           "ETC": "#328432",
                                           "ETH": "#687DE3",
                                           "EWT": "#A466FF",
-                                          "FTM": "#13B5EC",
-                                          "HECO": "#00953F",                             
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
                                           "KCS": "#25AF90",
@@ -309,8 +303,6 @@ QtObject {
                                           "ETC": "#328432",
                                           "ETH": "#687DE3",
                                           "EWT": "#A466FF",
-                                          "FTM": "#13B5EC",
-                                          "HECO": "#00953F",                             
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
                                           "KCS": "#25AF90",

@@ -38,7 +38,6 @@ namespace atomic_dex
         using nodes                                     = std::vector<node>;
         using url_list                                  = std::vector<std::string>;
         using eth_family_url_list                       = std::vector<std::string>;
-        using bchd_url_list                             = std::vector<std::string>;
         using light_wallet_d_servers                    = std::vector<std::string>; ///< For ZHTLC
         std::string                                       ticker;
         std::string                                       gui_ticker; ///< Ticker displayed in the gui
@@ -74,7 +73,6 @@ namespace atomic_dex
         bool                                              is_zhtlc_family{false};
         bool                                              default_coin{false};
         std::optional<std::string>                        alias_ticker{std::nullopt};
-        std::optional<bool>                               allow_slp_unsafe_conf;
         std::optional<bool>                               is_testnet{false}; ///< True if testnet (tBTC, tQTUM, QRC-20 on testnet, tETH)
         std::optional<bool>                               merge_utxos{false};
         std::optional<std::string>                        swap_contract_address{std::nullopt};
@@ -94,7 +92,6 @@ namespace atomic_dex
         std::optional<nodes>                              rpc_urls;
         std::optional<light_wallet_d_servers>             z_urls;
         std::optional<eth_family_url_list>                eth_family_urls;
-        std::optional<bchd_url_list>                      bchd_urls;
     };
 
     void from_json(const nlohmann::json& j, coin_config_t& cfg);

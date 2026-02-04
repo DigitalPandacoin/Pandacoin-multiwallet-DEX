@@ -50,10 +50,6 @@ namespace
         {
             return CoinType::BEP20;
         }
-        if (coin_type == "SLP")
-        {
-            return CoinType::SLP;
-        }
         if (coin_type == "PLG-20")
         {
             return CoinType::PLG20;
@@ -77,10 +73,6 @@ namespace
         if (coin_type == "AVX-20")
         {
             return CoinType::AVX20;
-        }
-        if (coin_type == "FTM-20")
-        {
-            return CoinType::FTM20;
         }
         if (coin_type == "HRC-20")
         {
@@ -202,11 +194,6 @@ namespace atomic_dex
         {
             cfg.electrum_urls = j.at("electrum").get<std::vector<electrum_server>>();
         }
-        // Used for SLP coins
-        if (j.contains("bchd_urls"))
-        {
-            cfg.bchd_urls = j.at("bchd_urls").get<std::vector<std::string>>();
-        }
         if (j.contains("nodes"))
         {
             // Todo: this is bad, we are using 2 times the required memory. Something can be improved here.
@@ -218,10 +205,6 @@ namespace atomic_dex
         if (j.contains("rpc_urls"))
         {
             cfg.rpc_urls = j.at("rpc_urls").get<std::vector<node>>();
-        }
-        if (j.contains("allow_slp_unsafe_conf"))
-        {
-            cfg.allow_slp_unsafe_conf = j.at("allow_slp_unsafe_conf").get<bool>();
         }
         // Used for ZHTLC coins
         if (j.contains("light_wallet_d_servers"))
@@ -328,11 +311,6 @@ namespace atomic_dex
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "AVAXT" : "AVAX";
             cfg.is_erc_family          = true;
             break;
-        case CoinType::FTM20:
-            cfg.has_parent_fees_ticker = true;
-            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "FTMT" : "FTM";
-            cfg.is_erc_family          = true;
-            break;
         case CoinType::HRC20:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "ONET" : "ONE";
@@ -372,10 +350,6 @@ namespace atomic_dex
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "RBTCT" : "RBTC";
             cfg.is_erc_family          = true;
-            break;
-        case CoinType::SLP:
-            cfg.has_parent_fees_ticker = true;
-            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "tBCH" : "BCH";
             break;
         case CoinType::TENDERMINT:
             cfg.has_parent_fees_ticker = true;

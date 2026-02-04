@@ -125,7 +125,6 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/api/komodo_prices/komodo.prices.tests.cpp
         tests/api/kdf/kdf.rpc2.trade_preimage.tests.cpp
         tests/api/kdf/kdf.fraction.tests.cpp
-        tests/api/kdf/enable_bch_with_tokens_rpc_tests.cpp
 
         ##! Utilities
         tests/utilities/qt.utilities.tests.cpp

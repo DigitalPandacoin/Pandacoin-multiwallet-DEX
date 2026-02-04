@@ -551,8 +551,6 @@ namespace atomic_dex
     {
         t_coins other_coins;
         t_coins erc_family_coins;
-        t_coins slp_coins;
-        t_coins slp_testnet_coins;
         t_coins zhtlc_coins;
         t_coins tendermint_coins;
         t_coins bep20_coins;
@@ -567,18 +565,7 @@ namespace atomic_dex
                 continue;
             }
             // SPDLOG_INFO("Preparing {} for activation", coin_cfg.ticker);
-            if (coin_cfg.coin_type == CoinType::SLP || (coin_cfg.other_types && coin_cfg.other_types->contains(CoinType::SLP)))
-            {
-                if (coin_cfg.is_testnet.value_or(false))
-                {
-                    slp_testnet_coins.push_back(coin_cfg);
-                }
-                else
-                {
-                    slp_coins.push_back(coin_cfg);
-                }
-            }
-            else if (coin_cfg.coin_type == CoinType::TENDERMINT || coin_cfg.coin_type == CoinType::TENDERMINTTOKEN)
+            if (coin_cfg.coin_type == CoinType::TENDERMINT || coin_cfg.coin_type == CoinType::TENDERMINTTOKEN)
             {
                 tendermint_coins.push_back(coin_cfg);
             }
@@ -620,16 +607,6 @@ namespace atomic_dex
         {
             SPDLOG_INFO(">>>>>>>>>>>>>>>>>>>>>>>>>>> Enabling {} erc_family_coins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", erc_family_coins.size());
             enable_erc_family_coins(erc_family_coins);
-        }
-        if (slp_coins.size() > 0)
-        {
-            SPDLOG_INFO(">>>>>>>>>>>>>>>>>>>>>>>>>>> Enabling {} slp_coins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", slp_coins.size());
-            enable_slp_coins(slp_coins);
-        }
-        if (slp_testnet_coins.size() > 0)
-        {
-            SPDLOG_INFO(">>>>>>>>>>>>>>>>>>>>>>>>>>> Enabling {} slp_testnet_coins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", slp_testnet_coins.size());
-            enable_slp_testnet_coins(slp_testnet_coins);
         }
         if (zhtlc_coins.size() > 0)
         {
@@ -1218,268 +1195,6 @@ namespace atomic_dex
         }
     }
 
-    void kdf_service::enable_slp_coin(coin_config_t coin_config)
-    {
-        enable_slp_coins(t_coins{std::move(coin_config)});
-    }
-
-    void kdf_service::enable_slp_coins(const t_coins& coins)
-    {
-        constexpr auto bch_ticker = "BCH";
-        auto callback = [this]<typename RpcRequest>(RpcRequest rpc)
-        {
-            if (rpc.error)
-            {
-                SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                if (rpc.error->error_type.find("PlatformIsAlreadyActivated") != std::string::npos || rpc.error->error_type.find("TokenIsAlreadyActivated") != std::string::npos)
-                {
-                    fetch_single_balance(get_coin_info(rpc.request.ticker));
-                    std::unique_lock lock(m_coin_cfg_mutex);
-                    m_coins_informations[rpc.request.ticker].currently_enabled = true;
-                    dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                    if constexpr (std::is_same_v<RpcRequest, kdf::enable_bch_with_tokens_rpc>)
-                    {
-                        for (const auto& slp_coin_info : rpc.request.slp_tokens_requests)
-                        {
-                            SPDLOG_ERROR("{} {}: ", slp_coin_info.ticker, rpc.error->error_type);
-                            fetch_single_balance(get_coin_info(slp_coin_info.ticker));
-                            std::unique_lock lock(m_coin_cfg_mutex);
-                            m_coins_informations[slp_coin_info.ticker].currently_enabled = true;
-                            dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {slp_coin_info.ticker}});
-                        }
-                    }
-                }
-                else
-                {
-                    std::unique_lock lock(m_coin_cfg_mutex);
-                    m_coins_informations[rpc.request.ticker].currently_enabled = false;
-                    //update_coin_active({rpc.request.ticker}, false);
-                    this->dispatcher_.trigger<enabling_coin_failed>(rpc.request.ticker, rpc.error->error);
-                }
-            }
-            else
-            {
-                dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                fetch_single_balance(get_coin_info(rpc.request.ticker));
-                std::unique_lock lock(m_coin_cfg_mutex);
-                m_coins_informations[rpc.request.ticker].currently_enabled = true;
-                if constexpr (std::is_same_v<RpcRequest, kdf::enable_bch_with_tokens_rpc>)
-                {
-                    for (const auto& slp_address_info : rpc.result->slp_addresses_infos)
-                    {
-                        for (const auto& balance : slp_address_info.second.balances)
-                        {
-                            dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {balance.first}});
-                            process_balance_answer(rpc);
-                            std::unique_lock lock(m_coin_cfg_mutex);
-                            m_coins_informations[balance.first].currently_enabled = true;
-                        }
-                    }
-                }
-                process_balance_answer(rpc);
-            }
-        };
-
-        if (!has_coin(bch_ticker))
-        {
-            static constexpr auto error = "{} is not present in the config. Cannot enable SLP tokens.";
-            
-            SPDLOG_ERROR(error);
-            this->dispatcher_.trigger<enabling_coin_failed>(bch_ticker, fmt::format(error, bch_ticker));
-            return;
-        }
-        
-        auto bch_info = get_coin_info(bch_ticker);
-        
-        if (bch_info.currently_enabled)
-        {
-            for (const auto& coin_config : coins)
-            {
-                kdf::enable_slp_rpc rpc{.request={.ticker = coin_config.ticker}};
-                
-                if (coin_config.ticker == bch_info.ticker)
-                {
-                    continue;
-                }
-                m_kdf_client.process_rpc_async<kdf::enable_slp_rpc>(rpc.request, callback);
-            }
-        }
-        else
-        {
-            kdf::enable_bch_with_tokens_rpc rpc;
-            
-            rpc.request.ticker = bch_info.ticker;
-            rpc.request.allow_slp_unsafe_conf = bch_info.allow_slp_unsafe_conf.has_value() && bch_info.allow_slp_unsafe_conf.value();
-            rpc.request.bchd_urls = bch_info.bchd_urls.value_or(std::vector<std::string>{});
-            rpc.request.mode.rpc_data.servers = bch_info.electrum_urls.value_or(std::vector<electrum_server>{});
-            for (const auto& coin_config : coins)
-            {
-                if (coin_config.ticker == bch_info.ticker)
-                {
-                    continue;
-                }
-                rpc.request.slp_tokens_requests.push_back({.ticker = coin_config.ticker});
-            }
-            m_kdf_client.process_rpc_async<kdf::enable_bch_with_tokens_rpc>(rpc.request, callback);
-        }
-    }
-
-    
-    void kdf_service::enable_slp_testnet_coin(coin_config_t coin_config)
-    {
-        enable_slp_testnet_coins(t_coins{std::move(coin_config)});
-    }
-
-    void kdf_service::enable_slp_testnet_coins(const t_coins& coins)
-    {
-        constexpr auto bch_ticker = "tBCH";
-        auto callback = [this]<typename RpcRequest>(RpcRequest rpc)
-        {
-            if (rpc.error)
-            {
-                SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                if (rpc.error->error_type.find("PlatformIsAlreadyActivated") != std::string::npos || rpc.error->error_type.find("TokenIsAlreadyActivated") != std::string::npos)
-                {
-                    fetch_single_balance(get_coin_info(rpc.request.ticker));
-                    std::unique_lock lock(m_coin_cfg_mutex);
-                    m_coins_informations[rpc.request.ticker].currently_enabled = true;
-                    dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                    if constexpr (std::is_same_v<RpcRequest, kdf::enable_bch_with_tokens_rpc>)
-                    {
-                        for (const auto& slp_coin_info : rpc.request.slp_tokens_requests)
-                        {
-                            SPDLOG_ERROR("{} {}: ", slp_coin_info.ticker, rpc.error->error_type);
-                            fetch_single_balance(get_coin_info(slp_coin_info.ticker));
-                            std::unique_lock lock(m_coin_cfg_mutex);
-                            m_coins_informations[slp_coin_info.ticker].currently_enabled = true;
-                            dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {slp_coin_info.ticker}});
-                        }
-                    }
-                }
-                else
-                {
-                    std::unique_lock lock(m_coin_cfg_mutex);
-                    m_coins_informations[rpc.request.ticker].currently_enabled = false;
-                    //update_coin_active({rpc.request.ticker}, false);
-                    this->dispatcher_.trigger<enabling_coin_failed>(rpc.request.ticker, rpc.error->error);
-                }
-            }
-            else
-            {
-                dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                fetch_single_balance(get_coin_info(rpc.request.ticker));
-                std::unique_lock lock(m_coin_cfg_mutex);
-                m_coins_informations[rpc.request.ticker].currently_enabled = true;
-                if constexpr (std::is_same_v<RpcRequest, kdf::enable_bch_with_tokens_rpc>)
-                {
-                    for (const auto& slp_address_info : rpc.result->slp_addresses_infos)
-                    {
-                        for (const auto& balance : slp_address_info.second.balances)
-                        {
-                            dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {balance.first}});
-                            process_balance_answer(rpc);
-                            std::unique_lock lock(m_coin_cfg_mutex);
-                            m_coins_informations[balance.first].currently_enabled = true;
-                        }
-                    }
-                }
-                process_balance_answer(rpc);
-            }
-        };
-        
-        if (!has_coin(bch_ticker))
-        {
-            static constexpr auto error = "tBCH is not present in the config. Cannot enable SLP tokens.";
-            
-            SPDLOG_ERROR(error);
-            this->dispatcher_.trigger<enabling_coin_failed>("SLP tokens", error);
-            return;
-        }
-        
-        auto bch_info = get_coin_info(bch_ticker);
-        
-        if (bch_info.currently_enabled)
-        {
-            for (const auto& coin_config : coins)
-            {
-                kdf::enable_slp_rpc rpc{.request={.ticker = coin_config.ticker}};
-                
-                if (coin_config.ticker == bch_info.ticker)
-                {
-                    continue;
-                }
-                m_kdf_client.process_rpc_async<kdf::enable_slp_rpc>(rpc.request, callback);
-            }
-        }
-        else
-        {
-            kdf::enable_bch_with_tokens_rpc rpc;
-            
-            rpc.request.ticker = bch_info.ticker;
-            rpc.request.allow_slp_unsafe_conf = bch_info.allow_slp_unsafe_conf.has_value() && bch_info.allow_slp_unsafe_conf.value();
-            rpc.request.bchd_urls = bch_info.bchd_urls.value_or(std::vector<std::string>{});
-            rpc.request.mode.rpc_data.servers = bch_info.electrum_urls.value_or(std::vector<electrum_server>{});
-            for (const auto& coin_config : coins)
-            {
-                if (coin_config.ticker == bch_info.ticker)
-                {
-                    continue;
-                }
-                rpc.request.slp_tokens_requests.push_back({.ticker = coin_config.ticker});
-            }
-            m_kdf_client.process_rpc_async<kdf::enable_bch_with_tokens_rpc>(rpc.request, callback);
-        }
-    }
-
-    void kdf_service::process_balance_answer(const kdf::enable_slp_rpc& rpc)
-    {
-        const auto& answer = rpc.result.value();
-        kdf::balance_answer balance_answer;
-        
-        balance_answer.address  = answer.balances.begin()->first;
-        balance_answer.balance  = answer.balances.begin()->second.spendable;
-        balance_answer.coin     = answer.platform_coin;
-        
-        {
-            std::unique_lock lock(m_balance_mutex);
-            m_balance_informations[balance_answer.coin] = std::move(balance_answer);
-        }
-    }
-
-    void kdf_service::process_balance_answer(const kdf::enable_bch_with_tokens_rpc& rpc)
-    {
-        const auto& answer = rpc.result.value();
-        {
-            kdf::balance_answer balance_answer;
-            
-            balance_answer.coin = rpc.request.ticker;
-            balance_answer.balance = answer.bch_addresses_infos.begin()->second.balances.spendable;
-            balance_answer.address = answer.bch_addresses_infos.begin()->first;
-            {
-                std::unique_lock lock(m_balance_mutex);
-                m_balance_informations[balance_answer.coin] = std::move(balance_answer);
-            }
-        }
-        for (auto [address, data] : answer.slp_addresses_infos)
-        {
-            if (data.balances.empty())
-            {
-                continue;
-            }
-            
-            kdf::balance_answer balance_answer;
-        
-            balance_answer.coin = data.balances.begin()->first;
-            balance_answer.address = address;
-            balance_answer.balance = data.balances.begin()->second.spendable;
-        
-            {
-                std::unique_lock lock(m_balance_mutex);
-                m_balance_informations[balance_answer.coin] = std::move(balance_answer);
-            }
-        }
-    }
-    
     void
     kdf_service::disable_multiple_coins(const std::vector<std::string>& tickers)
     {
@@ -1588,7 +1303,7 @@ namespace atomic_dex
             std::size_t     limit =  200;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
-            if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN || coin_info.coin_type == CoinTypeGadget::SLP)
+            if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN)
             {
                 requires_v2 = true;
                 if (coin_info.is_zhtlc_family)
@@ -2534,9 +2249,6 @@ namespace atomic_dex
                 break;
             case CoinTypeGadget::Moonbeam:
                 out = construct_url_functor("GLMR", "GLMRT", "glmr_tx_history", "glmr_tx_history", ticker, address);
-                break;
-            case CoinTypeGadget::FTM20:
-                out = construct_url_functor("FTM", "FTMT", "ftm_tx_history", "ftm20_tx_history", ticker, address);
                 break;
             case CoinTypeGadget::Arbitrum:
                 out = construct_url_functor("ETH-ARB20", "ETHR-ARB20", "arb_tx_history", "arb20_tx_history", ticker, address);

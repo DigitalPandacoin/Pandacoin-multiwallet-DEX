@@ -224,8 +224,6 @@ QtObject {
             switch(token_platform) {
                 case "BNB":
                     return "https://bscscan.com/token/" + coinContractAddress(ticker)
-                case "FTM":
-                    return "https://ftmscan.com/token/" + coinContractAddress(ticker)
                 case "HT":
                     return "https://hecoinfo.com/token/" + coinContractAddress(ticker)
                 case "POL":
@@ -255,8 +253,6 @@ QtObject {
             switch(token_platform) {
                 case "BNB":
                     return "Binance Smart Chain (BEP20 token)"
-                case "FTM":
-                    return "Fantom (FTM20 token)"
                 case "ONE":
                     return "Harmony (HRC20 token)"
                 case "ETH":
@@ -415,7 +411,7 @@ QtObject {
 
     function getCustomFeeType(ticker_infos)
     {
-        if (["SLP", "ZHTLC", "Moonbeam", "QRC-20"].includes(ticker_infos.type)) return ""
+        if (["ZHTLC", "Moonbeam", "QRC-20"].includes(ticker_infos.type)) return ""
         if (!General.isSpecialToken(ticker_infos) && !General.isParentCoin(ticker_infos.ticker) ||  ["KMD"].includes(ticker_infos.ticker))
         {
             return "UTXO"
@@ -787,13 +783,11 @@ QtObject {
         if (ticker === atomic_app_primary_coin || ticker === atomic_app_secondary_coin) return false
         if (ticker === "ETH") return !General.isParentCoinNeeded("ETH", "ERC-20")
         if (ticker === "POL") return !General.isParentCoinNeeded("POL", "PLG-20")
-        if (ticker === "FTM") return !General.isParentCoinNeeded("FTM", "FTM-20")
         if (ticker === "AVAX") return !General.isParentCoinNeeded("AVAX", "AVX-20")
         if (ticker === "BNB") return !General.isParentCoinNeeded("BNB", "BEP-20")
         if (ticker === "ONE") return !General.isParentCoinNeeded("ONE", "HRC-20")
         if (ticker === "QTUM") return !General.isParentCoinNeeded("QTUM", "QRC-20")
         if (ticker === "KCS") return !General.isParentCoinNeeded("KCS", "KRC-20")
-        if (ticker === "BCH") return !General.isParentCoinNeeded("BCH", "SLP")
         if (ticker === "UBQ") return !General.isParentCoinNeeded("UBQ", "Ubiq")
         if (ticker === "MOVR") return !General.isParentCoinNeeded("MOVR", "Moonriver")
         if (ticker === "IRIS") return !General.isParentCoinNeeded("IRIS", "COSMOS")
@@ -822,16 +816,15 @@ QtObject {
         return current_ticker_infos.type === "ERC-20"
             || current_ticker_infos.type === "BEP-20"
             || current_ticker_infos.type == "PLG-20"
-            || current_ticker_infos.type == "FTM-20"
             || current_ticker_infos.type == "AVX-20"
     }
 
     function isParentCoin(ticker) {
-        return ["KMD", "ETH", "POL", "AVAX", "FTM", "QTUM", "BNB", "ONE", "KCS"].includes(ticker)
+        return ["KMD", "ETH", "POL", "AVAX", "QTUM", "BNB", "ONE", "KCS"].includes(ticker)
     }
 
     function isTokenType(type) {
-        return ["ERC-20", "QRC-20", "PLG-20", "AVX-20", "FTM-20"].includes(type)
+        return ["ERC-20", "QRC-20", "PLG-20", "AVX-20"].includes(type)
     }
 
     function getFeesTicker(coin_info) {
@@ -843,7 +836,6 @@ QtObject {
         if(type === "ERC-20") return "ETH"
         else if(type === "PLG-20") return "POL"
         else if(type === "AVX-20") return "AVAX"
-        else if(type === "FTM-20") return "FTM"
         else if(type === "QRC-20") return "QTUM"
         else if(type === "Smart Chain") return "KMD"
         return "?"

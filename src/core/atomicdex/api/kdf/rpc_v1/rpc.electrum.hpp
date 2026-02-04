@@ -37,8 +37,6 @@ namespace atomic_dex::kdf
         std::optional<std::string>                   fallback_swap_contract{std::nullopt};
         std::optional<address_format_t>              address_format;
         std::optional<nlohmann::json>                merge_params;
-        std::optional<std::vector<std::string>>      bchd_urls;
-        std::optional<bool>                          allow_slp_unsafe_conf;
         int                                          min_connected{1};
         int                                          max_connected{1};
     };
