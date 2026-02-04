@@ -56,7 +56,6 @@ Dex.ComboBoxWithSearchBar
 
         function forceUpdateDetails()
         {
-            console.log("Portfolio item data changed, force-updating the selected ticker details!")
             ++update_count
         }
 

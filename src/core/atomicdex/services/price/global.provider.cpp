@@ -99,7 +99,7 @@ namespace atomic_dex
     global_price_service::refresh_other_coins_rates(
         const std::string& quote_id, const std::string& ticker, bool with_update_providers, std::atomic_uint16_t nb_try)
     {
-        SPDLOG_DEBUG("refresh_other_coins_rates: {} - {} - {} - {}", quote_id, ticker, with_update_providers, nb_try);
+        //SPDLOG_DEBUG("refresh_other_coins_rates: {} - {} - {} - {}", quote_id, ticker, with_update_providers, nb_try);
         if (nb_try > 3)
         {
             SPDLOG_ERROR("Failed to fetch rates for ticker after 3 tries: {}", ticker);

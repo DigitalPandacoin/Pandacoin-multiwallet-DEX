@@ -134,7 +134,7 @@ namespace atomic_dex
         std::string volume_24h_usd = "0.00";
         auto ticker = base + "_" + quote;
         auto ticker_reversed = quote + "_" + base;
-        SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
+        //SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
 
         // Check if base/quote are the same
         if (base == quote)
@@ -165,7 +165,7 @@ namespace atomic_dex
             if (volume_node.is_number())
             {
                 volume_24h_usd = std::to_string(volume_node.get<double>());
-                SPDLOG_INFO("{} volume usd: {}", ticker, volume_24h_usd);
+                //SPDLOG_INFO("{} volume usd: {}", ticker, volume_24h_usd);
             }
             else if (volume_node.is_null()) 
             {
@@ -182,7 +182,7 @@ namespace atomic_dex
             if (volume_node.is_number())
             {
                 volume_24h_usd = std::to_string(volume_node.get<double>());
-                SPDLOG_INFO("{} volume usd: {}", ticker_reversed, volume_24h_usd);
+                //SPDLOG_INFO("{} volume usd: {}", ticker_reversed, volume_24h_usd);
             }
             else if (volume_node.is_null()) 
             {
@@ -206,7 +206,7 @@ namespace atomic_dex
         std::string trades_24h = "0";
         auto ticker = base + "_" + quote;
         auto ticker_reversed = quote + "_" + base;
-        SPDLOG_INFO("Getting 24hr trade data for {}", ticker);
+        //SPDLOG_INFO("Getting 24hr trade data for {}", ticker);
 
         // Check if base/quote are the same
         if (base == quote)
@@ -237,7 +237,7 @@ namespace atomic_dex
             if (trades_node.is_number())
             {
                 trades_24h = std::to_string(trades_node.get<int>());
-                SPDLOG_INFO("{} trades_24h: {}", ticker, trades_24h);
+                //SPDLOG_INFO("{} trades_24h: {}", ticker, trades_24h);
             }
             else if (trades_node.is_null()) 
             {
@@ -254,7 +254,7 @@ namespace atomic_dex
             if (trades_node.is_number())
             {
                 trades_24h = std::to_string(trades_node.get<int>());
-                SPDLOG_INFO("{} trades_24h: {}", ticker_reversed, trades_24h);
+                //SPDLOG_INFO("{} trades_24h: {}", ticker_reversed, trades_24h);
             }
             else if (trades_node.is_null()) 
             {
