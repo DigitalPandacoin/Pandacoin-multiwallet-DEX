@@ -77,7 +77,7 @@ Item
                 `
             }
         }
-        console.log(chart_html)
+        // console.log(chart_html)
         dashboard.webEngineView.loadHtml(chart_html)
     }
 
