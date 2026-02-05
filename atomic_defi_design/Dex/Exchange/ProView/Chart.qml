@@ -176,11 +176,6 @@ Item
     MouseArea {
         id: chart_mousearea
         anchors.fill: webEngineViewPlaceHolder
-        onClicked: {
-            if (webEngineView.visible) {
-                Qt.openUrlExternally("https://www.livecoinwatch.com")
-            }
-        }
     }
 
     Connections
