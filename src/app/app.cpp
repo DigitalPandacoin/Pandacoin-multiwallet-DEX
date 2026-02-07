@@ -491,7 +491,6 @@ namespace atomic_dex
         system_manager_.create_system<global_defi_stats_service>(system_manager_);
         system_manager_.create_system<orderbook_scanner_service>(system_manager_);
         system_manager_.create_system<komodo_prices_provider>();
-        system_manager_.create_system<update_checker_service>();
         system_manager_.create_system<timesync_checker_service>();
         system_manager_.create_system<exporter_service>(system_manager_);
         system_manager_.create_system<trading_page>(
@@ -889,17 +888,6 @@ namespace atomic_dex
     application::get_internet_checker() const
     {
         return qobject_cast<internet_service_checker*>(m_manager_models.at("internet_service"));
-    }
-} // namespace atomic_dex
-
-//! update checker
-namespace atomic_dex
-{
-    update_checker_service* application::get_update_checker_service() const
-    {
-        auto ptr = const_cast<update_checker_service*>(std::addressof(system_manager_.get_system<update_checker_service>()));
-        assert(ptr != nullptr);
-        return ptr;
     }
 } // namespace atomic_dex
 

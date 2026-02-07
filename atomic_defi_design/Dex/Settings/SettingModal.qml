@@ -824,23 +824,6 @@ Qaterial.Dialog
 
             DexAppButton
             {
-                text: qsTr("Search for Update")
-                height: 48
-                radius: 20
-                leftPadding: 20
-                rightPadding: 20
-                font: Qt.font(
-                {
-                    pixelSize: 19,
-                    letterSpacing: 0.15,
-                    family: DexTypo.fontFamily,
-                    weight: Font.Normal
-                })
-                onClicked: newUpdateModal.open()
-            }
-
-            DexAppButton
-            {
                 text: qsTr("Logout")
                 color: containsMouse ? DexTheme.buttonColorHovered : 'transparent'
                 height: 48

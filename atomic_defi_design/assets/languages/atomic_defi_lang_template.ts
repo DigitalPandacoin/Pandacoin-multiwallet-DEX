@@ -1670,59 +1670,6 @@ They will be removed from the orderbook until you log in again.</source>
     </message>
 </context>
 <context>
-    <name>NewUpdateModal</name>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="37"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="66"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="125"/>
-        <source>Searching new updates</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="44"/>
-        <source>Fetching...</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="58"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="80"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="117"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="139"/>
-        <source>Close</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="72"/>
-        <source>Could not check new updates for the following reason: 
-%1</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="88"/>
-        <source>New version found</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="88"/>
-        <source>Mandatory version found</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="95"/>
-        <source>%1 %2 is available !</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="102"/>
-        <source>This update is mandatory to continue using the application</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="117"/>
-        <source>Close Dex</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="131"/>
-        <source>Your application is updated.</source>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="111"/>
-        <source>Download</source>
-    </message>
-</context>
-<context>
     <name>NewWallet</name>
     <message>
         <location filename="../../Dex/Screens/Startup/NewWallet.qml" line="73"/>
@@ -2351,13 +2298,6 @@ Please select a new order.</source>
     <message>
         <location filename="../../Dex/Exchange/Trade/ProView.qml" line="99"/>
         <source>Placed the order</source>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <location filename="../../../src/core/atomicdex/services/update/update.checker.service.cpp" line="48"/>
-        <source>Cannot reach the endpoint: </source>
     </message>
 </context>
 <context>
@@ -3535,13 +3475,6 @@ Network fees can vary greatly depending on your selected trading pair.</source>
     <message>
         <location filename="../../Dex/Wallet/Transactions.qml" line="128"/>
         <source>Unconfirmed</source>
-    </message>
-</context>
-<context>
-    <name>UpdateInvalidChecksum</name>
-    <message>
-        <location filename="../../Dex/Dashboard/UpdateInvalidChecksum.qml" line="7"/>
-        <source>The downloaded update archive is corrupted !</source>
     </message>
 </context>
 <context>

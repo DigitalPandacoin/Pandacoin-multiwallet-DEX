@@ -158,19 +158,6 @@ DexRectangle
         id: toast
     }
 
-    // Update Modal
-    NewUpdateModal
-    {
-        id: newUpdateModal
-        visible: false
-    }
-
-    UpdateInvalidChecksum
-    {
-        id: update_invalid_checksum
-        visible: false
-    }
-
     // Fatal Error Modal
     FatalErrorModal
     {

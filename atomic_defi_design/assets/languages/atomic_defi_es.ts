@@ -2188,70 +2188,6 @@ Se eliminarán del libro de pedidos hasta que vuelva a iniciar sesión.</transla
     </message>
 </context>
 <context>
-    <name>NewUpdateModal</name>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="38"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="68"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="130"/>
-        <source>Searching new updates</source>
-        <translation>Buscando nuevas actualizaciones</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="45"/>
-        <source>Fetching...</source>
-        <translation>Buscando...</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="59"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="82"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="122"/>
-        <location filename="../../Dex/NewUpdateModal.qml" line="144"/>
-        <source>Close</source>
-        <translation>Cerrar</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="74"/>
-        <source>Could not check new updates for the following reason: 
-%1</source>
-        <translation>No se pudieron comprobar las nuevas actualizaciones por el siguiente motivo: %1</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="93"/>
-        <source>New version found</source>
-        <translation>Nueva versión encontrada</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="136"/>
-        <source>Your application is up to date!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="92"/>
-        <source>Mandatory version found</source>
-        <translation>Versión obligatoria encontrada</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="100"/>
-        <source>%1 %2 is available !</source>
-        <translation>%1 ¡%2 está disponible!</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="107"/>
-        <source>This update is mandatory to continue using the application</source>
-        <translation>Esta actualización es obligatoria para seguir usando la aplicación</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="122"/>
-        <source>Close Dex</source>
-        <translation>Cerrar Dex</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NewUpdateModal.qml" line="116"/>
-        <source>Download</source>
-        <translation>Descargar</translation>
-    </message>
-</context>
-<context>
     <name>NewWallet</name>
     <message>
         <location filename="../../Dex/Screens/Startup/NewWallet.qml" line="73"/>
@@ -3025,14 +2961,6 @@ Please select a new order.</source>
         <location filename="../../Dex/Exchange/Trade/ProView.qml" line="101"/>
         <source>Placed the order</source>
         <translation>Realizó el pedido El</translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <location filename="../../../src/core/atomicdex/services/update/update.checker.service.cpp" line="50"/>
-        <source>Cannot reach the endpoint: </source>
-        <translation>No se puede llegar al punto final:</translation>
     </message>
 </context>
 <context>
@@ -4535,14 +4463,6 @@ There is a toggle in settings where you can turn on/off the display of these tra
         <location filename="../../Dex/Wallet/Transactions.qml" line="136"/>
         <source>Unconfirmed</source>
         <translation>Sin confirmar</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateInvalidChecksum</name>
-    <message>
-        <location filename="../../Dex/Dashboard/UpdateInvalidChecksum.qml" line="7"/>
-        <source>The downloaded update archive is corrupted !</source>
-        <translation>¡El archivo de actualización descargado está dañado!</translation>
     </message>
 </context>
 <context>

@@ -48,7 +48,6 @@
 #include "atomicdex/services/kdf/kdf.service.hpp"
 #include "atomicdex/services/price/defi.stats.hpp"
 #include "atomicdex/services/price/global.provider.hpp"
-#include "atomicdex/services/update/update.checker.service.hpp"
 #include "atomicdex/services/update/zcash.params.service.hpp"
 #include "atomicdex/services/sync/timesync.checker.service.hpp"
 #include "atomicdex/utilities/qt.utilities.hpp"
@@ -75,7 +74,6 @@ namespace atomic_dex
         Q_PROPERTY(wallet_page* wallet_pg READ get_wallet_page NOTIFY walletPageChanged)
         Q_PROPERTY(settings_page* settings_pg READ get_settings_page NOTIFY settingsPageChanged)
         Q_PROPERTY(qt_wallet_manager* wallet_mgr READ get_wallet_mgr NOTIFY walletMgrChanged)
-        Q_PROPERTY(update_checker_service* updateCheckerService READ get_update_checker_service NOTIFY updateCheckerServiceChanged)
         Q_PROPERTY(timesync_checker_service* timesyncCheckerService READ get_timesync_checker_service NOTIFY timesyncCheckerServiceChanged)
         Q_PROPERTY(zcash_params_service* zcash_params READ get_zcash_params_service NOTIFY zcashParamsServiceChanged)
 
@@ -136,7 +134,6 @@ namespace atomic_dex
         settings_page*                           get_settings_page() const;
         qt_wallet_manager*                       get_wallet_mgr() const;
         internet_service_checker*                get_internet_checker() const;
-        update_checker_service*                  get_update_checker_service() const;
         timesync_checker_service*                get_timesync_checker_service() const;
         [[nodiscard]] zcash_params_service*      get_zcash_params_service() const;
         exporter_service*                        get_exporter_service() const;
@@ -182,7 +179,6 @@ namespace atomic_dex
         void portfolioPageChanged();
         void walletPageChanged();
         void ordersChanged();
-        void updateCheckerServiceChanged();
         void timesyncCheckerServiceChanged();
         void zcashParamsServiceChanged();
         void tradingPageChanged();
