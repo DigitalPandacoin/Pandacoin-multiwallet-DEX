@@ -67,14 +67,6 @@ DexRectangle
         onActivated: window.showNormal()
     }
 
-    Component
-    {
-        id: no_connection
-
-        NoConnection
-        {}
-    }
-
     NotificationsModal
     {
         id: notifications_modal
@@ -122,9 +114,6 @@ DexRectangle
         anchors.fill: parent
         sourceComponent:
         {
-            if (!API.app.internet_checker.internet_reacheable)
-                return no_connection
-
             return _availablePages[_currentPage]
         }
     }

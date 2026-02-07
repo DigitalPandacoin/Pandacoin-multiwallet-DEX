@@ -44,7 +44,6 @@
 #include "atomicdex/constants/dex.constants.hpp"
 #include "atomicdex/managers/qt.wallet.manager.hpp"
 #include "atomicdex/pages/qt.settings.page.hpp"
-#include "atomicdex/services/internet/internet.checker.service.hpp"
 #include "atomicdex/services/kdf/kdf.service.hpp"
 #include "atomicdex/utilities/qt.utilities.hpp"
 #include "atomicdex/utilities/kill.hpp"
@@ -2796,12 +2795,8 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                const auto& internet_service = this->m_system_manager.get_system<internet_service_checker>();
-                if (!internet_service.is_internet_alive())
-                {
-                    SPDLOG_WARN("We should reset connection here");
-                    this->dispatcher_.trigger<fatal_notification>("connection dropped");
-                }
+                SPDLOG_WARN("We should reset connection here");
+                this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }
     }

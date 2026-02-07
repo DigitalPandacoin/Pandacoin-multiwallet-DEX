@@ -474,8 +474,6 @@ namespace atomic_dex
         {
             // m_manager_models.emplace("addressbook", new addressbook_model(system_manager_, this));
             m_manager_models.emplace("orders", new orders_model(system_manager_, this->dispatcher_, this));
-            m_manager_models.emplace(
-                "internet_service", std::addressof(system_manager_.create_system<internet_service_checker>(system_manager_, this->dispatcher_, this)));
             m_manager_models.emplace("notifications", new notification_manager(dispatcher_, this));
         }
 
@@ -878,16 +876,6 @@ namespace atomic_dex
     application::get_notification_manager() const
     {
         return qobject_cast<notification_manager*>(m_manager_models.at("notifications"));
-    }
-} // namespace atomic_dex
-
-//! Internet checker
-namespace atomic_dex
-{
-    internet_service_checker*
-    application::get_internet_checker() const
-    {
-        return qobject_cast<internet_service_checker*>(m_manager_models.at("internet_service"));
     }
 } // namespace atomic_dex
 

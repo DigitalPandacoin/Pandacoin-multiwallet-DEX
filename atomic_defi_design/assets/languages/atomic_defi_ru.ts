@@ -2309,29 +2309,6 @@ They will be removed from the orderbook until you log in again.</source>
     </message>
 </context>
 <context>
-    <name>NoConnection</name>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="19"/>
-        <source>No connection</source>
-        <translation>Нет соединения</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="25"/>
-        <source>Please make sure you are connected to the internet</source>
-        <translation>Пожалуйста, убедитесь, что вы подключены к Интернету</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="31"/>
-        <source>Will automatically retry in %1 seconds</source>
-        <translation>Повторная попытка подключения через %1 секунд</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="40"/>
-        <source>Retry</source>
-        <translation>Повторная попытка поключения</translation>
-    </message>
-</context>
-<context>
     <name>NotificationsModal</name>
     <message>
         <location filename="../../Dex/Dashboard/NotificationsModal.qml" line="151"/>

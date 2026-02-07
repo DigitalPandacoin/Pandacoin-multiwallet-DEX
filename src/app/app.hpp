@@ -44,7 +44,6 @@
 #include "atomicdex/pages/qt.trading.page.hpp"
 #include "atomicdex/pages/qt.wallet.page.hpp"
 #include "atomicdex/services/exporter/exporter.service.hpp"
-#include "atomicdex/services/internet/internet.checker.service.hpp"
 #include "atomicdex/services/kdf/kdf.service.hpp"
 #include "atomicdex/services/price/defi.stats.hpp"
 #include "atomicdex/services/price/global.provider.hpp"
@@ -68,7 +67,6 @@ namespace atomic_dex
         Q_PROPERTY(orders_model* orders_mdl READ get_orders NOTIFY ordersChanged)
         Q_PROPERTY(portfolio_page_ptr portfolio_pg READ get_portfolio_page NOTIFY portfolioPageChanged)
         Q_PROPERTY(notification_manager* notification_mgr READ get_notification_manager)
-        Q_PROPERTY(internet_service_checker* internet_checker READ get_internet_checker NOTIFY internetCheckerChanged)
         Q_PROPERTY(exporter_service* exporter_service READ get_exporter_service NOTIFY exporterServiceChanged)
         Q_PROPERTY(trading_page* trading_pg READ get_trading_page NOTIFY tradingPageChanged)
         Q_PROPERTY(wallet_page* wallet_pg READ get_wallet_page NOTIFY walletPageChanged)
@@ -133,7 +131,6 @@ namespace atomic_dex
         trading_page*                            get_trading_page() const;
         settings_page*                           get_settings_page() const;
         qt_wallet_manager*                       get_wallet_mgr() const;
-        internet_service_checker*                get_internet_checker() const;
         timesync_checker_service*                get_timesync_checker_service() const;
         [[nodiscard]] zcash_params_service*      get_zcash_params_service() const;
         exporter_service*                        get_exporter_service() const;
@@ -183,7 +180,6 @@ namespace atomic_dex
         void zcashParamsServiceChanged();
         void tradingPageChanged();
         void settingsPageChanged();
-        void internetCheckerChanged();
         void exporterServiceChanged();
       public slots:
         void exit_handler();

@@ -2303,29 +2303,6 @@ They will be removed from the orderbook until you log in again.</source>
     </message>
 </context>
 <context>
-    <name>NoConnection</name>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="19"/>
-        <source>No connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="25"/>
-        <source>Please make sure you are connected to the internet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="31"/>
-        <source>Will automatically retry in %1 seconds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="40"/>
-        <source>Retry</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>NotificationsModal</name>
     <message>
         <location filename="../../Dex/Dashboard/NotificationsModal.qml" line="151"/>

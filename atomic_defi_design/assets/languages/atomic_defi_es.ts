@@ -2306,29 +2306,6 @@ Se eliminarán del libro de pedidos hasta que vuelva a iniciar sesión.</transla
     </message>
 </context>
 <context>
-    <name>NoConnection</name>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="19"/>
-        <source>No connection</source>
-        <translation>Sin conexión</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="25"/>
-        <source>Please make sure you are connected to the internet</source>
-        <translation>Asegúrate de que estás conectado a Internet</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="31"/>
-        <source>Will automatically retry in %1 seconds</source>
-        <translation>Intentará de nuevo automáticamente en %1 segundos</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/NoConnection.qml" line="40"/>
-        <source>Retry</source>
-        <translation>Reintentar</translation>
-    </message>
-</context>
-<context>
     <name>NotificationsModal</name>
     <message>
         <location filename="../../Dex/Dashboard/NotificationsModal.qml" line="151"/>
