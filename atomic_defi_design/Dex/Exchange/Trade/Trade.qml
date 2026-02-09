@@ -184,6 +184,7 @@ Item
         {
             id: header
             width: parent.width
+            height: parent.height * 0.03
             proViewTrInfo: proView.trInfo
             proViewMarketsOrderBook: proView.marketsOrderBook
             proViewPlaceOrderForm: proView.placeOrderForm
@@ -193,6 +194,7 @@ Item
         {
             id: proView
             width: parent.width
+            height: parent.height * 0.97
             visible: API.app.trading_pg.current_trading_mode == TradingMode.Pro
             enabled: visible
         }
