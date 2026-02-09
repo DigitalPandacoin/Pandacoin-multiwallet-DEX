@@ -50,9 +50,7 @@ Item
 
                 details: model
                 opacity: anim_time
-                Layout.leftMargin: 5
-                Layout.rightMargin: 5
-                Layout.fillWidth: true
+                width: list.width * 0.985
             }
 
             populate: Transition
