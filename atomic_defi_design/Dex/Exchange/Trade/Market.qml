@@ -65,11 +65,6 @@ ColumnLayout
             currentIndex: marketTabView.currentIndex
             anchors.fill: parent
 
-            onCurrentIndexChanged:
-            {
-                marketSwipeView.currentItem.update();
-            }
-            
             OrderBook.Vertical
             {
                 id: orderBook
@@ -79,6 +74,11 @@ ColumnLayout
             BestOrder.List
             {
                 id: bestOrders
+            }
+
+            onCurrentIndexChanged:
+            {
+                marketSwipeView.currentItem.update();
             }
         }
     }

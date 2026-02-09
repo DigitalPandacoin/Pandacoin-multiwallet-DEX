@@ -143,14 +143,6 @@ ColumnLayout
             currentIndex: orderformTabView.currentIndex
             anchors.fill: parent
 
-            onCurrentIndexChanged:
-            {
-                API.app.trading_pg.maker_mode = currentIndex === makerOrderform_idx ? true : false
-                orderformSwipeView.currentItem.update()
-                API.app.trading_pg.reset_order()
-                reset_fees_state()
-            }
-
             Item
             {
                 id: takerOrderform
@@ -196,6 +188,14 @@ ColumnLayout
                     }
                     swap_btn_spinner.visible: show_waiting_for_trade_preimage
                 }
+            }
+
+            onCurrentIndexChanged:
+            {
+                API.app.trading_pg.maker_mode = currentIndex === makerOrderform_idx ? true : false
+                orderformSwipeView.currentItem.update()
+                API.app.trading_pg.reset_order()
+                reset_fees_state()
             }
         }
     }
