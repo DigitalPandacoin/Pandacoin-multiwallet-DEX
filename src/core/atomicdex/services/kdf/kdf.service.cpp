@@ -2796,7 +2796,7 @@ namespace atomic_dex
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
                 SPDLOG_WARN("We should reset connection here");
-                this->dispatcher_.trigger<fatal_notification>("connection dropped");
+                //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }
     }
