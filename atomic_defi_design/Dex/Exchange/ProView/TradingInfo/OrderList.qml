@@ -50,7 +50,9 @@ Item
 
                 details: model
                 opacity: anim_time
-                width: root.width * 0.985
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
+                Layout.fillWidth: true
             }
 
             populate: Transition
@@ -95,7 +97,7 @@ Item
             visible: is_history && list.count > 0
             enabled: list.enabled
             Layout.maximumHeight: 70
-            Layout.preferredWidth: parent.width
+            Layout.fillWidth: true
             Layout.bottomMargin: 10
             itemsPerPageComboBox.mainBackgroundColor: Dex.CurrentTheme.comboBoxBackgroundColor
             itemsPerPageComboBox.popupBackgroundColor: Dex.CurrentTheme.comboBoxBackgroundColor

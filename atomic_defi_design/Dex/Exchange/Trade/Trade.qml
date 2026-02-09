@@ -177,14 +177,13 @@ Item
     {
         anchors.fill: parent
         spacing: 8
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
+        anchors.margins: 8
 
         TradeViewHeader
         {
             id: header
             width: parent.width
-            height: parent.height * 0.03
+            height: 50
             proViewTrInfo: proView.trInfo
             proViewMarketsOrderBook: proView.marketsOrderBook
             proViewPlaceOrderForm: proView.placeOrderForm
@@ -194,7 +193,7 @@ Item
         {
             id: proView
             width: parent.width
-            height: parent.height * 0.97
+            height: parent.height * 0.94
             visible: API.app.trading_pg.current_trading_mode == TradingMode.Pro
             enabled: visible
         }
