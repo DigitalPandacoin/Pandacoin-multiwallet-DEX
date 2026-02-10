@@ -1049,43 +1049,43 @@ namespace atomic_dex
             switch (m_last_trading_error)
             {
             case TradingErrorGadget::None:
-                SPDLOG_INFO("last_trading_error is None");
+                //SPDLOG_INFO("last_trading_error is None");
                 break;
             case TradingErrorGadget::TotalFeesNotEnoughFunds:
-                SPDLOG_WARN("last_trading_error is TotalFeesNotEnoughFunds");
+                //SPDLOG_WARN("last_trading_error is TotalFeesNotEnoughFunds");
                 break;
             case TradingErrorGadget::BalanceIsLessThanTheMinimalTradingAmount:
-                SPDLOG_WARN("last_trading_error is BalanceIsLessThanTheMinimalTradingAmount");
+                //SPDLOG_WARN("last_trading_error is BalanceIsLessThanTheMinimalTradingAmount");
                 break;
             case TradingErrorGadget::PriceFieldNotFilled:
-                SPDLOG_WARN("last_trading_error is PriceFieldNotFilled");
+                //SPDLOG_WARN("last_trading_error is PriceFieldNotFilled");
                 break;
             case TradingErrorGadget::VolumeFieldNotFilled:
-                SPDLOG_WARN("last_trading_error is VolumeFieldNotFilled");
+                //SPDLOG_WARN("last_trading_error is VolumeFieldNotFilled");
                 break;
             case TradingErrorGadget::VolumeIsLowerThanTheMinimum:
-                SPDLOG_WARN("last_trading_error is VolumeIsLowerThanTheMinimum");
+                //SPDLOG_WARN("last_trading_error is VolumeIsLowerThanTheMinimum");
                 break;
             case TradingErrorGadget::ReceiveVolumeIsLowerThanTheMinimum:
-                SPDLOG_WARN("last_trading_error is ReceiveVolumeIsLowerThanTheMinimum");
+                //SPDLOG_WARN("last_trading_error is ReceiveVolumeIsLowerThanTheMinimum");
                 break;
             case TradingErrorGadget::LeftParentChainNotEnabled:
-                SPDLOG_WARN("last_trading_error is LeftParentChainNotEnabled");
+                //SPDLOG_WARN("last_trading_error is LeftParentChainNotEnabled");
                 break;
             case TradingErrorGadget::LeftParentChainNotEnoughBalance:
-                SPDLOG_WARN("last_trading_error is LeftParentChainNotEnoughBalance");
+                //SPDLOG_WARN("last_trading_error is LeftParentChainNotEnoughBalance");
                 break;
             case TradingErrorGadget::RightParentChainNotEnoughBalance:
-                SPDLOG_WARN("last_trading_error is RightParentChainNotEnoughBalance");
+                //SPDLOG_WARN("last_trading_error is RightParentChainNotEnoughBalance");
                 break;
             case TradingErrorGadget::RightParentChainNotEnabled:
-                SPDLOG_WARN("last_trading_error is RightParentChainNotEnabled");
+                //SPDLOG_WARN("last_trading_error is RightParentChainNotEnabled");
                 break;
             case TradingErrorGadget::LeftZhtlcChainNotEnabled:
-                SPDLOG_WARN("last_trading_error is LeftZhtlcChainNotEnabled");
+                //SPDLOG_WARN("last_trading_error is LeftZhtlcChainNotEnabled");
                 break;
             case TradingErrorGadget::RightZhtlcChainNotEnabled:
-                SPDLOG_WARN("last_trading_error is RightZhtlcChainNotEnabled");
+                //SPDLOG_WARN("last_trading_error is RightZhtlcChainNotEnabled");
                 break;
             default:
                 break;
