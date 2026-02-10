@@ -205,7 +205,7 @@ Item
                 Layout.fillHeight: true
                 Layout.minimumWidth: 100
                 Layout.alignment: Qt.AlignVCenter
-                text: General.reducedBignum(base_max_volume, 6)
+                text: General.reducedBignum(base_max_volume, 4)
                 font.family: DexTypo.fontFamily
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignRight
