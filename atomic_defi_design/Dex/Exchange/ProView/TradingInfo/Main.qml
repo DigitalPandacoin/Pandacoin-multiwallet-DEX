@@ -110,17 +110,24 @@ ColumnLayout
                 }
             }
 
-            OrdersPage { clip: true }
+            OrdersPage
+            {
+                page_index: currentIndex
+                clip: true
+            }
 
             OrdersPage
             {
+                page_index: currentIndex
                 is_history: true
                 clip: true
             }
 
             onCurrentIndexChanged:
             {
-                swipeView.currentItem.update();
+                if (currentIndex !==0) {
+                    swipeView.currentItem.update()
+                }
             }
         }
     }

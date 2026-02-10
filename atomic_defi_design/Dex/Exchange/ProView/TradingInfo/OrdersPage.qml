@@ -19,12 +19,14 @@ Item {
 
     property var list_model: API.app.orders_mdl
     property var list_model_proxy: API.app.orders_mdl.orders_proxy_mdl
-    property int page_index
+    property int page_index: 0
 
     property alias title: order_list.title
     property alias items: order_list.items
 
     property bool is_history: false
+
+    console.debug("OrdersPage page_index: " + page_index)
 
     function update()
     {
