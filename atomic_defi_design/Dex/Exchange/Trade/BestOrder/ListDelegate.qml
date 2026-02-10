@@ -78,7 +78,7 @@ Item
             Layout.preferredWidth: 80
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
-            text: price_fiat + API.app.settings_pg.current_fiat_sign
+            text: price_fiat.toFixed(2) + API.app.settings_pg.current_fiat_sign
             font.family: App.DexTypo.fontFamily
             font.pixelSize: 12
         }
