@@ -47,7 +47,7 @@
 
 namespace
 {
-    constexpr std::size_t g_timeout_q_timer_ms = 16;
+    constexpr std::size_t g_timeout_q_timer_ms = 100;
 }
 
 namespace atomic_dex
