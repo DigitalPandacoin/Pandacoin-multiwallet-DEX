@@ -71,7 +71,7 @@ ColumnLayout
     Timer
     {
         id: check_trade_preimage
-        interval: 1500;
+        interval: 1000;
         running: false;
         repeat: true;
         triggeredOnStart: true;
