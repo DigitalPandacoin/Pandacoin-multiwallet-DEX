@@ -116,7 +116,7 @@ Switch
             visible: _label.text != ''
             font: control.font
             color: control.textColor
-            leftPadding: _indicator.width + control.spacing 
+            leftPadding: _indicator.width + control.spacing
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             wrapMode: Label.Wrap
@@ -129,7 +129,7 @@ Switch
             visible: _label2.text != ''
             font: DexTypo.caption
             color: control.textColor
-            leftPadding: _indicator.width + control.spacing 
+            leftPadding: _indicator.width + control.spacing
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             wrapMode: Label.Wrap

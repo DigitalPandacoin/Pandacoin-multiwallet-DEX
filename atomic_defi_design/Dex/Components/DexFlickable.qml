@@ -11,6 +11,6 @@ Flickable {
     ScrollBar.vertical: DexScrollBar {
         anchors.rightMargin: root.rightMargin
     }
- 
+
     clip: true
 }
