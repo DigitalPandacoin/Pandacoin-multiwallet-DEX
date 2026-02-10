@@ -17,8 +17,8 @@ Widget
     //title: qsTr("Best Orders for %1").arg(left_ticker)
     title: ""
 
-    margins: 10
-    spacing: 10
+    //margins: 10
+    //spacing: 10
     collapsable: false
 
     Header

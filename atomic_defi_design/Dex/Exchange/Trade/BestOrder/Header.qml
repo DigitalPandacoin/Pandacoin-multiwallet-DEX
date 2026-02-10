@@ -9,7 +9,6 @@ import Dex.Components 1.0 as Dex
 
 RowLayout
 {
-    //height: 24
     width: parent.width
     spacing: 0
 

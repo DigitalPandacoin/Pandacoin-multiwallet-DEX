@@ -10,7 +10,6 @@ import Dex.Components 1.0 as Dex
 Row
 {
     width: parent.width
-    //height: 24
     spacing: 0
 
     Dex.Text
