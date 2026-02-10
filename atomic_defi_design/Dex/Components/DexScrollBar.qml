@@ -9,7 +9,7 @@ ScrollBar
 {
     id: control
 
-    anchors.right: root.right
+    anchors.right: parent ? parent.right : undefined
     anchors.rightMargin: 0
     policy: scrollbar_visible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
     property bool visibleBackground: true
