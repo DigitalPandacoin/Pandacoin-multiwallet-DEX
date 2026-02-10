@@ -27,7 +27,7 @@ Item {
     property bool is_history: false
 
     console.debug("OrdersPage page_index: " + root.page_index)
-    visible: root.page_index > 0
+    visible: root.page_index !== 0
     enabled: visible
 
     function update()
