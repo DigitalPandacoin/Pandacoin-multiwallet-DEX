@@ -26,7 +26,6 @@ Item {
 
     property bool is_history: false
 
-    console.debug("OrdersPage page_index: " + root.page_index)
     visible: root.page_index !== 0
     enabled: visible
 
@@ -82,6 +81,7 @@ Item {
         list_model_proxy.is_history = root.is_history
         applyFilter()
         list_model_proxy.apply_all_filtering()
+        console.log("OrdersPage page_index " + root.page_index)
     }
 
     ColumnLayout
