@@ -37,7 +37,7 @@ namespace
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
         req.set_request_uri(FROM_STD_STR("api/v3/rates/fixer_io"));
-        //SPDLOG_INFO("req: {}", TO_STD_STR(req.to_string()));
+        SPDLOG_INFO("req: {}", TO_STD_STR(req.to_string()));
         return g_openrates_client->request(req, g_token_source.get_token());
     }
 
@@ -99,7 +99,7 @@ namespace atomic_dex
     global_price_service::refresh_other_coins_rates(
         const std::string& quote_id, const std::string& ticker, bool with_update_providers, std::atomic_uint16_t nb_try)
     {
-        //SPDLOG_DEBUG("refresh_other_coins_rates: {} - {} - {} - {}", quote_id, ticker, with_update_providers, nb_try);
+        SPDLOG_DEBUG("refresh_other_coins_rates: {} - {} - {} - {}", quote_id, ticker, with_update_providers, nb_try);
         if (nb_try > 3)
         {
             SPDLOG_ERROR("Failed to fetch rates for ticker after 3 tries: {}", ticker);
@@ -242,7 +242,7 @@ namespace atomic_dex
 
                 if (ec)
                 {
-                    // SPDLOG_WARN("error when converting {} to {}, err: {}", current_coin.ticker, fiat, ec.message());
+                    SPDLOG_WARN("error when converting {} to {}, err: {}", current_coin.ticker, fiat, ec.message());
                     ec.clear(); //! Reset
                     continue;
                 }
@@ -303,7 +303,7 @@ namespace atomic_dex
     {
         // Runs often to update fiat values for all enabled coins.
         // fetch ticker infos loop and on_update_portfolio_values_event triggers this.
-        // SPDLOG_INFO("get_price_in_fiat [{}] [{}]", fiat, ticker);
+        SPDLOG_INFO("get_price_in_fiat [{}] [{}]", fiat, ticker);
         try
         {
             auto& kdf_instance = m_system_manager.get_system<kdf_service>();
@@ -327,7 +327,7 @@ namespace atomic_dex
             if (t_ec)
             {
                 ec = t_ec;
-                //SPDLOG_ERROR("get_balance_info error: {} {}", t_ec.message(), ticker);
+                SPDLOG_ERROR("get_balance_info error: {} {}", t_ec.message(), ticker);
                 return "0.00";
             }
 
@@ -459,7 +459,7 @@ namespace atomic_dex
         if (fiat == "USD")
             return true;
         auto rates = m_other_fiats_rates.get();
-        // SPDLOG_INFO("rates: {}", rates.dump(4));
+        SPDLOG_INFO("rates: {}", rates.dump(4));
         return !rates.empty() && rates.contains("rates") && rates.at("rates").contains(fiat);
     }
 
@@ -481,7 +481,7 @@ namespace atomic_dex
     global_price_service::is_currency_available(const std::string& currency) const
     {
         bool available = true;
-        // SPDLOG_INFO("coin_rate_providers size: {}", m_coin_rate_providers.size());
+        SPDLOG_INFO("coin_rate_providers size: {}", m_coin_rate_providers.size());
         available = m_coin_rate_providers.find(currency) != m_coin_rate_providers.end();
         return available;
     }

@@ -16,7 +16,7 @@ ColumnLayout
     id: root
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.fill: parent
-    anchors.margins: 20
+    anchors.margins: 10
     spacing: 8
 
     function focusVolumeField()
