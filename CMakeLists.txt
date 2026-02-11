@@ -24,7 +24,7 @@ if (NOT WITH_HOTRELOAD)
     message(STATUS "Hot Reload is not active download SortFilterProxyModel")
     include(FetchContent)
 
-    set(SFPM_REPOSITORY "https://github.com/schnitzeltony/SortFilterProxyModel.git" CACHE STRING "SortFilterProxyModel repository url")
+    set(SFPM_REPOSITORY "https://github.com/status-im/SortFilterProxyModel.git" CACHE STRING "SortFilterProxyModel repository url")
     set(SFPM_TAG master CACHE STRING "SortFilterProxyModel git tag")
 
     FetchContent_Declare(
