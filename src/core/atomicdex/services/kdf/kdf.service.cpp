@@ -1216,7 +1216,6 @@ namespace atomic_dex
         (void)tickers;
         (void)is_during_enabling;
         auto&& [batch_array, tickers_idx, tokens_to_fetch] = prepare_batch_balance_and_tx(only_tx);
-        SPDLOG_DEBUG("Start kdf_service::batch_balance_and_tx");
         return m_kdf_client.async_rpc_batch_standalone(batch_array)
             .then(
                 [this, tokens_to_fetch = tokens_to_fetch, is_a_reset, tickers, batch_array = batch_array](web::http::http_response resp)
@@ -1270,7 +1269,6 @@ namespace atomic_dex
                             }
 
                             for (auto&& coin: tokens_to_fetch) { process_tx_tokenscan(coin, is_a_reset); }
-                            SPDLOG_DEBUG("Done kdf_service::batch_balance_and_tx");
                         }
                     }
                     catch (const std::exception& error)
@@ -1286,7 +1284,6 @@ namespace atomic_dex
     std::tuple<nlohmann::json, std::vector<std::string>, std::vector<std::string>>
     kdf_service::prepare_batch_balance_and_tx(bool only_tx) const
     {
-        SPDLOG_DEBUG("kdf_service::prepare_batch_balance_and_tx");
         const auto&              enabled_coins = get_enabled_coins();
         nlohmann::json           batch_array   = nlohmann::json::array();
         std::vector<std::string> tickers_idx;
@@ -1874,11 +1871,10 @@ namespace atomic_dex
         //! If thread is not active ex: we are not on the trading page anymore, we continue sleeping.
         if (!m_orderbook_thread_active)
         {
-            SPDLOG_DEBUG("no fetch_current_orderbook_thread, not on trading page");
             return;
         }
-        SPDLOG_DEBUG("fetch_current_orderbook_thread, on trading page");
         process_orderbook(is_a_reset);
+        SPDLOG_DEBUG("process_orderbook, is_a_reset {} ", is_a_reset);
     }
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)

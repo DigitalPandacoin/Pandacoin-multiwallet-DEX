@@ -977,6 +977,7 @@ ClipRRect // Trade Card
                     {
                         Layout.alignment: Qt.AlignRight
                         Layout.rightMargin: 10
+                        console.log("tofixedbs tradesimple")
                         text: qsTr("%2 (%3)")
                                 .arg(parseFloat(modelData.required_balance).toFixed(8) / 1)
                                 .arg(Constants.General.getFiatText(modelData.required_balance, modelData.coin, false))

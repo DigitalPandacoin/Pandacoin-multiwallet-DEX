@@ -23,7 +23,7 @@
 
 namespace
 {
-    constexpr int g_file_count_limit = 15_sz;
+    constexpr int g_file_count_limit = 30_sz;
 }
 
 namespace atomic_dex

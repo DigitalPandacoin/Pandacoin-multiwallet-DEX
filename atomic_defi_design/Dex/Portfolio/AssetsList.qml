@@ -209,6 +209,7 @@ Dex.DexListView
                             return qsTr("Activating: ") + x + "%"
                         }
                     }
+                    console.log("tofixedbs balance column")
                     return parseFloat(balance).toFixed(8)
                 }
 

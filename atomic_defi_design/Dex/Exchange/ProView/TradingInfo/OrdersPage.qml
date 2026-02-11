@@ -81,7 +81,6 @@ Item {
         list_model_proxy.is_history = root.is_history
         applyFilter()
         list_model_proxy.apply_all_filtering()
-        console.log("OrdersPage page_index " + root.page_index)
     }
 
     ColumnLayout
