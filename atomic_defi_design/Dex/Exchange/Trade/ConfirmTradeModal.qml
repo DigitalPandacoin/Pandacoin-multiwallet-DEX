@@ -24,11 +24,9 @@ MultipageModal
 
     MultipageModalContent
     {
-        //titleText: qsTr("Confirm Exchange Details")
         titleText: qsTr("")
-        title.font.pixelSize: Style.textSize2
         titleAlignment: Qt.AlignHCenter
-        titleTopMargin: 0
+        titleTopMargin: 30
         topMarginAfterTitle: 10
         flickMax: window.height - 385
 

@@ -293,7 +293,7 @@ namespace atomic_dex
         const auto s_activation = std::chrono::duration_cast<std::chrono::seconds>(now - m_activation_clock);
         const auto s_orders     = std::chrono::duration_cast<std::chrono::seconds>(now - m_orders_clock);
 
-        if (s_orderbook >= 7s)
+        if (s_orderbook >= 11s)
         {
             fetch_current_orderbook_thread(false); // process_orderbook (not a reset) if on trading page
             m_orderbook_clock = std::chrono::high_resolution_clock::now();
@@ -1874,8 +1874,10 @@ namespace atomic_dex
         //! If thread is not active ex: we are not on the trading page anymore, we continue sleeping.
         if (!m_orderbook_thread_active)
         {
+            SPDLOG_DEBUG("no fetch_current_orderbook_thread, not on trading page");
             return;
         }
+        SPDLOG_DEBUG("fetch_current_orderbook_thread, on trading page");
         process_orderbook(is_a_reset);
     }
 
@@ -2365,12 +2367,12 @@ namespace atomic_dex
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        // SPDLOG_DEBUG("refreshing orderbook pair: [{} / {}]", evt.base, evt.rel);
+        SPDLOG_DEBUG("refreshing orderbook pair: [{} / {}]", evt.base, evt.rel);
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
 
         if (this->m_kdf_running)
         {
-            // SPDLOG_DEBUG("process_orderbook(true)");
+            SPDLOG_DEBUG("process_orderbook(true)");
             process_orderbook(true);
         }
     }
