@@ -11,14 +11,11 @@ import AtomicDEX.MarketMode 1.0
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 
-Widget
+Item
 {
     id: _control
-    //title: qsTr("Best Orders for %1").arg(left_ticker)
-    title: ""
     //margins: 10
     //spacing: 10
-    collapsable: false
 
     Header
     {

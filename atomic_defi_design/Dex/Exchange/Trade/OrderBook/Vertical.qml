@@ -9,17 +9,14 @@ import "../../../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-Widget
+Item
 {
-    //title: qsTr("%1 Orderbook").arg(left_ticker + "/" + right_ticker)
-    title: ""
     readonly property string pair_trades_24hr: API.app.trading_pg.pair_trades_24hr
     readonly property string pair_volume_24hr: API.app.trading_pg.pair_volume_24hr
     readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
     //margins: 8
     //spacing: 8
-    collapsable: false
 
     Header
     {
