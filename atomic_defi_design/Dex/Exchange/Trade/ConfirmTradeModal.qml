@@ -24,7 +24,8 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr("Confirm Exchange Details")
+        //titleText: qsTr("Confirm Exchange Details")
+        titleText: qsTr("")
         title.font.pixelSize: Style.textSize2
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 0
@@ -76,6 +77,8 @@ MultipageModal
             PriceLineSimplified
             {
                 id: price_line
+                Layout.leftMargin: 20
+                Layout.rightMargin: 20
                 Layout.fillWidth: true
             }
         ]

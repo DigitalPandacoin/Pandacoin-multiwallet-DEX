@@ -603,8 +603,8 @@ namespace atomic_dex
                 
                 if (!ec)
                 {
-                    // SPDLOG_DEBUG("[process_action::post_process_orderbook_finished] Needs reset: {}", m_models_actions[orderbook_need_a_reset]);
-                    // SPDLOG_DEBUG(">>>> triggers: {}", m_models_actions[orderbook_need_a_reset] ? "reset_orderbook" : "refresh_orderbook_model_data");
+                    SPDLOG_DEBUG("[process_action::post_process_orderbook_finished] Needs reset: {}", m_models_actions[orderbook_need_a_reset]);
+                    SPDLOG_DEBUG(">>>> triggers: {}", m_models_actions[orderbook_need_a_reset] ? "reset_orderbook" : "refresh_orderbook_model_data");
                     auto* wrapper = get_orderbook_wrapper();
                     m_models_actions[orderbook_need_a_reset] ? wrapper->reset_orderbook(result) : wrapper->refresh_orderbook_model_data(result);
 
@@ -616,9 +616,9 @@ namespace atomic_dex
                     else
                     {
                         const auto base_max_taker_vol = safe_float(wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
-                        // SPDLOG_DEBUG("[base_max_taker_vol]: {}", wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
+                        SPDLOG_DEBUG("[base_max_taker_vol]: {}", wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
                         auto       rel_max_taker      = wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString();
-                        // SPDLOG_DEBUG("[rel_max_taker]: {}", wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
+                        SPDLOG_DEBUG("[rel_max_taker]: {}", wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
 
                         if (rel_max_taker.empty())
                         {
@@ -627,7 +627,7 @@ namespace atomic_dex
 
                         const auto rel_max_taker_vol = safe_float(rel_max_taker);
                         t_float_50 min_vol           = safe_float(m_minimal_trading_amount.toStdString());
-                        // SPDLOG_DEBUG("[min_vol]: {}", m_minimal_trading_amount.toStdString());
+                        SPDLOG_DEBUG("[min_vol]: {}", m_minimal_trading_amount.toStdString());
 
                         auto       adjust_functor    = [this, wrapper]()
                         {
@@ -642,7 +642,6 @@ namespace atomic_dex
                         if ((m_market_mode == MarketMode::Buy && rel_max_taker_vol > 0 && min_vol <= 0) ||
                             (m_market_mode == MarketMode::Sell && base_max_taker_vol > 0 && min_vol <= 0))
                         {
-                            // SPDLOG_DEBUG("[adjust_functor()]: Adjusting....");
                             adjust_functor();
                         }
                     }
@@ -919,9 +918,9 @@ namespace atomic_dex
                     {
                         auto       available_quantity       = m_preferred_order->at("base_max_volume").get<std::string>();
                         t_float_50 available_quantity_order = safe_float(available_quantity);
-                        // SPDLOG_DEBUG(
-                        //    "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}", utils::format_float(safe_float(available_quantity)),
-                        //    get_max_volume().toStdString(), max_taker_vol);
+                        SPDLOG_DEBUG(
+                           "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}", utils::format_float(safe_float(available_quantity)),
+                           get_max_volume().toStdString(), max_taker_vol);
                         if (available_quantity_order < safe_float(max_taker_vol) && !m_preferred_order->at("capped").get<bool>())
                         {
                             max_vol_str                         = available_quantity;
@@ -932,7 +931,7 @@ namespace atomic_dex
                         {
                             if (!m_preferred_order->at("capped").get<bool>())
                             {
-                                // SPDLOG_DEBUG("Selected order capping to max_taker_vol because our max_taker_volume is < base_max_volume");
+                                SPDLOG_DEBUG("Selected order capping to max_taker_vol because our max_taker_volume is < base_max_volume");
                                 m_preferred_order.value()["capped"] = true;
                                 this->set_max_volume(QString::fromStdString(max_vol_str));
                             }
@@ -947,7 +946,7 @@ namespace atomic_dex
 
                 //! Capping it
                 this->cap_volume();
-                //SPDLOG_WARN("max_taker_vol this->cap_volume()");
+                SPDLOG_WARN("max_taker_vol this->cap_volume()");
             }
             else
             {
@@ -1028,7 +1027,7 @@ namespace atomic_dex
         {
             if (!max_volume.isEmpty() && max_volume != "0")
             {
-                // SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
+                SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
                 this->set_volume(get_max_volume());
             }
         }

@@ -63,9 +63,8 @@ namespace atomic_dex
                     nlohmann::json batch = nlohmann::json::array();
                     if (rpc.error)
                     {
-                        // SPDLOG_DEBUG("error: bad answer json for process_best_orders: {}", rpc.error->error);
+                        SPDLOG_DEBUG("error: bad answer json for process_best_orders: {}", rpc.error->error);
                         this->m_bestorders_busy = false;
-                        // SPDLOG_DEBUG("Triggering [process_orderbook_finished]: true");
                         this->dispatcher_.trigger<process_orderbook_finished>(true);
                     }
                     else
@@ -75,7 +74,6 @@ namespace atomic_dex
                             this->m_best_orders_infos = rpc.result.value();
                         }
                         this->m_bestorders_busy = false;
-                        // SPDLOG_DEBUG("Triggering [process_orderbook_finished]: false");
                         this->dispatcher_.trigger<process_orderbook_finished>(false);
                         emit trading_pg.get_orderbook_wrapper()->bestOrdersBusyChanged();
                     }
@@ -89,7 +87,7 @@ namespace atomic_dex
             }
             else
             {
-                SPDLOG_WARN("KDF Service not launched yet - skipping process_best_orders");
+                SPDLOG_WARN("Not on trading page or KDF not running - skipping process_best_orders");
             }
         }
         else
@@ -105,16 +103,16 @@ namespace atomic_dex
     void
     orderbook_scanner_service::update() 
     {
-        //! Scan orderbook widget every 43 seconds if there is not any update
         using namespace std::chrono_literals;
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 43s)
         {
-            //SPDLOG_DEBUG("<<<<<<<<<<< orderbook_scanner_service update loop after 43 seconds >>>>>>>>>>>>>");
+            SPDLOG_DEBUG("<<<<<<<<<<< start orderbook_scanner_service update loop >>>>>>>>>>>>>");
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
+            SPDLOG_DEBUG("<<<<<<<<<<< done orderbook_scanner_service update loop >>>>>>>>>>>>>");
         }
     }
 

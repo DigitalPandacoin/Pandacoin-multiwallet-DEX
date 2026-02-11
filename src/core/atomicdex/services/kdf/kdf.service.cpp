@@ -1787,7 +1787,7 @@ namespace atomic_dex
                     process_orderbook_extras(batch, is_a_reset);
                 }
                 m_orderbook = rpc.result.value();
-                // SPDLOG_DEBUG("Triggering [process_orderbook_finished]: {}", is_a_reset);
+                SPDLOG_DEBUG("Triggering [process_orderbook_finished]: {}", is_a_reset);
                 this->dispatcher_.trigger<process_orderbook_finished>(is_a_reset);
             }
         };
