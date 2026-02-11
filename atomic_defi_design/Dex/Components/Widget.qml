@@ -11,8 +11,6 @@ Item
 {
     id: root
 
-    property string         title:                      "Widget"
-
     property bool           collapsable:                true
     property bool           collapsed:                  false
 
@@ -114,7 +112,6 @@ Item
 
         RowLayout
         {
-            DexLabel { text: root.title; font: DexTypo.subtitle1 }
             Item { Layout.fillWidth: true }
             Qaterial.Icon
             {

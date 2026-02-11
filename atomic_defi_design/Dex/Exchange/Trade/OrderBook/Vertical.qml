@@ -9,18 +9,19 @@ import "../../../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-Item
+Widget
 {
     readonly property string pair_trades_24hr: API.app.trading_pg.pair_trades_24hr
     readonly property string pair_volume_24hr: API.app.trading_pg.pair_volume_24hr
     readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
-    //margins: 8
-    //spacing: 8
+    margins: 8
+    spacing: 8
+    collapsable: false
 
     Header
     {
-        //Layout.preferredHeight: 30
+        Layout.preferredHeight: 30
         Layout.fillWidth: true
     }
 

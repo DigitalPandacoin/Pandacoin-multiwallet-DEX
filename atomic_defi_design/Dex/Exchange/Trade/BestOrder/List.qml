@@ -11,11 +11,12 @@ import AtomicDEX.MarketMode 1.0
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 
-Item
+Widget
 {
     id: _control
     //margins: 10
     //spacing: 10
+    collapsable: false
 
     Header
     {
