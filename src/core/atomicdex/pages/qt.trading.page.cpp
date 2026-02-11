@@ -611,7 +611,7 @@ namespace atomic_dex
                     if (m_models_actions[orderbook_need_a_reset] && this->m_current_trading_mode == TradingModeGadget::Pro)
                     {
                         // This goes to a function which looks like it is for bot trading. We dont need to run it at this stage.
-                        this->set_preferred_settings();
+                        // this->set_preferred_settings();
                     }
                     else
                     {
@@ -814,7 +814,7 @@ namespace atomic_dex
         if (m_preferred_order.has_value() && m_current_trading_mode == TradingModeGadget::Simple &&
             m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
         {
-            // SPDLOG_DEBUG("Simple view cancel order, keeping important data");
+            SPDLOG_DEBUG("Simple view cancel order, keeping important data");
             this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
             const auto max_taker_vol = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject()["decimal"].toString();
             this->set_max_volume(max_taker_vol);
