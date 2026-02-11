@@ -14,13 +14,16 @@ import Dex.Components 1.0 as Dex
 Widget
 {
     id: _control
-    //margins: 10
-    //spacing: 10
+    margins: 8
+    spacing: 8
     collapsable: false
 
     Header
     {
         visible: !warning_text.visible
+        Layout.topMargin: 6
+        Layout.bottomMargin: 6
+        Layout.fillWidth: true
     }
 
     Item
