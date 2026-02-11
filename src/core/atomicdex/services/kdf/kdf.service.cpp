@@ -1216,7 +1216,7 @@ namespace atomic_dex
         (void)tickers;
         (void)is_during_enabling;
         auto&& [batch_array, tickers_idx, tokens_to_fetch] = prepare_batch_balance_and_tx(only_tx);
-        SPDLOG_DEBUG("kdf_service::batch_balance_and_tx");
+        SPDLOG_DEBUG("Start kdf_service::batch_balance_and_tx");
         return m_kdf_client.async_rpc_batch_standalone(batch_array)
             .then(
                 [this, tokens_to_fetch = tokens_to_fetch, is_a_reset, tickers, batch_array = batch_array](web::http::http_response resp)
@@ -1270,6 +1270,7 @@ namespace atomic_dex
                             }
 
                             for (auto&& coin: tokens_to_fetch) { process_tx_tokenscan(coin, is_a_reset); }
+                            SPDLOG_DEBUG("Done kdf_service::batch_balance_and_tx");
                         }
                     }
                     catch (const std::exception& error)
