@@ -1942,7 +1942,6 @@ namespace atomic_dex
         SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         this->m_current_wallet_name = std::move(wallet_name);
         this->dispatcher_.trigger<coin_cfg_parsed>(this->retrieve_coins_informations());
-        this->dispatcher_.trigger<force_update_providers>();
         this->dispatcher_.trigger<force_update_defi_stats>();
         kdf_config cfg{
             .passphrase = std::move(passphrase), 

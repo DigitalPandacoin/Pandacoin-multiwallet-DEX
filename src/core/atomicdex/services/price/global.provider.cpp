@@ -95,37 +95,11 @@ namespace
 
 namespace atomic_dex
 {
-    void
-    global_price_service::refresh_other_coins_rates(
-        const std::string& quote_id, const std::string& ticker, bool with_update_providers, std::atomic_uint16_t nb_try)
-    {
-        SPDLOG_DEBUG("refresh_other_coins_rates: {} - {} - {} - {}", quote_id, ticker, with_update_providers, nb_try);
-        if (nb_try > 3)
-        {
-            SPDLOG_ERROR("Failed to fetch rates for ticker after 3 tries: {}", ticker);
-            this->m_coin_rate_providers[ticker] = "0.00";
-            return;
-        }
-
-        t_float_50 price = safe_float(get_rate_conversion("USD", ticker, true));
-        if (price <= 0)
-        {
-            SPDLOG_ERROR("Price is 0 for ticker: {}", ticker);
-            this->m_coin_rate_providers[ticker] = "0.00";
-        }
-        else
-        {
-            t_float_50 rate = 1 / price;
-            this->m_coin_rate_providers[ticker] = rate.str();
-        }
-        
-    }
-
     global_price_service::global_price_service(entt::registry& registry, ag::ecs::system_manager& system_manager, atomic_dex::cfg& cfg) :
         system(registry), m_system_manager(system_manager), m_cfg(cfg)
     {
         m_update_clock = std::chrono::high_resolution_clock::now();
-        this->dispatcher_.sink<force_update_providers>().connect<&global_price_service::on_force_update_providers>(*this);
+        SPDLOG_DEBUG("idk wtf");
     }
 } // namespace atomic_dex
 
@@ -140,8 +114,7 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 5min)
         {
-            SPDLOG_INFO("[global_price_service::update()] - 5min elapsed, updating providers");
-            this->on_force_update_providers({});
+            SPDLOG_INFO("[global_price_service::update()] - 5min elapsed, doing nothing");
             m_update_clock = std::chrono::high_resolution_clock::now();
         }
     }
@@ -378,64 +351,6 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, base: {}, rel: {}", error.what(), base, rel);
             return "0.00";
         }
-    }
-
-    void
-    global_price_service::on_force_update_providers([[maybe_unused]] const force_update_providers& evt)
-    {
-        static std::atomic_size_t nb_try = 0;
-        nb_try += 1;
-        SPDLOG_INFO("Forcing update providers");
-        auto error_functor = [this, evt](pplx::task<void> previous_task)
-        {
-            try
-            {
-                previous_task.wait();
-            }
-            catch (const std::exception& e)
-            {
-                SPDLOG_ERROR("pplx task error from async_fetch_fiat_rates: {} - nb_try {}", e.what(), nb_try);
-                using namespace std::chrono_literals;
-                std::this_thread::sleep_for(1s);
-                this->on_force_update_providers(evt);
-            };
-        };
-        async_fetch_fiat_rates()
-            .then(
-                [this](web::http::http_response resp)
-                {
-                    this->m_other_fiats_rates = process_fetch_fiat_answer(resp);
-                    const auto& kdf           = this->m_system_manager.get_system<kdf_service>();
-                    const bool  with_update   = kdf.is_kdf_running();
-                    bool        already_send  = false;
-                    const auto  first_id      = kdf.get_coin_info(g_primary_dex_coin).coinpaprika_id;
-                    const auto  second_id     = kdf.get_coin_info(g_second_primary_dex_coin).coinpaprika_id;
-                    
-                    if (!first_id.empty())
-                    {
-                        refresh_other_coins_rates(first_id, g_primary_dex_coin, false, 0);
-                    }
-                    if (!second_id.empty())
-                    {
-                        refresh_other_coins_rates(second_id, g_second_primary_dex_coin, with_update, 0);
-                        already_send = true;
-                    }
-                    for (auto&& coin: this->m_cfg.possible_currencies)
-                    {
-                        if (g_primary_dex_coin != coin && g_second_primary_dex_coin != coin)
-                        {
-                            refresh_other_coins_rates(
-                                kdf.get_coin_info(coin).coinpaprika_id,
-                                coin,
-                                !already_send,
-                                0
-                            );
-                        }
-                    }
-                    SPDLOG_INFO("Successfully retrieving rate after {} try", nb_try);
-                    nb_try = 0;
-                })
-            .then(error_functor);
     }
 
     std::string
