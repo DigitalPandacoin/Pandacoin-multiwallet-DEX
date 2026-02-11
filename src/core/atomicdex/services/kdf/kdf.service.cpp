@@ -682,7 +682,7 @@ namespace atomic_dex
                         std::unique_lock lock(m_coin_cfg_mutex);
                         m_coins_informations[coin.ticker].currently_enabled = true;
                         tickers.push_back(coin.ticker);
-                        fetch_single_balance(coin);
+                        //fetch_single_balance(coin);
                     }
                     dispatcher_.trigger<coin_fully_initialized>(tickers);
 
@@ -790,7 +790,7 @@ namespace atomic_dex
                         std::unique_lock lock(m_coin_cfg_mutex);
                         m_coins_informations[coin.ticker].currently_enabled = true;
                         tickers.push_back(coin.ticker);
-                        fetch_single_balance(coin);
+                        //fetch_single_balance(coin);
                     }
                     dispatcher_.trigger<coin_fully_initialized>(tickers);
 
@@ -864,7 +864,7 @@ namespace atomic_dex
                 if (rpc.error->error_type.find("PlatformIsAlreadyActivated") != std::string::npos)
                 {
                     SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                    fetch_single_balance(get_coin_info(rpc.request.ticker));
+                    //fetch_single_balance(get_coin_info(rpc.request.ticker));
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = true;
                     dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
@@ -875,7 +875,7 @@ namespace atomic_dex
                         for (const auto& erc20_coin_info : rpc.request.erc20_tokens_requests)
                         {
                             SPDLOG_ERROR("{} {}: ", erc20_coin_info.ticker, rpc.error->error_type);
-                            fetch_single_balance(get_coin_info(erc20_coin_info.ticker));
+                            //fetch_single_balance(get_coin_info(erc20_coin_info.ticker));
                             std::unique_lock lock(m_coin_cfg_mutex);
                             m_coins_informations[erc20_coin_info.ticker].currently_enabled = true;
                             dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {erc20_coin_info.ticker}});
@@ -898,7 +898,7 @@ namespace atomic_dex
             else
             {
                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                fetch_single_balance(get_coin_info(rpc.request.ticker));
+                //fetch_single_balance(get_coin_info(rpc.request.ticker));
                 std::unique_lock lock(m_coin_cfg_mutex);
                 m_coins_informations[rpc.request.ticker].currently_enabled = true;
                 SPDLOG_DEBUG("marking {} as active", rpc.request.ticker);
@@ -918,7 +918,7 @@ namespace atomic_dex
                                 SPDLOG_DEBUG("marking token {} as active", balance.first);
                                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {balance.first}});
                                 //process_balance_answer(rpc);
-                                fetch_single_balance(get_coin_info(balance.first));
+                                //fetch_single_balance(get_coin_info(balance.first));
                                 std::unique_lock lock(m_coin_cfg_mutex);
                                 m_coins_informations[balance.first].currently_enabled = true;
                             }
@@ -1001,7 +1001,7 @@ namespace atomic_dex
                     || rpc.error->error_type.find("TokenIsAlreadyActivated") != std::string::npos)
                 {
                     SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                    fetch_single_balance(get_coin_info(rpc.request.ticker));
+                    //fetch_single_balance(get_coin_info(rpc.request.ticker));
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = true;
                     dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
@@ -1011,7 +1011,7 @@ namespace atomic_dex
                         {
                             std::unique_lock lock(m_coin_cfg_mutex);
                             m_coins_informations[tendermint_coin_info.ticker].currently_enabled = true;
-                            fetch_single_balance(get_coin_info(tendermint_coin_info.ticker));
+                            //fetch_single_balance(get_coin_info(tendermint_coin_info.ticker));
                             dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tendermint_coin_info.ticker}});
                         }
                     }
@@ -1028,7 +1028,7 @@ namespace atomic_dex
             else
             {
                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                fetch_single_balance(get_coin_info(rpc.request.ticker));
+                //fetch_single_balance(get_coin_info(rpc.request.ticker));
                 std::unique_lock lock(m_coin_cfg_mutex);
                 m_coins_informations[rpc.request.ticker].currently_enabled = true;
                 if constexpr (std::is_same_v<RpcRequest, kdf::enable_tendermint_with_assets_rpc>)
@@ -1642,8 +1642,8 @@ namespace atomic_dex
                                     dispatcher_.trigger<coin_fully_initialized>(tickers);
                                     if (tickers.size() == 1)
                                     {
-                                        SPDLOG_DEBUG("Init balance for {}...", tickers[0]);
-                                        fetch_single_balance(get_coin_info(tickers[0]));
+                                        SPDLOG_DEBUG("Why, oh why? For sure not: Init balance for {}...", tickers[0]);
+                                        //fetch_single_balance(get_coin_info(tickers[0]));
                                     }
                                 }
                             }
@@ -1929,7 +1929,7 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
-            SPDLOG_DEBUG("Running [fetch_infos_thread] for {} enabled coins", enabled_coins.size());
+            SPDLOG_DEBUG("Running [fetch_infos_thread], including shitty balance for {} enabled coins", enabled_coins.size());
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
