@@ -32,7 +32,7 @@ namespace atomic_dex
     void
     komodo_prices_provider::process_update(bool fallback)
     {
-        // SPDLOG_INFO("komodo price service tick loop");
+        SPDLOG_INFO("komodo price service tick loop");
         auto answer_functor = [this, fallback](web::http::http_response resp)
         {
             std::string body = TO_STD_STR(resp.extract_string(true).get());
@@ -44,7 +44,7 @@ namespace atomic_dex
                 {
                     std::unique_lock lock(m_market_mutex);
                     m_market_registry = std::move(answer);
-                    // SPDLOG_INFO("komodo price registry size: {}", m_market_registry.size());
+                    SPDLOG_INFO("komodo price registry size: {}", m_market_registry.size());
                 }
             }
             else
@@ -90,7 +90,7 @@ namespace atomic_dex
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_clock);
 
-        if (s >= 45s)
+        if (s >= 181s)
         {
             process_update();
             m_clock = std::chrono::high_resolution_clock::now();

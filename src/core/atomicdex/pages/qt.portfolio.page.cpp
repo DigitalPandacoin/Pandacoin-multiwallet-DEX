@@ -74,7 +74,7 @@ namespace atomic_dex
     void
     portfolio_page::on_update_portfolio_values_event(const update_portfolio_values& evt)
     {
-        // SPDLOG_DEBUG("Updating portfolio values with model: {}", evt.with_update_model);
+        SPDLOG_DEBUG("Start updating portfolio values with model: {}", evt.with_update_model);
 
         bool res = true;
         if (evt.with_update_model)
@@ -92,6 +92,8 @@ namespace atomic_dex
             set_current_balance_fiat_all(QString::fromStdString(fiat_balance_std));
             m_portfolio_mdl->adjust_percent_current_currency(QString::fromStdString(fiat_balance_std));
         }
+
+        SPDLOG_DEBUG("Done updating portfolio values with model");
     }
 
     QStringList
