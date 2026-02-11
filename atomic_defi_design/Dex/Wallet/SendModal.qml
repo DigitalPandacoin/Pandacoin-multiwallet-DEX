@@ -547,12 +547,13 @@ MultipageModal
                         let inputAmount = new BigNumber(input_amount.text);
                         if (input_amount.text === "" || inputAmount.isLessThanOrEqualTo(0))
                             equivalentAmount.value = "0"
-                        else if (_preparePage.cryptoSendMode)
-                            console.log("tofixedbs walletsendm 2")
+                        else if (_preparePage.cryptoSendMode) {
+                            console.log("tofixedbs walletsendm 2");
                             equivalentAmount.value = inputAmount.multipliedBy(current_ticker_infos.current_currency_ticker_price).toFixed(8);
-                        else
-                            console.log("tofixedbs walletsendm 3")
+                        } else {
+                            console.log("tofixedbs walletsendm 3");
                             equivalentAmount.value = inputAmount.dividedBy(current_ticker_infos.current_currency_ticker_price).toFixed(8);
+                        }
                     }
 
                     function onTextChanged()

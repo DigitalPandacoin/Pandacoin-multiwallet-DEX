@@ -267,7 +267,7 @@ namespace atomic_dex
         }
         else
         {
-            SPDLOG_WARN("No trades data available for {}", ticker);
+            //SPDLOG_WARN("No trades data available for {}", ticker);
         }
         return trades_24h;
     }

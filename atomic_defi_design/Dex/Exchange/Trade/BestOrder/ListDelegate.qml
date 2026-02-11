@@ -94,8 +94,6 @@ Item
             font.family: App.DexTypo.fontFamily
             font.pixelSize: 12
 
-            console.log("tofixedbs bestorder/listdelegate")
-
             text: cex_rates === "0" ? "N/A" :
                                       parseFloat(cex_rates) > 0 ? "+" + parseFloat(cex_rates).toFixed(2) + "%" :
                                                                   parseFloat(cex_rates).toFixed(2) + "%"
@@ -110,6 +108,7 @@ Item
                     duration: 150
                 }
             }
+            Component.onCompleted : console.log("tofixedbs bestorder/listdelegate")
         }
     }
 
