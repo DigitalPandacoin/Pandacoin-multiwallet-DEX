@@ -603,7 +603,7 @@ namespace atomic_dex
                 
                 if (!ec)
                 {
-                    SPDLOG_DEBUG("[process_action::post_process_orderbook_finished] Needs reset: {}", m_models_actions[orderbook_need_a_reset]);
+                    //SPDLOG_DEBUG("[process_action::post_process_orderbook_finished] Needs reset: {}", m_models_actions[orderbook_need_a_reset]);
                     SPDLOG_DEBUG(">>>> triggers: {}", m_models_actions[orderbook_need_a_reset] ? "reset_orderbook" : "refresh_orderbook_model_data");
                     auto* wrapper = get_orderbook_wrapper();
                     m_models_actions[orderbook_need_a_reset] ? wrapper->reset_orderbook(result) : wrapper->refresh_orderbook_model_data(result);
@@ -616,9 +616,9 @@ namespace atomic_dex
                     else
                     {
                         const auto base_max_taker_vol = safe_float(wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
-                        SPDLOG_DEBUG("[base_max_taker_vol]: {}", wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
+                        SPDLOG_DEBUG("[base_max_taker_vol]: {}", base_max_taker_vol);
                         auto       rel_max_taker      = wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString();
-                        SPDLOG_DEBUG("[rel_max_taker]: {}", wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
+                        SPDLOG_DEBUG("[rel_max_taker]: {}", rel_max_taker);
 
                         if (rel_max_taker.empty())
                         {
@@ -942,10 +942,8 @@ namespace atomic_dex
                         this->set_max_volume(QString::fromStdString(max_vol_str));
                     }
                 }
-
-                //! Capping it
                 this->cap_volume();
-                SPDLOG_WARN("max_taker_vol this->cap_volume()");
+                // SPDLOG_WARN("max_taker_vol this->cap_volume()");
             }
             else
             {

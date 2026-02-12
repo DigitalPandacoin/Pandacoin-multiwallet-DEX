@@ -1927,7 +1927,7 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
-            SPDLOG_DEBUG("Running [fetch_infos_thread], including shitty balance for {} enabled coins", enabled_coins.size());
+            SPDLOG_DEBUG("Running [fetch_infos_thread], including balance for {} enabled coins", enabled_coins.size());
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }

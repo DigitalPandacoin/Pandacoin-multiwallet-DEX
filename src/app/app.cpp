@@ -811,10 +811,10 @@ namespace atomic_dex
             SPDLOG_INFO("Application hidden");
             break;
         case Qt::ApplicationInactive:
-            SPDLOG_INFO("Application inactive");
+            //SPDLOG_INFO("Application inactive");
             break;
         case Qt::ApplicationActive:
-            SPDLOG_INFO("Application active");
+            //SPDLOG_INFO("Application active");
             break;
         }
     }
