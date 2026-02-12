@@ -616,9 +616,7 @@ namespace atomic_dex
                     else
                     {
                         const auto base_max_taker_vol = safe_float(wrapper->get_base_max_taker_vol().toJsonObject()["decimal"].toString().toStdString());
-                        SPDLOG_DEBUG("[base_max_taker_vol]: {}", base_max_taker_vol);
                         auto       rel_max_taker      = wrapper->get_rel_max_taker_vol().toJsonObject()["decimal"].toString().toStdString();
-                        SPDLOG_DEBUG("[rel_max_taker]: {}", rel_max_taker);
 
                         if (rel_max_taker.empty())
                         {
