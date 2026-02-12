@@ -425,7 +425,6 @@ MultipageModal
                             else
                             {
                                 let cryptoBalance = new BigNumber(API.app.get_balance_info_qstr(api_wallet_page.ticker));
-                                console.log("tofixedbs walletsendmodal 1");
                                 input_amount.text = cryptoBalance.multipliedBy(current_ticker_infos.current_currency_ticker_price).toFixed(8);
                             }
                         }
@@ -545,13 +544,11 @@ MultipageModal
                     function onTextEdited()
                     {
                         let inputAmount = new BigNumber(input_amount.text);
-                        if (input_amount.text === "" || inputAmount.isLessThanOrEqualTo(0))
-                            equivalentAmount.value = "0"
-                        else if (_preparePage.cryptoSendMode) {
-                            console.log("tofixedbs walletsendm 2");
+                        if (input_amount.text === "" || inputAmount.isLessThanOrEqualTo(0)) {
+                            equivalentAmount.value = "0";
+                        } else if (_preparePage.cryptoSendMode) {
                             equivalentAmount.value = inputAmount.multipliedBy(current_ticker_infos.current_currency_ticker_price).toFixed(8);
                         } else {
-                            console.log("tofixedbs walletsendm 3");
                             equivalentAmount.value = inputAmount.dividedBy(current_ticker_infos.current_currency_ticker_price).toFixed(8);
                         }
                     }

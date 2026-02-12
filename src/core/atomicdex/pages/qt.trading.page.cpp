@@ -627,7 +627,6 @@ namespace atomic_dex
 
                         const auto rel_max_taker_vol = safe_float(rel_max_taker);
                         t_float_50 min_vol           = safe_float(m_minimal_trading_amount.toStdString());
-                        SPDLOG_DEBUG("[min_vol]: {}", m_minimal_trading_amount.toStdString());
 
                         auto       adjust_functor    = [this, wrapper]()
                         {

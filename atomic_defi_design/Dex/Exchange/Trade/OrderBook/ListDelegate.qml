@@ -58,7 +58,6 @@ Item
 
                         if (!enough_funds_to_pay_min_volume)
                         {
-                            console.log("tofixedbs orderbook listdelegate")
                             return qsTr("This order requires a minimum amount of %1 %2 <br>You don't have enough funds.<br> %3")
                                 .arg(parseFloat(min_volume).toFixed(8))
                                 .arg(isAsk ? right_ticker : left_ticker)

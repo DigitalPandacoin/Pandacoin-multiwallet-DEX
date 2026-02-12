@@ -51,7 +51,7 @@ ModelHelperPropertyMap::ModelHelperPropertyMap(int row, int column, const QModel
     connect(model, &QAbstractItemModel::rowsInserted, this, &ModelHelperPropertyMap::onRowsInserted);
     connect(model, &QAbstractItemModel::rowsRemoved, this, &ModelHelperPropertyMap::onRowsRemoved);
     connect(model, &QAbstractItemModel::columnsInserted, this, &ModelHelperPropertyMap::onColumnsInserted);
-    connect(model, &QAbstractItemModel::columnsInserted, this, &ModelHelperPropertyMap::onColumnsRemoved);
+    connect(model, &QAbstractItemModel::columnsRemoved, this, &ModelHelperPropertyMap::onColumnsRemoved);
     update();
 }
 

@@ -444,7 +444,6 @@ QtObject {
 
     function reducedBignum(text, decimals=8, max_length=12) {
         let val = new BigNumber(text).toFixed(decimals)
-        console.log("tofixedbs Dex/Constants/General 1");
         if (val.length > max_length)
         {
             return val.substring(0, max_length)
@@ -577,7 +576,6 @@ QtObject {
       for (i = si.length - 1; i > 0; --i)
         if (num >= si[i].value) break
 
-      console.log("tofixedbs Dex/Constants/General 2");
       return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol
     }
 
@@ -611,8 +609,6 @@ QtObject {
             prefix = '- '
             value *= -1
         }
-
-        console.log("tofixedbs Dex/Constants/General 3");
         return (show_prefix ? prefix : '') + parseFloat(value).toFixed(3) + ' %'
     }
 
@@ -663,7 +659,6 @@ QtObject {
 
         if ([-1, 0].includes(tier)) {
             r = num.toFixed(decimals);
-            console.log("tofixedbs Dex/Constants/General 5");
             return r
         }
         if (tier <= suffixes.length - 1) {
@@ -678,7 +673,6 @@ QtObject {
             num = (num / Math.pow(10, tier * 3));
         }
         r = num.toFixed(decimals) + "" + suffix;
-        console.log("tofixedbs Dex/Constants/General 6");
         return r;
     }
 
@@ -690,7 +684,6 @@ QtObject {
 
         // Remove more than n decimals, then convert to string without trailing zeros
         const full_double = parseFloat(v).toFixed(sf || defaultPrecision)
-        console.log("tofixedbs Dex/Constants/General 7");
 
         return trail_zeros ? full_double : full_double.replace(/\.?0+$/,"")
     }

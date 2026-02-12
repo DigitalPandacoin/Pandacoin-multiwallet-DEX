@@ -108,7 +108,6 @@ Item
                     duration: 150
                 }
             }
-            Component.onCompleted : console.log("tofixedbs bestorder/listdelegate")
         }
     }
 

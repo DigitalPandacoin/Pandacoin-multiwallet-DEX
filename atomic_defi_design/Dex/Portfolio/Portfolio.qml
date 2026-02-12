@@ -50,7 +50,6 @@ Item {
         if (fiat_amount <= 0 || portfolio_balance <= 0)
             return "-"
 
-        console.log("tofixedbs portfolio portfolio")
         return Constants.General.formatPercent(
                     (100 * fiat_amount / portfolio_balance).toFixed(2), false)
     }
