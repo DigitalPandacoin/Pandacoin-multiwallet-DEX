@@ -75,7 +75,6 @@ namespace atomic_dex
         system(registry), m_system_manager(system_manager), m_cfg(cfg)
     {
         m_update_clock = std::chrono::high_resolution_clock::now();
-        SPDLOG_DEBUG("idk wtf");
     }
 } // namespace atomic_dex
 

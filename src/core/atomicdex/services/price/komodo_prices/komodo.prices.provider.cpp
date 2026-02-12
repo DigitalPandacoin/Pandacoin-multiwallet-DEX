@@ -24,7 +24,7 @@ namespace atomic_dex
     komodo_prices_provider::get_info_answer(const std::string& ticker) const
     {
         std::shared_lock lock(m_market_mutex);
-        // SPDLOG_INFO("Looking for ticker: {}", ticker);
+        SPDLOG_INFO("Looking for ticker: {}", ticker);
         const auto it = m_market_registry.find(ticker);
         return it != m_market_registry.cend() ? it->second : komodo_prices::api::komodo_ticker_infos{.ticker = ticker};
     }
@@ -32,7 +32,6 @@ namespace atomic_dex
     void
     komodo_prices_provider::process_update(bool fallback)
     {
-        SPDLOG_INFO("komodo price service tick loop");
         auto answer_functor = [this, fallback](web::http::http_response resp)
         {
             std::string body = TO_STD_STR(resp.extract_string(true).get());

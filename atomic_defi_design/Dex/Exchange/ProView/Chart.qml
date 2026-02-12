@@ -20,9 +20,6 @@ Item
 
     function loadChart(right_ticker, left_ticker, force = false, source="livecoinwatch")
     {
-
-        // <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script> <div class="livecoinwatch-widget-1" lcw-coin="BTC" lcw-base="USD" lcw-secondary="BTC" lcw-period="w" lcw-color-tx="#ffffff" lcw-color-pr="#58c7c5" lcw-color-bg="#1f2434" lcw-border-w="1" lcw-digits="8" ></div>
-
         let chart_html = ""
         let symbol = ""
         let widget_x = 385
@@ -54,9 +51,7 @@ Item
             {
                 pair_supported = true
                 symbol = rel_ticker+"-"+base_ticker
-                console.log("symbol", symbol)
-                console.log("loaded_symbol", loaded_symbol)
-                
+
                 if (symbol === loaded_symbol && !force)
                 {
                     webEngineViewPlaceHolder.visible = true
@@ -72,7 +67,7 @@ Item
                     }
                     a { pointer-events: none; }
                 </style>
-                <script defer type="text/javascript" src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+                <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
                 <div class="livecoinwatch-widget-1" lcw-coin="${rel_ticker}" lcw-base="${base_ticker}" lcw-secondary="USDC" lcw-period="w" lcw-color-tx="${Dex.CurrentTheme.foregroundColor}" lcw-color-pr="#58c7c5" lcw-color-bg="${Dex.CurrentTheme.comboBoxBackgroundColor}" lcw-border-w="0" lcw-digits="8" ></div>
                 `
             }

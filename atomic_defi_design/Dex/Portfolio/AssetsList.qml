@@ -209,7 +209,7 @@ Dex.DexListView
                             return qsTr("Activating: ") + x + "%"
                         }
                     }
-                    console.log("tofixedbs balance column")
+                    // this is being called for every enabled coin when switching to Portfolio or sorting
                     return parseFloat(balance).toFixed(8)
                 }
 

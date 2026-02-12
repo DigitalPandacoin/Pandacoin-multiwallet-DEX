@@ -40,7 +40,6 @@ Item
 
     function loadingPercentage(remaining)
     {
-        console.log("tofixedbs walletmain")
         return General.formatPercent((100 * (1 - parseFloat(remaining)/parseFloat(current_ticker_infos.current_block))).toFixed(3), false)
     }
 
@@ -261,7 +260,7 @@ Item
                                 const fiat_amount = parseFloat(current_ticker_infos.fiat_amount)
                                 const portfolio_balance = parseFloat(API.app.portfolio_pg.balance_fiat_all)
                                 if(fiat_amount <= 0 || portfolio_balance <= 0) return "N/A"
-                                console.log("tofixedbs walletmain")
+                                console.log("tofixedbs walletmain 2")
                                 return General.formatPercent((100 * fiat_amount/portfolio_balance).toFixed(2), false)
                             }
                             font.pixelSize: headerTextFont

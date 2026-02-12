@@ -45,13 +45,11 @@ namespace atomic_dex
             return;
         }
 
-        // SPDLOG_INFO("process_best_orders processing");
         if (m_system_manager.has_system<kdf_service>())
         {
             auto& kdf_system = m_system_manager.get_system<kdf_service>();
             if (kdf_system.is_kdf_running() && kdf_system.is_orderbook_thread_active())
             {
-                // SPDLOG_INFO("process_best_orders");
                 using namespace std::string_literals;
                 const auto&            trading_pg = m_system_manager.get_system<trading_page>();
                 auto                   volume     = trading_pg.get_volume().toStdString();
@@ -112,7 +110,6 @@ namespace atomic_dex
             SPDLOG_DEBUG("<<<<<<<<<<< start orderbook_scanner_service update loop >>>>>>>>>>>>>");
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
-            SPDLOG_DEBUG("<<<<<<<<<<< done orderbook_scanner_service update loop >>>>>>>>>>>>>");
         }
     }
 
