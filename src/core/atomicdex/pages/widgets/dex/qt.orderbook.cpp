@@ -97,9 +97,12 @@ namespace atomic_dex
         else
         {
             SPDLOG_INFO("[qt_orderbook_wrapper::refresh_orderbook_model_data] : refresh_best_orders");
-            m_best_orders->refresh_orderbook_model_data(data, true);
+            m_best_orders->refresh_orderbook_model_data(data);
+            SPDLOG_INFO("done refresh_best_orders");
         }
+        SPDLOG_INFO("start set_both_taker_vol");
         this->set_both_taker_vol();
+        SPDLOG_INFO("done set_both_taker_vol");
     }
 
     void
