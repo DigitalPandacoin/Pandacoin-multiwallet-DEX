@@ -67,6 +67,7 @@ namespace atomic_dex
             m_proxies[i] = new global_coins_cfg_proxy_model(this, static_cast<::CoinType>(i));
             m_proxies[i]->setSourceModel(this);
             m_proxies[i]->setDynamicSortFilter(true);
+            m_proxies[i]->setDelayed(false);
             m_proxies[i]->setFilterRole(CoinsRoles::TickerAndNameRole);
             m_proxies[i]->setFilterCaseSensitivity(Qt::CaseInsensitive);
             m_proxies[i]->setSortRole(CoinsRoles::NameRole);
