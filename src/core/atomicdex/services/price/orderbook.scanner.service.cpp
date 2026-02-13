@@ -85,7 +85,7 @@ namespace atomic_dex
             }
             else
             {
-                SPDLOG_WARN("Not on trading page or KDF not running - skipping process_best_orders");
+                // SPDLOG_WARN("Not on trading page or KDF not running - skipping process_best_orders");
             }
         }
         else
@@ -107,7 +107,7 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 43s)
         {
-            SPDLOG_DEBUG("<<<<<<<<<<< start orderbook_scanner_service update loop >>>>>>>>>>>>>");
+            // SPDLOG_DEBUG("<<<<<<<<<<< start orderbook_scanner_service update loop >>>>>>>>>>>>>");
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
         }

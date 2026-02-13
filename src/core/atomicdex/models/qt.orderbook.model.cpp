@@ -364,13 +364,12 @@ namespace atomic_dex
     void
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook, bool is_bestorders)
     {
-        // SPDLOG_DEBUG("[orderbook_model::reset_orderbook], is_bestorders: {}", is_bestorders);
         if (!orderbook.empty())
         {
-            SPDLOG_INFO(
-                "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}, is_bestorders: {}",
-                rowCount(), orderbook.size(), m_current_orderbook_kind, is_bestorders
-            );
+            // SPDLOG_INFO(
+            //    "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}, is_bestorders: {}",
+            //    rowCount(), orderbook.size(), m_current_orderbook_kind, is_bestorders
+            // );
         }
         this->beginResetModel();
         m_model_data = orderbook;
@@ -522,9 +521,8 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::refresh_orderbook_model_data(const t_orders_contents& orderbook, bool is_bestorders)
+    orderbook_model::refresh_orderbook_model_data(const t_orders_contents& orderbook)
     {
-        //SPDLOG_DEBUG("[orderbook_model::refresh_orderbook_model_data], is_bestorders: {}", is_bestorders);
         auto refresh_functor = [this](const std::vector<kdf::order_contents>& contents)
         {
             for (auto&& order: contents)
