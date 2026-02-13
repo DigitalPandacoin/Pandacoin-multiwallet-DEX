@@ -21,7 +21,6 @@ Item
         width: parent.width
         height: parent.height
         model: isAsk ? API.app.trading_pg.orderbook.asks.proxy_mdl : API.app.trading_pg.orderbook.bids.proxy_mdl
-        clip: true
         reuseItems: true
         spacing: 8
         opacity: API.app.trading_pg.maker_mode ? 0.6 : 1

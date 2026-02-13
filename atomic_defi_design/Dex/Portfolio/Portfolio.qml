@@ -109,8 +109,6 @@ Item {
         anchors.fill: parent
         anchors.topMargin: 20
         contentHeight: _column.height
-        clip: true
-
 
         Column {
             id: _column

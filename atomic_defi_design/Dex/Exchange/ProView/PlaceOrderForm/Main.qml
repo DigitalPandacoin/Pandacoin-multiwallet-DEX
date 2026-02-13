@@ -138,7 +138,6 @@ ColumnLayout
         Qaterial.SwipeView
         {
             id: orderformSwipeView
-            clip: true
             interactive: false
             currentIndex: orderformTabView.currentIndex
             anchors.fill: parent

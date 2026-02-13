@@ -64,7 +64,6 @@ ColumnLayout
         Qaterial.SwipeView
         {
             id: swipeView
-            clip: true
             interactive: false
             currentIndex: tabView.currentIndex
             anchors.fill: parent
@@ -113,14 +112,12 @@ ColumnLayout
             OrdersPage
             {
                 page_index: currentIndex
-                clip: true
             }
 
             OrdersPage
             {
                 page_index: currentIndex
                 is_history: true
-                clip: true
             }
 
             onCurrentIndexChanged:

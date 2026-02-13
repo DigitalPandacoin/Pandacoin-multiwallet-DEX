@@ -52,10 +52,7 @@ Widget
         Layout.fillHeight: true
         visible: !warning_text.visible
         spacing: 6
-
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl
-
-        clip: true
         reuseItems: true
         scrollbar_visible: false
 
