@@ -57,7 +57,7 @@ namespace atomic_dex
             this->m_model_proxy->setSortRole(CEXRatesRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-            this->m_model_proxy->setDelayed(true);
+            this->m_model_proxy->setDelayedSorting(true);
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         }
