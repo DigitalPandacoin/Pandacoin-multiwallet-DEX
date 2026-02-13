@@ -2094,7 +2094,7 @@ namespace atomic_dex
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
         batch.push_back(my_orders_request);
-        // SPDLOG_DEBUG("my_orders_request {}", my_orders_request.dump(4));
+        SPDLOG_DEBUG("my_orders_request {}", my_orders_request.dump(4));
 
 
         //! Swaps preparation
@@ -2124,14 +2124,14 @@ namespace atomic_dex
         };
         to_json(my_swaps, request);
         batch.push_back(my_swaps);
-        // SPDLOG_INFO("my_swaps req: {}", my_swaps.dump(4));
+        SPDLOG_INFO("my_swaps req: {}", my_swaps.dump(4));
 
         //! Active swaps
         nlohmann::json         active_swaps = kdf::template_request("active_swaps");
         t_active_swaps_request active_swaps_request{.statuses = true};
         to_json(active_swaps, active_swaps_request);
         batch.push_back(active_swaps);
-        // SPDLOG_INFO("active_swaps req: {}", active_swaps.dump(4));
+        SPDLOG_INFO("active_swaps req: {}", active_swaps.dump(4));
 
         auto answer_functor = [this, limit, filter_infos, after_manual_reset](web::http::http_response resp)
         {
@@ -2183,23 +2183,23 @@ namespace atomic_dex
             }
 
             //! Post Metrics
-            /*SPDLOG_INFO(
+            SPDLOG_INFO(
                 "Metrics -> [total_swaps: {}, "
                 "active_swaps: {}, "
                 "nb_orders: {}, "
                 "nb_pages: {}, "
                 "current_page: {}, "
                 "total_finished_swaps: {}]",
-                result.total_swaps, result.active_swaps, result.nb_orders, result.nb_pages, result.current_page, result.total_finished_swaps);*/
+                result.total_swaps, result.active_swaps, result.nb_orders, result.nb_pages, result.current_page, result.total_finished_swaps);
 
             //! Compute everything
             m_orders_and_swaps = std::move(result);
 
-            // SPDLOG_INFO("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch);
+            SPDLOG_INFO("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch);
             this->dispatcher_.trigger<process_swaps_and_orders_finished>(after_manual_reset);
         };
 
-        // SPDLOG_INFO("batch request:{}", batch.dump(4));
+        SPDLOG_INFO("batch request:{}", batch.dump(4));
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
