@@ -28,6 +28,7 @@ Item {
     readonly property int sort_by_change: 3
     readonly property int sort_by_trend: 4
     readonly property int sort_by_price: 5
+    readonly property int sort_by_unset: 6
     property bool isSpline: false
     property bool ascending: false
     property bool isUltraLarge: width > 1400

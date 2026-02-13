@@ -21,16 +21,19 @@ Item
 
         onClicked:
         {
-            if(current_sort === sort_type)
+            if(sort_type != 6)
             {
-                ascending = !ascending
+                if(current_sort === sort_type)
+                {
+                    ascending = !ascending
+                }
+                else
+                {
+                    current_sort = sort_type
+                    ascending = false
+                }
+                applyCurrentSort()
             }
-            else
-            {
-                current_sort = sort_type
-                ascending = false
-            }
-            applyCurrentSort()
         }
 
         RowLayout
@@ -59,11 +62,11 @@ Item
                     anchors.verticalCenter: parent.verticalCenter
                     source: General.image_path + "arrow-" + (ascending ? "down" : "up") + ".svg"
                     width: title.font.pixelSize * 0.5
-                    visible: current_sort === sort_type
+                    visible: current_sort === sort_type && sort_type != 6
 
                     DefaultColorOverlay
                     {
-                        visible: current_sort === sort_type
+                        visible: current_sort === sort_type && sort_type != 6
                         anchors.fill: parent
                         source: arrow_icon
                         color: title.color

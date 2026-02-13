@@ -53,7 +53,7 @@ Dex.DexListView
                 Layout.preferredWidth: _assetBalanceColumnWidth
                 Layout.fillHeight: true
                 h_align: Text.AlignRight
-                sort_type: sort_by_value
+                sort_type: sort_by_unset
                 text: qsTr("Balance")
             }
 
@@ -89,6 +89,7 @@ Dex.DexListView
                 Layout.preferredWidth: _assetProviderColumnWidth
                 Layout.fillHeight: true
                 h_align: Text.AlignHCenter
+                sort_type: sort_by_unset
                 text: qsTr("Source")
             }
         }
