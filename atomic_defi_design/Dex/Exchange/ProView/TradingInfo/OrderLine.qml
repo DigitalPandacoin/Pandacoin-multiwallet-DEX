@@ -84,8 +84,6 @@ FloatingBackground
                 Layout.fillWidth: true
                 Layout.preferredHeight: childrenRect.height
 
-                clip: true
-
                 DexLabel
                 {
                     id: baseAmountLabel

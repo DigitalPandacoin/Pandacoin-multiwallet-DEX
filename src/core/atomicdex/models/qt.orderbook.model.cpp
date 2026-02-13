@@ -56,8 +56,8 @@ namespace atomic_dex
         case kind::best_orders:
             this->m_model_proxy->setSortRole(CEXRatesRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
-            this->m_model_proxy->sort(0, Qt::DescendingOrder);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+            this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         }
     }
