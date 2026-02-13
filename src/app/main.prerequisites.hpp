@@ -37,9 +37,7 @@
 #include <Qaterial/Qaterial.hpp>
 #if defined(ATOMICDEX_HOT_RELOAD)
 #    include <Qaterial/HotReload/HotReload.hpp>
-#    include <SortFilterProxyModel/SortFilterProxyModel.hpp>
 #endif
-
 
 //! Deps
 #include <QSslSocket>

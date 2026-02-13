@@ -41,8 +41,6 @@ if (APPLE)
     endmacro()
     adex_add_framework(Security ${PROJECT_NAME}_core)
 endif ()
-target_link_libraries(${PROJECT_NAME}_core INTERFACE SortFilterProxyModel)
-
 
 # Translation files
 set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM TRUE)
