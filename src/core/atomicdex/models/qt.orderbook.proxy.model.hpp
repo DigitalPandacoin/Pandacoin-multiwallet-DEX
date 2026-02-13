@@ -24,8 +24,9 @@ namespace atomic_dex
 {
     class orderbook_proxy_model final : public QSortFilterProxyModel
     {
-      Q_OBJECT
-      ag::ecs::system_manager& m_system_mgr;
+        Q_OBJECT
+        ag::ecs::system_manager& m_system_mgr;
+
       public:
         //! Constructor
         orderbook_proxy_model(ag::ecs::system_manager& system_manager, QObject* parent);
@@ -34,6 +35,8 @@ namespace atomic_dex
         ~orderbook_proxy_model()  final = default;
 
         Q_INVOKABLE void qml_sort(int column, Qt::SortOrder order = Qt::AscendingOrder) ;
+
+        void		setDelayedSorting(bool delayed);
 
       protected:
         //! Override member functions

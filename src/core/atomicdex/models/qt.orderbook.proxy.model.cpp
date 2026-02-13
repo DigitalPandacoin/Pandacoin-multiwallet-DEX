@@ -179,7 +179,8 @@ namespace atomic_dex
         return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
     }
 
-    void orderbook_proxy_model::setDelayedSorting(bool delayed)
+    void
+    orderbook_proxy_model::setDelayedSorting(bool delayed)
     {
         if (delayed) {
             // Enable delayed sorting behavior

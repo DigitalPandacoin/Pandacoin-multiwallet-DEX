@@ -44,6 +44,7 @@ namespace atomic_dex
         this->m_model_proxy->setSourceModel(this);
         this->m_model_proxy->setDynamicSortFilter(true);
         this->m_model_proxy->setSortRole(PriceRole);
+        this->m_model_proxy->setDelayedSorting(false);
 
         switch (m_current_orderbook_kind)
         {
