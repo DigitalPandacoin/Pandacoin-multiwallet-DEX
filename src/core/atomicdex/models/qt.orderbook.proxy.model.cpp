@@ -152,6 +152,7 @@ namespace atomic_dex
             switch (orderbook->get_orderbook_kind())
             {
             case orderbook_model::kind::asks:
+                break;
             case orderbook_model::kind::bids:
                 break;
             case orderbook_model::kind::best_orders:

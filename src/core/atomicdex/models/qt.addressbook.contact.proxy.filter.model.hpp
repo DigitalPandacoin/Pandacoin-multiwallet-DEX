@@ -17,10 +17,10 @@
 #pragma once
 
 // Qt Headers
-#include <QSortFilterProxyModel> //> QSortFilterProxyModel
+#include <QSortFilterProxyModel>
 
 // Deps Headers
-#include <antara/gaming/ecs/system.manager.hpp> //> antara::gaming, ag::ecs::system_manager
+#include <antara/gaming/ecs/system.manager.hpp>
 
 namespace ag = antara::gaming;
 

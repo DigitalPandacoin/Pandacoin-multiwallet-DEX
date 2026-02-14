@@ -26,14 +26,11 @@
 #include <QProcess>
 #include <QSettings>
 #include <QTimer>
-#include <QSettings>
 
 #ifdef __APPLE__
-
 #    include <QGuiApplication>
 #    include <QWindow>
 #    include <QWindowList>
-
 #    include "atomicdex/platform/osx/manager.hpp"
 #endif
 
@@ -591,9 +588,7 @@ namespace atomic_dex
         orders_model* orders = qobject_cast<orders_model*>(m_manager_models.at("orders"));
         if (auto count = orders->rowCount(QModelIndex()); count > 0)
         {
-            beginRemoveRows(QModelIndex(), 0, count);
             orders->removeRows(0, count, QModelIndex());
-            endRemoveRows();
         }
         orders->reset();
 
@@ -601,7 +596,6 @@ namespace atomic_dex
         system_manager_.get_system<portfolio_page>().set_current_balance_fiat_all("0");
         system_manager_.get_system<trading_page>().clear_models();
         get_wallet_page()->get_transactions_mdl()->reset();
-
 
         //! Mark systems
         system_manager_.mark_system<kdf_service>();
