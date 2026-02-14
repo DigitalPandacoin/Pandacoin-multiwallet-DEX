@@ -252,7 +252,6 @@ ColumnLayout
                     {
                         id: _pieColumn
                         anchors.fill: parent
-                        clip: true
                         model: portfolio_mdl.pie_chart_proxy_mdl
                         scrollbar_visible: false
 

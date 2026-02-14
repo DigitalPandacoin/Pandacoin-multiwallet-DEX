@@ -88,7 +88,7 @@ namespace atomic_dex
         bool                                 setData(const QModelIndex& index, const QVariant& value, int role) final;
         bool                                 removeRows(int row, int count, const QModelIndex& parent) override;
 
-        void                                 reset_orderbook(const t_orders_contents& orderbook, bool is_bestorders=false);
+        void                                 reset_orderbook(const t_orders_contents& orderbook);
         void                                 refresh_orderbook_model_data(const t_orders_contents& orderbook);
         void                                 clear_orderbook();
         [[nodiscard]] int                    get_length() const;

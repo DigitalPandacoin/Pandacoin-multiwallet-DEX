@@ -158,7 +158,6 @@ DexWindow
     {
         width: _row.width
         height: 30
-        clip: true
         Behavior on x
         {
             NumberAnimation

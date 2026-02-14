@@ -60,7 +60,6 @@ ColumnLayout
         Qaterial.SwipeView
         {
             id: marketSwipeView
-            clip: true
             interactive: false
             currentIndex: marketTabView.currentIndex
             anchors.fill: parent
@@ -70,7 +69,6 @@ ColumnLayout
                 id: orderBook
             }
 
-            // Best Orders
             BestOrder.List
             {
                 id: bestOrders

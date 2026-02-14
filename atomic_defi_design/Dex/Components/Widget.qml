@@ -32,8 +32,6 @@ Item
 
     function isCollapsed() { return collapsed }
 
-    clip: true
-
     // Background
     Loader
     {

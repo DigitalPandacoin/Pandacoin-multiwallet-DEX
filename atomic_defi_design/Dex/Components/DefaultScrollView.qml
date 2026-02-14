@@ -7,7 +7,6 @@ ScrollView
 {
     id: control
 
-    clip: true
     ScrollBar.vertical.background: Rectangle { color: Dex.CurrentTheme.scrollBarBackgroundColor; radius: 8 }
     ScrollBar.vertical.contentItem: Rectangle
     {

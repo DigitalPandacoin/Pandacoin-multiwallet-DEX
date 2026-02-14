@@ -219,8 +219,7 @@ namespace atomic_dex
     bool
     orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        SPDLOG_DEBUG("(orders_model::removeRows) removing {} elements at position {}", rows, position);
-
+        SPDLOG_DEBUG("orders_model::removeRows removing {} elements at position {}", rows, position);
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -617,7 +616,6 @@ namespace atomic_dex
     void
     orders_model::reset()
     {
-        SPDLOG_DEBUG("resetting orders, will be emitted");
         this->beginResetModel();
         reset_backend("reset");
         this->endResetModel();

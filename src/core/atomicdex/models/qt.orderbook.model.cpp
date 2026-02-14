@@ -362,15 +362,8 @@ namespace atomic_dex
     }
 
     void
-    orderbook_model::reset_orderbook(const t_orders_contents& orderbook, bool is_bestorders)
+    orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
-        if (!orderbook.empty())
-        {
-            // SPDLOG_INFO(
-            //    "full orderbook initialization initial size: {} target size: {}, orderbook_kind: {}, is_bestorders: {}",
-            //    rowCount(), orderbook.size(), m_current_orderbook_kind, is_bestorders
-            // );
-        }
         this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
@@ -569,6 +562,7 @@ namespace atomic_dex
     bool
     orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
+        SPDLOG_DEBUG("orders_model::removeRows removing {} elements at position {}", rows, position);
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -600,7 +594,6 @@ namespace atomic_dex
     void
     orderbook_model::clear_orderbook()
     {
-        SPDLOG_INFO("clear orderbook");
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();

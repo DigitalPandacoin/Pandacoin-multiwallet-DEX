@@ -17,7 +17,6 @@ ListView
     boundsBehavior: Flickable.StopAtBounds
     implicitHeight: contentItem.childrenRect.height
     implicitWidth: contentItem.childrenRect.width
-    clip: true
 
     opacity: root.count === 0 ? 0 : enabled ? 1 : 0.2
 
