@@ -56,10 +56,10 @@ ColumnLayout
 
     Rectangle
     {
+        Layout.preferredWidth: 450
         Layout.fillHeight: true
         color: Dex.CurrentTheme.floatingBackgroundColor
         radius: 10
-        Layout.preferredWidth: 450
 
         Qaterial.SwipeView
         {
@@ -73,7 +73,7 @@ ColumnLayout
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.topMargin: 8
-                spacing: 8
+                spacing: 7
                 
                 // Ticker selectors.
                 TickerSelectors
@@ -89,23 +89,22 @@ ColumnLayout
                 Chart
                 {
                     id: chart
+                    Layout.preferredWidth: 435
+                    Layout.preferredHeight: 240
                     Layout.topMargin: 8
                     Layout.leftMargin: 5
                     Layout.rightMargin: 5
                     Layout.fillHeight: true
-                    width: 435
-                    height: 240
                 }
 
                 PriceLineSimplified
                 {
                     id: price_line
+                    Layout.preferredWidth: 435
                     Layout.bottomMargin: 12
                     Layout.leftMargin: 5
                     Layout.rightMargin: 5
-                    Layout.fillWidth: true
                     Layout.fillHeight: true
-                    width: 435
                 }
             }
 

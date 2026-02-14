@@ -53,7 +53,7 @@ namespace
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
         req.set_request_uri(FROM_STD_STR("api/v3/pairs/volumes_24hr"));
-        SPDLOG_INFO("defi_stats req: {}", TO_STD_STR(req.to_string()));
+        //SPDLOG_INFO("defi_stats req: {}", TO_STD_STR(req.to_string()));
         return g_defi_stats_client->request(req, d_token_source.get_token());
     }
 
@@ -86,7 +86,7 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 5min)
         {
-            SPDLOG_INFO("[global_defi_stats_service::update()] - 5min elapsed, updating ticker stats");
+            //SPDLOG_INFO("[global_defi_stats_service::update()] - 5min elapsed, updating ticker stats");
             process_update();
             m_update_clock = std::chrono::high_resolution_clock::now();
         }
@@ -103,7 +103,7 @@ namespace atomic_dex
     {
         static std::atomic_size_t nb_try = 0;
         nb_try += 1;
-        SPDLOG_INFO("pair volume stats service tick loop");
+        //SPDLOG_INFO("pair volume stats service tick loop");
         auto error_functor = [this](pplx::task<void> previous_task)
         {
             try

@@ -21,7 +21,7 @@ Item {
     id: portfolio
     Layout.fillWidth: true
     Layout.fillHeight: true
-    Layout.margins: 20
+    Layout.margins: 10
 
     readonly property int sort_by_name: 0
     readonly property int sort_by_value: 1
@@ -107,14 +107,14 @@ Item {
     Flickable {
         id: flick
         anchors.fill: parent
-        anchors.topMargin: 20
+        anchors.topMargin: 16
         contentHeight: _column.height
 
         Column {
             id: _column
             topPadding: 0
             width: parent.width
-            spacing: 20
+            spacing: 16
 
             Connections
             {
@@ -131,19 +131,19 @@ Item {
                 visible: Constants.API.app.portfolio_pg.portfolio_mdl.pie_chart_proxy_mdl.rowCount() > 1
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: 220
+                height: 250
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.rightMargin: 40
-                    anchors.leftMargin: 40
+                    anchors.rightMargin: 30
+                    anchors.leftMargin: 30
                     spacing: 0
 
                     AssetPieChart {
                         id: pie
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 250
-                        Layout.preferredWidth: 250
+                        Layout.preferredHeight: 240
+                        Layout.preferredWidth: 240
                     }
                 }
             }
@@ -166,8 +166,8 @@ Item {
                         {
                             id: coinSearchField
                             Layout.alignment: Qt.AlignVCenter
-                            Layout.preferredWidth: 206
-                            Layout.preferredHeight: 42
+                            Layout.preferredWidth: 200
+                            Layout.preferredHeight: 40
                             textField.placeholderText: qsTr("Search asset")
                             forceFocus: true
                             textField.font.pixelSize: Constants.Style.textSizeSmall3
@@ -202,6 +202,7 @@ Item {
             {
                 id: coinsList
                 width: parent.parent.width - 80
+                Layout.preferredHeight: parent.height - 40
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

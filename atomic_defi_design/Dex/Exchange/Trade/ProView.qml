@@ -115,17 +115,17 @@ RowLayout
     TradingInfo.Main
     {
         id: tradingInfo
-        Layout.alignment: Qt.AlignTop
-        Layout.minimumWidth: tradingInfo.visible ? 450 : -1
-        Layout.maximumWidth: (!marketsOrderBook.visible) || (!placeOrderForm.visible) ? -1 : 450
+        Layout.preferredWidth: 450
+        Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.alignment: Qt.AlignTop
     }
 
     // Best Orders & Order Book
     Market
     {
         id: marketsOrderBook
-        Layout.maximumWidth: 350
+        Layout.preferredWidth: 350
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignTop
@@ -136,9 +136,7 @@ RowLayout
     PlaceOrderForm.Main
     {
         id: placeOrderForm
-
-        Layout.minimumWidth: visible ? 305 : -1
-        Layout.maximumWidth: 305
+        Layout.preferredWidth: 305
         Layout.fillWidth: true
         Layout.fillHeight: true
     }

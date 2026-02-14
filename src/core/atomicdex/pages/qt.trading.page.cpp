@@ -604,7 +604,7 @@ namespace atomic_dex
                 if (!ec)
                 {
                     //SPDLOG_DEBUG("[process_action::post_process_orderbook_finished] Needs reset: {}", m_models_actions[orderbook_need_a_reset]);
-                    SPDLOG_DEBUG(">>>> triggers: {}", m_models_actions[orderbook_need_a_reset] ? "reset_orderbook" : "refresh_orderbook_model_data");
+                    //SPDLOG_DEBUG(">>>> triggers: {}", m_models_actions[orderbook_need_a_reset] ? "reset_orderbook" : "refresh_orderbook_model_data");
                     auto* wrapper = get_orderbook_wrapper();
                     m_models_actions[orderbook_need_a_reset] ? wrapper->reset_orderbook(result) : wrapper->refresh_orderbook_model_data(result);
 
@@ -893,6 +893,8 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
+        spdlog::stopwatch stopwatch;
+
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -941,7 +943,7 @@ namespace atomic_dex
                     }
                 }
                 this->cap_volume();
-                // SPDLOG_WARN("max_taker_vol this->cap_volume()");
+                SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
             }
             else
             {

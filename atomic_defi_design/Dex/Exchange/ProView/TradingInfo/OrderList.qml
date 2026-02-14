@@ -24,7 +24,7 @@ Item
         HorizontalLine
         {
             Layout.fillWidth: true
-            Layout.maximumWidth: 450
+            Layout.fillHeight: true
         }
 
         DefaultListView
@@ -41,6 +41,7 @@ Item
 
             model: items.orders_proxy_mdl
             enabled: !is_history || !API.app.orders_mdl.fetching_busy
+            visible: enabled
 
             // Row
             delegate: OrderLine
