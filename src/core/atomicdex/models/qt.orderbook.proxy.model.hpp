@@ -36,8 +36,6 @@ namespace atomic_dex
 
         Q_INVOKABLE void qml_sort(int column, Qt::SortOrder order = Qt::AscendingOrder) ;
 
-        void		setDelayedSorting(bool delayed);
-
       protected:
         //! Override member functions
         [[nodiscard]] bool lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const final;

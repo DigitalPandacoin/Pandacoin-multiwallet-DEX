@@ -179,18 +179,4 @@ namespace atomic_dex
         return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
     }
 
-    void
-    orderbook_proxy_model::setDelayedSorting(bool delayed)
-    {
-        if (delayed) {
-            // Enable delayed sorting behavior
-            connect(this, &QSortFilterProxyModel::layoutChanged,
-                    this, &orderbook_proxy_model::invalidate);
-        } else {
-            // Disable delayed sorting behavior
-            disconnect(this, &QSortFilterProxyModel::layoutChanged,
-                       this, &orderbook_proxy_model::invalidate);
-        }
-    }
-
 } // namespace atomic_dex

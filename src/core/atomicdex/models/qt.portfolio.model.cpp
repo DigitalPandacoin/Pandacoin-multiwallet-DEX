@@ -424,14 +424,13 @@ namespace atomic_dex
     portfolio_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
-        for (int row = 0; row < rows; ++row)
+        for (int i = position + rows - 1; i >= position; --i)
         {
-            this->m_ticker_registry.erase(this->m_model_data.at(position).ticker.toStdString());
-            this->m_model_data.removeAt(position);
-            emit lengthChanged();
+            this->m_ticker_registry.erase(this->m_model_data.at(i).ticker.toStdString());
+            this->m_model_data.removeAt(i);
         }
         endRemoveRows();
-
+        emit lengthChanged();
         return true;
     }
 

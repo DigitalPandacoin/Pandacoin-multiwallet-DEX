@@ -591,7 +591,9 @@ namespace atomic_dex
         orders_model* orders = qobject_cast<orders_model*>(m_manager_models.at("orders"));
         if (auto count = orders->rowCount(QModelIndex()); count > 0)
         {
+            beginRemoveRows(QModelIndex(), 0, count);
             orders->removeRows(0, count, QModelIndex());
+            endRemoveRows();
         }
         orders->reset();
 

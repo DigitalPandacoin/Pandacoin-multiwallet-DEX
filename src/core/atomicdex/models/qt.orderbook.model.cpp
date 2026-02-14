@@ -57,7 +57,6 @@ namespace atomic_dex
             this->m_model_proxy->setSortRole(CEXRatesRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-            this->m_model_proxy->setDelayedSorting(true);
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         }
@@ -571,9 +570,9 @@ namespace atomic_dex
     orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
-        for (int row = 0; row < rows; ++row)
+        for (int i = position + rows - 1; i >= position; --i)
         {
-            auto       it                 = m_model_data.begin() + position;
+            auto       it                 = m_model_data.begin() + i;
             const auto uuid_to_be_removed = it->uuid;
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
             {
@@ -590,13 +589,11 @@ namespace atomic_dex
                     }
                 }
             }
-
             // functor(it);
             m_model_data.erase(it);
-            emit lengthChanged();
         }
         endRemoveRows();
-
+        emit lengthChanged();
         return true;
     }
 

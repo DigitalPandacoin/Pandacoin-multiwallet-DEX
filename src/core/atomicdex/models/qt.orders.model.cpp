@@ -222,13 +222,12 @@ namespace atomic_dex
         SPDLOG_DEBUG("(orders_model::removeRows) removing {} elements at position {}", rows, position);
 
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
-        for (int row = 0; row < rows; ++row)
+        for (int i = position + rows - 1; i >= position; --i)
         {
-            this->m_model_data.orders_and_swaps.erase(begin(m_model_data.orders_and_swaps) + position);
-            emit lengthChanged();
+            this->m_model_data.orders_and_swaps.erase(begin(m_model_data.orders_and_swaps) + i);
         }
         endRemoveRows();
-
+        emit lengthChanged();
         return true;
     }
 
