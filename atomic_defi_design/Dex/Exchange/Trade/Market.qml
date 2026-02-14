@@ -67,11 +67,13 @@ ColumnLayout
             OrderBook.Vertical
             {
                 id: orderBook
+                page_index: currentIndex
             }
 
             BestOrder.List
             {
                 id: bestOrders
+                page_index: currentIndex
             }
 
             onCurrentIndexChanged:

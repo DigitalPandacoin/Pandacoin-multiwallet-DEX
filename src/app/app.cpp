@@ -703,7 +703,6 @@ namespace atomic_dex
     void
     application::on_fiat_rate_updated(const fiat_rate_updated&)
     {
-        SPDLOG_DEBUG("on_fiat_rate_updated");
         this->dispatcher_.trigger<update_portfolio_values>();
         // this->dispatcher_.trigger<current_currency_changed>();
     }
@@ -711,19 +710,17 @@ namespace atomic_dex
     void
     application::on_ticker_balance_updated_event(const ticker_balance_updated& evt)
     {
-        SPDLOG_DEBUG("Ticker balance is about to be updated.");
         if (m_event_actions[events_action::about_to_exit_app])
         {
             SPDLOG_DEBUG("Ticker balance not updated because app is exiting.");
         }
         else if (evt.tickers.empty())
         {
-            SPDLOG_DEBUG("Ticker balance not updated because there are not tickers to update");
+            SPDLOG_DEBUG("Ticker balance not updated because there are no tickers to update");
         }
         else if (get_portfolio_page()->get_portfolio()->update_balance_values(evt.tickers))
         {
             this->dispatcher_.trigger<update_portfolio_values>(false);
-            SPDLOG_DEBUG("Ticker balance updated.");
         }
         else
         {

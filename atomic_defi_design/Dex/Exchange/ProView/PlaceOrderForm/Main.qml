@@ -106,7 +106,6 @@ ColumnLayout
     Qaterial.LatoTabBar
     {
         id: orderformTabView
-
         background: null
         Layout.leftMargin: 6
 
@@ -145,6 +144,8 @@ ColumnLayout
             Item
             {
                 id: takerOrderform
+                visible: currentIndex === takerOrderform_idx
+                enabled: visible
 
                 OrderForm
                 {
@@ -167,6 +168,8 @@ ColumnLayout
             Item
             {
                 id: makerOrderform
+                visible: currentIndex === makerOrderform_idx
+                enabled: visible
 
                 OrderForm
                 {

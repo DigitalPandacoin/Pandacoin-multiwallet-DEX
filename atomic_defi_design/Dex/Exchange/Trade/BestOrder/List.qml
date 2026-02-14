@@ -14,9 +14,12 @@ import Dex.Components 1.0 as Dex
 Widget
 {
     id: _control
+    property int page_index: 0
     margins: 8
     spacing: 8
     collapsable: false
+    visible: root.page_index === 1
+    enabled: visible
 
     Header
     {

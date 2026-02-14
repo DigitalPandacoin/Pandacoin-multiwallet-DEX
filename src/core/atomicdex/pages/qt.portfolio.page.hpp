@@ -67,7 +67,6 @@ namespace atomic_dex
         [[nodiscard]] QString                get_balance_fiat_all() const;
         void                                 set_current_balance_fiat_all(QString current_fiat_all_balance);
         [[nodiscard]] QString                get_main_balance_fiat_all() const;
-        ;
 
         //! Events
         void on_update_portfolio_values_event(const update_portfolio_values&);
