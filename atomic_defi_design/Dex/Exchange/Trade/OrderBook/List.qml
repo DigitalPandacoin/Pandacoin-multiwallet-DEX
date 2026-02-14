@@ -34,17 +34,11 @@ Item
             } 
         }
 
-        delegate: Item
+        delegate: ListDelegate
         {
             width: orderbook_list.width
             height: 24
-
-            ListDelegate
-            {
-                width: parent.width
-                height: parent.height
-                isAsk: _control.isAsk ? true : false
-            }
+            isAsk: _control.isAsk ? true : false
         }
 
         Timer

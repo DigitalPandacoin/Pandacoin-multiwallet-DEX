@@ -18,7 +18,7 @@ Widget
     margins: 8
     spacing: 8
     collapsable: false
-    visible: root.page_index === 1
+    visible: _control.page_index === 1
     enabled: visible
 
     Header
@@ -53,6 +53,7 @@ Widget
         id: _listView
         Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.bottomMargin: 2
         visible: !warning_text.visible
         spacing: 6
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl

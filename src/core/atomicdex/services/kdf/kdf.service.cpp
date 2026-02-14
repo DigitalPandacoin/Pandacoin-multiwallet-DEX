@@ -1926,10 +1926,11 @@ namespace atomic_dex
         }
         else
         {
+            spdlog::stopwatch stopwatch2;
             const auto& enabled_coins = get_enabled_coins();
-            SPDLOG_DEBUG("Running [fetch_infos_thread], including balance for {} enabled coins", enabled_coins.size());
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
+            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {} seconds", enabled_coins.size(), stopwatch2);
         }
     }
 
@@ -2021,7 +2022,7 @@ namespace atomic_dex
     kdf_service::get_tx(t_kdf_ec& ec) const
     {
         const auto& ticker = get_current_ticker();
-        // SPDLOG_DEBUG("asking history of ticker: {}", ticker);
+        SPDLOG_DEBUG("asking history of ticker: {}", ticker);
         const auto underlying_tx_history_map = m_tx_informations.synchronize();
         const auto coin_info                 = get_coin_info(ticker);
         const auto it                        = !(coin_info.is_erc_family) ? underlying_tx_history_map->find("result") : underlying_tx_history_map->find(ticker);
@@ -2135,7 +2136,7 @@ namespace atomic_dex
 
         auto answer_functor = [this, limit, filter_infos, after_manual_reset](web::http::http_response resp)
         {
-            spdlog::stopwatch stopwatch;
+            spdlog::stopwatch stopwatch1;
 
             //! Parsing Resp
             orders_and_swaps result;
@@ -2195,7 +2196,7 @@ namespace atomic_dex
             //! Compute everything
             m_orders_and_swaps = std::move(result);
 
-            SPDLOG_INFO("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch);
+            SPDLOG_INFO("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch1);
             this->dispatcher_.trigger<process_swaps_and_orders_finished>(after_manual_reset);
         };
 
@@ -2368,7 +2369,6 @@ namespace atomic_dex
 
         if (this->m_kdf_running)
         {
-            SPDLOG_DEBUG("process_orderbook(true)");
             process_orderbook(true);
         }
     }
@@ -2793,7 +2793,7 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                SPDLOG_WARN("We should reset connection here");
+                SPDLOG_WARN("We should reset connection here, but we don't, cause i disabled it");
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }
