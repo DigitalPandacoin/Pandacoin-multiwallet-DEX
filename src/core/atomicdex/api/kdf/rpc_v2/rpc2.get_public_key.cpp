@@ -20,11 +20,9 @@
 
 namespace atomic_dex::kdf
 {
-    // unused
-    // void to_json(nlohmann::json& j, const get_public_key_rpc_request& request)
-    // {
-    //
-    // }
+    void to_json(nlohmann::json& j, const get_public_key_rpc_request& request)
+    {
+    }
 
     void from_json(const nlohmann::json& json, get_public_key_rpc_result& in)
     {
