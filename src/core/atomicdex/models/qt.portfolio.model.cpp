@@ -128,9 +128,9 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
                 return true;
             }
+            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {} seconds", coin.ticker, stopwatch);
             return false;
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {} seconds", ticker, stopwatch);
     }
 
     bool
@@ -185,8 +185,8 @@ namespace atomic_dex
                 QJsonObject status = nlohmann_json_object_to_qt_json_object(coin_info.activation_status);
                 update_value(ActivationStatus, status, idx, *this);
             }
+            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values for ticker {}: {} seconds", coin.ticker, stopwatch);
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values for ticker {}: {} seconds", coin.ticker, stopwatch);
         return true;
     }
 
