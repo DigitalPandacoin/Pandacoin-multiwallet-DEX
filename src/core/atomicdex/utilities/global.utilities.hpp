@@ -97,7 +97,7 @@ namespace atomic_dex::utils
     std::string retrieve_main_ticker(const std::string& ticker, bool segwit_only=false, bool exclude_segwit=false);
 
     void to_eth_checksum(std::string& address);
-    void json_keys(nlohmann::json j);
+    //void json_keys(nlohmann::json j);
     int8_t get_index_str(std::vector<std::string> vec, std::string val);
     std::vector<std::string> coin_cfg_to_ticker_cfg(std::vector<coin_config_t> in);
 

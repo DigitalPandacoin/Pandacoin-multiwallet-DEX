@@ -195,7 +195,7 @@ namespace atomic_dex
         }
         else
         {
-            SPDLOG_WARN("No volume data available for {}", ticker);
+            SPDLOG_INFO("No volume data available for {}", ticker);
         }
         return volume_24h_usd;
     }

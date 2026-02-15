@@ -103,17 +103,17 @@ namespace atomic_dex
     void
     orderbook_scanner_service::update() 
     {
-        spdlog::stopwatch stopwatch;
         using namespace std::chrono_literals;
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 43s)
         {
+            spdlog::stopwatch stopwatch;
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
+            SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::update: {} seconds", stopwatch);
         }
-        SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::update: {} seconds", stopwatch);
     }
 
     bool

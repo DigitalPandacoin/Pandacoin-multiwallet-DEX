@@ -52,13 +52,14 @@ namespace atomic_dex
     void
     atomic_dex::portfolio_model::initialize_portfolio(const std::vector<std::string>& tickers)
     {
+        spdlog::stopwatch stopwatch;
         QVector<portfolio_data> datas;
 
         for (auto&& ticker: tickers)
         {
             if (m_ticker_registry.find(ticker) != m_ticker_registry.end())
             {
-                SPDLOG_INFO("ticker {} not in m_ticker_registry", ticker);
+                SPDLOG_WARN("ticker {} not in m_ticker_registry", ticker);
                 continue;
             }
             const auto& kdf_system    = this->m_system_manager.get_system<kdf_service>();
@@ -67,7 +68,6 @@ namespace atomic_dex
             auto        coin          = kdf_system.get_coin_info(ticker);
             std::error_code ec;
             std::string balance       = kdf_system.get_balance_info(coin.ticker, ec);
-            SPDLOG_INFO("balance for ticker {}: {}", coin.ticker, balance);
             const QString   change_24h = retrieve_change_24h(provider, coin, *m_config, m_system_manager);
             portfolio_data  data{
                 .ticker                           = QString::fromStdString(coin.ticker),
@@ -96,14 +96,15 @@ namespace atomic_dex
             beginInsertRows(QModelIndex(), this->m_model_data.count(), this->m_model_data.count() + tickers.size() - 1);
             this->m_model_data.append(datas);
             endInsertRows();
-            SPDLOG_INFO("size of the portfolio after batch inserted: {}", this->get_length());
             emit lengthChanged();
         }
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {} seconds", this->get_length(), stopwatch);
     }
 
     bool
     portfolio_model::update_activation_status()
     {
+        spdlog::stopwatch stopwatch;
         // This feels a bit heavy handed. There should be a better way to do this.
         // Function may be unused.
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
@@ -125,11 +126,11 @@ namespace atomic_dex
                 auto        coin_info          = kdf_system.get_coin_info(ticker);
                 QJsonObject status = nlohmann_json_object_to_qt_json_object(coin_info.activation_status);
                 update_value(ActivationStatus, status, idx, *this);
-                SPDLOG_DEBUG("updated activation status of: {}", ticker);
                 return true;
             }
             return false;
         }
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {} seconds", ticker, stopwatch);
     }
 
     bool
@@ -144,6 +145,7 @@ namespace atomic_dex
 
         for (auto&& [_, coin]: coins)
         {
+            spdlog::stopwatch stopwatch;
             if (m_ticker_registry.find(coin.ticker) == m_ticker_registry.end())
             {
                 SPDLOG_WARN("[update_currency_values] ticker: {} not inserted yet in the model, skipping", coin.ticker);
@@ -153,7 +155,6 @@ namespace atomic_dex
             if (const auto res = this->match(this->index(0, 0), TickerRole, QString::fromStdString(ticker), 1, Qt::MatchFlag::MatchExactly);
                 not res.isEmpty())
             {
-                // SPDLOG_INFO("[update_currency_values] for ticker: {}", coin.ticker);
                 std::error_code    ec;
                 const QModelIndex& idx                         = res.at(0);
                 const QString      main_currency_balance_value = QString::fromStdString(price_service.get_price_in_fiat(currency, ticker, ec));
@@ -183,9 +184,9 @@ namespace atomic_dex
                 auto        coin_info          = kdf_system.get_coin_info(ticker);
                 QJsonObject status = nlohmann_json_object_to_qt_json_object(coin_info.activation_status);
                 update_value(ActivationStatus, status, idx, *this);
-                // SPDLOG_DEBUG("updated currency values of: {}", ticker);
             }
         }
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values for ticker {}: {} seconds", coin.ticker, stopwatch);
         return true;
     }
 
@@ -580,7 +581,7 @@ namespace atomic_dex
     void
     portfolio_model::adjust_percent_current_currency(QString balance_all)
     {
-        // SPDLOG_INFO("adjust_percent_current_currency");
+        SPDLOG_INFO("adjust_percent_current_currency");
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
