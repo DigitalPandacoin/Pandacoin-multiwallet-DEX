@@ -41,7 +41,7 @@ namespace atomic_dex
         std::string		userhome{std::getenv("HOME")};
 #endif
         std::string		passphrase;
-        std::stringd		bdir{utils::u8string((utils::get_atomic_dex_data_folder() / "kdf" / "DB"))};
+        std::string		dbdir{utils::u8string((utils::get_atomic_dex_data_folder() / "kdf" / "DB"))};
         std::string		rpc_password{"atomic_dex_kdf_passphrase"};
         int64_t			metrics_interval{43200};
     };
