@@ -13,7 +13,7 @@ import "../../../Components" //> MultipageModal
 import "../../../Constants" as Constants  //> API
 import Dex.Themes 1.0 as Dex
 
-DexListView
+DefaultListView
 {
     id: _listBestOrdersView
     model: Constants.API.app.trading_pg.orderbook.best_orders.proxy_mdl

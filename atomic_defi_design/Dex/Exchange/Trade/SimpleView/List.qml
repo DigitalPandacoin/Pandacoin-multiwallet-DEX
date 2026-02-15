@@ -15,7 +15,7 @@ import "../Orders" as Orders
 import "Main.js" as Main
 import Dex.Themes 1.0 as Dex
 
-DexListView
+DefaultListView
 {
     id: order_list_view
     anchors.fill: parent

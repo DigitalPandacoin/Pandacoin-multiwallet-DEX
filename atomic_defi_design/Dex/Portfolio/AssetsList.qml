@@ -8,7 +8,7 @@ import "../Screens"
 import App 1.0 as Dex
 import Dex.Themes 1.0 as Dex
 
-Dex.DexListView
+Dex.DefaultListView
 {
     id: list
     interactive: false

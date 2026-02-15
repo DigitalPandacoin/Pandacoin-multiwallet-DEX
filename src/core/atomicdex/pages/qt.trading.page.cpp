@@ -801,17 +801,17 @@ namespace atomic_dex
     void
     trading_page::clear_forms(QString from)
     {
+        spdlog::stopwatch stopwatch;
+
         if (!this->m_system_manager.has_system<kdf_service>())
         {
             SPDLOG_WARN("KDF service not available, required to clear forms - skipping");
             return;
         }
-        SPDLOG_DEBUG("clearing forms : {}", from.toStdString());
 
         if (m_preferred_order.has_value() && m_current_trading_mode == TradingModeGadget::Simple &&
             m_selected_order_status == SelectedOrderGadget::OrderNotExistingAnymore)
         {
-            SPDLOG_DEBUG("Simple view cancel order, keeping important data");
             this->set_volume(QString::fromStdString(m_preferred_order->at("initial_input_volume").get<std::string>()));
             const auto max_taker_vol = get_orderbook_wrapper()->get_base_max_taker_vol().toJsonObject()["decimal"].toString();
             this->set_max_volume(max_taker_vol);
@@ -844,6 +844,7 @@ namespace atomic_dex
         emit preferredOrderChanged();
         emit priceChanged();
         emit priceReversedChanged();
+        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {} seconds", from.toStdString(), stopwatch);
     }
 
     QString
@@ -943,7 +944,6 @@ namespace atomic_dex
                     }
                 }
                 this->cap_volume();
-                SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
             }
             else
             {
@@ -1009,6 +1009,7 @@ namespace atomic_dex
                 }
             }
         }
+        SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
     }
 
     void

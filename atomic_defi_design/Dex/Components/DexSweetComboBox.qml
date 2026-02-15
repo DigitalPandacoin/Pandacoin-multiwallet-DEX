@@ -151,7 +151,7 @@ ComboBox
                 Layout.fillWidth: true
                 implicitHeight: popup_list_view.contentHeight + 5
 
-                DexListView
+                DefaultListView
                 {
                     id: popup_list_view
                     model: control.popup.visible ? control.model : null

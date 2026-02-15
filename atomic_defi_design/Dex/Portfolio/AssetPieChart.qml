@@ -248,7 +248,7 @@ ColumnLayout
                         }
                     }
 
-                    DexListView
+                    DefaultListView
                     {
                         id: _pieColumn
                         anchors.fill: parent

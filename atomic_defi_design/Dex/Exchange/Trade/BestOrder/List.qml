@@ -53,7 +53,7 @@ Widget
         id: _listView
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.bottomMargin: 2
+        Layout.bottomMargin: 6
         visible: !warning_text.visible
         spacing: 6
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl

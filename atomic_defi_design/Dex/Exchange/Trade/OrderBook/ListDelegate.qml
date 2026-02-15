@@ -160,7 +160,12 @@ Item
                 radius: 3
                 opacity: 0.8
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
-                Component.onCompleted: width = parent.width * depth / 100
+                Component.onCompleted: {
+                    width = parent.width * depth / 100
+                    console.debug("parent.width = " + parent.width)
+                    console.debug("depth = " + depth)
+                    console.debug("width = " + width)
+                }
             }
         }
 

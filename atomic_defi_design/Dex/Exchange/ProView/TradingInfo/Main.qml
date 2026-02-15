@@ -127,7 +127,7 @@ ColumnLayout
 
             onCurrentIndexChanged:
             {
-                if (currentIndex !== pair_chart_idx) {
+                if (currentIndex !== tabView.pair_chart_idx) {
                     swipeView.currentItem.update()
                 }
             }
