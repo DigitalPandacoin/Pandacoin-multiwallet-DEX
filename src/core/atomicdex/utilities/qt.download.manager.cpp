@@ -58,7 +58,7 @@ namespace atomic_dex
     qt_downloader::download_finished(QNetworkReply* reply)
     {
         auto save_disk_functor = [this](QIODevice* data) {
-            // Todo: handle download fail on front end
+            // TODO: handle download fail on front end
             QFile file(utils::u8string(m_download_path).c_str());
             if (!file.open(QIODevice::WriteOnly))
             {

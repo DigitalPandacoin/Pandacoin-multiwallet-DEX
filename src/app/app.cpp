@@ -81,7 +81,7 @@ namespace atomic_dex
                 !coins.contains(QString::fromStdString(coin_info.fees_ticker)))
             {
                 auto coin_parent_info = kdf.get_coin_info(coin_info.fees_ticker);
-                // todo: why can it be empty when it has been found ?
+                // TODO: why can it be empty when it has been found ?
                 //       refactor coins enabling logic!!!
                 if (coin_parent_info.ticker != "")
                 {
@@ -365,7 +365,7 @@ namespace atomic_dex
                 }
                 //! TODO: figure out why sometimes ZHTLC coins end up in here twice. When they do, without this check it crashes.
                 if (std::find(to_init.begin(), to_init.end(), ticker) != to_init.end()) {
-                    // SPDLOG_DEBUG("Ticker {} is already in vector", ticker);
+                    SPDLOG_WARN("Ticker {} is already in vector", ticker);
                     add_to_init = false;
                 }
                 if (add_to_init) {

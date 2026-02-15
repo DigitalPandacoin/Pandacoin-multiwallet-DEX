@@ -24,10 +24,11 @@
 
 #import <AppKit/AppKit.h>
 
-static NSColor *colorFromRGB(unsigned char r, unsigned char g, unsigned char b)
-{
-    return [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0];
-}
+// unused
+// static NSColor *colorFromRGB(unsigned char r, unsigned char g, unsigned char b)
+// {
+//     return [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0];
+// }
 
 void atomic_dex::mac_window_setup(long winid, bool fullscreen)
 {

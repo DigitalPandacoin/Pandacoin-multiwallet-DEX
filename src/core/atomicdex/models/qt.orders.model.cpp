@@ -219,7 +219,7 @@ namespace atomic_dex
     bool
     orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        SPDLOG_DEBUG("orders_model::removeRows removing {} elements at position {}", rows, position);
+        spdlog::stopwatch stopwatch;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -227,6 +227,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
+        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {} seconds", rows, position, stopwatch);
         return true;
     }
 
@@ -300,14 +301,15 @@ namespace atomic_dex
     void
     orders_model::set_current_page(int current_page)
     {
+        spdlog::stopwatch stopwatch;
         if (static_cast<std::size_t>(current_page) != m_model_data.current_page)
         {
-            SPDLOG_INFO("Current page: {}, new page: {}", m_model_data.current_page, current_page);
             this->set_fetching_busy(true);
             this->reset_backend("set_current_page"); ///< We change page, we need to clear, but do not notify the front-end
             auto& kdf = this->m_system_manager.get_system<kdf_service>();
             kdf.set_orders_and_swaps_pagination_infos(static_cast<std::size_t>(current_page), m_model_data.limit, m_model_data.filtering_infos);
         }
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {} seconds", m_model_data.current_page, current_page, stopwatch);
     }
 
     int
@@ -657,7 +659,7 @@ namespace atomic_dex
 
         if (is_fetching_busy())
         {
-            SPDLOG_INFO("Fetching busy skipping");
+            SPDLOG_WARN("Fetching busy skipping");
             return;
         }
         const auto& kdf      = m_system_manager.get_system<kdf_service>();

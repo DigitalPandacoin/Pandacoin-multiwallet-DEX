@@ -113,7 +113,7 @@ namespace atomic_dex
         if (involves_segwit)
         {
             // TODO: Need to resolve this case. It is not clear what to do here, backend overrides are not reflected on the front end as expected.
-            SPDLOG_DEBUG("swap_market_pair involves_segwit. This is undefined behaviour");
+            SPDLOG_WARN("swap_market_pair involves_segwit. This is undefined behaviour");
         }
         const auto* market_selector_mdl = get_market_pairs_mdl();
         set_current_orderbook(market_selector_mdl->get_right_selected_coin(), market_selector_mdl->get_left_selected_coin());
@@ -1302,6 +1302,7 @@ namespace atomic_dex
     void
     trading_page::determine_fees()
     {
+        spdlog::stopwatch stopwatch;
         if (!this->m_system_manager.has_system<kdf_service>())
         {
             SPDLOG_WARN("KDF Service not available, cannot determine fees - skipping");
@@ -1400,6 +1401,7 @@ namespace atomic_dex
             this->set_preimage_busy(false);
         };
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {} seconds", stopwatch);
     }
 
     void

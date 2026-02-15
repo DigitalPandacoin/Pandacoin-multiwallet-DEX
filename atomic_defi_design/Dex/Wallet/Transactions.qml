@@ -24,6 +24,12 @@ Dex.ListView
     position: 0
     height: Math.floor(parent.height / list.row_height) * list.row_height
 
+    Component.onCompleted: {
+        console.log("height: " + height)
+        console.log("parent.height: " + parent.height)
+        console.log("list.row_height: " + list.row_height)
+    }
+
     // Transaction Row
     delegate: Dex.Rectangle
     {

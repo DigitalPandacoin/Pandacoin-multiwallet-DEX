@@ -196,7 +196,7 @@ namespace atomic_dex
         }
         if (j.contains("nodes"))
         {
-            // Todo: this is bad, we are using 2 times the required memory. Something can be improved here.
+            // TODO: this is bad, we are using 2 times the required memory. Something can be improved here.
             cfg.urls            = j.at("nodes").get<std::vector<node>>();
             cfg.eth_family_urls = std::vector<std::string>();
             cfg.eth_family_urls.value().reserve(cfg.urls.value().size());

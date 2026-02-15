@@ -8,7 +8,7 @@ import "../../../Components"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-// todo: coding style is wrong, use camelCase.
+// TODO: coding style is wrong, use camelCase.
 RowLayout
 {
     id: control

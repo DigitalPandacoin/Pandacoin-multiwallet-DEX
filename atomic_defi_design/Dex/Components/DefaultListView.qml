@@ -32,6 +32,7 @@ ListView
     ScrollBar.vertical: DefaultScrollBar
     {
         id: scrollVert
+        position: root.position
         visibleBackground: root.visibleBackground
     }
 }

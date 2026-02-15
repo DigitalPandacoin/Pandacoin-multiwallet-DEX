@@ -90,7 +90,7 @@ Dex.MultipageModal
         {
             target: Dex.API.app.zcash_params
 
-            // todo: can be improved.
+            // TODO: can be improved.
             //       put it maybe in the backend ?
             function onCombinedDownloadStatusChanged()
             {

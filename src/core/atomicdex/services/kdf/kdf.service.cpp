@@ -1297,7 +1297,7 @@ namespace atomic_dex
         }
         else
         {
-            std::size_t     limit =  200;
+            std::size_t     limit =  250;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
             if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN)
@@ -1530,8 +1530,7 @@ namespace atomic_dex
                                                     }
                                                     else
                                                     {
-                                                        // todo(syl): many unused variables.
-                                                        // fix that
+                                                        // TODO: many unused variables
                                                         if (z_answers[0].at("result").at("details").contains("UpdatingBlocksCache"))
                                                         {
                                                             event = "UpdatingBlocksCache";
@@ -1567,7 +1566,7 @@ namespace atomic_dex
                                                             this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], event);
                                                             last_event = event;
                                                         }
-                                                        // todo(syl): refactor to a background task
+                                                        // TODO: refactor to a background task
                                                         std::this_thread::sleep_for(5s);
                                                     }
                                                     std::unique_lock lock(m_coin_cfg_mutex);

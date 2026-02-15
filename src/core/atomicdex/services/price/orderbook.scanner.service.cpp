@@ -27,9 +27,9 @@ namespace atomic_dex
     orderbook_scanner_service::orderbook_scanner_service(entt::registry& registry, ag::ecs::system_manager& system_manager) :
         system(registry), m_system_manager(system_manager)
     {
-        SPDLOG_INFO("orderbook_scanner_service created");
         m_update_clock      = std::chrono::high_resolution_clock::now();
         m_best_orders_infos = nlohmann::json::object();
+        SPDLOG_INFO("orderbook_scanner_service created");
     }
 } // namespace atomic_dex
 
@@ -39,9 +39,10 @@ namespace atomic_dex
     void
     orderbook_scanner_service::process_best_orders() 
     {
+        spdlog::stopwatch stopwatch;
         if (m_bestorders_busy)
         {
-            SPDLOG_INFO("process_best_orders is busy - skipping");
+            SPDLOG_WARN("process_best_orders is busy - skipping");
             return;
         }
 
@@ -61,7 +62,7 @@ namespace atomic_dex
                     nlohmann::json batch = nlohmann::json::array();
                     if (rpc.error)
                     {
-                        SPDLOG_DEBUG("error: bad answer json for process_best_orders: {}", rpc.error->error);
+                        SPDLOG_ERROR("error: bad answer json for process_best_orders: {}", rpc.error->error);
                         this->m_bestorders_busy = false;
                         this->dispatcher_.trigger<process_orderbook_finished>(true);
                     }
@@ -92,6 +93,7 @@ namespace atomic_dex
         {
             SPDLOG_WARN("KDF Service not created yet - skipping process_best_orders");
         }
+        SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::process_best_orders: {} seconds", stopwatch);
     }
 } // namespace atomic_dex
 
@@ -101,16 +103,17 @@ namespace atomic_dex
     void
     orderbook_scanner_service::update() 
     {
+        spdlog::stopwatch stopwatch;
         using namespace std::chrono_literals;
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 43s)
         {
-            // SPDLOG_DEBUG("<<<<<<<<<<< start orderbook_scanner_service update loop >>>>>>>>>>>>>");
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
         }
+        SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::update: {} seconds", stopwatch);
     }
 
     bool

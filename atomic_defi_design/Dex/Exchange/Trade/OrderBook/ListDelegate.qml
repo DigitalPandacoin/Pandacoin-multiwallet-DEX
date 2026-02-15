@@ -162,9 +162,9 @@ Item
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
                 Component.onCompleted: {
                     width = parent.width * depth
-                    console.debug("parent.width = " + parent.width)
-                    console.debug("depth = " + depth)
-                    console.debug("width = " + width)
+                    //console.debug("parent.width = " + parent.width)
+                    //console.debug("depth = " + depth)
+                    //console.debug("width = " + width)
                 }
             }
         }

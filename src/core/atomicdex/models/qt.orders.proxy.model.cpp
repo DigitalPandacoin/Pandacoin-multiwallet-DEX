@@ -265,7 +265,7 @@ namespace atomic_dex
     void
     orders_proxy_model::set_coin_filter(const QString& to_filter)
     {
-        SPDLOG_INFO("filter pattern: {}, is_history: {}", to_filter.toStdString(), m_is_history);
+        spdlog::stopwatch stopwatch;
         this->setFilterFixedString(to_filter);
         if (this->m_is_history)
         {
@@ -275,6 +275,7 @@ namespace atomic_dex
         //{
         // emit qobject_cast<orders_model*>(this->sourceModel())->lengthChanged();
         //}
+        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::set_coin_filter for filter pattern {} and is_history {}: {} seconds", to_filter.toStdString(), m_is_history, stopwatch);
     }
 
     void
