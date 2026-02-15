@@ -99,7 +99,6 @@ namespace atomic_dex
 
         if (to_change && m_current_trading_mode != TradingModeGadget::Simple)
         {
-            // SPDLOG_DEBUG("set_current_orderbook");
             this->get_orderbook_wrapper()->clear_orderbook();
             this->clear_forms("set_current_orderbook");
         }
@@ -1243,14 +1242,15 @@ namespace atomic_dex
     void
     trading_page::set_total_amount(QString total_amount)
     {
+        spdlog::stopwatch stopwatch;
         if (m_total_amount != total_amount)
         {
             m_total_amount = std::move(total_amount);
-            SPDLOG_DEBUG("total_amount is [{}]", m_total_amount.toStdString());
             emit totalAmountChanged();
             emit baseAmountChanged();
             emit relAmountChanged();
         }
+        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {} seconds", stopwatch);
     }
 
     void
@@ -1701,7 +1701,6 @@ namespace atomic_dex
     void
     trading_page::reset_fees()
     {
-        //SPDLOG_DEBUG("reset_fees");
         this->set_fees(QVariantMap());
         this->determine_error_cases();
     }

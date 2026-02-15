@@ -1764,7 +1764,7 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
-        spdlog::stopwatch stopwatch2;
+        spdlog::stopwatch stopwatch;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1798,12 +1798,13 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
-        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {} seconds", stopwatch2);
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {} seconds", stopwatch);
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
     {
-        spdlog::stopwatch stopwatch4;
+        spdlog::stopwatch stopwatch;
+
         if (batch.empty())
         {
             SPDLOG_WARN("prepared batch_orderbook is empty, nothing to do");
@@ -1866,7 +1867,8 @@ namespace atomic_dex
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
-        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {} seconds", stopwatch4);
+
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {} seconds", stopwatch);
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1928,11 +1930,11 @@ namespace atomic_dex
         }
         else
         {
-            spdlog::stopwatch stopwatch3;
+            spdlog::stopwatch stopwatch;
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
-            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {} seconds", enabled_coins.size(), stopwatch3);
+            if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {} seconds", enabled_coins.size(), stopwatch);
         }
     }
 
@@ -2023,8 +2025,8 @@ namespace atomic_dex
     std::pair<t_transactions, t_tx_state>
     kdf_service::get_tx(t_kdf_ec& ec) const
     {
+        spdlog::stopwatch stopwatch;
         const auto& ticker = get_current_ticker();
-        SPDLOG_DEBUG("asking history of ticker: {}", ticker);
         const auto underlying_tx_history_map = m_tx_informations.synchronize();
         const auto coin_info                 = get_coin_info(ticker);
         const auto it                        = !(coin_info.is_erc_family) ? underlying_tx_history_map->find("result") : underlying_tx_history_map->find(ticker);
@@ -2033,6 +2035,7 @@ namespace atomic_dex
             ec = dextop_error::tx_history_of_a_non_enabled_coin;
             return {};
         }
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in kdf_service::get_tx for ticker {}: {} seconds", ticker, stopwatch);
         return it->second;
     }
 
@@ -2094,11 +2097,12 @@ namespace atomic_dex
     void
     kdf_service::batch_fetch_orders_and_swap(bool after_manual_reset)
     {
+        spdlog::stopwatch stopwatch;
+
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
         batch.push_back(my_orders_request);
         //SPDLOG_DEBUG("my_orders_request {}", my_orders_request.dump(4));
-
 
         //! Swaps preparation
         std::size_t       total           = 0;
@@ -2138,7 +2142,6 @@ namespace atomic_dex
 
         auto answer_functor = [this, limit, filter_infos, after_manual_reset](web::http::http_response resp)
         {
-            spdlog::stopwatch stopwatch1;
 
             //! Parsing Resp
             orders_and_swaps result;
@@ -2186,31 +2189,31 @@ namespace atomic_dex
             }
 
             //! Post Metrics
-            SPDLOG_INFO(
+            /* SPDLOG_DEBUG(
                 "Metrics -> [total_swaps: {}, "
                 "active_swaps: {}, "
                 "nb_orders: {}, "
                 "nb_pages: {}, "
                 "current_page: {}, "
                 "total_finished_swaps: {}]",
-                result.total_swaps, result.active_swaps, result.nb_orders, result.nb_pages, result.current_page, result.total_finished_swaps);
+                result.total_swaps, result.active_swaps, result.nb_orders, result.nb_pages, result.current_page, result.total_finished_swaps); */
 
             //! Compute everything
             m_orders_and_swaps = std::move(result);
 
-            SPDLOG_INFO("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch1);
             this->dispatcher_.trigger<process_swaps_and_orders_finished>(after_manual_reset);
         };
 
-        //SPDLOG_INFO("batch request:{}", batch.dump(4));
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
+
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {} seconds", stopwatch);
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
     {
-        SPDLOG_DEBUG("Process transactions of ticker: {}", ticker);
+        spdlog::stopwatch stopwatch;
         std::error_code ec;
         using namespace std::string_literals;
         auto construct_url_functor = [this](
@@ -2277,8 +2280,8 @@ namespace atomic_dex
             }
             return out;
         };
+
         std::string url = retrieve_api_functor(ticker, address(ticker, ec));
-        SPDLOG_INFO("url scan: {}", url);
         kdf::async_process_rpc_get(kdf::g_etherscan_proxy_http_client, "tx_history", url)
             .then(
                 [this, ticker](const web::http::http_response& resp)
@@ -2342,7 +2345,6 @@ namespace atomic_dex
                             });
 
                         //! History
-                        SPDLOG_INFO("{} tx size {}", ticker, out.size());
                         m_tx_informations->insert_or_assign(ticker, std::make_pair(out, state));
 
                         //! Dispatch
@@ -2354,32 +2356,32 @@ namespace atomic_dex
                 {
                     this->handle_exception_pplx_task(previous_task, "process_tx_tokenscan", {});
                 });
+
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {} seconds", ticker, stopwatch);
     }
 
     void
     kdf_service::update_sync_ticker_pair(std::string base, std::string rel)
     {
-        // SPDLOG_DEBUG("update_sync_ticker_pair: [{} / {}]", base, rel);
         this->m_synchronized_ticker_pair = std::make_pair(base, rel);
     }
 
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        SPDLOG_DEBUG("refreshing orderbook pair: [{} / {}]", evt.base, evt.rel);
+        spdlog::stopwatch stopwatch;
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
-
         if (this->m_kdf_running)
         {
             process_orderbook(true);
         }
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {} seconds", evt.base, evt.rel, stopwatch);
     }
 
     void
     kdf_service::on_gui_enter_trading([[maybe_unused]] const gui_enter_trading& evt)
     {
         SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
-
         m_orderbook_thread_active = true;
     }
 
@@ -2393,7 +2395,7 @@ namespace atomic_dex
     bool
     kdf_service::do_i_have_enough_funds(const std::string& ticker, const t_float_50& amount) const
     {
-        SPDLOG_DEBUG("do_i_have_enough_funds for {}: [{}]", ticker, amount.str(8, std::ios_base::fixed));
+        // SPDLOG_DEBUG("do_i_have_enough_funds for {}: [{}]", ticker, amount.str(8, std::ios_base::fixed));
         t_float_50 funds = get_balance_info_f(ticker);
         return funds >= amount;
     }

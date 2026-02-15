@@ -146,6 +146,7 @@ Item {
             {
                 visible: !root.is_history && list_model.length > 0
                 Layout.preferredHeight: 29
+                Layout.rightMargin: 6
                 radius: 7
                 label.font: DexTypo.body2
                 enabled: list_model.length > 0 && ! General.privacy_mode

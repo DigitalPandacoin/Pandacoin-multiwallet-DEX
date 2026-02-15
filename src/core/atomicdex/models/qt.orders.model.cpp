@@ -464,7 +464,7 @@ namespace atomic_dex
     void
     orders_model::init_model(const orders_and_swaps& contents)
     {
-        spdlog::stopwatch stopwatch3;
+        spdlog::stopwatch stopwatch;
         const auto size = contents.orders_and_swaps.size();
         if (size == 0)
             return;
@@ -478,7 +478,7 @@ namespace atomic_dex
         emit limitNbElementsChanged();
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
-        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch3);
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch);
     }
 
     void
@@ -619,19 +619,19 @@ namespace atomic_dex
         reset_backend("reset");
         this->endResetModel();
         this->set_fetching_busy(false);
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
     }
 
     void
     orders_model::reset_backend(const std::string& from)
     {
-        spdlog::stopwatch stopwatch1;
+        spdlog::stopwatch stopwatch;
         const auto limit     = this->m_model_data.limit;
         const auto filtering = this->m_model_data.filtering_infos;
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch1);
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch);
     }
 
     bool
@@ -649,11 +649,10 @@ namespace atomic_dex
     void
     orders_model::refresh_or_insert(bool after_manual_reset)
     {
-        spdlog::stopwatch stopwatch2;
+        spdlog::stopwatch stopwatch;
         if (after_manual_reset)
         {
             this->set_fetching_busy(false);
-            SPDLOG_INFO("Fetching is not busy anymore");
         }
 
         if (is_fetching_busy())
@@ -675,12 +674,13 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch2);
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch);
     }
 
     void
     orders_model::set_filtering_infos(t_filtering_infos infos)
     {
+        spdlog::stopwatch stopwatch;
         if (this->is_fetching_busy())
         {
             SPDLOG_WARN("Fetching busy - skipping filtering infos set");
@@ -709,6 +709,7 @@ namespace atomic_dex
         {
             this->set_current_page(1);
         }
+        if (stopwatch > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {} seconds", stopwatch);
     }
 
     t_filtering_infos

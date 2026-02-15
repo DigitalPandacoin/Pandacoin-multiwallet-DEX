@@ -545,7 +545,7 @@ namespace atomic_dex
     QString application::get_balance_info_qstr(const QString& coin)
     {
         std::error_code ec;
-        SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
+        // SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
         auto            res = get_kdf().get_balance_info(coin.toStdString(), ec);
         return QString::fromStdString(res);
     }

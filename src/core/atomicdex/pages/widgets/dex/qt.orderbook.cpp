@@ -81,7 +81,7 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_orderbook_model_data(kdf::orderbook_result_rpc answer)
     {
-        spdlog::stopwatch stopwatch4;
+        spdlog::stopwatch stopwatch;
         this->m_asks->refresh_orderbook_model_data(answer.asks);
         this->m_bids->refresh_orderbook_model_data(answer.bids);
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_bestorders_data();
@@ -98,13 +98,13 @@ namespace atomic_dex
             m_best_orders->refresh_orderbook_model_data(data);
         }
         this->set_both_taker_vol();
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {} seconds", answer.bids.size(), answer.asks.size(), stopwatch4);
+        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {} seconds", answer.bids.size(), answer.asks.size(), stopwatch);
     }
 
     void
     qt_orderbook_wrapper::reset_orderbook(kdf::orderbook_result_rpc answer)
     {
-        spdlog::stopwatch stopwatch5;
+        spdlog::stopwatch stopwatch;
         this->m_asks->reset_orderbook(answer.asks);
         this->m_bids->reset_orderbook(answer.bids);
         this->set_both_taker_vol();
@@ -116,7 +116,7 @@ namespace atomic_dex
         }
         m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::reset_orderbook: {} seconds", stopwatch5);
+        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::reset_orderbook: {} seconds", stopwatch);
     }
 
     void
@@ -172,16 +172,16 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_best_orders()
     {
+        spdlog::stopwatch stopwatch;
         if (safe_float(m_system_manager.get_system<trading_page>().get_volume().toStdString()) > 0)
         {
-            SPDLOG_INFO("qt_orderbook_wrapper::refresh_best_orders() >> process_best_orders()");
             this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders();
         }
         else
         {
-            SPDLOG_INFO("qt_orderbook_wrapper::refresh_best_orders() >> get_best_orders()->clear_orderbook()");
             get_best_orders()->clear_orderbook();
         }
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {} seconds", stopwatch);
     }
 
     void
