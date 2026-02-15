@@ -76,7 +76,7 @@ namespace atomic_dex
         };
 
         atomic_dex::komodo_prices::api::async_market_infos(fallback).then(answer_functor).then(error_functor);
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {} seconds", m_market_registry.size(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {} seconds", m_market_registry.size(), stopwatch);
     }
 } // namespace atomic_dex
 

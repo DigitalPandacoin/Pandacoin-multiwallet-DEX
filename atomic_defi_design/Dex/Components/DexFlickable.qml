@@ -8,7 +8,7 @@ Flickable {
     property int rightMargin: 3
 
     boundsBehavior: Flickable.StopAtBounds
-    ScrollBar.vertical: DexScrollBar {
+    ScrollBar.vertical: DefaultScrollBar {
         anchors.rightMargin: root.rightMargin
     }
 

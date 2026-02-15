@@ -478,7 +478,7 @@ namespace atomic_dex
         emit limitNbElementsChanged();
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch);
     }
 
     void
@@ -619,7 +619,7 @@ namespace atomic_dex
         reset_backend("reset");
         this->endResetModel();
         this->set_fetching_busy(false);
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
     }
 
     void
@@ -631,7 +631,7 @@ namespace atomic_dex
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch);
     }
 
     bool
@@ -674,7 +674,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch);
     }
 
     void
@@ -709,7 +709,7 @@ namespace atomic_dex
         {
             this->set_current_page(1);
         }
-        if (stopwatch.elapsed() > 0.1) SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {} seconds", stopwatch);
     }
 
     t_filtering_infos
