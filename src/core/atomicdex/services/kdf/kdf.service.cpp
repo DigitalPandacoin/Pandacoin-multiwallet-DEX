@@ -1764,6 +1764,7 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
+        spdlog::stopwatch stopwatch2;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1784,7 +1785,6 @@ namespace atomic_dex
                     process_orderbook_extras(batch, is_a_reset);
                 }
                 m_orderbook = rpc.result.value();
-                SPDLOG_DEBUG("Triggering [process_orderbook_finished]: {}", is_a_reset);
                 this->dispatcher_.trigger<process_orderbook_finished>(is_a_reset);
             }
         };
@@ -1798,10 +1798,12 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
+        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {} seconds", stopwatch2);
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
     {
+        spdlog::stopwatch stopwatch4;
         if (batch.empty())
         {
             SPDLOG_WARN("prepared batch_orderbook is empty, nothing to do");
@@ -1864,6 +1866,7 @@ namespace atomic_dex
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
+        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {} seconds", stopwatch4);
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1874,7 +1877,6 @@ namespace atomic_dex
             return;
         }
         process_orderbook(is_a_reset);
-        SPDLOG_DEBUG("process_orderbook, is_a_reset {} ", is_a_reset);
     }
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)
@@ -1926,11 +1928,11 @@ namespace atomic_dex
         }
         else
         {
-            spdlog::stopwatch stopwatch2;
+            spdlog::stopwatch stopwatch3;
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
-            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {} seconds", enabled_coins.size(), stopwatch2);
+            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {} seconds", enabled_coins.size(), stopwatch3);
         }
     }
 

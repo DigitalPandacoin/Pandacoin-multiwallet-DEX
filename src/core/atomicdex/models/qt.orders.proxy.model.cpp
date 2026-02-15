@@ -113,12 +113,10 @@ namespace atomic_dex
             this->invalidate();
             if (m_is_history)
             {
-                SPDLOG_INFO("history mode enabled");
                 qobject_cast<orders_model*>(this->sourceModel())->set_current_page(1);
             }
             else
             {
-                SPDLOG_INFO("order mode enabled");
                 emit qobject_cast<orders_model*>(this->sourceModel())->lengthChanged();
             }
         }

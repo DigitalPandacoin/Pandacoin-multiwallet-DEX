@@ -74,6 +74,8 @@ ColumnLayout
                 Layout.fillWidth: true
                 Layout.topMargin: 8
                 spacing: 7
+                visible: currentIndex === tabView.pair_chart_idx
+                enabled: visible
                 
                 // Ticker selectors.
                 TickerSelectors
@@ -111,17 +113,21 @@ ColumnLayout
             OrdersPage
             {
                 page_index: currentIndex
+                visible: currentIndex === tabView.order_idx
+                enabled: visible
             }
 
             OrdersPage
             {
                 page_index: currentIndex
                 is_history: true
+                visible: currentIndex === tabView.history_idx
+                enabled: visible
             }
 
             onCurrentIndexChanged:
             {
-                if (currentIndex !==0) {
+                if (currentIndex !== pair_chart_idx) {
                     swipeView.currentItem.update()
                 }
             }

@@ -65,7 +65,7 @@ Item
     }
 
     Connections {
-        target: API.app.trading_pg;
+        target: API.app.trading_pg
 
         function onMarketModeChanged()
         {

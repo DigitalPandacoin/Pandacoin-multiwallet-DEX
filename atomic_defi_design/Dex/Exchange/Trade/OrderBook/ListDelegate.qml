@@ -21,11 +21,11 @@ Item
     DefaultTooltip
     {
         visible: mouse_area.containsMouse && (tooltip_text.text_value != "")
-        width: 340
+        width: parent.width
 
         contentItem: RowLayout
         {
-            width: 330
+            width: parent.width
 
             Qaterial.ColorIcon
             {
@@ -110,7 +110,7 @@ Item
         anchors.fill: parent
         hoverEnabled: true
 
-        // Populate form with selected order
+        // Populate buy/sell form with values from selected order
         onClicked:
         {
             if (General.privacy_mode) return
@@ -160,7 +160,7 @@ Item
                 radius: 3
                 opacity: 0.8
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
-                Component.onCompleted: width = ((depth * 100) * (mouse_area.width + 40)) / 100
+                Component.onCompleted: width = parent.width * depth / 100
             }
         }
 
@@ -169,7 +169,7 @@ Item
         {
             id: row
             anchors.fill: parent
-            onWidthChanged: progress.width = ((depth * 100) * (width + 40)) / 100
+            onWidthChanged: depth_bar.width = parent.width * depth / 100
             spacing: 3
 
             // Dot on the left side of the row to indicate own order

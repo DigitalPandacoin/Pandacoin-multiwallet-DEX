@@ -464,10 +464,10 @@ namespace atomic_dex
     void
     orders_model::init_model(const orders_and_swaps& contents)
     {
+        spdlog::stopwatch stopwatch3;
         const auto size = contents.orders_and_swaps.size();
         if (size == 0)
             return;
-        SPDLOG_INFO("Full initialization, inserting {} elements, nb_elements / page {}", size, contents.limit);
         beginResetModel();
         m_model_data = contents;
         endResetModel();
@@ -478,12 +478,12 @@ namespace atomic_dex
         emit limitNbElementsChanged();
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
+        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch3);
     }
 
     void
     orders_model::common_insert(const std::vector<t_order_swaps_data>& contents, const std::string& kind)
     {
-        SPDLOG_INFO("common_insert, nb elements to insert: {}", contents.size());
         auto& data = m_model_data.orders_and_swaps;
         beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
         data.insert(end(data), begin(contents), end(contents));
@@ -495,10 +495,8 @@ namespace atomic_dex
         emit lengthChanged();
         if (m_system_manager.has_system<kdf_service>())
         {
-            SPDLOG_DEBUG("Swaps inserted, refreshing orderbook to get new max taker vol");
             this->m_system_manager.get_system<kdf_service>().process_orderbook(true);
         }
-        SPDLOG_DEBUG("{} model size: {}", kind, rowCount());
     }
 
     void
@@ -616,21 +614,24 @@ namespace atomic_dex
     void
     orders_model::reset()
     {
+        spdlog::stopwatch stopwatch;
         this->beginResetModel();
         reset_backend("reset");
         this->endResetModel();
         this->set_fetching_busy(false);
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
     }
 
     void
     orders_model::reset_backend(const std::string& from)
     {
-        SPDLOG_DEBUG("clearing orders in backend {}", from);
+        spdlog::stopwatch stopwatch1;
         const auto limit     = this->m_model_data.limit;
         const auto filtering = this->m_model_data.filtering_infos;
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch1);
     }
 
     bool
@@ -648,6 +649,7 @@ namespace atomic_dex
     void
     orders_model::refresh_or_insert(bool after_manual_reset)
     {
+        spdlog::stopwatch stopwatch2;
         if (after_manual_reset)
         {
             this->set_fetching_busy(false);
@@ -673,6 +675,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
+        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch2);
     }
 
     void
