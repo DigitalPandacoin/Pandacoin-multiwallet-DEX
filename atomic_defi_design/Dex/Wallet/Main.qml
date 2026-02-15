@@ -860,7 +860,7 @@ Item
             implicitHeight: wallet.height*0.54
 
             color: Dex.CurrentTheme.floatingBackgroundColor
-            radius: 22
+            radius: 18
 
             ClipRRect
             {

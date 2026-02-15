@@ -21,12 +21,14 @@ Dex.ListView
     property real _dateColumnWidth: 170
 
     model: transactions_mdl.proxy_mdl
+    position: 0
+    height: Math.floor(parent.height / list.row_height) * list.row_height
 
     // Transaction Row
     delegate: Dex.Rectangle
     {
         id: rectangle
-        property bool is_spam: amount == 0 
+        property bool is_spam: amount == 0
         width: list.width
         height: row_height
         radius: 0
@@ -93,7 +95,7 @@ Dex.ListView
                 horizontalAlignment: Text.AlignRight
                 text_value:
                 {
-                    api_wallet_page.ticker.length > 6 
+                    api_wallet_page.ticker.length > 6
                     ? General.formatCrypto(!am_i_sender, amount, '', false, false, 6, true)
                     : General.formatCrypto(!am_i_sender, amount, api_wallet_page.ticker, false, false, 6, true)
 
@@ -112,7 +114,6 @@ Dex.ListView
                 font.pixelSize: description.font.pixelSize
                 color: is_spam ? Style.colorWhite7 : crypto_amount.color
                 privacy: true
-                
             }
 
             // Fee

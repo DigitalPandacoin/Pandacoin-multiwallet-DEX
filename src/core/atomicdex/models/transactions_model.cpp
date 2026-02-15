@@ -189,9 +189,9 @@ namespace atomic_dex
 
     void transactions_model::init_transactions(const t_transactions& transactions)
     {
+        spdlog::stopwatch stopwatch;
         if (m_model_data.size() == 0)
         {
-            SPDLOG_DEBUG("first time initialization, inserting {} transactions", transactions.size());
             beginResetModel();
             m_model_data = transactions;
             m_file_count = transactions.size() < g_file_count_limit ? transactions.size() : g_file_count_limit;
@@ -200,7 +200,6 @@ namespace atomic_dex
         else
         {
             //! Other time insertion
-            SPDLOG_DEBUG("other time insertion, from {} to {}", m_file_count, m_file_count + transactions.size());
             beginInsertRows(QModelIndex(), m_file_count, m_file_count + transactions.size() - 1);
             m_file_count += transactions.size();
             if (m_model_data.size() < g_file_count_limit)
@@ -217,8 +216,8 @@ namespace atomic_dex
                 this->fetchMore(QModelIndex());
             }
         }
-        SPDLOG_DEBUG("transactions model size: {}", rowCount());
         emit lengthChanged();
+        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {} seconds", transactions.size(), stopwatch);
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)
@@ -299,7 +298,6 @@ namespace atomic_dex
         {
             return;
         }
-        SPDLOG_DEBUG("fetching {} transactions, total tx: {}", items_to_fetch, m_model_data.size());
         beginInsertRows(QModelIndex(), m_file_count, m_file_count + items_to_fetch - 1);
         m_file_count += items_to_fetch;
         endInsertRows();
