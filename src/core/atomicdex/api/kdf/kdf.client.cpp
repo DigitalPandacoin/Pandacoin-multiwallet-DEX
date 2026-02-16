@@ -118,8 +118,8 @@ namespace atomic_dex::kdf
     template <typename RpcReturnType>
     RpcReturnType kdf_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command)
     {
+        spdlog::stopwatch stopwatch;
         std::string body = TO_STD_STR(resp.extract_string(true).get());
-        SPDLOG_INFO("resp code for rpc_command {} is {}", rpc_command, resp.status_code());
         RpcReturnType answer;
 
         try
@@ -149,7 +149,6 @@ namespace atomic_dex::kdf
                 return answer;
             }
 
-
             assert(not body.empty());
             auto json_answer       = nlohmann::json::parse(body);
             answer.rpc_result_code = resp.status_code();
@@ -165,6 +164,7 @@ namespace atomic_dex::kdf
             answer.raw_result      = error.what();
         }
 
+        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {} seconds", rpc_command, resp.status_code(), stopwatch);
         return answer;
     }
 

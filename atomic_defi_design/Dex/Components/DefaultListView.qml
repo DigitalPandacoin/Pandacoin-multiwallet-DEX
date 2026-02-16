@@ -22,7 +22,6 @@ ListView
 
     Component.onCompleted: {
         positionViewAtBeginning()
-        // OR: contentY = 0
     }
 
     Behavior on opacity

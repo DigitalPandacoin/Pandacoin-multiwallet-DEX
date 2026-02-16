@@ -227,7 +227,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {} seconds", rows, position, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {:.4} seconds", rows, position, stopwatch);
         return true;
     }
 
@@ -309,7 +309,7 @@ namespace atomic_dex
             auto& kdf = this->m_system_manager.get_system<kdf_service>();
             kdf.set_orders_and_swaps_pagination_infos(static_cast<std::size_t>(current_page), m_model_data.limit, m_model_data.filtering_infos);
         }
-        SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {} seconds", m_model_data.current_page, current_page, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {:.4} seconds", m_model_data.current_page, current_page, stopwatch);
     }
 
     int
@@ -480,7 +480,7 @@ namespace atomic_dex
         emit limitNbElementsChanged();
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
-        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {} seconds", size, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {:.4} seconds", size, stopwatch);
     }
 
     void
@@ -621,7 +621,7 @@ namespace atomic_dex
         reset_backend("reset");
         this->endResetModel();
         this->set_fetching_busy(false);
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {:.4} seconds", stopwatch);
     }
 
     void
@@ -633,7 +633,7 @@ namespace atomic_dex
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {} seconds", from, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {:.4} seconds", from, stopwatch);
     }
 
     bool
@@ -676,7 +676,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {:.4} seconds", stopwatch);
     }
 
     void
@@ -711,7 +711,7 @@ namespace atomic_dex
         {
             this->set_current_page(1);
         }
-        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {:.4} seconds", stopwatch);
     }
 
     t_filtering_infos
