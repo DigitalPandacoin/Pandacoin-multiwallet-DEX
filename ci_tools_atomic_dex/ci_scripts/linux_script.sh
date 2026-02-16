@@ -4,6 +4,7 @@ sudo apt-get update
 
 # base deps
 sudo apt-get install build-essential \
+                    cmake \
                     libgl1-mesa-dev \
                     ninja-build \
                     curl \
