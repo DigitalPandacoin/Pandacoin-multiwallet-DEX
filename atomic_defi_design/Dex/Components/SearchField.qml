@@ -29,7 +29,7 @@ Rectangle
 
         source: General.image_path + "exchange-search.svg"
 
-        DexColorOverlay
+        DefaultColorOverlay
         {
             anchors.fill: parent
             source: parent

@@ -114,7 +114,7 @@ namespace atomic_dex
         auto  coin_info  = kdf_system.get_coin_info(ticker.toStdString());
         if (kdf_system.set_current_ticker(ticker.toStdString()) || force)
         {
-            SPDLOG_INFO("new ticker: {}", ticker.toStdString());
+            // SPDLOG_INFO("new ticker: {}", ticker.toStdString());
             m_transactions_mdl->reset();
             this->set_tx_fetching_busy(true);
             kdf_system.fetch_infos_thread(true, true);

@@ -74,20 +74,20 @@ namespace atomic_dex::komodo_prices::api
 
 namespace atomic_dex::komodo_prices::api
 {
-    spdlog::stopwatch stopwatch;
     pplx::task<web::http::http_response>
     async_market_infos(bool fallback)
     {
+        spdlog::stopwatch stopwatch;
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
         std::string endpoint = "api/v2/tickers?expire_at=259200";
         if (fallback)
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.4} seconds", stopwatch);
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.6} seconds", stopwatch);
         }
         else
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.4} seconds", stopwatch);
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.6} seconds", stopwatch);
         }
         req.set_request_uri(FROM_STD_STR(endpoint));
         return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);
