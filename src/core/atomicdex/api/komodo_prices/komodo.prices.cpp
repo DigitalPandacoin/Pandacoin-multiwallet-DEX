@@ -83,11 +83,11 @@ namespace atomic_dex::komodo_prices::api
         std::string endpoint = "api/v2/tickers?expire_at=259200";
         if (fallback)
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api for {}: {} seconds", TO_STD_STR(g_komodo_prices_client_fallback->base_uri().to_string()) + endpoint, stopwatch);
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.4} seconds", stopwatch);
         }
         else
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api for {}: {} seconds", TO_STD_STR(g_komodo_prices_client-->base_uri().to_string()) + endpoint, stopwatch);
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {:.4} seconds", stopwatch);
         }
         req.set_request_uri(FROM_STD_STR(endpoint));
         return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);

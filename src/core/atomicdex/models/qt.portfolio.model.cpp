@@ -98,7 +98,7 @@ namespace atomic_dex
             endInsertRows();
             emit lengthChanged();
         }
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {} seconds", this->get_length(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {:.4} seconds", this->get_length(), stopwatch);
     }
 
     bool
@@ -128,7 +128,7 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
                 return true;
             }
-            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {} seconds", coin.ticker, stopwatch);
+            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {:.4} seconds", coin.ticker, stopwatch);
             return false;
         }
     }
@@ -186,7 +186,7 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {:.4} seconds", stopwatch);
         return true;
     }
 
@@ -248,7 +248,7 @@ namespace atomic_dex
                 }
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values for provider {}: {} seconds", price_provider, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {:.4} seconds", stopwatch);
         return true;
     }
 
@@ -600,6 +600,6 @@ namespace atomic_dex
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {:.4} seconds", stopwatch);
     }
 } // namespace atomic_dex
