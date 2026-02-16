@@ -88,7 +88,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.fill: parent
         anchors.margins: 8
-        anchors.bottomMargin: is_history ? 10 : 0
+        anchors.bottomMargin: is_history ? 0 : 10
         spacing: 8
 
         RowLayout

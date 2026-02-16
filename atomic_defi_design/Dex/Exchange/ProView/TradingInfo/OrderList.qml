@@ -37,6 +37,7 @@ Item
             property bool           resetAnimation: false
 
             Layout.fillWidth: true
+            Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
             Layout.fillHeight: true
 
             model: items.orders_proxy_mdl
