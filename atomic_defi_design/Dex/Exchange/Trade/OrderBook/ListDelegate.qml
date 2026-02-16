@@ -155,17 +155,16 @@ Item
                 id: depth_bar
                 anchors.top: parent.top
                 height: 2
-                width: 0
+                width: parent.width * depth
                 Behavior on width { NumberAnimation { duration: 1000 } }
                 radius: 3
                 opacity: 0.8
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
-                Component.onCompleted: {
-                    width = parent.width * depth
+                // Component.onCompleted: {
                     //console.debug("parent.width = " + parent.width)
                     //console.debug("depth = " + depth)
                     //console.debug("width = " + width)
-                }
+                // }
             }
         }
 

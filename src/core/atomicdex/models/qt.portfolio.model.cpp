@@ -145,7 +145,6 @@ namespace atomic_dex
 
         for (auto&& [_, coin]: coins)
         {
-            spdlog::stopwatch stopwatch;
             if (m_ticker_registry.find(coin.ticker) == m_ticker_registry.end())
             {
                 SPDLOG_WARN("[update_currency_values] ticker: {} not inserted yet in the model, skipping", coin.ticker);
@@ -185,7 +184,6 @@ namespace atomic_dex
                 QJsonObject status = nlohmann_json_object_to_qt_json_object(coin_info.activation_status);
                 update_value(ActivationStatus, status, idx, *this);
             }
-            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values for ticker {}: {} seconds", coin.ticker, stopwatch);
         }
         return true;
     }

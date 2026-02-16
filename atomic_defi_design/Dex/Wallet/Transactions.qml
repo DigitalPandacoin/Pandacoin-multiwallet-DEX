@@ -13,7 +13,6 @@ Dex.ListView
     id: list
 
     readonly property int row_height: 45
-
     property real _categoryColumnWidth: 140
     property real _cryptoColumnWidth: 170
     property real _fiatColumnWidth: 170
@@ -21,14 +20,15 @@ Dex.ListView
     property real _dateColumnWidth: 170
 
     model: transactions_mdl.proxy_mdl
-    position: 0
-    height: Math.floor(parent.height / list.row_height) * list.row_height
 
-    Component.onCompleted: {
-        console.log("height: " + height)
+    function calculateHeight(): real {
         console.log("parent.height: " + parent.height)
+        console.log("list.height: " + list.height)
         console.log("list.row_height: " + list.row_height)
+        console.log("height: " + Math.floor(list.height / list.row_height) * list.row_height);
+        return Math.floor(list.height / list.row_height) * list.row_height;
     }
+    height: calculateHeight()
 
     // Transaction Row
     delegate: Dex.Rectangle

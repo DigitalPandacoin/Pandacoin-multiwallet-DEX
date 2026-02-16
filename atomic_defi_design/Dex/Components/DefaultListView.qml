@@ -20,6 +20,11 @@ ListView
 
     opacity: root.count === 0 ? 0 : enabled ? 1 : 0.2
 
+    Component.onCompleted: {
+        positionViewAtBeginning()
+        // OR: contentY = 0
+    }
+
     Behavior on opacity
     {
         SmoothedAnimation
@@ -32,7 +37,6 @@ ListView
     ScrollBar.vertical: DefaultScrollBar
     {
         id: scrollVert
-        position: 0
         visibleBackground: root.visibleBackground
     }
 }
