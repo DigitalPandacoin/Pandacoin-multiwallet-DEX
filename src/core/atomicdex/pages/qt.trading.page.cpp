@@ -893,8 +893,7 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
-        spdlog::stopwatch stopwatch;
-
+        //spdlog::stopwatch stopwatch;
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -1008,7 +1007,7 @@ namespace atomic_dex
                 }
             }
         }
-        SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
+        //SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
     }
 
     void

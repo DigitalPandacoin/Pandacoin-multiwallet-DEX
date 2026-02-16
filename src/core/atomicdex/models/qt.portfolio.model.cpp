@@ -136,6 +136,7 @@ namespace atomic_dex
     bool
     portfolio_model::update_currency_values()
     {
+        spdlog::stopwatch stopwatch;
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
         const auto&        price_service = this->m_system_manager.get_system<global_price_service>();
         const auto&        provider      = this->m_system_manager.get_system<komodo_prices_provider>();
@@ -185,13 +186,14 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
             }
         }
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {} seconds", stopwatch);
         return true;
     }
 
     bool
     portfolio_model::update_balance_values(const std::vector<std::string>& tickers)
     {
-        SPDLOG_INFO("update_balance_values");
+        spdlog::stopwatch stopwatch;
         for (auto&& ticker: tickers)
         {
             if (ticker.empty())
@@ -206,7 +208,6 @@ namespace atomic_dex
             
             if (const auto res = this->match(this->index(0, 0), TickerRole, QString::fromStdString(ticker), 1, Qt::MatchFlag::MatchExactly); not res.isEmpty())
             {
-                // SPDLOG_DEBUG("Updating balance values of: {}", ticker);
                 const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
                 const auto*        global_cfg    = this->m_system_manager.get_system<portfolio_page>().get_global_cfg();
                 const auto         coin          = global_cfg->get_coin_info(ticker);
@@ -247,6 +248,7 @@ namespace atomic_dex
                 }
             }
         }
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values for provider {}: {} seconds", price_provider, stopwatch);
         return true;
     }
 
@@ -579,7 +581,7 @@ namespace atomic_dex
     void
     portfolio_model::adjust_percent_current_currency(QString balance_all)
     {
-        SPDLOG_INFO("adjust_percent_current_currency");
+        spdlog::stopwatch stopwatch;
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
@@ -598,5 +600,6 @@ namespace atomic_dex
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {} seconds", stopwatch);
     }
 } // namespace atomic_dex

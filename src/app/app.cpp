@@ -510,7 +510,6 @@ namespace atomic_dex
         //! This event is called when a call is enabled and cex provider finished fetch data
         if (not m_event_actions[events_action::about_to_exit_app])
         {
-            SPDLOG_DEBUG("on_coin_fully_initialized_event");
 #if !defined(_WIN32)
             for (auto&& ticker: evt.tickers) {
                 //SPDLOG_DEBUG("Adding {} to m_portfolio_queue", ticker);

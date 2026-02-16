@@ -82,21 +82,29 @@ namespace atomic_dex
     qt_orderbook_wrapper::refresh_orderbook_model_data(kdf::orderbook_result_rpc answer)
     {
         spdlog::stopwatch stopwatch;
+        spdlog::stopwatch stopwatch1;
+        spdlog::stopwatch stopwatch2;
+        spdlog::stopwatch stopwatch3;
+        spdlog::stopwatch stopwatch4;
         this->m_asks->refresh_orderbook_model_data(answer.asks);
         this->m_bids->refresh_orderbook_model_data(answer.bids);
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_bestorders_data();
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch1);
         if (data.empty())
         {
             m_best_orders->clear_orderbook();
+            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch2);
         }
         else if (m_best_orders->rowCount() == 0)
         {
             m_best_orders->reset_orderbook(data);
+            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch3);
         }
         else
         {
             m_best_orders->refresh_orderbook_model_data(data);
         }
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch4);
         this->set_both_taker_vol();
         SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {} seconds", answer.bids.size(), answer.asks.size(), stopwatch);
     }
@@ -142,6 +150,7 @@ namespace atomic_dex
     void
     atomic_dex::qt_orderbook_wrapper::set_both_taker_vol()
     {
+        spdlog::stopwatch stopwatch;
         auto&& [base, rel]         = m_system_manager.get_system<kdf_service>().get_taker_vol();
         this->m_base_max_taker_vol = QJsonObject{
             {"denom", QString::fromStdString(base.denom)},
@@ -161,8 +170,8 @@ namespace atomic_dex
         emit baseMinTakerVolChanged();
         this->m_rel_min_taker_vol = QString::fromStdString(min_rel.min_trading_vol);
         emit relMinTakerVolChanged();
-
         emit currentMinTakerVolChanged();
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {} seconds", stopwatch);
     }
 } // namespace atomic_dex
 

@@ -2380,14 +2380,14 @@ namespace atomic_dex
     void
     kdf_service::on_gui_enter_trading([[maybe_unused]] const gui_enter_trading& evt)
     {
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
+        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         m_orderbook_thread_active = true;
     }
 
     void
     kdf_service::on_gui_leave_trading([[maybe_unused]] const gui_leave_trading& evt)
     {
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
+        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         m_orderbook_thread_active = false;
     }
 
@@ -2491,6 +2491,7 @@ namespace atomic_dex
     void
     kdf_service::process_tx_answer(const nlohmann::json& answer_json, std::string ticker)
     {
+        spdlog::stopwatch stopwatch;
         kdf::tx_history_answer answer;
         kdf::from_json(answer_json, answer);
         t_tx_state state;
@@ -2562,6 +2563,7 @@ namespace atomic_dex
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
+        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {} seconds", ticker, stopwatch);
     }
 
 
