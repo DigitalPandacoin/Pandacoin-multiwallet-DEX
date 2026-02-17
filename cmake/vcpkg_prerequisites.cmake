@@ -1,12 +1,13 @@
 message(STATUS "VCPKG package manager enabled")
+set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-custom-triplets")
 set(VCPKG_OVERLAY_PORTS "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-custom-ports/ports" CACHE STRING "")
 set(_VCPKG_INSTALLED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-repo/installed")
 set(CMAKE_TOOLCHAIN_FILE
         "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-repo/scripts/buildsystems/vcpkg.cmake"
         CACHE STRING "")
+
 if (WIN32)
-    message(STATUS "enabling WCHAR_FILENAMES for spdlog")
-    set(SPDLOG_WCHAR_FILENAMES ON)
+    set(VCPKG_TARGET_TRIPLET "x64-windows-custom")
 endif ()
 
 if (APPLE)
