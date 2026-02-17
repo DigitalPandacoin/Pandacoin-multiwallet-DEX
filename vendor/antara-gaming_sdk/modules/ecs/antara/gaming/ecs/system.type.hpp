@@ -33,11 +33,11 @@ namespace antara::gaming::ecs
     };
 
     /// @brief strong_type relative to system_type::pre_update
-    using st_system_pre_update = st::type<system_type, struct system_pre_update_tag>;
+    using st_system_pre_update = strong::type<system_type, struct system_pre_update_tag>;
 
     /// @brief strong_type relative to system_type::logic_update
-    using st_system_logic_update = st::type<system_type, struct system_logic_update_tag>;
+    using st_system_logic_update = strong::type<system_type, struct system_logic_update_tag>;
 
     /// @brief strong_type relative to system_type::post_update
-    using st_system_post_update = st::type<system_type, struct system_post_update_tag>;
+    using st_system_post_update = strong::type<system_type, struct system_post_update_tag>;
 } // namespace antara::gaming::ecs
