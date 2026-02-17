@@ -24,6 +24,7 @@
 
 namespace atomic_dex
 {
+    using namespace entt::literals;
     using kdf_started               = entt::tag<"kdf_started"_hs>;
     using post_login                = entt::tag<"post_login"_hs>;
     using gui_enter_trading         = entt::tag<"gui_enter_trading"_hs>;
