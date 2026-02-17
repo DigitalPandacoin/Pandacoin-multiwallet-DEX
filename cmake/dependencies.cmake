@@ -103,7 +103,9 @@ set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 #        URL https://github.com/KomodoPlatform/refl-cpp/archive/v0.6.5.zip
 #)
 
-FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
+#FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
+FetchContent_MakeAvailable(doom_meta)
+find_package(doom_st refl-cpp)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
