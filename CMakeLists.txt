@@ -60,9 +60,6 @@ FetchContent_Declare(
 FetchContent_Declare(jl777-coins
         URL https://github.com/cipig/coins/archive/nogeo.zip)
 
-#FetchContent_Declare(adex-generics-coins
-#        URL https://github.com/KomodoPlatform/komodo-wallet-desktop/archive/main.zip)
-
 FetchContent_MakeAvailable(kdf jl777-coins qmaterial)
 
 ##! Configure our needs.

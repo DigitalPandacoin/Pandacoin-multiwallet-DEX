@@ -93,10 +93,10 @@ FetchContent_Declare(
 
 set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 
-FetchContent_Declare(
-        expected
-        URL https://github.com/KomodoPlatform/expected/archive/patch-1.zip
-)
+#FetchContent_Declare(
+#        expected
+#        URL https://github.com/KomodoPlatform/expected/archive/patch-1.zip
+#)
 
 #FetchContent_Declare(
 #        refl-cpp
@@ -104,7 +104,7 @@ FetchContent_Declare(
 #)
 
 #FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
-FetchContent_MakeAvailable(doom_st doom_meta)
+FetchContent_MakeAvailable(doom_meta)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
@@ -119,15 +119,15 @@ add_library(antara::refl-cpp ALIAS refl-cpp)
 
 #FetchContent_GetProperties(reproc)
 #if (NOT reproc_POPULATED)
- #   FetchContent_Populate(reproc)
- #   add_subdirectory(${reproc_SOURCE_DIR} ${reproc_BINARY_DIR} EXCLUDE_FROM_ALL)
+#    FetchContent_Populate(reproc)
+#    add_subdirectory(${reproc_SOURCE_DIR} ${reproc_BINARY_DIR} EXCLUDE_FROM_ALL)
 #endif ()
 
-FetchContent_GetProperties(expected)
-if (NOT expected_POPULATED)
-    FetchContent_Populate(expected)
-    add_subdirectory(${expected_SOURCE_DIR} ${expected_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif ()
+#FetchContent_GetProperties(expected)
+#if (NOT expected_POPULATED)
+#    FetchContent_Populate(expected)
+#    add_subdirectory(${expected_SOURCE_DIR} ${expected_BINARY_DIR} EXCLUDE_FROM_ALL)
+#endif ()
 
 
 ##! Sodium
