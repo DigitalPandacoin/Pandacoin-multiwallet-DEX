@@ -9,7 +9,6 @@ include(build_type)
 include(compiler_prerequisites)
 include(vcpkg_prerequisites)
 include(qt_prerequisites)
-include(cfg_hash)
 
 project(${DEX_PROJECT_NAME} LANGUAGES CXX VERSION 0.8.2)
 message(STATUS "${PROJECT_NAME} is version ${PROJECT_VERSION}")
@@ -24,9 +23,6 @@ option(WITH_HOTRELOAD "Enable to use qml Hot reload" OFF)
 include(antara)
 ##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
 init_antara_env()
-
-##! We include the module from CMake for fetching dependencies
-include(FetchContent)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(LINUX TRUE)
