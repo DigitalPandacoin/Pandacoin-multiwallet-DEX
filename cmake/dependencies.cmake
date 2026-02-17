@@ -91,7 +91,7 @@ set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 #FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
 FetchContent_MakeAvailable(doom_meta)
 
-#find_package(strong_type CONFIG REQUIRED)
+find_package(strong_type CONFIG REQUIRED)
 #target_link_libraries(antara_entt PRIVATE strong_type::strong_type)
 
 add_library(doctest INTERFACE)
