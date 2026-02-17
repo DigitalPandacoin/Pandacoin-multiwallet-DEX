@@ -92,6 +92,7 @@ set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 FetchContent_MakeAvailable(doom_meta)
 
 find_package(strong_type CONFIG REQUIRED)
+find_package(tl-expected CONFIG REQUIRED)
 #target_link_libraries(antara_entt PRIVATE strong_type::strong_type)
 
 add_library(doctest INTERFACE)
@@ -112,12 +113,6 @@ add_library(antara::refl-cpp ALIAS refl-cpp)
 #if (NOT reproc_POPULATED)
 #    FetchContent_Populate(reproc)
 #    add_subdirectory(${reproc_SOURCE_DIR} ${reproc_BINARY_DIR} EXCLUDE_FROM_ALL)
-#endif ()
-
-#FetchContent_GetProperties(expected)
-#if (NOT expected_POPULATED)
-#    FetchContent_Populate(expected)
-#    add_subdirectory(${expected_SOURCE_DIR} ${expected_BINARY_DIR} EXCLUDE_FROM_ALL)
 #endif ()
 
 
