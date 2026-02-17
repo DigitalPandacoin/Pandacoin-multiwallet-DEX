@@ -2034,7 +2034,7 @@ namespace atomic_dex
             ec = dextop_error::tx_history_of_a_non_enabled_coin;
             return {};
         }
-        // SPDLOG_DEBUG("Time elapsed in kdf_service::get_tx for ticker {}: {} seconds", ticker, stopwatch);
+        // SPDLOG_DEBUG("Time elapsed in kdf_service::get_tx for ticker {}: {:.6} seconds", ticker, stopwatch);
         return it->second;
     }
 

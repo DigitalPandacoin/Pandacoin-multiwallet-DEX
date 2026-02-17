@@ -71,29 +71,18 @@ add_library(komodo-date::date ALIAS komodo-date)
 
 find_package(Qt5 5.15 COMPONENTS Core Quick LinguistTools Svg Charts WebEngine WebEngineCore WebEngineWidgets Widgets REQUIRED)
 
-#find_package(Qt5)
-
 set(BUILD_TESTING OFF CACHE BOOL "Override option" FORCE)
 #set(REPROC++ ON CACHE BOOL "" FORCE)
+set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 
 FetchContent_Declare(
         doom_meta
-        URL https://github.com/KomodoPlatform/meta/archive/master.zip
+        URL https://github.com/doom/meta/archive/master.zip
 )
-
-#FetchContent_Declare(
-#        reproc
-#        URL https://github.com/KomodoPlatform/reproc/archive/v14.2.1.zip
-#)
-
-set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
-
-#FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
 FetchContent_MakeAvailable(doom_meta)
 
 find_package(strong_type CONFIG REQUIRED)
 find_package(tl-expected CONFIG REQUIRED)
-#target_link_libraries(antara_entt PRIVATE strong_type::strong_type)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
@@ -105,15 +94,6 @@ add_library(antara::entt ALIAS antara_entt)
 add_library(refl-cpp INTERFACE)
 target_include_directories(refl-cpp INTERFACE ${refl-cpp_SOURCE_DIR})
 add_library(antara::refl-cpp ALIAS refl-cpp)
-
-#find_path(REFL_CPP_INCLUDE_DIRS "refl.hpp")
-#target_include_directories(main PRIVATE ${REFL_CPP_INCLUDE_DIRS})
-
-#FetchContent_GetProperties(reproc)
-#if (NOT reproc_POPULATED)
-#    FetchContent_Populate(reproc)
-#    add_subdirectory(${reproc_SOURCE_DIR} ${reproc_BINARY_DIR} EXCLUDE_FROM_ALL)
-#endif ()
 
 
 ##! Sodium

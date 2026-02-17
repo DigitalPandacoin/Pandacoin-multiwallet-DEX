@@ -843,7 +843,7 @@ namespace atomic_dex
         emit preferredOrderChanged();
         emit priceChanged();
         emit priceReversedChanged();
-        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {} seconds", from.toStdString(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {:.6} seconds", from.toStdString(), stopwatch);
     }
 
     QString
@@ -1007,7 +1007,7 @@ namespace atomic_dex
                 }
             }
         }
-        //SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {} seconds", stopwatch);
+        //SPDLOG_DEBUG("Time elapsed for trading_page::determine_max_volume: {:.6} seconds", stopwatch);
     }
 
     void
@@ -1249,7 +1249,7 @@ namespace atomic_dex
             emit baseAmountChanged();
             emit relAmountChanged();
         }
-        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {:.6} seconds", stopwatch);
     }
 
     void
@@ -1400,7 +1400,7 @@ namespace atomic_dex
             this->set_preimage_busy(false);
         };
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {:.6} seconds", stopwatch);
     }
 
     void

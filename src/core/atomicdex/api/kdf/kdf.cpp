@@ -515,7 +515,7 @@ namespace atomic_dex::kdf
             contents.order_error_state   = error.first;
             contents.order_error_message = error.second;
         }
-        // SPDLOG_INFO("from_json(order_swaps_data) -> {} seconds", stopwatch);
+        // SPDLOG_INFO("from_json(order_swaps_data) -> {:.6} seconds", stopwatch);
     }
 
     void

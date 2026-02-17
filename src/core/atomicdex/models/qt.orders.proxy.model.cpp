@@ -275,7 +275,7 @@ namespace atomic_dex
         //{
         // emit qobject_cast<orders_model*>(this->sourceModel())->lengthChanged();
         //}
-        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::set_coin_filter for filter pattern {} and is_history {}: {} seconds", to_filter.toStdString(), m_is_history, stopwatch);
+        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::set_coin_filter for filter pattern {} and is_history {}: {:.6} seconds", to_filter.toStdString(), m_is_history, stopwatch);
     }
 
     void

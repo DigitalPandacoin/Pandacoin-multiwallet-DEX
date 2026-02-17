@@ -164,7 +164,7 @@ namespace atomic_dex::kdf
             answer.raw_result      = error.what();
         }
 
-        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {} seconds", rpc_command, resp.status_code(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {:.6} seconds", rpc_command, resp.status_code(), stopwatch);
         return answer;
     }
 

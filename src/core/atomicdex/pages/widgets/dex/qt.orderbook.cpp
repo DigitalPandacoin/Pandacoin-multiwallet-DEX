@@ -89,24 +89,24 @@ namespace atomic_dex
         this->m_asks->refresh_orderbook_model_data(answer.asks);
         this->m_bids->refresh_orderbook_model_data(answer.bids);
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_bestorders_data();
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch1);
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch1);
         if (data.empty())
         {
             m_best_orders->clear_orderbook();
-            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch2);
+            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch2);
         }
         else if (m_best_orders->rowCount() == 0)
         {
             m_best_orders->reset_orderbook(data);
-            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch3);
+            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch3);
         }
         else
         {
             m_best_orders->refresh_orderbook_model_data(data);
         }
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {} seconds", stopwatch4);
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch4);
         this->set_both_taker_vol();
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {} seconds", answer.bids.size(), answer.asks.size(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {:.6} seconds", answer.bids.size(), answer.asks.size(), stopwatch);
     }
 
     void
@@ -124,7 +124,7 @@ namespace atomic_dex
         }
         m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::reset_orderbook: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::reset_orderbook: {:.6} seconds", stopwatch);
     }
 
     void
@@ -171,7 +171,7 @@ namespace atomic_dex
         this->m_rel_min_taker_vol = QString::fromStdString(min_rel.min_trading_vol);
         emit relMinTakerVolChanged();
         emit currentMinTakerVolChanged();
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {:.6} seconds", stopwatch);
     }
 } // namespace atomic_dex
 
@@ -190,7 +190,7 @@ namespace atomic_dex
         {
             get_best_orders()->clear_orderbook();
         }
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {:.6} seconds", stopwatch);
     }
 
     void

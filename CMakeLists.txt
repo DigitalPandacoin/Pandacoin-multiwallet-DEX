@@ -25,7 +25,6 @@ include(antara)
 ##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
 init_antara_env()
 
-
 ##! We include the module from CMake for fetching dependencies
 include(FetchContent)
 

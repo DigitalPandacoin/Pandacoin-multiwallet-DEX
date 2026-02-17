@@ -11,7 +11,6 @@ namespace atomic_dex
 {
     komodo_prices_provider::komodo_prices_provider(entt::registry& registry) : system(registry)
     {
-        // SPDLOG_INFO("komodo_prices_provider created");
         m_clock = std::chrono::high_resolution_clock::now();
         process_update();
     }
@@ -75,7 +74,7 @@ namespace atomic_dex
         };
 
         atomic_dex::komodo_prices::api::async_market_infos(fallback).then(answer_functor).then(error_functor);
-        SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {} seconds", m_market_registry.size(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {:.6} seconds", m_market_registry.size(), stopwatch);
     }
 } // namespace atomic_dex
 

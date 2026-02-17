@@ -298,7 +298,7 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, ticker: {}, fiat: {}", error.what(), ticker, fiat);
             return "0.00";
         }
-        SPDLOG_DEBUG("Time elapsed for global_price_service::get_price_in_fiat: {} seconds", stopwatch);
+        SPDLOG_DEBUG("Time elapsed for global_price_service::get_price_in_fiat: {:.6} seconds", stopwatch);
     }
 
     std::string

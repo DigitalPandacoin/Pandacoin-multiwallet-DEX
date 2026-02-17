@@ -217,7 +217,7 @@ namespace atomic_dex
             }
         }
         emit lengthChanged();
-        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {} seconds", transactions.size(), stopwatch);
+        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {:.6} seconds", transactions.size(), stopwatch);
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)
