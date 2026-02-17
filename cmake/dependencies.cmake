@@ -88,16 +88,11 @@ FetchContent_Declare(
 
 set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 
-#FetchContent_Declare(
-#        refl-cpp
-#        URL https://github.com/KomodoPlatform/refl-cpp/archive/v0.6.5.zip
-#)
-
 #FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
 FetchContent_MakeAvailable(doom_meta)
 
-find_package(strong_type CONFIG REQUIRED)
-target_link_libraries(main PRIVATE strong_type::strong_type)
+#find_package(strong_type CONFIG REQUIRED)
+#target_link_libraries(antara_entt PRIVATE strong_type::strong_type)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
@@ -109,6 +104,9 @@ add_library(antara::entt ALIAS antara_entt)
 add_library(refl-cpp INTERFACE)
 target_include_directories(refl-cpp INTERFACE ${refl-cpp_SOURCE_DIR})
 add_library(antara::refl-cpp ALIAS refl-cpp)
+
+#find_path(REFL_CPP_INCLUDE_DIRS "refl.hpp")
+#target_include_directories(main PRIVATE ${REFL_CPP_INCLUDE_DIRS})
 
 #FetchContent_GetProperties(reproc)
 #if (NOT reproc_POPULATED)
