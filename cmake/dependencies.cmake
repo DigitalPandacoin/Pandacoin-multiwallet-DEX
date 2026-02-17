@@ -89,17 +89,15 @@ FetchContent_Declare(
 set(EXPECTED_ENABLE_TESTS OFF CACHE BOOL "Override option" FORCE)
 
 #FetchContent_Declare(
-#        expected
-#        URL https://github.com/KomodoPlatform/expected/archive/patch-1.zip
-#)
-
-#FetchContent_Declare(
 #        refl-cpp
 #        URL https://github.com/KomodoPlatform/refl-cpp/archive/v0.6.5.zip
 #)
 
 #FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
 FetchContent_MakeAvailable(doom_meta)
+
+find_package(strong_type CONFIG REQUIRED)
+target_link_libraries(main PRIVATE strong_type::strong_type)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
