@@ -46,8 +46,8 @@
     },
     {
       "name": "spdlog",
-      "version": "1.9.2",
-      "port-version": 0
+      "version": "1.10.0",
+      "port-version": 1
     }
   ]
 }
