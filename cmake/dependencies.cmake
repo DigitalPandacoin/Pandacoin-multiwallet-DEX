@@ -76,11 +76,6 @@ find_package(Qt5 5.15 COMPONENTS Core Quick LinguistTools Svg Charts WebEngine W
 set(BUILD_TESTING OFF CACHE BOOL "Override option" FORCE)
 #set(REPROC++ ON CACHE BOOL "" FORCE)
 
-#FetchContent_Declare(
-#        doom_st
-#        URL https://github.com/KomodoPlatform/strong_type/archive/1.0.2.tar.gz
-#)
-
 FetchContent_Declare(
         doom_meta
         URL https://github.com/KomodoPlatform/meta/archive/master.zip

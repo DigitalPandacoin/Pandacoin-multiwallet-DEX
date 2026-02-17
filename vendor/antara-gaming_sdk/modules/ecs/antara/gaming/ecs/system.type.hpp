@@ -17,7 +17,7 @@
 #pragma once
 
 //! Dependencies Headers
-#include <st/type.hpp>
+#include <strong_type/type.hpp>
 
 namespace antara::gaming::ecs
 {
