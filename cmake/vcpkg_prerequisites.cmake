@@ -5,7 +5,8 @@ set(CMAKE_TOOLCHAIN_FILE
         "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-repo/scripts/buildsystems/vcpkg.cmake"
         CACHE STRING "")
 if (WIN32)
-    set(VCPKG_TARGET_TRIPLET "x64-windows" CACHE STRING "")
+    message(STATUS "enabling WCHAR_FILENAMES for spdlog")
+    set(SPDLOG_WCHAR_FILENAMES ON)
 endif ()
 
 if (APPLE)
