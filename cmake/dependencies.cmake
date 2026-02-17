@@ -98,12 +98,13 @@ FetchContent_Declare(
         URL https://github.com/KomodoPlatform/expected/archive/patch-1.zip
 )
 
-FetchContent_Declare(
-        refl-cpp
-        URL https://github.com/KomodoPlatform/refl-cpp/archive/v0.6.5.zip
-)
+#FetchContent_Declare(
+#        refl-cpp
+#        URL https://github.com/KomodoPlatform/refl-cpp/archive/v0.6.5.zip
+#)
 
-FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
+#FetchContent_MakeAvailable(doom_st refl-cpp doom_meta)
+FetchContent_MakeAvailable(doom_st doom_meta)
 
 add_library(doctest INTERFACE)
 target_link_libraries(doctest INTERFACE doctest::doctest)
