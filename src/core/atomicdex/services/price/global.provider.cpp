@@ -74,26 +74,12 @@ namespace atomic_dex
     global_price_service::global_price_service(entt::registry& registry, ag::ecs::system_manager& system_manager, atomic_dex::cfg& cfg) :
         system(registry), m_system_manager(system_manager), m_cfg(cfg)
     {
-        m_update_clock = std::chrono::high_resolution_clock::now();
+        //m_update_clock = std::chrono::high_resolution_clock::now();
     }
 } // namespace atomic_dex
 
 namespace atomic_dex
 {
-    void
-    global_price_service::update()
-    {
-        using namespace std::chrono_literals;
-
-        const auto now = std::chrono::high_resolution_clock::now();
-        const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        if (s >= 5min)
-        {
-            SPDLOG_INFO("[global_price_service::update()] - 5min elapsed, doing nothing");
-            m_update_clock = std::chrono::high_resolution_clock::now();
-        }
-    }
-
     std::string
     global_price_service::get_rate_conversion(const std::string& fiat, const std::string& ticker_in, bool adjusted) const
     {

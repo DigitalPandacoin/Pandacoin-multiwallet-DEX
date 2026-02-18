@@ -324,7 +324,7 @@ namespace atomic_dex
                     nlohmann::json answer  = answers[0];
                     this->set_buy_sell_last_rpc_data(nlohmann_json_object_to_qt_json_object(answer));
                     auto& cur_kdf_system = m_system_manager.get_system<kdf_service>();
-                    SPDLOG_DEBUG("order successfully placed, refreshing orders and swap");
+                    SPDLOG_INFO("order successfully placed, refreshing orders and swap");
                     cur_kdf_system.batch_fetch_orders_and_swap();
                 }
                 else
