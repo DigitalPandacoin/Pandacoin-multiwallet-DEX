@@ -30,7 +30,7 @@ DefaultListView
     cacheBuffer: 40
     clip: true
 
-    header: DexRectangle
+    header: DefaultRectangle
     {
         id: header_row
         width: _rowWidth
@@ -59,7 +59,7 @@ DefaultListView
                 font.pixelSize: 12
                 font.weight: Font.Bold
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     anchors.fill: parent
                     hoverEnabled: true 
@@ -84,7 +84,7 @@ DefaultListView
                 font.pixelSize: 12
                 font.weight: Font.Bold
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     anchors.fill: parent
                     hoverEnabled: true 
@@ -109,7 +109,7 @@ DefaultListView
                 font.pixelSize: 12
                 font.weight: Font.Bold
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     anchors.fill: parent
                     hoverEnabled: true 
@@ -123,7 +123,7 @@ DefaultListView
         }
     }
 
-    delegate: DexRectangle
+    delegate: DefaultRectangle
     {
         width: _rowWidth
         height: _rowHeight
@@ -132,7 +132,7 @@ DefaultListView
         colorAnimation: false
         color: mouse_area.containsMouse ? Dex.CurrentTheme.listItemHoveredBackground : 'transparent'
 
-        DexMouseArea
+        DefaultMouseArea
         {
             id: mouse_area
             anchors.fill: parent
@@ -150,7 +150,7 @@ DefaultListView
                 property int _iconWidth: 24
                 Layout.preferredWidth: _tokenColumnWidth
 
-                DexImage
+                DefaultImage
                 {
                     id: _coinIcon
                     Layout.preferredWidth: parent._iconWidth

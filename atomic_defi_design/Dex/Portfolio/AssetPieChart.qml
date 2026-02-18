@@ -78,7 +78,7 @@ ColumnLayout
         }
     }
 
-    DexRectangle
+    DefaultRectangle
     {
         id: bg
         Layout.fillHeight: true
@@ -125,7 +125,7 @@ ColumnLayout
                         id: pieSeries
                     }
 
-                    DexRectangle
+                    DefaultRectangle
                     {
                         anchors.centerIn: parent
                         color: DexTheme.theme === "light" ? DexTheme.contentColorTopBold : bg.color

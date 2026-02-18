@@ -1,3 +1,6 @@
 import QtQuick 2.15
 
-DexMouseArea {}
+MouseArea
+{
+    cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+}

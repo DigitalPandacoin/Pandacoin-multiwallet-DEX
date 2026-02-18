@@ -38,7 +38,7 @@ DefaultListView
     cacheBuffer: 40
     clip: true
 
-    header: DexRectangle // Best orders list header
+    header: DefaultRectangle // Best orders list header
     {
         id: header_row
         width: _rowWidth
@@ -122,7 +122,7 @@ DefaultListView
         MouseArea { anchors.fill: parent }
     }
 
-    delegate: DexRectangle // Order Line
+    delegate: DefaultRectangle // Order Line
     {
         property bool _isCoinEnabled: Constants.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(coin).is_enabled
         property bool _isAboveMinVal: parseFloat(price_fiat) > parseFloat(_bestOrderFiatFilterField.textField.text) || _bestOrderFiatFilterField.textField.text === ""
@@ -135,7 +135,7 @@ DefaultListView
         colorAnimation: false
         color: mouse_area.containsMouse ? Dex.CurrentTheme.listItemHoveredBackground : 'transparent'
 
-        DexMouseArea
+        DefaultMouseArea
         {
             id: mouse_area
             anchors.fill: parent
@@ -166,7 +166,7 @@ DefaultListView
                 Layout.preferredWidth: _tokenColumnSize
                 Layout.leftMargin: 3
 
-                DexImage                         // Order Token Icon
+                DefaultImage                         // Order Token Icon
                 {
                     Layout.preferredWidth: parent._iconWidth
                     Layout.preferredHeight: 24
@@ -219,7 +219,7 @@ DefaultListView
                 opacity: !_isCoinEnabled? .3 : 1
             }
 
-            DexTooltip
+            DefaultTooltip
             {
                 id: _tooltip
 

@@ -24,7 +24,7 @@ ComboBox
                                            m[textRole] : m.modelData[textRole]
 
     // Combobox Dropdown Button Background
-    background: DexRectangle
+    background: DefaultRectangle
     {
         id: bg_rect
         implicitHeight: 40
@@ -56,7 +56,7 @@ ComboBox
             color: Dex.CurrentTheme.foregroundColor
         }
 
-        background: DexRectangle {
+        background: DefaultRectangle {
             anchors.fill: combo_item
             color: combo_item.highlighted ? highlightedBackgroundColor : mainBackgroundColor
         }
@@ -97,7 +97,7 @@ ComboBox
                 Layout.rightMargin: 2
                 Layout.topMargin: Layout.leftMargin
 
-                background: DexRectangle
+                background: DefaultRectangle
                 {
                     anchors.fill: parent
                     anchors.topMargin: -5
@@ -190,7 +190,7 @@ ComboBox
                         }
                     }
 
-                    DexMouseArea
+                    DefaultMouseArea
                     {
                         anchors.fill: parent
                         acceptedButtons: Qt.NoButton

@@ -23,7 +23,7 @@ Item {
     
     signal clicked()
 
-    DexRectangle {
+    DefaultRectangle {
         anchors.fill: parent
         height: 45
         radius: 5
@@ -41,7 +41,7 @@ Item {
         opacity: area.containsMouse ? 1 : .7
     }
 
-    DexMouseArea {
+    DefaultMouseArea {
         id: area
         hoverEnabled: true
         onClicked: parent.clicked()

@@ -19,7 +19,7 @@ DefaultImage
     anchors.rightMargin: iconSize / 2
     anchors.verticalCenter: parent.verticalCenter
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: alertArea
         anchors.fill: parent

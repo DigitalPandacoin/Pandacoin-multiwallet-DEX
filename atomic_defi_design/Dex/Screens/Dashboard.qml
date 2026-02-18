@@ -233,7 +233,7 @@ Item
                     pct_value.font.pixelSize: 11
                 }
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     id: download_mouse_area
                     anchors.fill: parent

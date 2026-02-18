@@ -33,7 +33,7 @@ Item
         opacity: _controlMouseArea.containsMouse ? 1 : .7
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: _controlMouseArea
         anchors.fill: parent

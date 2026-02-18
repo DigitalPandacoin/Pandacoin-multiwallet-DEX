@@ -16,7 +16,7 @@ import Dex.Themes 1.0 as Dex
 import "Screens/Startup"
 as Startup
 
-DexRectangle
+DefaultRectangle
 {
     id: app
 
@@ -348,7 +348,7 @@ DexRectangle
                     }
                 }
             }
-            DexMouseArea
+            DefaultMouseArea
             {
                 id: areaAlert
                 hoverEnabled: true

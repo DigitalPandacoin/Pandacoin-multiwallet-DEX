@@ -11,7 +11,7 @@ import App 1.0
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 
-DexRectangle
+DefaultRectangle
 {
     id: root
     radius: 10

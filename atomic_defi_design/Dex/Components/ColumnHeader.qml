@@ -12,7 +12,7 @@ Item
 
     // Click area
     
-    DexMouseArea
+    DefaultMouseArea
     {
         id: click_area
         anchors.fill: parent

@@ -41,7 +41,7 @@ Item
                                                                            Dex.CurrentTheme.foregroundColor
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: _mouseArea
         hoverEnabled: true

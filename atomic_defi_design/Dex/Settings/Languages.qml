@@ -29,7 +29,7 @@ Grid
             radius: 15
             //color: API.app.settings_pg.lang === model.modelData ? Style.colorTheme11 : mouse_area.containsMouse ? Style.colorTheme4 : Style.applyOpacity(Style.colorTheme4)
 
-            DexImage
+            DefaultImage
             {
                 id: image
                 anchors.centerIn: parent
@@ -39,7 +39,7 @@ Grid
                 opacity: model.modelData === API.app.settings_pg.lang ? 1 : mouse_area.containsMouse ? 0.85 : 0.7
 
                 // Click area
-                DexMouseArea
+                DefaultMouseArea
                 {
                     id: mouse_area
                     anchors.fill: parent

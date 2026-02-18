@@ -99,7 +99,7 @@ Item
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
 
-                            DexRectangle
+                            DefaultRectangle
                             {
                                 anchors.centerIn: parent
                                 anchors.fill: parent

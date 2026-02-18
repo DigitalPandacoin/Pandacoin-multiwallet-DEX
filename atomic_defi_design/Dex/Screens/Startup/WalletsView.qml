@@ -107,7 +107,7 @@ SetupPage
 
 
             // Wallets List
-            DexRectangle
+            DefaultRectangle
             {
                 id: wallet_list_bg
 
@@ -169,7 +169,7 @@ SetupPage
                                 radius: 18
                             }
 
-                            DexMouseArea
+                            DefaultMouseArea
                             {
                                 id: mouse_area
                                 anchors.fill: parent
@@ -228,7 +228,7 @@ SetupPage
                                 color: _deleteArea.containsMouse ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.foregroundColor
                             }
 
-                            DexMouseArea
+                            DefaultMouseArea
                             {
                                 id: _deleteArea
                                 hoverEnabled: true

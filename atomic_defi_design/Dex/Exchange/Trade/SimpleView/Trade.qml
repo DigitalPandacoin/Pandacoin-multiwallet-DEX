@@ -222,7 +222,7 @@ ClipRRect // Trade Card
 
             anchors.horizontalCenter: parent.horizontalCenter
 
-            DexRectangle // From
+            DefaultRectangle // From
             {
                 id: swap_from_card
                 Layout.preferredWidth: _tradeCard.width - 20
@@ -455,7 +455,7 @@ ClipRRect // Trade Card
                 }
             }
 
-            DexRectangle // To
+            DefaultRectangle // To
             {
                 Layout.preferredWidth: _tradeCard.width - 20
                 Layout.preferredHeight: 90
@@ -933,7 +933,7 @@ ClipRRect // Trade Card
                     && has_coins_with_balance
                     && !_swapAlert.visible
 
-            DexRectangle {
+            DefaultRectangle {
                 radius: 25
                 anchors.fill: parent
             }

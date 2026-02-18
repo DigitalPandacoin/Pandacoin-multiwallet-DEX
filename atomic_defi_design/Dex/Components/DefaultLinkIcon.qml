@@ -15,7 +15,7 @@ Qaterial.Icon
     icon: Qaterial.Icons.linkVariant
     color: linkArea.containsMouse ? Style.colorText2 : DexTheme.foregroundColor
     
-    DexMouseArea
+    DefaultMouseArea
     {
         id: linkArea
         anchors.fill: parent

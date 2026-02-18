@@ -38,7 +38,7 @@ Dex.ComboBoxWithSearchBar
         highlighted: control.highlightedIndex === index
 
         contentItem: DexComboBoxLine { details: model }
-        background: Dex.DexRectangle
+        background: Dex.DefaultRectangle
         {
             anchors.fill: _delegate
             color: _delegate.highlighted ? Dex.CurrentTheme.comboBoxDropdownItemHighlightedColor : Dex.CurrentTheme.comboBoxBackgroundColor

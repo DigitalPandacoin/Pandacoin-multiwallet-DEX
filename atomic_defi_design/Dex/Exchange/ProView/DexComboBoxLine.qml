@@ -41,7 +41,7 @@ RowLayout
         Layout.topMargin: Layout.leftMargin
         Layout.bottomMargin: Layout.leftMargin
 
-        DexRectangle
+        DefaultRectangle
         {
             anchors.centerIn: parent
             anchors.fill: parent

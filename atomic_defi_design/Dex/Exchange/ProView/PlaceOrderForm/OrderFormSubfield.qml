@@ -50,7 +50,7 @@ RowLayout
             text: "-1%"
         }
 
-        DexTooltip
+        DefaultTooltip
         {
             id: _left_tooltip
             visible: _left_btn.containsMouse && left_tooltip_text != ""
@@ -116,7 +116,7 @@ RowLayout
                 text: "0%"
             }
 
-            DexTooltip
+            DefaultTooltip
             {
                 id: _middle_tooltip
                 visible: _middle_btn.containsMouse && middle_tooltip_text != ""
@@ -171,7 +171,7 @@ RowLayout
             text: "+1%"
         }
 
-        DexTooltip
+        DefaultTooltip
         {
             id: _right_tooltip
             visible: _right_btn.containsMouse && right_tooltip_text != ""

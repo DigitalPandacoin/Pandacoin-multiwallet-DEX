@@ -38,7 +38,7 @@ Item
             Layout.fillHeight: true
             Layout.preferredWidth: 140
 
-            DexImage
+            DefaultImage
             {
                 id: asset_image
                 width: 24

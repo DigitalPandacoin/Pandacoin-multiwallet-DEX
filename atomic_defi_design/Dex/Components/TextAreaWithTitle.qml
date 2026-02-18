@@ -49,7 +49,7 @@ ColumnLayout
             icon: Qaterial.Icons.contentCopy
             color: copyArea.containsMouse ? Dex.CurrentTheme.accentColor : Dex.CurrentTheme.foregroundColor
 
-            DexMouseArea
+            DefaultMouseArea
             {
                 id: copyArea
                 anchors.fill: parent
@@ -72,7 +72,7 @@ ColumnLayout
             width: parent.width - 6
             rightPadding: 10
             anchors.centerIn: parent
-            background: DexRectangle {
+            background: DefaultRectangle {
                 color: Dex.CurrentTheme.accentColor
                 opacity: .7
                 radius: 8

@@ -17,7 +17,7 @@ ColumnLayout
     Layout.fillHeight: true
     property alias currentIndex: orderformTabView.currentIndex
     property int loop_count: 0
-    property bool show_waiting_for_trade_preimage: false;
+    property bool show_waiting_for_trade_preimage: false
     property var fees: API.app.trading_pg.fees
     property var preimage_rpc_busy: API.app.trading_pg.preimage_rpc_busy
     property var trade_preimage_error: fees.hasOwnProperty('error') ? fees["error"].split("] ").slice(-1) : ""

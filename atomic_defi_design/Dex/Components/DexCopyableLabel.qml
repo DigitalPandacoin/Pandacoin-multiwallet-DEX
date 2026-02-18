@@ -44,7 +44,7 @@ Item
         size: 16
         icon: Qaterial.Icons.contentCopy
         color: copyArea.containsMouse ? DexTheme.accentColor : DexTheme.foregroundColor
-        DexMouseArea
+        DefaultMouseArea
         {
             id: copyArea
             anchors.fill: parent

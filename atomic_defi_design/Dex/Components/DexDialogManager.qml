@@ -16,7 +16,7 @@ Popup {
     rightPadding: 0
 
     Overlay.modal: Item {
-        DexRectangle {
+        DefaultRectangle {
             anchors.fill: parent
             color: Qt.darker(DexTheme.backgroundDarkColor6)
             opacity: .8
@@ -53,7 +53,7 @@ Popup {
 
     background: Qaterial.ClipRRect {
         radius: 4
-        DexRectangle {
+        DefaultRectangle {
             anchors.fill: parent
             radius: 4
             color: DexTheme.backgroundDarkColor2
@@ -143,7 +143,7 @@ Popup {
                             }
                         }
 
-                        DexRectangle {
+                        DefaultRectangle {
                             x: 3
                             visible: dialog.isPassword
                             height: 40

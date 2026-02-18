@@ -32,7 +32,7 @@ DexComboBox
             anchors.fill: parent
             spacing: -25
 
-            DexImage
+            DefaultImage
             {
                 id: image
                 Layout.preferredHeight: 25
@@ -69,7 +69,7 @@ DexComboBox
         rightPadding: control.indicator.width + control.spacing
         verticalAlignment: Text.AlignVCenter
 
-        DexImage
+        DefaultImage
         {
             id: image
             height: 25
@@ -85,7 +85,7 @@ DexComboBox
         color: Dex.CurrentTheme.comboBoxBackgroundColor
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
         anchors.fill: parent
         acceptedButtons: Qt.NoButton

@@ -24,7 +24,7 @@ Popup
 
     Overlay.modal: Item
     {
-        DexRectangle
+        DefaultRectangle
         {
             anchors.fill: parent
             color: 'black'
@@ -68,7 +68,7 @@ Popup
     background: Qaterial.ClipRRect
     {
         radius: 4
-        DexRectangle
+        DefaultRectangle
         {
             anchors.fill: parent
             radius: 18
@@ -190,7 +190,7 @@ Popup
                             }
                         }
 
-                        DexRectangle
+                        DefaultRectangle
                         {
                             x: 3
                             visible: dialog.isPassword

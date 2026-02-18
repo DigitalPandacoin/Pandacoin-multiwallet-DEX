@@ -67,7 +67,7 @@ GradientRectangle
         anchors.verticalCenter: parent.verticalCenter
 
 
-        DexRectangle
+        DefaultRectangle
         {
             anchors.centerIn: parent
             anchors.fill: parent

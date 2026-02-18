@@ -51,7 +51,7 @@ Item
             font.pixelSize: 14
             font.weight: Font.Bold
 
-            DexMouseArea
+            DefaultMouseArea
             {
                 id: simple_area
                 hoverEnabled: true
@@ -71,7 +71,7 @@ Item
             font.pixelSize: 14
             font.weight: Font.Bold
 
-            DexMouseArea
+            DefaultMouseArea
             {
                 id: pro_area
                 hoverEnabled: true

@@ -1,3 +1,7 @@
 import QtQuick 2.15
 
-DexImage {}
+Image
+{
+    mipmap: true
+    fillMode: Image.PreserveAspectFit
+}

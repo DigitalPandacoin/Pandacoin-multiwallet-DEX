@@ -20,7 +20,7 @@ Circle
 
     radius: 100
 
-    DexImage
+    DefaultImage
     {
         id: icon
         anchors.centerIn: parent
@@ -29,7 +29,7 @@ Circle
         height: parent.height * 0.9
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: mouse_area
         anchors.fill: parent
@@ -37,7 +37,7 @@ Circle
         onClicked: Qt.openUrlExternally(link)
     }
 
-    DexTooltip
+    DefaultTooltip
     {
         id: tooltip_text
         visible: mouse_area.containsMouse

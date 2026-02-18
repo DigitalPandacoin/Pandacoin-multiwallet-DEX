@@ -16,7 +16,7 @@ Qaterial.Icon
     icon: Qaterial.Icons.contentCopy
     color: copyArea.containsMouse ? Style.colorText2 : DexTheme.foregroundColor
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: copyArea
         anchors.fill: parent

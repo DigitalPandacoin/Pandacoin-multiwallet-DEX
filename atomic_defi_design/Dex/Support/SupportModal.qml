@@ -39,7 +39,7 @@ Qaterial.Dialog
 
     Overlay.modal: Item
     {
-        DexRectangle
+        DefaultRectangle
         {
             anchors.fill: parent
             color: 'black'
@@ -47,7 +47,7 @@ Qaterial.Dialog
         }
     }
 
-    background: DexRectangle
+    background: DefaultRectangle
     {
         color: DexTheme.backgroundColor
         border.width: 0
@@ -200,7 +200,7 @@ There is a toggle in settings where you can turn on/off the display of these tra
 
             Item { Layout.preferredWidth: bottom_row.filler_width }
 
-            DexMouseArea
+            DefaultMouseArea
             {
                 id: changelog_button
 

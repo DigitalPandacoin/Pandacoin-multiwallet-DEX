@@ -126,7 +126,7 @@ Item
                         color: DexTheme.foregroundColor
                         opacity: text == API.app.settings_pg.current_fiat ? 1 : fiats_mouse_area.containsMouse ? .8 : .6
 
-                        DexMouseArea
+                        DefaultMouseArea
                         {
                             id: fiats_mouse_area
                             anchors.fill: parent

@@ -17,7 +17,7 @@ ScrollBar
 
     contentItem: Item
     {
-        DexRectangle
+        DefaultRectangle
         {
             width: parent.width
             height: parent.height
@@ -30,7 +30,7 @@ ScrollBar
     background: Item
     {
         width: 6
-        DexRectangle
+        DefaultRectangle
         {
             visible: control.visibleBackground
             width: parent.width

@@ -2,7 +2,7 @@ import QtQuick 2.15
 import Qaterial 1.0 as Qaterial
 import App 1.0
 
-DexRectangle {
+DefaultRectangle {
     id: control
     signal clicked()
 
@@ -65,7 +65,7 @@ DexRectangle {
     color: outlinedColor
     gradient: outlinedColor !== "" ? undefined : btnGradient
 
-    DexRectangle {
+    DefaultRectangle {
         visible: !parent.containsMouse
         radius: parent.radius - 2
         anchors.centerIn: parent
@@ -109,7 +109,7 @@ DexRectangle {
         }
     }
 
-    DexMouseArea {
+    DefaultMouseArea {
         id: _controlMouseArea
         anchors.fill: parent
         hoverEnabled: true

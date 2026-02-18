@@ -4,7 +4,7 @@ import Qaterial 1.0 as Qaterial
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-DexRectangle
+DefaultRectangle
 {
     id: control
 
@@ -112,7 +112,7 @@ DexRectangle
         }
     }
 
-    DexMouseArea
+    DefaultMouseArea
     {
         id: _controlMouseArea
         anchors.fill: parent

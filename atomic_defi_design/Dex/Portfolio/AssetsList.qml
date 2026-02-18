@@ -122,14 +122,14 @@ Dex.DefaultListView
                 Layout.preferredWidth: _assetNameColumnWidth
                 Layout.leftMargin: 15
 
-                Dex.DexImage {
+                Dex.DefaultImage {
                     id: assetImage
                     anchors.verticalCenter: parent.verticalCenter
                     source: Dex.General.coinIcon(ticker)
                     width: 30
                     height: 30
 
-                    Dex.DexRectangle
+                    Dex.DefaultRectangle
                     {
                         anchors.centerIn: parent
                         anchors.fill: parent
@@ -267,7 +267,7 @@ Dex.DefaultListView
                 Layout.fillHeight: true
                 Layout.preferredWidth: _assetProviderColumnWidth
 
-                Dex.DexImage {
+                Dex.DefaultImage {
                     id: priceProviderIcon
                     enabled: priceProvider !== "unknown"
                     visible: enabled
@@ -283,7 +283,7 @@ Dex.DefaultListView
                         hoverEnabled: true
                     }
 
-                    Dex.DexTooltip
+                    Dex.DefaultTooltip
                     {
                         contentItem: Dex.DexLabel
                         {

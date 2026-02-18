@@ -50,7 +50,7 @@ DexWindow
         visible: !isOsx
     }
 
-    DexRectangle
+    DefaultRectangle
     {
         radius: 0
         width: parent.width
@@ -100,7 +100,7 @@ DexWindow
                     }
                 }
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     id: logout_area
                     hoverEnabled: true
@@ -227,7 +227,7 @@ DexWindow
                     }
                 }
 
-                DexMouseArea
+                DefaultMouseArea
                 {
                     id: _area
                     anchors.fill: parent
@@ -275,7 +275,7 @@ DexWindow
                     visible: _label.visible
                     privacy: true
                     anchors.verticalCenter: parent.verticalCenter
-                    DexMouseArea
+                    DefaultMouseArea
                     {
                         anchors.fill: parent
                         onClicked:

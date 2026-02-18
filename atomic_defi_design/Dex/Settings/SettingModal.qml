@@ -52,7 +52,7 @@ Qaterial.Dialog
         }
     }
 
-    background: DexRectangle
+    background: DefaultRectangle
     {
         color: DexTheme.backgroundColor
         border.width: 0
@@ -128,7 +128,7 @@ Qaterial.Dialog
                     currentIndex: 0
                     model: [qsTr("General"), qsTr("Language"), qsTr("User Interface"), qsTr("Security"), qsTr("About & Version")]
 
-                    delegate: DexRectangle
+                    delegate: DefaultRectangle
                     {
                         width: parent.width
                         height: 60
@@ -167,7 +167,7 @@ Qaterial.Dialog
                             })
                         }
 
-                        DexMouseArea
+                        DefaultMouseArea
                         {
                             id: delegateMouseArea
                             hoverEnabled: true
@@ -178,7 +178,7 @@ Qaterial.Dialog
                 }
             }
 
-            DexRectangle
+            DefaultRectangle
             {
                 Layout.fillHeight: true
                 width: 1

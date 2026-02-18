@@ -29,7 +29,7 @@ Line
                                                                            Dex.CurrentTheme.foregroundColor
     }
 
-    DexTooltip
+    DefaultTooltip
     {
         visible: mouseArea.containsMouse && disabled_tt_text
         delay: 500
