@@ -37,13 +37,13 @@ endif ()
 ##! We fetch our dependencies
 if (APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/feat-safeerc20-v1-tests/kdf_ac29497-mac-x86-64.zip)
+            URL https://devbuilds.gleec.com/ci-rxd-sighash-review-2713/kdf_471d534-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/feat-safeerc20-v1-tests/kdf_ac29497-linux-x86-64.zip)
+            URL https://devbuilds.gleec.com/ci-rxd-sighash-review-2713/kdf_471d534-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/feat-safeerc20-v1-tests/kdf_ac29497-win-x86-64.zip)
+            URL https://devbuilds.gleec.com/ci-rxd-sighash-review-2713/kdf_471d534-win-x86-64.zip)
 endif ()
 
 FetchContent_Declare(

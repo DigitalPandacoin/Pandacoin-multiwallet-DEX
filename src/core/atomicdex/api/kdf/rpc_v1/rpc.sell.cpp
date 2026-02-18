@@ -67,11 +67,11 @@ namespace atomic_dex::kdf
             {
                 j["volume"] = volume_fraction_functor();
             }
-            SPDLOG_INFO("The order is picked from the orderbook price: {}, volume: {}", j.at("price").dump(4), j.at("volume").dump(4));
+            SPDLOG_DEBUG("The order is picked from the orderbook price: {}, volume: {}", j.at("price").dump(4), j.at("volume").dump(4));
         }
         else
         {
-            SPDLOG_INFO("The order is not picked from orderbook we create it from volume = {}, price = {}", j.at("volume").dump(4), request.price);
+            SPDLOG_DEBUG("The order is not picked from orderbook we create it from volume = {}, price = {}", j.at("volume").dump(4), request.price);
         }
         if (request.order_type.has_value())
         {

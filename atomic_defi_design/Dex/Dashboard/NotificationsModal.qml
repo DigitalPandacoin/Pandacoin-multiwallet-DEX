@@ -398,7 +398,7 @@ DexPopup
     ColumnLayout
     {
         anchors.fill: parent
-        anchors.margins: 20
+        anchors.margins: 10
         spacing: 24
 
         Item
@@ -428,7 +428,6 @@ DexPopup
             {
                 id: list
                 visible: notifications_list.length !== 0
-                //width: parent.width + 58
                 width: parent.width
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -480,7 +479,6 @@ DexPopup
                                 height: 23
                                 radius: 12
                                 anchors.right: parent.right
-                                //anchors.rightMargin: -5
                                 y: 13
                                 
                                 Qaterial.Icon
@@ -537,7 +535,6 @@ DexPopup
                                 anchors.bottom: parent.bottom
                                 anchors.right: parent.right
                                 anchors.rightMargin: 5
-                                //anchors.bottomMargin: -4
                                 foregroundColor: Dex.CurrentTheme.foregroundColor
                                 visible: modelData.event_name !== "check"
 

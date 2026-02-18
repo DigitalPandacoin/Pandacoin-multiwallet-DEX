@@ -47,11 +47,6 @@
       "name": "entt",
       "version": "3.9.0",
       "port-version": 0
-    },
-    {
-      "name": "spdlog",
-      "version": "1.15.2",
-      "port-version": 0
     }
   ]
 }
