@@ -103,8 +103,6 @@ endif ()
 # Testing executable
 add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/atomic.dex.qt.utilities.tests.cpp
-        tests/atomic.dex.provider.cex.prices.api.tests.cpp
-        tests/atomic.dex.provider.cex.prices.tests.cpp
         tests/atomic.dex.tests.cpp
         tests/atomic.dex.wallet.config.tests.cpp
 
