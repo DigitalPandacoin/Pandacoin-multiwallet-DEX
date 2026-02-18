@@ -398,20 +398,8 @@ DexPopup
     ColumnLayout
     {
         anchors.fill: parent
-        anchors.margins: 30
-        anchors.topMargin: 20
+        anchors.margins: 20
         spacing: 24
-
-        DexLabel
-        {
-            Layout.fillWidth: true
-            font
-            {
-                pixelSize: 20
-                weight: Font.Normal
-            }
-            text: qsTr("Notifications")
-        }
 
         Item
         {
@@ -617,7 +605,7 @@ DexPopup
         OutlineButton
         {            
             text: notifications_list.length !== 0 ? qsTr('Mark all as read') : qsTr('Close')
-            height: 40
+            //height: 50
             width: 260
             Layout.alignment: Qt.AlignHCenter
             onClicked: notifications_list.length !== 0 ? root.reset(false) : root.reset(true)
