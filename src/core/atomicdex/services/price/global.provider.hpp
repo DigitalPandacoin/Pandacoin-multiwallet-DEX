@@ -43,6 +43,9 @@ namespace atomic_dex
         explicit global_price_service(entt::registry& registry, ag::ecs::system_manager& system_manager, atomic_dex::cfg& cfg);
         ~global_price_service()  final = default;
 
+        //! Public override
+        void update()  final;
+
         //! Public API
         std::string get_price_as_currency_from_tx(const std::string& currency, const std::string& ticker, const tx_infos& tx) const ;
         std::string get_price_in_fiat(const std::string& fiat, const std::string& ticker, std::error_code& ec, bool skip_precision = false) const ;
