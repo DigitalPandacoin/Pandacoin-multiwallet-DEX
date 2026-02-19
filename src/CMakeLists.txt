@@ -86,11 +86,11 @@ add_executable(${PROJECT_NAME}
         ${assets_qrc}
         ${imports_qrc}
 
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
 set_target_properties(${PROJECT_NAME}

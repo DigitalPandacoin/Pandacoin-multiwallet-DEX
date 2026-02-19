@@ -218,6 +218,7 @@ jobs:
           export CXX=clang++
           export CXXFLAGS=-stdlib=libc++
           export LDFLAGS=-stdlib=libc++
+          export CMAKE_BUILD_TYPE=${{ matrix.type }}
           cd ci_tools_atomic_dex
           nimble build -y
           ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX15.5.sdk --compiler=clang++
@@ -226,6 +227,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           export PATH=$HOME/.nimble/bin:$PATH
+          export CMAKE_BUILD_TYPE=${{ matrix.type }}
           cd ci_tools_atomic_dex
           nimble build -y
 
