@@ -12,13 +12,11 @@ find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
 find_package(cpprestsdk REQUIRED)
-
 find_package(doctest REQUIRED)
-#add_library(doctest INTERFACE)
-#target_link_libraries(doctest INTERFACE doctest::doctest)
 
-set(SPDLOG_FMT_EXTERNAL OFF)
-find_package(spdlog CONFIG REQUIRED)
+find_package(spdlog REQUIRED)
+add_library(spdlog INTERFACE)
+target_link_libraries(spdlog INTERFACE spdlog::spdlog)
 
 if (APPLE)
     get_target_property(ACTUAL_VAR cpprestsdk::cpprest INTERFACE_LINK_LIBRARIES)

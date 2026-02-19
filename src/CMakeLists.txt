@@ -90,7 +90,6 @@ add_executable(${PROJECT_NAME}
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
 set_target_properties(${PROJECT_NAME}
@@ -138,7 +137,6 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/utilities/qt.utilities.tests.cpp
         tests/utilities/global.utilities.tests.cpp)
 
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME}_tests
         PUBLIC
         ${PROJECT_NAME}::core

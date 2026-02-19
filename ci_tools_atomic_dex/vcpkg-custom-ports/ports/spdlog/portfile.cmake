@@ -12,7 +12,6 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         fmt       SPDLOG_FMT_EXTERNAL
         wchar     SPDLOG_WCHAR_SUPPORT
     INVERTED_FEATURES
-        fmt       SPDLOG_USE_STD_FORMAT
         tz-offset SPDLOG_NO_TZ_OFFSET
 )
 
