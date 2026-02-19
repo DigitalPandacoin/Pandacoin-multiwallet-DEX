@@ -12,8 +12,10 @@ find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
 find_package(doctest REQUIRED)
-find_package(spdlog REQUIRED)
 find_package(cpprestsdk REQUIRED)
+
+find_package(spdlog CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 
 if (APPLE)
     get_target_property(ACTUAL_VAR cpprestsdk::cpprest INTERFACE_LINK_LIBRARIES)

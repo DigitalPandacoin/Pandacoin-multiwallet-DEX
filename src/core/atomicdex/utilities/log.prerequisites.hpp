@@ -32,6 +32,7 @@
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/stopwatch.h>
+#include <spdlog/fmt/fmt.h>
 #include <spdlog/fmt/bundled/base.h>
 
 #if defined(_WIN32) || defined(WIN32)
