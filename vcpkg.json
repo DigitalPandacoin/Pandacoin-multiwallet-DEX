@@ -30,7 +30,6 @@
       "platform": "windows"
     },
     "cpprestsdk",
-    "fmt",
     "entt",
     "refl-cpp",
     "strong-type",
@@ -38,11 +37,6 @@
   ],
   "builtin-baseline": "6d7bf7ef2193e2d1c5798a5ff8811d533104c861",
   "overrides": [
-    {
-      "name": "fmt",
-      "version": "9.1.0",
-      "port-version": 1
-    },
     {
       "name": "entt",
       "version": "3.9.0",

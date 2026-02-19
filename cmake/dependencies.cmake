@@ -7,7 +7,7 @@ if (WIN32)
 endif ()
 
 find_package(EnTT REQUIRED)
-find_package(fmt REQUIRED)
+#find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
