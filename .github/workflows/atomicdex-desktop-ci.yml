@@ -14,7 +14,7 @@ env:
   DEX_COMPANY: "KomodoPlatform"
   DEX_VERSION: "0.8.2"
   DEX_WEBSITE: "https://atomicdex.io/"
-  VCPKG_BINARY_SOURCES: default,rw
+  VCPKG_BINARY_SOURCES: default,readwrite
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
   RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
   VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
@@ -168,8 +168,6 @@ jobs:
 
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
-        env:
-          VCPKG_BINARY_SOURCES: default,rw
         with:
           vcpkgDirectory: '${{ github.workspace }}/ci_tools_atomic_dex/vcpkg-repo'
           vcpkgJsonGlob: 'vcpkg.json'
