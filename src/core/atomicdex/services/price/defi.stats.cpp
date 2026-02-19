@@ -112,7 +112,8 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("pplx task error from async_fetch_ticker_stats: {} - nb_try {}", e.what(), nb_try);
+                // this doesn't compile ...
+                // SPDLOG_ERROR("pplx task error from async_fetch_ticker_stats: {} - nb_try {}", e.what(), nb_try);
                 using namespace std::chrono_literals;
                 std::this_thread::sleep_for(1s);
                 this->process_update();
