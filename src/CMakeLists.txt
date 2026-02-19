@@ -86,6 +86,8 @@ add_executable(${PROJECT_NAME}
         ${assets_qrc}
         ${imports_qrc}
 
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
@@ -136,6 +138,7 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/utilities/qt.utilities.tests.cpp
         tests/utilities/global.utilities.tests.cpp)
 
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME}_tests
         PUBLIC
         ${PROJECT_NAME}::core

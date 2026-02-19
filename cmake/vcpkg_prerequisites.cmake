@@ -6,9 +6,6 @@ set(CMAKE_TOOLCHAIN_FILE
         "${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/vcpkg-repo/scripts/buildsystems/vcpkg.cmake"
         CACHE STRING "")
 
-set(SPDLOG_FMT_EXTERNAL OFF)
-set(SPDLOG_USE_STD_FORMAT OFF)
-
 if (WIN32)
     set(VCPKG_TARGET_TRIPLET "x64-windows-custom")
 endif ()

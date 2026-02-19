@@ -14,12 +14,10 @@ find_package(date REQUIRED)
 find_package(cpprestsdk REQUIRED)
 
 find_package(doctest REQUIRED)
-add_library(doctest INTERFACE)
-target_link_libraries(doctest INTERFACE doctest::doctest)
+#add_library(doctest INTERFACE)
+#target_link_libraries(doctest INTERFACE doctest::doctest)
 
-find_package(spdlog REQUIRED)
-add_library(spdlog INTERFACE)
-target_link_libraries(spdlog INTERFACE spdlog::spdlog)
+find_package(spdlog CONFIG REQUIRED)
 
 if (APPLE)
     get_target_property(ACTUAL_VAR cpprestsdk::cpprest INTERFACE_LINK_LIBRARIES)
