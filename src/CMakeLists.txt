@@ -71,6 +71,7 @@ dex_generate_qrc(${CMAKE_SOURCE_DIR}/atomic_defi_design/assets assets_qrc
     FILES_TO_EXCLUDE ".gitignore;.DS_Store;CONTRIBUTING.txt;FONTLOG.txt;LICENCE-FAQ.txt;LICENCE.txt;README.txt;TRADEMARKS.txt;.ts;.qm;.qrc"
     FILES "languages/atomic_defi_en.qm;languages/atomic_defi_es.qm;languages/atomic_defi_de.qm;languages/atomic_defi_fr.qm;languages/atomic_defi_ru.qm;languages/atomic_defi_tr.qm")
 
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 # Main executable
 add_executable(${PROJECT_NAME}
         MACOSX_BUNDLE
@@ -90,7 +91,6 @@ add_executable(${PROJECT_NAME}
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
 set_target_properties(${PROJECT_NAME}
@@ -102,6 +102,7 @@ if (APPLE)
     set_property(SOURCE core/atomicdex/platform/osx/manager.mm PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 endif ()
 
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE spdlog::spdlog)
 # Testing executable
 add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/atomic.dex.qt.utilities.tests.cpp
@@ -138,7 +139,6 @@ add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
         tests/utilities/qt.utilities.tests.cpp
         tests/utilities/global.utilities.tests.cpp)
 
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME}_tests
         PUBLIC
         ${PROJECT_NAME}::core

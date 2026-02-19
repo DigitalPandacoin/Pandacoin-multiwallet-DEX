@@ -17,6 +17,7 @@ find_package(doctest REQUIRED)
 #add_library(doctest INTERFACE)
 #target_link_libraries(doctest INTERFACE doctest::doctest)
 
+set(SPDLOG_FMT_EXTERNAL OFF)
 find_package(spdlog CONFIG REQUIRED)
 
 if (APPLE)

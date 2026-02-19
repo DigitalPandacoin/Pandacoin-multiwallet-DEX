@@ -164,11 +164,15 @@ jobs:
         run: |
           ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
 
-      - name: Upload env variable for vpkg (MacOS)
+      - name: Upload env variable for vcpkg (MacOS)
         if: runner.os == 'macOS'
         run: |
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
+
+      - name: Upload env variable for vcpkg (All)
+        run: |
+          echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
 
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
