@@ -107,7 +107,7 @@ namespace atomic_dex
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        if (s >= 43s)
+        if (s >= 71s)
         {
             spdlog::stopwatch stopwatch;
             process_best_orders();

@@ -82,29 +82,21 @@ namespace atomic_dex
     qt_orderbook_wrapper::refresh_orderbook_model_data(kdf::orderbook_result_rpc answer)
     {
         spdlog::stopwatch stopwatch;
-        spdlog::stopwatch stopwatch1;
-        spdlog::stopwatch stopwatch2;
-        spdlog::stopwatch stopwatch3;
-        spdlog::stopwatch stopwatch4;
         this->m_asks->refresh_orderbook_model_data(answer.asks);
         this->m_bids->refresh_orderbook_model_data(answer.bids);
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_bestorders_data();
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch1);
         if (data.empty())
         {
             m_best_orders->clear_orderbook();
-            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch2);
         }
         else if (m_best_orders->rowCount() == 0)
         {
             m_best_orders->reset_orderbook(data);
-            SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch3);
         }
         else
         {
             m_best_orders->refresh_orderbook_model_data(data);
         }
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data first step: {:.6} seconds", stopwatch4);
         this->set_both_taker_vol();
         SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {:.6} seconds", answer.bids.size(), answer.asks.size(), stopwatch);
     }
