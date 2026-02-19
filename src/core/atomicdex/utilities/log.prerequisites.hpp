@@ -34,6 +34,7 @@
 #include <spdlog/stopwatch.h>
 #include <spdlog/fmt/bundled/base.h>
 #include <spdlog/fmt/bundled/ranges.h>
+#include <spdlog/fmt/bundled/format.h>
 
 #if defined(_WIN32) || defined(WIN32)
 #include <spdlog/sinks/msvc_sink.h>
