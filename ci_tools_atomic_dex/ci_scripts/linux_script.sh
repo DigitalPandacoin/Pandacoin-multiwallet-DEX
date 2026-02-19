@@ -4,6 +4,7 @@ sudo apt-get update
 
 # base deps
 sudo apt-get install build-essential \
+                    linux-libc-dev \
                     libgl1-mesa-dev \
                     ninja-build \
                     curl \
@@ -31,7 +32,7 @@ sudo apt-get install qtbase5-dev qtdeclarative5-dev qttools5-dev libqt5svg5-dev 
 sudo apt-get install qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-dialogs qml-module-qtquick-extras qml-module-qtquick-layouts qml-module-qtquick-shapes qml-module-qt-labs-settings qml-module-qt-labs-platform qml-module-qtwebengine qml-module-qtcharts qml-module-qtgraphicaleffects -y
 sudo apt-get install libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libxss-dev libdbus-1-dev libevent-dev libfontconfig1-dev libcap-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libegl1-mesa-dev gperf bison nodejs -y
 
-sudo snap install cmake --classic
+#sudo snap install cmake --classic
 
 # get libwally
 git clone https://github.com/ElementsProject/libwally-core --recurse-submodules -b release_0.9.2

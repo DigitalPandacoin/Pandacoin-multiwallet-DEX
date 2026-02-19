@@ -14,8 +14,8 @@ env:
   DEX_COMPANY: "KomodoPlatform"
   DEX_VERSION: "0.8.2"
   DEX_WEBSITE: "https://atomicdex.io/"
-  VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/b/vcpkg_cache
-  VCPKG_BINARY_SOURCES: clear
+  VCPKG_BINARY_SOURCES: default,rw
+  VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
   RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
   VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
 
@@ -65,11 +65,15 @@ jobs:
           submodules: 'true'
           fetch-depth: 0
 
+      - uses: lukka/get-cmake@latest
+
       - name: Upload env variable for vcpkg (MacOS)
         if: runner.os == 'macOS'
         run: |
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
+          echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=release" >> $GITHUB_ENV
 
       - name: Upload env variable for vcpkg (Linux)
         if: runner.os == 'Linux'
@@ -81,14 +85,14 @@ jobs:
         uses: crazy-max/ghaction-github-runtime@v2
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install MSVC
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1.13.0
-        
+
       - name: Build libwally (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -164,9 +168,19 @@ jobs:
 
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
+        env:
+          VCPKG_BINARY_SOURCES: default,rw
         with:
           vcpkgDirectory: '${{ github.workspace }}/ci_tools_atomic_dex/vcpkg-repo'
           vcpkgJsonGlob: 'vcpkg.json'
+
+      - name: Cache vcpkg
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
+          key: ${{ runner.os }}-vcpkg-binary-cache-${{ hashFiles('vcpkg*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-binary-cache-
 
       - name: import code signing certificates (macos)
         if: runner.os == 'macOS'  && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
