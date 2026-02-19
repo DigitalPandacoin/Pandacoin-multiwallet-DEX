@@ -11,11 +11,15 @@ find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
-find_package(doctest REQUIRED)
 find_package(cpprestsdk REQUIRED)
 
-find_package(spdlog CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+find_package(doctest REQUIRED)
+add_library(doctest INTERFACE)
+target_link_libraries(doctest INTERFACE doctest::doctest)
+
+find_package(spdlog REQUIRED)
+add_library(spdlog INTERFACE)
+target_link_libraries(spdlog INTERFACE spdlog::spdlog)
 
 if (APPLE)
     get_target_property(ACTUAL_VAR cpprestsdk::cpprest INTERFACE_LINK_LIBRARIES)
@@ -85,9 +89,6 @@ FetchContent_MakeAvailable(doom_meta)
 
 find_package(strong_type CONFIG REQUIRED)
 find_package(tl-expected CONFIG REQUIRED)
-
-add_library(doctest INTERFACE)
-target_link_libraries(doctest INTERFACE doctest::doctest)
 
 add_library(antara_entt INTERFACE)
 target_link_libraries(antara_entt INTERFACE EnTT::EnTT)
