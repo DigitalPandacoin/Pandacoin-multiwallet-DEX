@@ -32,9 +32,7 @@ jobs:
             ubuntu-release,
             ubuntu-debug,
             osx-release,
-#            osx-debug,
             windows-release
-#            windows-debug
         ]
 
         include:
@@ -54,23 +52,11 @@ jobs:
             type: 'Release'
             host: 'mac'
 
-#          - name: osx-debug
-#            os: macos-13
-#            qt: '5.15.2'
-#            type: 'Debug'
-#            host: 'mac'
-
           - name: windows-release
             os: windows-2022
             qt: '5.15.2'
             type: 'Release'
             host: 'windows'
-
-#          - name: windows-debug
-#            os: windows-2022
-#            qt: '5.15.2'
-#            type: 'Debug'
-#            host: 'windows'
 
     steps:
       - uses: actions/checkout@v3
@@ -78,6 +64,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           submodules: 'true'
           fetch-depth: 0
+
+      - name: Upload env variable for vcpkg (MacOS)
+        if: runner.os == 'macOS'
+        run: |
+          echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
+          echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
+
+      - name: Upload env variable for vcpkg (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
+          INPUT=${{ matrix.type }}; echo "VCPKG_BUILD_TYPE=${INPUT,,}" >> $GITHUB_ENV
 
       - name: Expose GitHub Runtime Env
         uses: crazy-max/ghaction-github-runtime@v2
@@ -164,17 +162,6 @@ jobs:
         run: |
           ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
 
-      - name: Upload env variable for vcpkg (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
-          echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
-
-      - name: Upload env variable for vcpkg (All)
-        run: |
-          echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
-          INPUT=${{ matrix.type }}; echo "VCPKG_BUILD_TYPE=${INPUT,,}" >> $GITHUB_ENV
-
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
         with:
@@ -224,6 +211,7 @@ jobs:
           export CXXFLAGS=-stdlib=libc++
           export LDFLAGS=-stdlib=libc++
           export CMAKE_BUILD_TYPE=${{ matrix.type }}
+          export VCPKG_BUILD_TYPE=release
           cd ci_tools_atomic_dex
           nimble build -y
           ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX15.5.sdk --compiler=clang++
@@ -245,6 +233,7 @@ jobs:
         run: |
           $Env:QT_VERSION = "${{ matrix.qt }}"
           $Env:CMAKE_BUILD_TYPE = "${{ matrix.type }}"
+          $Env:VCPKG_BUILD_TYPE = "release"
           .\ci_tools_atomic_dex\ci_scripts\windows_script.ps1
 
       - name: Upload env variable for artifacts (Linux)
