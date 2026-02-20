@@ -18,6 +18,7 @@
 
 //! Deps
 #include <antara/gaming/world/world.app.hpp>
+#include <fmt/format.h>
 
 //! Project
 #include "atomicdex/events/events.hpp"
