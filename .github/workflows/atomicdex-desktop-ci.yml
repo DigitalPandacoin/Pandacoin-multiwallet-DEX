@@ -77,19 +77,19 @@ jobs:
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
-          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $GITHUB_ENV
 
       - name: Upload env variable for vcpkg (Linux)
         if: runner.os == 'Linux'
         run: |
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
-          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $GITHUB_ENV
 
       - name: Upload env variable for vcpkg (Windows)
         if: runner.os == 'Windows'
-        run:
+        run: |
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $env:GITHUB_ENV
-          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $env:GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $env:GITHUB_ENV
 
       - name: Expose GitHub Runtime Env
         uses: crazy-max/ghaction-github-runtime@v3
@@ -97,7 +97,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.11'
 
       - name: Install MSVC
         if: runner.os == 'Windows'
