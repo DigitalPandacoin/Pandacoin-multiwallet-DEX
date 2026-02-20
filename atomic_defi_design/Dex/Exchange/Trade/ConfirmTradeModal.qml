@@ -29,7 +29,7 @@ MultipageModal
         titleTopMargin: 5
         topMarginAfterTitle: 5
         flickMax: window.height - 80
-        Layout.maximumHeight = 800
+        Layout.maximumHeight: 800
 
         header: [
             RowLayout
