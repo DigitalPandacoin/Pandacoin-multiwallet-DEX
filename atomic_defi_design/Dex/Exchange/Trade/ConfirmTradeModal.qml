@@ -24,10 +24,10 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr(" ")
+        titleText: qsTr("")
         titleAlignment: Qt.AlignHCenter
-        titleTopMargin: 30
-        topMarginAfterTitle: 10
+        titleTopMargin: 0
+        topMarginAfterTitle: 0
         flickMax: window.height - 385
 
         header: [
