@@ -39,23 +39,27 @@ jobs:
           - name: ubuntu-release
             os: ubuntu-24.04
             type: 'Release'
+            typelc: 'release'
             host: 'linux'
 
           - name: ubuntu-debug
             os: ubuntu-24.04
             type: 'Debug'
+            typelc: 'debug'
             host: 'linux'
 
           - name: osx-release
             os: macos-15-intel
             qt: '5.15.2'
             type: 'Release'
+            typelc: 'release'
             host: 'mac'
 
           - name: windows-release
             os: windows-2022
             qt: '5.15.2'
             type: 'Release'
+            typelc: 'release'
             host: 'windows'
 
     steps:
@@ -73,16 +77,22 @@ jobs:
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
-          echo "VCPKG_BUILD_TYPE=release" >> $GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $GITHUB_ENV
 
       - name: Upload env variable for vcpkg (Linux)
         if: runner.os == 'Linux'
         run: |
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
-          INPUT=${{ matrix.type }}; echo "VCPKG_BUILD_TYPE=${INPUT,,}" >> $GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $GITHUB_ENV
+
+      - name: Upload env variable for vcpkg (Windows)
+        if: runner.os == 'Windows'
+        run:
+          echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $env:GITHUB_ENV
+          echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}"" >> $env:GITHUB_ENV
 
       - name: Expose GitHub Runtime Env
-        uses: crazy-max/ghaction-github-runtime@v2
+        uses: crazy-max/ghaction-github-runtime@v3
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -91,7 +101,7 @@ jobs:
 
       - name: Install MSVC
         if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1.13.0
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Build libwally (Windows)
         if: runner.os == 'Windows'
@@ -180,25 +190,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vcpkg-binary-cache-
 
-      - name: import code signing certificates (macos)
-        if: runner.os == 'macOS'  && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        uses: Apple-Actions/import-codesign-certs@v3
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-
-      - name: import installer code signing certificates (macos)
-        if: runner.os == 'macOS'  && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        uses: apple-actions/import-codesign-certs@v3
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          create-keychain: false
-          p12-file-base64: ${{ secrets.CERTIFICATES_INSTALLER_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-
       - name: Build Komodo Wallet (MacOS)
         if: runner.os == 'macOS'
         run: |
@@ -223,7 +214,7 @@ jobs:
           export CXXFLAGS=-stdlib=libc++
           export LDFLAGS=-stdlib=libc++
           export CMAKE_BUILD_TYPE=${{ matrix.type }}
-          export VCPKG_BUILD_TYPE=release
+          export VCPKG_BUILD_TYPE=${{ matrix.typelc }}
           cd ci_tools_atomic_dex
           nimble build -y
           ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX15.5.sdk --compiler=clang++
@@ -233,6 +224,7 @@ jobs:
         run: |
           export PATH=$HOME/.nimble/bin:$PATH
           export CMAKE_BUILD_TYPE=${{ matrix.type }}
+          export VCPKG_BUILD_TYPE=${{ matrix.typelc }}
           cd ci_tools_atomic_dex
           nimble build -y
 
@@ -245,7 +237,7 @@ jobs:
         run: |
           $Env:QT_VERSION = "${{ matrix.qt }}"
           $Env:CMAKE_BUILD_TYPE = "${{ matrix.type }}"
-          $Env:VCPKG_BUILD_TYPE = "release"
+          $Env:VCPKG_BUILD_TYPE = "${{ matrix.typelc }}"
           .\ci_tools_atomic_dex\ci_scripts\windows_script.ps1
 
       - name: Upload env variable for artifacts (Linux)
@@ -327,54 +319,3 @@ jobs:
           path: ./bundled/windows/${{ env.DEX_PROJECT_NAME }}_installer.exe
           retention-days: 7
 
-      - name: Running Tests (Linux)
-        working-directory: ci_tools_atomic_dex
-        continue-on-error: true
-        if: runner.os == 'Linux' && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        run: |
-          export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
-          export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
-          export ATOMICDEX_PASSWORD=${{ secrets.ATOMICDEX_PASSWORD }}
-          export PATH=$HOME/.nimble/bin:$PATH
-          #echo "Running tests"
-          #./ci_tools_atomic_dex tests ${{ matrix.type }}
-          #cd build-${{ matrix.type }}/bin/AntaraAtomicDexTestsAppDir/usr/bin
-          #cat ${{ env.DEX_PROJECT_NAME }}-tests-result.xml
-
-      - name: Running Tests (MacOS)
-        working-directory: ci_tools_atomic_dex
-        continue-on-error: true
-        if: runner.os == 'macOS' &&  'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        run: |
-          export MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
-          export INSTALLER_MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
-          export APPLE_ATOMICDEX_PASSWORD="${{ secrets.APPLE_ATOMICDEX_PASSWORD }}"
-          export APPLE_ID="${{ secrets.APPLE_ID }}"
-          export ASC_PUBLIC_ID="${{ secrets.ASC_PUBLIC_ID }}"
-          export MACOSX_DEPLOYMENT_TARGET=15.5
-          export REPORT_CI_TOKEN=${{ secrets.REPORT_CI_TOKEN_SECRET }}
-          export ATOMICDEX_TEST_SEED=${{ secrets.ATOMICDEX_TEST_SEED }}
-          export ATOMICDEX_PASSWORD=${{ secrets.ATOMICDEX_PASSWORD }}
-          export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
-          export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
-          export PATH=/Users/runner/.nimble/bin:$PATH
-          export CC=clang
-          export CXX=clang++
-          #echo "Running tests"
-          #nimble build -y
-          #./ci_tools_atomic_dex tests ${{ matrix.type }}
-          #cd build-${{ matrix.type }}/bin/${{ env.DEX_PROJECT_NAME }}_tests.app/Contents/MacOS
-          #cat ${{ env.DEX_PROJECT_NAME }}-tests-result.xml
-
-      - name: Running Tests (Windows)
-        shell: powershell
-        continue-on-error: true
-        if: runner.os == 'Windows' && 'KomodoPlatform/komodo-wallet-desktop' == github.repository
-        run: |
-          #echo "Running tests"
-          $Env:REPORT_CI_TOKEN = "${{ secrets.REPORT_CI_TOKEN_SECRET }}"
-          $Env:QT_INSTALL_CMAKE_PATH = "C:\Qt\${{ matrix.qt }}\msvc2019_64"
-          #cd b\bin
-          #./${{ env.DEX_PROJECT_NAME }}_tests.exe --reporters=xml --out=${{ env.DEX_PROJECT_NAME }}-tests-result.xml -s
-          #Invoke-WebRequest -Uri https://report.ci/upload.py -OutFile upload.py
-          #python upload.py --sha $(git rev-parse HEAD) -n "[Doctest Windows]" --include='${{ env.DEX_PROJECT_NAME }}-tests-result.xml' --framework=doctest --merge ".*"

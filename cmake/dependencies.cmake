@@ -7,12 +7,15 @@ if (WIN32)
 endif ()
 
 find_package(EnTT REQUIRED)
-#find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
 find_package(cpprestsdk REQUIRED)
 find_package(doctest REQUIRED)
+
+find_package(fmt REQUIRED)
+add_library(fmt INTERFACE)
+target_link_libraries(fmt INTERFACE fmt::fmt)
 
 find_package(spdlog REQUIRED)
 add_library(spdlog INTERFACE)

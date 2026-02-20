@@ -6,7 +6,7 @@ DEX_NEW_LIB(core INTERFACE
         INTERFACE_DEPS
             cpprestsdk::cpprest Qt::Core Qt::Quick Qt::Svg Qt::Charts Qt::WebEngine Qt::WebEngineCore Qt::WebEngineWidgets
             Qt::Widgets nlohmann_json::nlohmann_json antara_qrcode spdlog::spdlog antara::world
-            unofficial-btc::bitcoin komodo-date::date
+            unofficial-btc::bitcoin komodo-date::date fmt::fmt
             Boost::random Boost::filesystem komodo-sodium::sodium antara::app::net
         INTERFACE_DEFS
             $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> $<$<PLATFORM_ID:Windows>:HAS_REMOTE_API>
