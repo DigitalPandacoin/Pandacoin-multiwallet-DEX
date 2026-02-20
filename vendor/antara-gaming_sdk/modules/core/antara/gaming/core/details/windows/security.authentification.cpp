@@ -5,6 +5,7 @@
 #include <iostream>
 
 //! Cred
+#include <windows.h>
 #include <wincred.h>
 
 //! Linking

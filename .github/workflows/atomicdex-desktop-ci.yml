@@ -200,11 +200,6 @@ jobs:
           echo $HOME/sdk
           ls $HOME/sdk || true
           ls $(xcrun --show-sdk-path)/usr/include/c++
-          export MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
-          export INSTALLER_MAC_SIGN_IDENTITY="${{ secrets.MAC_SIGN_IDENTITY }}"
-          export APPLE_ATOMICDEX_PASSWORD="${{ secrets.APPLE_ATOMICDEX_PASSWORD }}"
-          export APPLE_ID="${{ secrets.APPLE_ID }}"
-          export ASC_PUBLIC_ID="${{ secrets.ASC_PUBLIC_ID }}"
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
           export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
           export PATH=/Users/runner/.nimble/bin:$PATH
@@ -278,7 +273,6 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           echo "artifact_name_dmg=${{ env.DEX_PROJECT_NAME }}-${{ matrix.name }}-$(git rev-parse --short HEAD).dmg" >> $GITHUB_ENV
-          echo "artifact_name_installer=${{ env.DEX_PROJECT_NAME }}-installer-${{ matrix.name }}-$(git rev-parse --short HEAD).7z" >> $GITHUB_ENV
 
       - name: Upload artifacts (MacOS dmg)
         if: runner.os == 'macOS'
@@ -286,14 +280,6 @@ jobs:
         with:
           name: ${{ env.artifact_name_dmg }}
           path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}.dmg
-          retention-days: 7
-
-      - name: Upload artifacts (MacOS installer)
-        if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.artifact_name_installer }}
-          path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}_installer.7z
           retention-days: 7
 
       - name: Upload env variable for artifacts (Windows)
