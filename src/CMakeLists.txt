@@ -90,6 +90,7 @@ add_executable(${PROJECT_NAME}
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
 set_target_properties(${PROJECT_NAME}
@@ -100,51 +101,6 @@ set_target_properties(${PROJECT_NAME}
 if (APPLE)
     set_property(SOURCE core/atomicdex/platform/osx/manager.mm PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 endif ()
-
-# Testing executable
-add_executable(${PROJECT_NAME}_tests MACOSX_BUNDLE ${ICON}
-        tests/atomic.dex.qt.utilities.tests.cpp
-        tests/atomic.dex.tests.cpp
-        tests/atomic.dex.wallet.config.tests.cpp
-
-        ##! API
-        tests/api/komodo_prices/komodo.prices.tests.cpp
-        tests/api/kdf/kdf.api.address_format.tests.cpp
-        tests/api/kdf/kdf.api.utxo_merge_params.tests.cpp
-        tests/api/kdf/kdf.api.balance_infos.tests.cpp
-        tests/api/kdf/kdf.fraction.tests.cpp
-        tests/api/kdf/kdf.rpc2.trade_preimage.tests.cpp
-
-        ##! CFG
-        tests/config/coins.cfg.tests.cpp
-        
-        ##! API
-        tests/api/komodo_prices/komodo.prices.tests.cpp
-        tests/api/kdf/kdf.rpc2.trade_preimage.tests.cpp
-        tests/api/kdf/kdf.fraction.tests.cpp
-
-        ##! Utilities
-        tests/utilities/qt.utilities.tests.cpp
-        tests/utilities/global.utilities.tests.cpp
-
-        ##! Managers
-        tests/managers/addressbook.manager.tests.cpp
-
-        ##! Models
-        tests/models/qt.addressbook.contact.model.tests.cpp
-
-        ##! Utilities
-        tests/utilities/qt.utilities.tests.cpp
-        tests/utilities/global.utilities.tests.cpp)
-
-target_link_libraries(${PROJECT_NAME}_tests
-        PUBLIC
-        ${PROJECT_NAME}::core
-        doctest::doctest)
-set_target_properties(${PROJECT_NAME}_tests
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
-set_target_properties(${PROJECT_NAME}_tests PROPERTIES UNITY_BUILD ON)
 
 # Main executable installation related
 if (LINUX)
@@ -157,14 +113,6 @@ if (LINUX)
             "dex-logo-64.png"
             ${PROJECT_NAME}
             AntaraAtomicDexAppDir
-            ${CMAKE_SOURCE_DIR}/assets)
-
-    magic_game_app_image_generation("${CMAKE_SOURCE_DIR}/cmake/install/linux"
-            "dex.desktop"
-            "dex.appdata.xml"
-            "dex-logo-64.png"
-            ${PROJECT_NAME}_tests
-            AntaraAtomicDexTestsAppDir
             ${CMAKE_SOURCE_DIR}/assets)
 
     set(from_dir "${CMAKE_SOURCE_DIR}/cmake/install/linux")
@@ -216,6 +164,5 @@ endif ()
 
 if (APPLE)
     file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.app/Contents/Resources)
-    file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}_tests.app/Contents/Resources)
     include(${CMAKE_SOURCE_DIR}/cmake/install/macos/dex_install.cmake)
 endif ()

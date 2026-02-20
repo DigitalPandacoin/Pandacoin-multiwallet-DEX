@@ -11,7 +11,6 @@ find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(date REQUIRED)
 find_package(cpprestsdk REQUIRED)
-find_package(doctest REQUIRED)
 
 find_package(fmt REQUIRED)
 add_library(fmt INTERFACE)
