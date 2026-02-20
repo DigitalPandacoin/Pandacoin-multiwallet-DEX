@@ -63,8 +63,8 @@ DefaultRectangle
                     Dex.CurrentTheme.gradientButtonDisabledEndColor
         }
     }
-    height: _label.implicitHeight + (padding + verticalPadding)
-    width: _contentRow.implicitWidth + (padding + horizontalPadding)
+    height: _label.implicitHeight + (padding * verticalPadding)
+    width: _contentRow.implicitWidth + (padding * horizontalPadding)
 
     Row
     {

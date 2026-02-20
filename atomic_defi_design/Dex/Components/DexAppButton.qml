@@ -42,8 +42,8 @@ DefaultRectangle
     signal clicked()
 
     radius: 5
-    height: _label.implicitHeight + (padding + verticalPadding)
-    width: _contentRow.implicitWidth + (padding + horizontalPadding)
+    height: _label.implicitHeight + (padding * verticalPadding)
+    width: _contentRow.implicitWidth + (padding * horizontalPadding)
 
     colorAnimation: false
     color: enabled ? _controlMouseArea.containsMouse ? _controlMouseArea.containsPress ?

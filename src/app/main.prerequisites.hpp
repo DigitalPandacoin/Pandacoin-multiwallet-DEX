@@ -43,7 +43,6 @@
 #include <QSslSocket>
 #include <sodium/core.h>
 #include <wally.hpp>
-#include <fmt/format.h>
 
 #if defined(linux) || defined(__APPLE__)
 #    define BOOST_STACKTRACE_USE_ADDR2LINE
