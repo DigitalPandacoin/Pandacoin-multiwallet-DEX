@@ -104,7 +104,7 @@ Item {
             chart.axes[i].visible = false
     }
 
-    Flickable {
+    DefaultFlickable {
         id: flick
         anchors.fill: parent
         anchors.topMargin: 16

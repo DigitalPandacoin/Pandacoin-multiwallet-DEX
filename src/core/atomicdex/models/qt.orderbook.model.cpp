@@ -435,7 +435,7 @@ namespace atomic_dex
     void
     orderbook_model::update_order(const kdf::order_contents& order)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         if (const auto res = this->match(index(0, 0), UUIDRole, QString::fromStdString(order.uuid)); not res.isEmpty())
         {
             //! ID Found, update !
@@ -518,8 +518,8 @@ namespace atomic_dex
                 }
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

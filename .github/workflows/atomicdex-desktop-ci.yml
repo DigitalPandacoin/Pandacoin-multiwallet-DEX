@@ -251,6 +251,7 @@ jobs:
         with:
           name: ${{ env.artifact_name_zstd }}
           path: ./bundled/linux/${{ env.target_name_zstd }}
+          compression-level: 0
           retention-days: 7
 
       - name: Upload bundle artifact (Linux ZIP)
@@ -259,6 +260,7 @@ jobs:
         with:
           name: ${{ env.artifact_name_zip }}
           path: ./bundled/linux/${{ env.target_name_zip }}
+          compression-level: 0
           retention-days: 7
 
       - name: Upload bundle artifact (Linux AppImage)
@@ -267,6 +269,7 @@ jobs:
         with:
           name: ${{ env.artifact_name_appimage }}
           path: ./bundled/linux/${{ env.target_name_appimage }}
+          compression-level: 0
           retention-days: 7
 
       - name: Upload env variable for artifacts (macOS)
@@ -280,6 +283,7 @@ jobs:
         with:
           name: ${{ env.artifact_name_dmg }}
           path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}.dmg
+          compression-level: 0
           retention-days: 7
 
       - name: Upload env variable for artifacts (Windows)
@@ -295,6 +299,7 @@ jobs:
         with:
           name: ${{ env.artifact_name_zip }}
           path: ./bundled/windows/${{ env.DEX_PROJECT_NAME }}.zip
+          compression-level: 0
           retention-days: 7
 
       - name: Upload artifacts (Windows installer)
@@ -303,5 +308,6 @@ jobs:
         with:
           name: ${{ env.artifact_name_installer }}
           path: ./bundled/windows/${{ env.DEX_PROJECT_NAME }}_installer.exe
+          compression-level: 0
           retention-days: 7
 

@@ -99,7 +99,7 @@ namespace atomic_dex
         }
         this->set_both_taker_vol();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {}", answer.bids.size(), answer.asks.size(), duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {}", answer.bids.size(), answer.asks.size(), duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -118,15 +118,18 @@ namespace atomic_dex
         m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for qt_orderbook_wrapper::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     qt_orderbook_wrapper::clear_orderbook()
     {
+        spdlog::stopwatch sw;
         this->m_asks->clear_orderbook();
         this->m_bids->clear_orderbook();
         this->m_best_orders->clear_orderbook();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QVariant
@@ -144,6 +147,7 @@ namespace atomic_dex
     void
     atomic_dex::qt_orderbook_wrapper::set_both_taker_vol()
     {
+        spdlog::stopwatch sw;
         auto&& [base, rel]         = m_system_manager.get_system<kdf_service>().get_taker_vol();
         this->m_base_max_taker_vol = QJsonObject{
             {"denom", QString::fromStdString(base.denom)},
@@ -164,6 +168,8 @@ namespace atomic_dex
         this->m_rel_min_taker_vol = QString::fromStdString(min_rel.min_trading_vol);
         emit relMinTakerVolChanged();
         emit currentMinTakerVolChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 
@@ -255,6 +261,7 @@ namespace atomic_dex
     QString
     qt_orderbook_wrapper::get_current_min_taker_vol() const
     {
+        spdlog::stopwatch sw;
         QString    cur_taker_vol   = get_base_min_taker_vol();
         auto&      trading_pg      = m_system_manager.get_system<trading_page>();
         auto       preferred_order = trading_pg.get_raw_preferred_order();
@@ -284,6 +291,8 @@ namespace atomic_dex
         }
 
         // SPDLOG_INFO("final_taker_vol: {}", cur_taker_vol.toStdString());
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::get_current_min_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed()));
         return cur_taker_vol;
     }
 } // namespace atomic_dex

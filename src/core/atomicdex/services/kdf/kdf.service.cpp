@@ -2566,9 +2566,9 @@ namespace atomic_dex
 
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
-        this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
         using namespace std::chrono;
         SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
+        this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
     }
 
 

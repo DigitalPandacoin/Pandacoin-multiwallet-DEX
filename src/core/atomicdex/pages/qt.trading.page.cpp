@@ -1502,6 +1502,7 @@ namespace atomic_dex
     void
     trading_page::determine_cex_rates()
     {
+        spdlog::stopwatch sw;
         const auto& price_service   = m_system_manager.get_system<global_price_service>();
         const auto* market_selector = get_market_pairs_mdl();
         const auto& base            = market_selector->get_left_selected_coin().toStdString();
@@ -1516,6 +1517,8 @@ namespace atomic_dex
             emit cexPriceReversedChanged();
         }
         emit cexPriceDiffChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_cex_rates: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

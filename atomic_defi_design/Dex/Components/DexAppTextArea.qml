@@ -73,7 +73,7 @@ Item {
                 anchors.bottomMargin: 1
                 radius: _background.radius
                 color: DexTheme.backgroundDarkColor2
-                DexFlickable {
+                DefaultFlickable {
                     anchors.fill: parent
                     contentHeight: input_field.height
                     contentWidth: width

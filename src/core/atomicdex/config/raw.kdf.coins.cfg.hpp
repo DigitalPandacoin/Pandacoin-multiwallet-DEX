@@ -85,7 +85,6 @@ namespace atomic_dex
         std::string                     coin;
         std::optional<std::string>      name{std::nullopt};
         std::optional<std::string>      fname{std::nullopt};
-        std::optional<std::string>      etomic{std::nullopt};
         std::optional<int64_t>          chain_id{std::nullopt};
         std::optional<int64_t>          rpcport{std::nullopt};
         std::optional<int64_t>          pubtype{std::nullopt};
@@ -136,7 +135,6 @@ namespace atomic_dex
         x.coin                   = j.at("coin").get<std::string>();
         x.name                   = atomic_dex::get_optional<std::string>(j, "name");
         x.fname                  = atomic_dex::get_optional<std::string>(j, "fname");
-        x.etomic                 = atomic_dex::get_optional<std::string>(j, "etomic");
         x.chain_id               = atomic_dex::get_optional<int64_t>(j, "chain_id");
         x.rpcport                = atomic_dex::get_optional<int64_t>(j, "rpcport"); // j.at("rpcport").get<int64_t>();
         x.pubtype                = atomic_dex::get_optional<int64_t>(j, "pubtype");
@@ -182,7 +180,6 @@ namespace atomic_dex
         j["coin"] = x.coin;
         to_json_functor("name", x.name);
         to_json_functor("fname", x.fname);
-        to_json_functor("etomic", x.etomic);
         to_json_functor("chain_id", x.chain_id);
         to_json_functor("rpcport", x.rpcport);
         to_json_functor("pubtype", x.pubtype);

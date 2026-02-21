@@ -78,7 +78,7 @@ Qaterial.Dialog
             }
         }
 
-        DexFlickable
+        DefaultFlickable
         {
             id: faq_flickable
 
