@@ -394,7 +394,7 @@ namespace atomic_dex
     void
     orderbook_model::initialize_order(const kdf::order_contents& order)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         if (m_orders_id_registry.contains(order.uuid))
         {
             SPDLOG_WARN("Order with uuid: {} already present...skipping.", order.uuid);
@@ -428,8 +428,8 @@ namespace atomic_dex
                 }
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::initialize_order: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orderbook_model::initialize_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -608,14 +608,14 @@ namespace atomic_dex
     void
     orderbook_model::clear_orderbook()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();
         this->endResetModel();
         emit lengthChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     orderbook_proxy_model*
