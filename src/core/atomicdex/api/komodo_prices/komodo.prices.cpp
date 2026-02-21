@@ -84,11 +84,11 @@ namespace atomic_dex::komodo_prices::api
         using namespace std::chrono;
         if (fallback)
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {}", duration_cast<milliseconds>(sw.elapsed());
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
         else
         {
-            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {}", duration_cast<milliseconds>(sw.elapsed());
+            SPDLOG_DEBUG("Time elapsed in atomic_dex::komodo_prices::api: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
         req.set_request_uri(FROM_STD_STR(endpoint));
         return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);
