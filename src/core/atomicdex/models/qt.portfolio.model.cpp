@@ -71,7 +71,6 @@ namespace atomic_dex
             const QString   change_24h = retrieve_change_24h(provider, coin, *m_config, m_system_manager);
             portfolio_data  data{
                 .ticker                           = QString::fromStdString(coin.ticker),
-                .gui_ticker                       = QString::fromStdString(coin.gui_ticker),
                 .coin_type                        = QString::fromStdString(coin.type),
                 .name                             = QString::fromStdString(coin.name),
                 .balance                          = QString::fromStdString(balance),
@@ -85,9 +84,6 @@ namespace atomic_dex
                 .price_last_timestamp             = static_cast<int>(provider.get_last_price_timestamp(coin.ticker)),
                 .is_excluded                      = false,
                 .public_address                   = QString::fromStdString(kdf_system.address(coin.ticker, ec))};
-            // data.percent_main_currency = percent_functor(data.main_currency_balance);
-            data.display         = QString::fromStdString(coin.gui_ticker) + " (" + data.balance + ")";
-            data.ticker_and_name = QString::fromStdString(coin.gui_ticker) + data.name;
             datas.push_back(std::move(data));
             m_ticker_registry.emplace(ticker);
         }
@@ -269,8 +265,6 @@ namespace atomic_dex
         {
         case TickerRole:
             return item.ticker;
-        case GuiTickerRole:
-            return item.gui_ticker;
         case BalanceRole:
             return item.balance;
         case MainCurrencyBalanceRole:
@@ -475,7 +469,6 @@ namespace atomic_dex
     {
         return {
             {TickerRole, "ticker"},
-            {GuiTickerRole, "gui_ticker"},
             {CoinType, "type"},
             {NameRole, "name"},
             {BalanceRole, "balance"},

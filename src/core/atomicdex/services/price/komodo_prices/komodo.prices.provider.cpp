@@ -92,8 +92,11 @@ namespace atomic_dex
 
         if (s >= 181s)
         {
+            spdlog::stopwatch sw;
             process_update();
             m_clock = std::chrono::high_resolution_clock::now();
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::update: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 

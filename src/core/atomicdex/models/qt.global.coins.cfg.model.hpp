@@ -46,7 +46,6 @@ namespace atomic_dex
         enum CoinsRoles
         {
             TickerRole = Qt::UserRole + 1,
-            GuiTickerRole,
             NameRole,
             TickerAndNameRole,
             IsClaimable,

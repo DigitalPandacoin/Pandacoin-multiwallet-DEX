@@ -40,7 +40,6 @@ namespace atomic_dex
         using eth_family_url_list                       = std::vector<std::string>;
         using light_wallet_d_servers                    = std::vector<std::string>; ///< For ZHTLC
         std::string                                       ticker;
-        std::string                                       gui_ticker; ///< Ticker displayed in the gui
         std::string                                       name;       ///< nice name
         std::string                                       fname;       ///< nice name
         std::string                                       parent_coin;

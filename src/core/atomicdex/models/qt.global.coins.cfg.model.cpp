@@ -92,8 +92,6 @@ namespace atomic_dex
         {
         case TickerRole:
             return QString::fromStdString(item.ticker);
-        case GuiTickerRole:
-            return QString::fromStdString(item.gui_ticker);
         case NameRole:
             return QString::fromStdString(item.name);
         case IsClaimable:
@@ -184,8 +182,8 @@ namespace atomic_dex
     QHash<int, QByteArray>
     global_coins_cfg_model::roleNames() const
     {
-        return {{TickerRole, "ticker"}, {GuiTickerRole, "gui_ticker"},    {NameRole, "name"}, {IsClaimable, "is_claimable"}, {CurrentlyEnabled, "enabled"},
-                {Active, "active"},     {IsCustomCoin, "is_custom_coin"}, {Type, "type"},     {Checked, "checked"}};
+        return {{TickerRole, "ticker"}, {NameRole, "name"}, {IsClaimable, "is_claimable"}, {CurrentlyEnabled, "enabled"},
+                {Active, "active"}, {IsCustomCoin, "is_custom_coin"}, {Type, "type"}, {Checked, "checked"}};
     }
 } // namespace atomic_dex
 

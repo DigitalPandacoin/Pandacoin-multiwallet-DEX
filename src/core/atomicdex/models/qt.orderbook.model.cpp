@@ -364,6 +364,7 @@ namespace atomic_dex
     void
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
+        spdlog::stopwatch sw;
         this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
@@ -379,6 +380,8 @@ namespace atomic_dex
         // This assert was causing a crash due to duplicated UUIDs being filtered out for orders that exist for both segwit and non-segwit of a coin,
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     int
@@ -391,6 +394,7 @@ namespace atomic_dex
     void
     orderbook_model::initialize_order(const kdf::order_contents& order)
     {
+        spdlog::stopwatch sw;
         if (m_orders_id_registry.contains(order.uuid))
         {
             SPDLOG_WARN("Order with uuid: {} already present...skipping.", order.uuid);
@@ -424,11 +428,14 @@ namespace atomic_dex
                 }
             }
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::initialize_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     orderbook_model::update_order(const kdf::order_contents& order)
     {
+        spdlog::stopwatch sw;
         if (const auto res = this->match(index(0, 0), UUIDRole, QString::fromStdString(order.uuid)); not res.isEmpty())
         {
             //! ID Found, update !
@@ -511,6 +518,8 @@ namespace atomic_dex
                 }
             }
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -565,7 +574,7 @@ namespace atomic_dex
     bool
     orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        // SPDLOG_DEBUG("orders_model::removeRows removing {} elements at position {}", rows, position);
+        spdlog::stopwatch sw;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -591,17 +600,22 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
     void
     orderbook_model::clear_orderbook()
     {
+        spdlog::stopwatch sw;
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();
         this->endResetModel();
         emit lengthChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     orderbook_proxy_model*
@@ -651,6 +665,7 @@ namespace atomic_dex
     void
     orderbook_model::check_for_better_order(trading_page& trading_pg, const QVariantMap& preferred_order, std::string uuid)
     {
+        spdlog::stopwatch sw;
         if (trading_pg.get_market_mode() == MarketMode::Sell)
         {
             t_float_50 preferred_price = safe_float(preferred_order.value("price", "0").toString().toStdString());
@@ -676,5 +691,7 @@ namespace atomic_dex
                 trading_pg.set_selected_order_status(SelectedOrderStatus::OrderNotExistingAnymore);
             }
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::check_for_better_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex

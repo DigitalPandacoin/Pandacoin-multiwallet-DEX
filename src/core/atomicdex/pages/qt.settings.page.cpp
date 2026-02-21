@@ -495,7 +495,6 @@ namespace atomic_dex
                     std::string out_address                                         = "0x" + contract_address.toStdString();
                     out["kdf_cfg"]["protocol"]["protocol_data"]["contract_address"] = out_address;
                     out["kdf_cfg"]["coin"]                                          = ticker;
-                    // out["kdf_cfg"]["gui_coin"]                                      = ticker;
                     out["kdf_cfg"]["kdf"] = 1;
                     if (body_json.at("qrc20").contains("decimals"))
                     {
@@ -516,7 +515,6 @@ namespace atomic_dex
                     //!
                     out["adex_cfg"][ticker]                      = nlohmann::json::object();
                     out["adex_cfg"][ticker]["coin"]              = ticker;
-                    out["adex_cfg"][ticker]["gui_coin"]          = ticker;
                     out["adex_cfg"][ticker]["name"]              = body_json.at("qrc20").at("name").get<std::string>();
                     out["adex_cfg"][ticker]["coingecko_id"]      = coingecko_id.toStdString();
                     out["adex_cfg"][ticker]["explorer_url"]      = "https://explorer.qtum.org/";

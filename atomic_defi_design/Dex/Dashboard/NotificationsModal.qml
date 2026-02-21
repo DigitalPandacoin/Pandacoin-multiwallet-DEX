@@ -471,7 +471,7 @@ DexPopup
                         Item
                         {
                             Layout.fillHeight: true
-                            Layout.preferredWidth: 60
+                            Layout.preferredWidth: 40
 
                             Rectangle
                             {
@@ -508,7 +508,7 @@ DexPopup
                                 {
                                     text: getNotificationTitle(modelData)
                                     font: DexTypo.subtitle1
-                                    width: parent.width
+                                    width: parent.width - 20
                                     wrapMode: Label.Wrap
                                 }
 
@@ -600,7 +600,7 @@ DexPopup
             }
         }
 
-        OutlineButton
+        DexAppOutlineButton
         {            
             text: notifications_list.length !== 0 ? qsTr('Mark all as read') : qsTr('Close')
             width: 260

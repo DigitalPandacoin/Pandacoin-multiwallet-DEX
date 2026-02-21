@@ -897,8 +897,7 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
-        spdlog::stopwatch sw;
-
+        //spdlog::stopwatch sw;
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -1007,8 +1006,8 @@ namespace atomic_dex
                 }
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -1409,7 +1408,7 @@ namespace atomic_dex
     void
     trading_page::determine_error_cases()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
 
         if (!m_system_manager.has_system<kdf_service>())
             return;
@@ -1496,8 +1495,8 @@ namespace atomic_dex
 
         //! Check for base coin
         this->set_trading_error(current_trading_error);
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_error_cases: {}", duration_cast<milliseconds>(sw.elapsed())); 
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_error_cases: {}", duration_cast<milliseconds>(sw.elapsed())); 
     }
 
     void
