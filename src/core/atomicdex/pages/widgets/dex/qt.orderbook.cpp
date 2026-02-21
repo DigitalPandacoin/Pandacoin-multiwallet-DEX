@@ -81,7 +81,7 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_orderbook_model_data(kdf::orderbook_result_rpc answer)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         this->m_asks->refresh_orderbook_model_data(answer.asks);
         this->m_bids->refresh_orderbook_model_data(answer.bids);
         const auto data = this->m_system_manager.get_system<orderbook_scanner_service>().get_bestorders_data();
@@ -105,7 +105,7 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::reset_orderbook(kdf::orderbook_result_rpc answer)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         this->m_asks->reset_orderbook(answer.asks);
         this->m_bids->reset_orderbook(answer.bids);
         this->set_both_taker_vol();
@@ -144,7 +144,7 @@ namespace atomic_dex
     void
     atomic_dex::qt_orderbook_wrapper::set_both_taker_vol()
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         auto&& [base, rel]         = m_system_manager.get_system<kdf_service>().get_taker_vol();
         this->m_base_max_taker_vol = QJsonObject{
             {"denom", QString::fromStdString(base.denom)},
@@ -176,7 +176,7 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_best_orders()
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         if (safe_float(m_system_manager.get_system<trading_page>().get_volume().toStdString()) > 0)
         {
             this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders();
