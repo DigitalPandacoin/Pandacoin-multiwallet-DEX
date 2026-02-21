@@ -516,6 +516,7 @@ namespace atomic_dex
     void
     orderbook_model::refresh_orderbook_model_data(const t_orders_contents& orderbook)
     {
+        spdlog::stopwatch sw;
         auto refresh_functor = [this](const std::vector<kdf::order_contents>& contents)
         {
             for (auto&& order: contents)
@@ -551,6 +552,8 @@ namespace atomic_dex
         };
 
         refresh_functor(orderbook);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     t_order_contents

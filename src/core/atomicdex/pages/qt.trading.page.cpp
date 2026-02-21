@@ -79,6 +79,7 @@ namespace atomic_dex
     void
     trading_page::set_current_orderbook(const QString& base, const QString& rel)
     {
+        spdlog::stopwatch sw;
         if (base.toStdString() == "" || rel.toStdString() == "")
         {
             return;
@@ -105,6 +106,8 @@ namespace atomic_dex
 
         emit kdfMinTradeVolChanged();
         dispatcher_.trigger<refresh_orderbook_model_data>(base.toStdString(), rel.toStdString());
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -894,6 +897,8 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
+        spdlog::stopwatch sw;
+
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -916,9 +921,7 @@ namespace atomic_dex
                     {
                         auto       available_quantity       = m_preferred_order->at("base_max_volume").get<std::string>();
                         t_float_50 available_quantity_order = safe_float(available_quantity);
-                        SPDLOG_DEBUG(
-                           "available_quantity_order: {}, max_volume: {}, max_taker_vol: {}", utils::format_float(safe_float(available_quantity)),
-                           get_max_volume().toStdString(), max_taker_vol);
+
                         if (available_quantity_order < safe_float(max_taker_vol) && !m_preferred_order->at("capped").get<bool>())
                         {
                             max_vol_str                         = available_quantity;
@@ -929,7 +932,6 @@ namespace atomic_dex
                         {
                             if (!m_preferred_order->at("capped").get<bool>())
                             {
-                                SPDLOG_DEBUG("Selected order capping to max_taker_vol because our max_taker_volume is < base_max_volume");
                                 m_preferred_order.value()["capped"] = true;
                                 this->set_max_volume(QString::fromStdString(max_vol_str));
                             }
@@ -990,7 +992,6 @@ namespace atomic_dex
                         }
                     }
                     this->cap_volume();
-                    // SPDLOG_WARN("max_taker_vol this->cap_volume()");
                 }
                 else
                 {
@@ -1003,10 +1004,11 @@ namespace atomic_dex
                     }
                     this->set_max_volume(QString::fromStdString(utils::format_float(res)));
                     this->cap_volume();
-                    // SPDLOG_WARN("max_taker_vol this->cap_volume()");
                 }
             }
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -1407,7 +1409,8 @@ namespace atomic_dex
     void
     trading_page::determine_error_cases()
     {
-        // SPDLOG_DEBUG("determine_error_cases");
+        spdlog::stopwatch sw;
+
         if (!m_system_manager.has_system<kdf_service>())
             return;
         TradingError current_trading_error = TradingError::None;
@@ -1493,6 +1496,8 @@ namespace atomic_dex
 
         //! Check for base coin
         this->set_trading_error(current_trading_error);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_error_cases: {}", duration_cast<milliseconds>(sw.elapsed())); 
     }
 
     void

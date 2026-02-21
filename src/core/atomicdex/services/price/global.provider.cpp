@@ -289,7 +289,7 @@ namespace atomic_dex
             return "0.00";
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for global_price_service::get_price_in_fiat: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_in_fiat: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string

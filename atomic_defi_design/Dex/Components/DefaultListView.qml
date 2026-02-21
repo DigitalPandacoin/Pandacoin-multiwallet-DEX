@@ -20,10 +20,6 @@ ListView
 
     opacity: root.count === 0 ? 0 : enabled ? 1 : 0.2
 
-    Component.onCompleted: {
-        positionViewAtBeginning()
-    }
-
     Behavior on opacity
     {
         SmoothedAnimation

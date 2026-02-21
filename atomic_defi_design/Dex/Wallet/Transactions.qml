@@ -30,6 +30,10 @@ Dex.ListView
     }
     height: calculateHeight()
 
+    Component.onCompleted: {
+        positionViewAtBeginning()
+    }
+
     // Transaction Row
     delegate: Dex.Rectangle
     {

@@ -1763,7 +1763,7 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1797,8 +1797,8 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
@@ -2097,7 +2097,7 @@ namespace atomic_dex
     void
     kdf_service::batch_fetch_orders_and_swap(bool after_manual_reset)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
 
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
@@ -2208,8 +2208,8 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
 
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
