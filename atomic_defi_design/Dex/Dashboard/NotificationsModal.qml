@@ -432,6 +432,7 @@ DexPopup
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 model: notifications_list
+                clip: true
 
                 delegate: Item
                 {

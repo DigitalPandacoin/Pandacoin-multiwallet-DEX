@@ -109,6 +109,7 @@ Item {
         anchors.fill: parent
         anchors.topMargin: 16
         contentHeight: _column.height
+        scrollbar_visible: false
 
         Column {
             id: _column
