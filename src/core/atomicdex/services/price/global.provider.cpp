@@ -241,7 +241,7 @@ namespace atomic_dex
     {
         // Runs often to update fiat values for all enabled coins.
         // fetch ticker infos loop and on_update_portfolio_values_event triggers this.
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         try
         {
             auto& kdf_instance = m_system_manager.get_system<kdf_service>();
@@ -288,7 +288,8 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, ticker: {}, fiat: {}", error.what(), ticker, fiat);
             return "0.00";
         }
-        SPDLOG_DEBUG("Time elapsed for global_price_service::get_price_in_fiat: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed for global_price_service::get_price_in_fiat: {}", duration_cast<milliseconds>(sw.elapsed());
     }
 
     std::string

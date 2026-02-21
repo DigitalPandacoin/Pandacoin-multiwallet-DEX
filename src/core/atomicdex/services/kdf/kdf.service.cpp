@@ -1763,7 +1763,7 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1797,12 +1797,13 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
-        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed());
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
 
         if (batch.empty())
         {
@@ -1867,7 +1868,8 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
 
-        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed());
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1929,11 +1931,12 @@ namespace atomic_dex
         }
         else
         {
-            spdlog::stopwatch stopwatch;
+            spdlog::stopwatch sw;
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
-            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {:.6} seconds", enabled_coins.size(), stopwatch);
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed());
         }
     }
 
@@ -2024,7 +2027,6 @@ namespace atomic_dex
     std::pair<t_transactions, t_tx_state>
     kdf_service::get_tx(t_kdf_ec& ec) const
     {
-        // spdlog::stopwatch stopwatch;
         const auto& ticker = get_current_ticker();
         const auto underlying_tx_history_map = m_tx_informations.synchronize();
         const auto coin_info                 = get_coin_info(ticker);
@@ -2034,7 +2036,6 @@ namespace atomic_dex
             ec = dextop_error::tx_history_of_a_non_enabled_coin;
             return {};
         }
-        // SPDLOG_DEBUG("Time elapsed in kdf_service::get_tx for ticker {}: {:.6} seconds", ticker, stopwatch);
         return it->second;
     }
 
@@ -2096,7 +2097,7 @@ namespace atomic_dex
     void
     kdf_service::batch_fetch_orders_and_swap(bool after_manual_reset)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
 
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
@@ -2207,12 +2208,13 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
 
-        SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed());
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         std::error_code ec;
         using namespace std::string_literals;
         auto construct_url_functor = [this](
@@ -2356,7 +2358,8 @@ namespace atomic_dex
                     this->handle_exception_pplx_task(previous_task, "process_tx_tokenscan", {});
                 });
 
-        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {:.6} seconds", ticker, stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed());
     }
 
     void
@@ -2368,13 +2371,14 @@ namespace atomic_dex
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
         if (this->m_kdf_running)
         {
             process_orderbook(true);
         }
-        SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {:.6} seconds", evt.base, evt.rel, stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed());
     }
 
     void
@@ -2491,7 +2495,7 @@ namespace atomic_dex
     void
     kdf_service::process_tx_answer(const nlohmann::json& answer_json, std::string ticker)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         kdf::tx_history_answer answer;
         kdf::from_json(answer_json, answer);
         t_tx_state state;
@@ -2563,7 +2567,8 @@ namespace atomic_dex
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
-        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {:.6} seconds", ticker, stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed());
     }
 
 

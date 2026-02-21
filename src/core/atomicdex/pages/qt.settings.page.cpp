@@ -66,12 +66,10 @@ namespace atomic_dex
 
     void settings_page::garbage_collect_qml()
     {
-        spdlog::stopwatch stopwatch;
-        //SPDLOG_INFO("Garbage collecting QML Engine");
+        SPDLOG_INFO("Garbage collecting QML Engine");
         m_qml_engine->collectGarbage();
         m_qml_engine->trimComponentCache();
         m_qml_engine->clearComponentCache();
-        SPDLOG_DEBUG("Time elapsed in settings_page::garbage_collect_qml: {:.6} seconds", stopwatch);
     }
 } // namespace atomic_dex
 

@@ -189,7 +189,7 @@ namespace atomic_dex
 
     void transactions_model::init_transactions(const t_transactions& transactions)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         if (m_model_data.size() == 0)
         {
             beginResetModel();
@@ -217,7 +217,8 @@ namespace atomic_dex
             }
         }
         emit lengthChanged();
-        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {:.6} seconds", transactions.size(), stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed());
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)

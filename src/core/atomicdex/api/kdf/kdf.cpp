@@ -397,7 +397,6 @@ namespace atomic_dex::kdf
     void
     from_json(const nlohmann::json& j, order_swaps_data& contents)
     {
-        // spdlog::stopwatch stopwatch;
         using namespace date;
         using namespace std::chrono;
         using namespace atomic_dex;
@@ -515,13 +514,11 @@ namespace atomic_dex::kdf
             contents.order_error_state   = error.first;
             contents.order_error_message = error.second;
         }
-        // SPDLOG_INFO("from_json(order_swaps_data) -> {:.6} seconds", stopwatch);
     }
 
     void
     from_json(const nlohmann::json& j, my_recent_swaps_answer_success& results)
     {
-        // spdlog::stopwatch                                    stopwatch;
         std::unordered_map<std::string, std::vector<double>> events_time_registry;
         const auto&                                          swaps = j.at("swaps");
         results.swaps.reserve(swaps.size());

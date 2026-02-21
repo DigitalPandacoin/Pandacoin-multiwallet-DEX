@@ -144,7 +144,6 @@ namespace atomic_dex
     void
     atomic_dex::qt_orderbook_wrapper::set_both_taker_vol()
     {
-        spdlog::stopwatch sw;
         auto&& [base, rel]         = m_system_manager.get_system<kdf_service>().get_taker_vol();
         this->m_base_max_taker_vol = QJsonObject{
             {"denom", QString::fromStdString(base.denom)},
@@ -165,8 +164,6 @@ namespace atomic_dex
         this->m_rel_min_taker_vol = QString::fromStdString(min_rel.min_trading_vol);
         emit relMinTakerVolChanged();
         emit currentMinTakerVolChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 

@@ -52,7 +52,7 @@ namespace atomic_dex
     void
     atomic_dex::portfolio_model::initialize_portfolio(const std::vector<std::string>& tickers)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         QVector<portfolio_data> datas;
 
         for (auto&& ticker: tickers)
@@ -98,13 +98,14 @@ namespace atomic_dex
             endInsertRows();
             emit lengthChanged();
         }
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {:.6} seconds", this->get_length(), stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed());
     }
 
     bool
     portfolio_model::update_activation_status()
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         // This feels a bit heavy handed. There should be a better way to do this.
         // Function may be unused.
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
@@ -128,7 +129,8 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
                 return true;
             }
-            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {:.6} seconds", coin.ticker, stopwatch);
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {}", coin.ticker, duration_cast<milliseconds>(sw.elapsed());
             return false;
         }
     }
@@ -136,7 +138,7 @@ namespace atomic_dex
     bool
     portfolio_model::update_currency_values()
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
         const auto&        price_service = this->m_system_manager.get_system<global_price_service>();
         const auto&        provider      = this->m_system_manager.get_system<komodo_prices_provider>();
@@ -186,14 +188,15 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed());
         return true;
     }
 
     bool
     portfolio_model::update_balance_values(const std::vector<std::string>& tickers)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         for (auto&& ticker: tickers)
         {
             if (ticker.empty())
@@ -248,7 +251,8 @@ namespace atomic_dex
                 }
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {}", duration_cast<milliseconds>(sw.elapsed());
         return true;
     }
 
@@ -581,7 +585,7 @@ namespace atomic_dex
     void
     portfolio_model::adjust_percent_current_currency(QString balance_all)
     {
-        spdlog::stopwatch stopwatch;
+        spdlog::stopwatch sw;
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
@@ -600,6 +604,7 @@ namespace atomic_dex
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {:.6} seconds", stopwatch);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed());
     }
 } // namespace atomic_dex

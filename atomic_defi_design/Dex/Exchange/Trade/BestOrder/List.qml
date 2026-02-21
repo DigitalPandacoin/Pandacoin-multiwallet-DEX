@@ -60,6 +60,10 @@ Widget
         reuseItems: true
         scrollbar_visible: false
 
+        Component.onCompleted: {
+            positionViewAtBeginning()
+        }
+
         delegate: ListDelegate
         {
             width: _listView.width
