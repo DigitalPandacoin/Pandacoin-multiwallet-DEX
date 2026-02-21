@@ -272,7 +272,7 @@ Qaterial.Dialog
 
                                 Item { Layout.fillWidth: true }
 
-                                DexComboBox
+                                DefaultComboBox
                                 {
                                     id: enableable_coins_count_combo_box
                                     Layout.alignment: Qt.AlignVCenter

@@ -62,7 +62,7 @@ Item
 
             Item { Layout.fillWidth: true }
 
-            DexComboBox
+            DefaultComboBox
             {
                 id: combo_fiat
                 width: 100

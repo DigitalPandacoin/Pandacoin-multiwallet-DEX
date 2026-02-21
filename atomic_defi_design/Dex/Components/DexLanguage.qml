@@ -10,7 +10,7 @@ import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-DexComboBox
+DefaultComboBox
 {
     id: control
     model: API.app.settings_pg.get_available_langs()
