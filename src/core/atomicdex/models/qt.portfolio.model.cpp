@@ -84,6 +84,8 @@ namespace atomic_dex
                 .price_last_timestamp             = static_cast<int>(provider.get_last_price_timestamp(coin.ticker)),
                 .is_excluded                      = false,
                 .public_address                   = QString::fromStdString(kdf_system.address(coin.ticker, ec))};
+            data.display         = QString::fromStdString(coin.ticker) + " (" + data.balance + ")";
+            data.ticker_and_name = QString::fromStdString(coin.ticker) + data.name;
             datas.push_back(std::move(data));
             m_ticker_registry.emplace(ticker);
         }
