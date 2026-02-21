@@ -161,9 +161,9 @@ Item
                 opacity: 0.8
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
                 // Component.onCompleted: {
-                    //console.debug("parent.width = " + parent.width)
-                    //console.debug("depth = " + depth)
-                    //console.debug("width = " + width)
+                    //console.log("parent.width = " + parent.width)
+                    //console.log("depth = " + depth)
+                    //console.log("width = " + width)
                 // }
             }
         }

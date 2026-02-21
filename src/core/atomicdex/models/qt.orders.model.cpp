@@ -631,14 +631,14 @@ namespace atomic_dex
     void
     orders_model::reset_backend(const std::string& from)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         const auto limit     = this->m_model_data.limit;
         const auto filtering = this->m_model_data.filtering_infos;
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {}", from, duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {}", from, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool

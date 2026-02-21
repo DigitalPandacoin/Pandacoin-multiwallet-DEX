@@ -439,8 +439,8 @@ DexPopup
                     height: _column.height + 10
                     width: list.width
                     Component.onCompleted: {
-                      console.debug("_column.height = " + _column.height)
-                      console.debug("height = " + height)
+                      console.log("_column.height = " + _column.height)
+                      console.log("height = " + height)
                     }
 
                     Rectangle
