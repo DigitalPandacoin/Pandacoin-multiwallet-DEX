@@ -276,7 +276,7 @@ SetupPage
                         Layout.preferredHeight: 10
                     }
 
-                    DexGradientAppButton
+                    GradientButton
                     {
                         id: nextButton
                         enabled: input_wallet_name.field.text !== "" && _seedField.field.text !== "" && text_error == ""
@@ -343,7 +343,7 @@ SetupPage
                         Layout.preferredHeight: 10
                     }
 
-                    DexGradientAppButton
+                    GradientButton
                     {
                         id: submit_button
                         enabled: _keyChecker.isValid()

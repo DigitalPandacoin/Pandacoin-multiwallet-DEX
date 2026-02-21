@@ -24,11 +24,17 @@ Dex.ComboBoxWithSearchBar
     textRole: "ticker"
     valueRole: "ticker"
 
-    popupMaxHeight: Math.min(model.rowCount() * 85 + 85, 510)
+    popupMaxHeight: Math.min(model.rowCount() * 85 + 85, 570)
     popupForceMaxHeight: true
 
     searchBar.visible: true
     searchBar.searchModel: model
+
+    Component.onCompleted: {
+        console.log("height = " + height)
+        console.log("model.rowCount = " + model.rowCount())
+        console.log("popupMaxHeight = " + popupMaxHeight)
+    }
 
     delegate: ItemDelegate
     {

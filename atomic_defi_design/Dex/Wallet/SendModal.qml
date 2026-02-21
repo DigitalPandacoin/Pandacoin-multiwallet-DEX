@@ -882,7 +882,7 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
 
         // Address
-        TitleText
+        DexLabel
         {
             text: qsTr("Recipient's address")
             Layout.fillWidth: true

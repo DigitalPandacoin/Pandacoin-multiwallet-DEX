@@ -19,7 +19,7 @@ MultipageModalContent
     titleText: qsTr("Transaction Broadcast!")
 
     // Transaction Hash
-    TitleText
+    DexLabel
     {
         text: qsTr("Transaction Hash")
         Layout.fillWidth: true
@@ -39,7 +39,7 @@ MultipageModalContent
     }
 
     // Address
-    TitleText
+    DexLabel
     {
         text: qsTr("Recipient's address")
         Layout.fillWidth: true

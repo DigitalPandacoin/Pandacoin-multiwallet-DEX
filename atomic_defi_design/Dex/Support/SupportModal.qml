@@ -251,7 +251,7 @@ There is a toggle in settings where you can turn on/off the display of these tra
 
             Item { Layout.preferredWidth: bottom_row.filler_width }
 
-            DexAppButton
+            DefaultButton
             {
                 id: logs_btn
                 width: 200

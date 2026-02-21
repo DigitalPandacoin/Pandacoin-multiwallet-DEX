@@ -107,7 +107,7 @@ MultipageModal {
                 onClicked: root.close()
             },
 
-            PrimaryButton {
+            DefaultButton {
                 text: qsTr("Confirm")
                 Layout.fillWidth: true
                 onClicked: {

@@ -92,7 +92,7 @@ MultipageModal
                 onClicked: root.close()
             }
 
-            PrimaryButton
+            DefaultButton
             {
                 id: submitButton
                 Layout.preferredWidth: parent.width / 100 * 48

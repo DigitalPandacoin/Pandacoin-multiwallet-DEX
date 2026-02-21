@@ -4,7 +4,7 @@ import Qaterial 1.0 as Qaterial
 import App 1.0 
 import Dex.Themes 1.0 as Dex
 
-DexAppButton
+DefaultButton
 {
     id: control
     text: control.buttonText

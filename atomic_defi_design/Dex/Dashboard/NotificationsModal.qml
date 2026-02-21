@@ -398,8 +398,8 @@ DexPopup
     ColumnLayout
     {
         anchors.fill: parent
-        anchors.margins: 10
-        spacing: 24
+        anchors.margins: 8
+        spacing: 12
 
         Item
         {
@@ -476,7 +476,7 @@ DexPopup
                         Item
                         {
                             Layout.fillHeight: true
-                            Layout.preferredWidth: 40
+                            Layout.preferredWidth: 36
 
                             Rectangle
                             {
@@ -484,7 +484,7 @@ DexPopup
                                 height: 23
                                 radius: 12
                                 anchors.right: parent.right
-                                y: 13
+                                y: 10
                                 
                                 Qaterial.Icon
                                 {
@@ -504,10 +504,8 @@ DexPopup
                             {
                                 id: _column
                                 width: parent.width
-                                leftPadding: 15
-                                topPadding: 10
-                                bottomPadding: 5
-                                spacing: 5
+                                padding: 6
+                                spacing: 4
 
                                 DexLabel
                                 {
@@ -611,6 +609,9 @@ DexPopup
             width: 260
             Layout.alignment: Qt.AlignHCenter
             onClicked: notifications_list.length !== 0 ? root.reset(false) : root.reset(true)
+            Component.onCompleted: {
+               console.log("height = " + height)
+            }
         }
     }
 }

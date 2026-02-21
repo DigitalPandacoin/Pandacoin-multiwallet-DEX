@@ -103,10 +103,11 @@ RowLayout
         Layout.fillWidth: true
     }
 
-    PaginationButton
+    DefaultButton
     {
         Layout.preferredWidth: (root.width / 100) * 5
         Layout.preferredHeight: width
+        font.pixelSize: 12
         radius: 20
         opacity: enabled ? 1 : .5
         Qaterial.ColorIcon
@@ -132,9 +133,10 @@ RowLayout
             number: 1,
             selected: true
         }]
-        delegate: PaginationButton
+        delegate: DefaultButton
         {
             text: modelData.number === -1 ? "..." : ("" + modelData.number)
+            font.pixelSize: 12
             radius: 30
             Layout.preferredWidth: (root.width / 100) * 4
             Layout.preferredHeight: width
@@ -149,10 +151,11 @@ RowLayout
         }
     }
 
-    PaginationButton
+    DefaultButton
     {
         Layout.preferredWidth: (root.width / 100) * 5
         Layout.preferredHeight: width
+        font.pixelSize: 12
         radius: 20
         opacity: enabled ? 1 : .5
         Qaterial.ColorIcon

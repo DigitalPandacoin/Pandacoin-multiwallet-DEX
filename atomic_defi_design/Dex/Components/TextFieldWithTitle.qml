@@ -36,7 +36,7 @@ ColumnLayout
     RowLayout
     {
         visible: control.title !== ""
-        TitleText
+        DexLabel
         {
             id: title_text
             visible: text !== ''

@@ -37,7 +37,7 @@ RowLayout
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
 
-            DexAppButton
+            DefaultButton
             {
                 visible: control.noBackground
                 text: control.buttonText

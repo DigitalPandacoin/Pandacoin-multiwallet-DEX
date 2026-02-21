@@ -96,7 +96,8 @@ Item
     SettingsPage.SettingModal { id: setting_modal }
 
     // Force restart modal: opened when the user has more coins enabled than specified in its configuration
-    ForceRestartModal {
+    RestartModal {
+        focus: true
         reasonMsg: qsTr("The current number of enabled coins does not match your configuration specification. Your assets configuration will be reset.")
         Component.onCompleted: {
             if (API.app.portfolio_pg.portfolio_mdl.length > atomic_settings2.value("MaximumNbCoinsEnabled")) {

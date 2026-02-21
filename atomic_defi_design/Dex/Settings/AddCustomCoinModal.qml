@@ -320,7 +320,7 @@ MultipageModal
 
             Item { Layout.fillWidth: true },
 
-            PrimaryButton
+            DefaultButton
             {
                 text: qsTr("Next")
                 Layout.preferredWidth: 220
@@ -505,7 +505,7 @@ MultipageModal
 
             Item { Layout.fillWidth: true },
 
-            PrimaryButton {
+            DefaultButton {
                 text: qsTr("Submit & Restart")
                 Layout.preferredWidth: 220
                 enabled: !error_text.visible

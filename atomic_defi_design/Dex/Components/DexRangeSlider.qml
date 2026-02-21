@@ -4,8 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtWebEngine 1.10
 import "../Exchange/Trade/"
-import "../Constants/"
-as Constants
+import "../Constants/" as Constants
 
 RangeSlider {
     id: control

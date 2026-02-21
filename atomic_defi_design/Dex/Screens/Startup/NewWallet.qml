@@ -424,7 +424,7 @@ SetupPage
                             Repeater
                             {
                                 model: current_mnemonic.split(" ")
-                                delegate: DexAppButton
+                                delegate: DefaultButton
                                 {
                                     width: (_insideFlow.width - 30) / 4
                                     height: _insideLabel.implicitHeight + 10
@@ -468,7 +468,7 @@ SetupPage
                         Layout.preferredHeight: 10
                     }
 
-                    DexGradientAppButton
+                    GradientButton
                     {
                         id: nextButton
                         text: qsTr("Next")
@@ -564,7 +564,7 @@ SetupPage
                                 id: mmo
                                 model: ""
 
-                                delegate: DexAppButton
+                                delegate: DefaultButton
                                 {
                                     width: (_insideFlow2.width - 30) / 4
                                     text: modelData ?? ""
@@ -643,7 +643,7 @@ SetupPage
                         Layout.preferredHeight: 10
                     }
 
-                    DexGradientAppButton
+                    GradientButton
                     {
                         id: checkForNext
                         text: qsTr("Check")
@@ -726,7 +726,7 @@ SetupPage
 
 
 
-                    DexGradientAppButton
+                    GradientButton
                     {
                         id: finalRegisterButton
                         text: qsTr("Continue")

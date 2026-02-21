@@ -109,7 +109,7 @@ Item
                                                     .arg(max_date.selectedDate.toLocaleDateString(Locale.ShortFormat, "yyyy.MM.dd"))
                 }
 
-                DexAppButton
+                DefaultButton
                 {
                     anchors.right: parent.right
                     anchors.rightMargin: -5
@@ -306,7 +306,7 @@ Item
                     currentIndex: options.indexOf(item_count)
                     onCurrentValueChanged: API.app.orders_mdl.limit_nb_elements = currentValue
                 }
-                DexAppButton {
+                DefaultButton {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     text: qsTr("Export")

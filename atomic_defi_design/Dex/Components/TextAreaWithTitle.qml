@@ -30,7 +30,7 @@ ColumnLayout
 
     function reset() { input_field.text = '' }
 
-    TitleText
+    DexLabel
     {
         id: title_text
 
@@ -84,7 +84,7 @@ ColumnLayout
             }
         }
 
-        DexAppButton {
+        DefaultButton {
             anchors.verticalCenter: parent.verticalCenter
             id: save_button
             anchors.right: parent.right

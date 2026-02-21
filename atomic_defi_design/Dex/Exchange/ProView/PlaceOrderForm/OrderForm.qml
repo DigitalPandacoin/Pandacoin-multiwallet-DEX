@@ -414,7 +414,7 @@ ColumnLayout
         Layout.preferredWidth: parent.width - 16
         height: 28
 
-        DexGradientAppButton
+        GradientButton
         {
             id: swap_btn
             height: 32

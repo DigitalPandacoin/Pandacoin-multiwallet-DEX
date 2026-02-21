@@ -30,7 +30,7 @@ ColumnLayout
             color: mouseArea.containsMouse ? Dex.CurrentTheme.foregroundColor3 : Dex.CurrentTheme.foregroundColor2
         }
 
-        TitleText
+        DexLabel
         {
             id: title
             Layout.fillWidth: true

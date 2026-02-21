@@ -100,7 +100,7 @@ Item
                                                     .arg(min_date.selectedDate.toLocaleDateString(Locale.ShortFormat, "yyyy.MM.dd"))
                                                     .arg(max_date.selectedDate.toLocaleDateString(Locale.ShortFormat, "yyyy.MM.dd"))
                 }
-                DexAppButton 
+                DefaultButton 
                 {
                     anchors.right: parent.right
                     anchors.rightMargin: -5

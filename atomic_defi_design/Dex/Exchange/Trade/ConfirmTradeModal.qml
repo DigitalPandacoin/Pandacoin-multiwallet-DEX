@@ -453,7 +453,7 @@ MultipageModal
 
             Item { Layout.fillWidth: true },
 
-            DexGradientAppButton
+            GradientButton
             {
                 text: qsTr("Confirm")
                 padding: 10

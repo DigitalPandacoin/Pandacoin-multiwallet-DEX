@@ -4,7 +4,7 @@ import Dex.Themes 1.0 as Dex
 import "../Constants"
 
 // Add button
-DexAppButton {
+DefaultButton {
     btnPressedColor:  Dex.CurrentTheme.buttonCancelColorPressed
     btnHoveredColor:  Dex.CurrentTheme.buttonCancelColorHovered
     btnEnabledColor:  Dex.CurrentTheme.buttonCancelColorEnabled

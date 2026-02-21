@@ -189,7 +189,7 @@ Item
             }
 
             // Price
-            Dex.ElidableText
+            Dex.DexLabel
             {
                 Layout.fillHeight: true
                 Layout.minimumWidth: 100
@@ -204,7 +204,7 @@ Item
             }
 
             // Quantity
-            Dex.ElidableText
+            Dex.DexLabel
             {
                 Layout.fillHeight: true
                 Layout.minimumWidth: 100
@@ -219,7 +219,7 @@ Item
             }
 
             // Total
-            Dex.ElidableText
+            Dex.DexLabel
             {
                 id: total_text
                 Layout.fillHeight: true

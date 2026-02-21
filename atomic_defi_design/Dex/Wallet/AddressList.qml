@@ -16,7 +16,7 @@ ColumnLayout
     property alias model: list.model
     property real  addressFontSize: 12
 
-    TitleText
+    DexLabel
     {
         id: title
         color: Dex.CurrentTheme.foregroundColor2

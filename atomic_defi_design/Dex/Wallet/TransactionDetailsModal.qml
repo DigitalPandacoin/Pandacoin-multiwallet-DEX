@@ -55,7 +55,7 @@ MultipageModal
         }
 
         // Transaction Hash
-        TitleText
+        DexLabel
         {
             text: qsTr("Transaction Hash")
             Layout.fillWidth: true

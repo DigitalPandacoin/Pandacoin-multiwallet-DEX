@@ -275,7 +275,7 @@ Popup
                     {
                         Layout.fillWidth: true
                     }
-                    DexGradientAppButton
+                    GradientButton
                     {
                         text: dialog.yesButtonText !== "" ? dialog.yesButtonText : "Yes"
                         height: 40

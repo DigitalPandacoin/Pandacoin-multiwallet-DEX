@@ -76,7 +76,7 @@ MultipageModal {
                 onClicked: root.close()
             },
 
-            DangerButton {
+            DefaultButton {
                 text: qsTr("Delete")
                 Layout.fillWidth: true
                 enabled: input_password.isValid()

@@ -822,7 +822,7 @@ Qaterial.Dialog
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
 
-            DexAppButton
+            DefaultButton
             {
                 text: qsTr("Logout")
                 color: containsMouse ? DexTheme.buttonColorHovered : 'transparent'

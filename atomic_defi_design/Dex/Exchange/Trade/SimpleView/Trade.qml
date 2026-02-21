@@ -656,7 +656,7 @@ ClipRRect // Trade Card
                     && !coinSelectorSimplified.visible
                     && has_coins_with_balance
 
-                DexGradientAppButton
+                GradientButton
                 {
                     enabled: parent.enabled && !Constants.API.app.trading_pg.preimage_rpc_busy && !_swapAlert.visible
                     opacity: enabled ? 1 : .6
@@ -1006,7 +1006,7 @@ ClipRRect // Trade Card
         y: 12
         visible: has_coins_with_balance
 
-        DexAppButton
+        DefaultButton
         {
             visible: _tradeCard.best
             iconSource: Qaterial.Icons.refresh
@@ -1022,7 +1022,7 @@ ClipRRect // Trade Card
             }
         }
 
-        DexAppButton
+        DefaultButton
         {
             visible: _tradeCard.best || _tradeCard.coinSelection
             iconSource: Qaterial.Icons.close
