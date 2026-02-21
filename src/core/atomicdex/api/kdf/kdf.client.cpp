@@ -165,7 +165,7 @@ namespace atomic_dex::kdf
         }
 
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {}", rpc_command, resp.status_code(), duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {}", rpc_command, resp.status_code(), duration_cast<milliseconds>(sw.elapsed()));
         return answer;
     }
 
