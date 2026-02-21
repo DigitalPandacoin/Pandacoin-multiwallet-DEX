@@ -228,7 +228,7 @@ namespace atomic_dex
         endRemoveRows();
         emit lengthChanged();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
@@ -311,7 +311,7 @@ namespace atomic_dex
             kdf.set_orders_and_swaps_pagination_infos(static_cast<std::size_t>(current_page), m_model_data.limit, m_model_data.filtering_infos);
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {}", m_model_data.current_page, current_page, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {}", m_model_data.current_page, current_page, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     int
@@ -483,7 +483,7 @@ namespace atomic_dex
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {}", size, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {}", size, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -625,7 +625,7 @@ namespace atomic_dex
         this->endResetModel();
         this->set_fetching_busy(false);
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -638,7 +638,7 @@ namespace atomic_dex
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {}", from, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {}", from, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool
@@ -682,7 +682,7 @@ namespace atomic_dex
             update_or_insert_swaps(contents);
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -718,7 +718,7 @@ namespace atomic_dex
             this->set_current_page(1);
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     t_filtering_infos

@@ -276,7 +276,7 @@ namespace atomic_dex
         // emit qobject_cast<orders_model*>(this->sourceModel())->lengthChanged();
         //}
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::set_coin_filter for filter pattern {} and is_history {}: {}", to_filter.toStdString(), m_is_history, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::set_coin_filter for filter pattern {} and is_history {}: {}", to_filter.toStdString(), m_is_history, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

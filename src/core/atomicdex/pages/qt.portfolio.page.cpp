@@ -92,7 +92,7 @@ namespace atomic_dex
             m_portfolio_mdl->adjust_percent_current_currency(QString::fromStdString(fiat_balance_std));
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for portfolio_page::on_update_portfolio_values_event: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed for portfolio_page::on_update_portfolio_values_event: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QStringList

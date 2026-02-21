@@ -218,7 +218,7 @@ namespace atomic_dex
         }
         emit lengthChanged();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)

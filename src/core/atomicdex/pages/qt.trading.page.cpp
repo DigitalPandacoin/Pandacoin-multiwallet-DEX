@@ -844,7 +844,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QString
@@ -1249,7 +1249,7 @@ namespace atomic_dex
             emit relAmountChanged();
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -1401,7 +1401,7 @@ namespace atomic_dex
         };
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

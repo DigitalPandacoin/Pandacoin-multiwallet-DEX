@@ -75,7 +75,7 @@ namespace atomic_dex
 
         atomic_dex::komodo_prices::api::async_market_infos(fallback).then(answer_functor).then(error_functor);
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {}", m_market_registry.size(), duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in komodo_prices_provider::process_update with {} elements: {}", m_market_registry.size(), duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 

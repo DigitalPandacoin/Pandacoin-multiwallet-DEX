@@ -96,7 +96,7 @@ namespace atomic_dex
             SPDLOG_WARN("KDF Service not created yet - skipping process_best_orders");
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::process_best_orders: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::process_best_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 
@@ -116,7 +116,7 @@ namespace atomic_dex
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::update: {}", duration_cast<milliseconds>(sw.elapsed());
+            SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::update: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 

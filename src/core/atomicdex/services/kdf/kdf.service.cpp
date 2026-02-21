@@ -1798,7 +1798,7 @@ namespace atomic_dex
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
@@ -1869,7 +1869,7 @@ namespace atomic_dex
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
 
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1936,7 +1936,7 @@ namespace atomic_dex
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed());
+            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 
@@ -2209,7 +2209,7 @@ namespace atomic_dex
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
 
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elasped for batch_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
@@ -2359,7 +2359,7 @@ namespace atomic_dex
                 });
 
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -2378,7 +2378,7 @@ namespace atomic_dex
             process_orderbook(true);
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -2568,7 +2568,7 @@ namespace atomic_dex
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
     }
 
 

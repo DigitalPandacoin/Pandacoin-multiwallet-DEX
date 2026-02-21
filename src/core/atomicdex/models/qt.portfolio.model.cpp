@@ -99,7 +99,7 @@ namespace atomic_dex
             emit lengthChanged();
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool
@@ -130,7 +130,7 @@ namespace atomic_dex
                 return true;
             }
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {}", coin.ticker, duration_cast<milliseconds>(sw.elapsed());
+            SPDLOG_DEBUG("Time elapsed in portfolio_model::update_activation_status for ticker {}: {}", coin.ticker, duration_cast<milliseconds>(sw.elapsed()));
             return false;
         }
     }
@@ -189,7 +189,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
@@ -252,7 +252,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {}", duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
@@ -605,6 +605,6 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed());
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
