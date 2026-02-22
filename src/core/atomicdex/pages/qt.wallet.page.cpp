@@ -742,7 +742,7 @@ namespace atomic_dex
 
             nlohmann::json json_data = kdf::template_request("withdraw", true);
             kdf::to_json(json_data, withdraw_req);
-            SPDLOG_DEBUG("withdraw request: {}", json_data.dump(4));
+            //SPDLOG_DEBUG("withdraw request: {}", json_data.dump(4));
 
             batch.push_back(json_data);
 

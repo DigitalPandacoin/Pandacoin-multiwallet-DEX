@@ -44,7 +44,7 @@
 
 namespace
 {
-    constexpr std::size_t g_timeout_q_timer_ms = 100;
+    constexpr std::size_t g_timeout_q_timer_ms = 200;
 }
 
 namespace atomic_dex
@@ -338,6 +338,7 @@ namespace atomic_dex
 
     void application::tick()
     {
+        spdlog::stopwatch sw;
         this->process_one_frame();
         if (m_event_actions[events_action::need_a_full_refresh_of_kdf])
         {
@@ -416,6 +417,8 @@ namespace atomic_dex
                 break;
             }
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in application::tick: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     kdf_service& application::get_kdf()
@@ -558,11 +561,14 @@ namespace atomic_dex
     // Function appears to be unused.
     void application::refresh_orders_and_swaps()
     {
+        spdlog::stopwatch sw;
         auto& kdf = get_kdf();
         if (kdf.is_kdf_running())
         {
             kdf.batch_fetch_orders_and_swap();
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in application::refresh_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool application::disconnect()

@@ -605,15 +605,14 @@ DexPopup
         }
 
         DexAppOutlineButton
-        {            
+        {
             text: notifications_list.length !== 0 ? qsTr('Mark all as read') : qsTr('Close')
             width: 260
             Layout.alignment: Qt.AlignHCenter
             onClicked: notifications_list.length !== 0 ? root.reset(false) : root.reset(true)
-
-            Component.onCompleted: {
-               console.log("height = " + height)
-            }
+            //Component.onCompleted: {
+            //   console.log("height = " + height) // 41
+            //}
         }
     }
 }

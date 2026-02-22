@@ -5,36 +5,26 @@ import App 1.0
 DefaultRectangle {
     id: control
     signal clicked()
-
     colorAnimation: false
-
     property int padding: 12
     property int spacing: 4
+    radius: 12
     property int verticalAlignment: Qt.AlignVCenter
     property int horizontalAlignment: Qt.AlignHCenter
     property int verticalPadding: 2
     property int horizontalPadding: 2
 
-
     // old button property
     property alias text_obj: _label
     property alias containsMouse: _controlMouseArea.containsMouse
-
     property bool text_left_align: false
-
     property int minWidth: 90
-
     property int borderWidth: 3
-
     property real textScale: 1
-
     property string outlinedColor: ""
-
     property string button_type: "default"
-
     border.width: 0
     // end
-
 
     property alias label: _label
     property alias font: _label.font
@@ -42,12 +32,9 @@ DefaultRectangle {
     property alias rightPadding: _contentRow.rightPadding
     property alias topPadding: _contentRow.topPadding
     property alias bottomPadding: _contentRow.bottomPadding
-
     property string text: ""
     property string iconSource: ""
-    
     property string foregroundColor: containsMouse ? DexTheme.buttonGradientTextEnabled : DexTheme.foregroundColor
-    radius: 12
 
     Gradient {
         id: btnGradient
@@ -77,9 +64,9 @@ DefaultRectangle {
     height: _label.implicitHeight + (padding * verticalPadding)
     width: _contentRow.implicitWidth + (padding * horizontalPadding)
 
-    Component.onCompleted: {
-       console.log("button height = " + height)
-    }
+    //Component.onCompleted: {
+    //   console.log("button height = " + height) // 41
+    //}
 
     Row
     {

@@ -19,14 +19,9 @@ DefaultRectangle
     // old button property
     property alias text_obj: _label
     property alias containsMouse: _controlMouseArea.containsMouse
-
     property bool text_left_align: false
-
-
     property real textScale: 1
-
     property string button_type: "default"
-
     property alias label: _label
     property alias font: _label.font
     property alias leftPadding: _contentRow.leftPadding

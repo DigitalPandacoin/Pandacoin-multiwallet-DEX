@@ -86,9 +86,11 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 5min)
         {
-            //SPDLOG_INFO("[global_defi_stats_service::update()] - 5min elapsed, updating ticker stats");
+            spdlog::stopwatch sw;
             process_update();
             m_update_clock = std::chrono::high_resolution_clock::now();
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::update: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 
@@ -101,9 +103,9 @@ namespace atomic_dex
     void
     global_defi_stats_service::process_update()
     {
+        spdlog::stopwatch sw;
         static std::atomic_size_t nb_try = 0;
         nb_try += 1;
-        //SPDLOG_INFO("pair volume stats service tick loop");
         auto error_functor = [this](pplx::task<void> previous_task)
         {
             try
@@ -127,11 +129,14 @@ namespace atomic_dex
                     nb_try = 0;
                 })
             .then(error_functor);
+       using namespace std::chrono;
+       SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::process_update: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
     global_defi_stats_service::get_volume_24h_usd(const std::string& base, const std::string& quote) const
     {
+        spdlog::stopwatch sw;
         std::string volume_24h_usd = "0.00";
         auto ticker = base + "_" + quote;
         auto ticker_reversed = quote + "_" + base;
@@ -198,6 +203,8 @@ namespace atomic_dex
         {
             SPDLOG_INFO("No volume data available for {}", ticker);
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::get_volume_24h_usd: {}", duration_cast<milliseconds>(sw.elapsed()));
         return volume_24h_usd;
     }
 

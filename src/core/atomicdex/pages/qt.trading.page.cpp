@@ -1243,7 +1243,7 @@ namespace atomic_dex
     void
     trading_page::set_total_amount(QString total_amount)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         if (m_total_amount != total_amount)
         {
             m_total_amount = std::move(total_amount);
@@ -1251,8 +1251,8 @@ namespace atomic_dex
             emit baseAmountChanged();
             emit relAmountChanged();
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -1504,7 +1504,7 @@ namespace atomic_dex
     void
     trading_page::determine_cex_rates()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         const auto& price_service   = m_system_manager.get_system<global_price_service>();
         const auto* market_selector = get_market_pairs_mdl();
         const auto& base            = market_selector->get_left_selected_coin().toStdString();
@@ -1519,13 +1519,14 @@ namespace atomic_dex
             emit cexPriceReversedChanged();
         }
         emit cexPriceDiffChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_cex_rates: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_cex_rates: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     trading_page::determine_pair_volume_24hr()
     {
+        spdlog::stopwatch sw;
         const auto& defi_stats_service  = m_system_manager.get_system<global_defi_stats_service>();
         const auto* market_selector     = get_market_pairs_mdl();
         const auto& base                = utils::retrieve_main_ticker(market_selector->get_left_selected_coin().toStdString(), true);
@@ -1539,7 +1540,9 @@ namespace atomic_dex
             emit pairTrades24hrChanged();
             m_pair_volume_24hr = vol;
             emit pairVolume24hrChanged();
-        }        
+        }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::determine_pair_volume_24hr: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QString

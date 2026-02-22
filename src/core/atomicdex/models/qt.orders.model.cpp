@@ -507,7 +507,7 @@ namespace atomic_dex
     void
     orders_model::update_or_insert_swaps(const orders_and_swaps& contents)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         const auto&                     data = contents.orders_and_swaps;
         std::vector<t_order_swaps_data> to_init;
         std::for_each(
@@ -532,14 +532,14 @@ namespace atomic_dex
         {
             this->common_insert(to_init, "swaps");
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     orders_model::update_or_insert_orders(const orders_and_swaps& contents)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         const auto&                     data = contents.orders_and_swaps;
         std::unordered_set<std::string> are_present;
         if (contents.nb_orders > 0)
@@ -566,8 +566,8 @@ namespace atomic_dex
             }
         }
         remove_orders(are_present);
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

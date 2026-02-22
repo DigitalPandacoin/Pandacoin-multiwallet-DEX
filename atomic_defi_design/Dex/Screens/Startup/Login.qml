@@ -97,7 +97,7 @@ SetupPage
             color: Dex.CurrentTheme.warningColor
         }
 
-        GradientButton
+        DexAppOutlineButton
         {
             Layout.alignment: Qt.AlignHCenter
             radius: width
