@@ -11,7 +11,7 @@ ListView 1.0 DefaultListView.qml
 MouseArea 1.0 DefaultMouseArea.qml
 MultipageModal 1.0 MultipageModal.qml
 MultipageModalContent 1.0 MultipageModalContent.qml
-Popup 1.0 DexPopup.qml
+Popup 1.0 DefaultPopup.qml
 Rectangle 1.0 DefaultRectangle.qml
 ScrollView 1.0 DefaultScrollView.qml
 SearchField 1.0 SearchField.qml
