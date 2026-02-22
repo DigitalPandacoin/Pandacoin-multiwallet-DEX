@@ -189,7 +189,6 @@ namespace atomic_dex
 
     void transactions_model::init_transactions(const t_transactions& transactions)
     {
-        spdlog::stopwatch sw;
         if (m_model_data.size() == 0)
         {
             beginResetModel();
@@ -200,6 +199,7 @@ namespace atomic_dex
         else
         {
             //! Other time insertion
+            spdlog::stopwatch sw;
             beginInsertRows(QModelIndex(), m_file_count, m_file_count + transactions.size() - 1);
             m_file_count += transactions.size();
             if (m_model_data.size() < g_file_count_limit)
@@ -215,10 +215,10 @@ namespace atomic_dex
             {
                 this->fetchMore(QModelIndex());
             }
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed()));
         }
         emit lengthChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)

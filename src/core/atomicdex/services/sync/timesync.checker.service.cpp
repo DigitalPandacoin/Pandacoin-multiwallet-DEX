@@ -20,7 +20,7 @@
 
 namespace
 {
-    constexpr const char* g_timesync_endpoint = "https://worldtimeapi.org";
+    constexpr const char* g_timesync_endpoint = "https://time.now";
     web::http::client::http_client_config g_timesync_cfg{[]()
                                                           {
                                                               web::http::client::http_client_config cfg;
@@ -36,7 +36,7 @@ namespace
     {
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
-        req.set_request_uri(FROM_STD_STR("api/timezone/UTC"));
+        req.set_request_uri(FROM_STD_STR("developer/api/timezone/UTC"));
         return g_timesync_client->request(req, g_synctoken_source.get_token());
     }
 
@@ -83,7 +83,7 @@ namespace atomic_dex
         int64_t m_timesync_clock_ts = std::chrono::duration_cast<std::chrono::seconds>(m_timesync_clock.time_since_epoch()).count();
         int64_t now_ts   = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
         int64_t ts_diff  = now_ts - m_timesync_clock_ts;
-        if (abs(ts_diff) > 300)
+        if (abs(ts_diff) > 1213)
         {
             if (!m_timesync_status)
             {

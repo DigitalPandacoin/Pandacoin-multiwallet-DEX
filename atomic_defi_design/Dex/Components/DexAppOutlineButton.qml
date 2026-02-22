@@ -77,6 +77,10 @@ DefaultRectangle {
     height: _label.implicitHeight + (padding * verticalPadding)
     width: _contentRow.implicitWidth + (padding * horizontalPadding)
 
+    Component.onCompleted: {
+       console.log("button height = " + height)
+    }
+
     Row
     {
         id: _contentRow

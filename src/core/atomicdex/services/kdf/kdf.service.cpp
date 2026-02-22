@@ -2398,8 +2398,10 @@ namespace atomic_dex
     bool
     kdf_service::do_i_have_enough_funds(const std::string& ticker, const t_float_50& amount) const
     {
-        // SPDLOG_DEBUG("do_i_have_enough_funds for {}: [{}]", ticker, amount.str(8, std::ios_base::fixed));
+        spdlog::stopwatch sw;
         t_float_50 funds = get_balance_info_f(ticker);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_service::do_i_have_enough_funds for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
         return funds >= amount;
     }
 

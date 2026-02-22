@@ -17,7 +17,7 @@ DexPopup
     id: root
 
     width: 406
-    height: 526
+    height: 570
     backgroundColor: Dex.CurrentTheme.floatingBackgroundColor
 
     property var orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
@@ -438,10 +438,10 @@ DexPopup
                 {
                     height: _column.height + 10
                     width: list.width
-                    Component.onCompleted: {
-                      console.log("_column.height = " + _column.height)
-                      console.log("height = " + height)
-                    }
+                    //Component.onCompleted: {
+                    //  console.log("_column.height = " + _column.height) // 73
+                    //  console.log("height = " + height) // 83
+                    //}
 
                     Rectangle
                     {
@@ -610,6 +610,7 @@ DexPopup
             width: 260
             Layout.alignment: Qt.AlignHCenter
             onClicked: notifications_list.length !== 0 ? root.reset(false) : root.reset(true)
+
             Component.onCompleted: {
                console.log("height = " + height)
             }
