@@ -39,7 +39,6 @@ namespace atomic_dex
     void
     orderbook_scanner_service::process_best_orders() 
     {
-        spdlog::stopwatch sw;
         if (m_bestorders_busy)
         {
             SPDLOG_WARN("process_best_orders is busy - skipping");
@@ -59,6 +58,7 @@ namespace atomic_dex
 
                 auto callback = [this, &trading_pg]<typename RpcRequest>(RpcRequest rpc)
                 {
+                    spdlog::stopwatch sw;
                     nlohmann::json batch = nlohmann::json::array();
                     if (rpc.error)
                     {
