@@ -338,7 +338,6 @@ namespace atomic_dex
 
     void application::tick()
     {
-        spdlog::stopwatch sw;
         this->process_one_frame();
         if (m_event_actions[events_action::need_a_full_refresh_of_kdf])
         {
@@ -417,8 +416,6 @@ namespace atomic_dex
                 break;
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in application::tick: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     kdf_service& application::get_kdf()
