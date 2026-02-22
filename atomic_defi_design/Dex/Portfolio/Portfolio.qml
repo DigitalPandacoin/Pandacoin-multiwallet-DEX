@@ -110,6 +110,7 @@ Item {
         anchors.topMargin: 16
         contentHeight: _column.height
         scrollbar_visible: false
+        boundsBehavior: Flickable.StopAtBounds
 
         Column {
             id: _column

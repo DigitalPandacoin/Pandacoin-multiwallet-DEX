@@ -1064,19 +1064,6 @@ Beispiel: Kennwort = 1234    Suffix=56    Eingabe beim Login=123456</translation
     </message>
 </context>
 <context>
-    <name>DefaultRangeSlider</name>
-    <message>
-        <location filename="../../Dex/Components/DefaultRangeSlider.qml" line="107"/>
-        <source>Min</source>
-        <translation>Min</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Components/DefaultRangeSlider.qml" line="115"/>
-        <source>Max</source>
-        <translation>Max</translation>
-    </message>
-</context>
-<context>
     <name>DefaultTextEdit</name>
     <message>
         <location filename="../../Dex/Components/DefaultTextEdit.qml" line="12"/>
@@ -1170,24 +1157,6 @@ Beispiel: Kennwort = 1234    Suffix=56    Eingabe beim Login=123456</translation
         <location filename="../../Dex/Components/DexPaginator.qml" line="97"/>
         <source>items per page</source>
         <translation>Elemente pro Seite</translation>
-    </message>
-</context>
-<context>
-    <name>DexRangeSlider</name>
-    <message>
-        <location filename="../../Dex/Components/DexRangeSlider.qml" line="109"/>
-        <source>Min</source>
-        <translation>Min</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Components/DexRangeSlider.qml" line="116"/>
-        <source>Half</source>
-        <translation>Halb</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Components/DexRangeSlider.qml" line="123"/>
-        <source>Max</source>
-        <translation>Max</translation>
     </message>
 </context>
 <context>

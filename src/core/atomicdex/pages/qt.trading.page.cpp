@@ -86,10 +86,10 @@ namespace atomic_dex
         }
         if (bool is_wallet_only = m_system_manager.get_system<kdf_service>().get_coin_info(base.toStdString()).wallet_only; is_wallet_only)
         {
-            // SPDLOG_WARN("{} is wallet only - skipping", base.toStdString());
+            SPDLOG_WARN("{} is wallet only - skipping", base.toStdString());
             return;
         }
-        // SPDLOG_DEBUG("Setting current orderbook: {} / {}", base.toStdString(), rel.toStdString());
+        SPDLOG_INFO("Setting current orderbook: {} / {}", base.toStdString(), rel.toStdString());
         auto* market_selector_mdl = get_market_pairs_mdl();
 
         const bool to_change = base != market_selector_mdl->get_left_selected_coin() || rel != market_selector_mdl->get_right_selected_coin();
@@ -1114,7 +1114,7 @@ namespace atomic_dex
     bool
     trading_page::set_pair(bool is_left_side, const QString& requested_ticker)
     {
-        // SPDLOG_DEBUG("Changed ticker: {}", requested_ticker.toStdString());
+        spdlog::stopwatch sw;
         const auto* market_pair      = get_market_pairs_mdl();
         auto        base             = market_pair->get_left_selected_coin();
         auto        rel              = market_pair->get_right_selected_coin();
@@ -1184,6 +1184,8 @@ namespace atomic_dex
         this->determine_pair_volume_24hr();
         emit priceChanged();
         emit priceReversedChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
@@ -1781,7 +1783,7 @@ namespace atomic_dex
         if (m_selected_order_status != order_status)
         {
             m_selected_order_status = order_status;
-            SPDLOG_DEBUG("Set selected order status to: {}", QMetaEnum::fromType<SelectedOrderStatus>().valueToKey(order_status));
+            //SPDLOG_DEBUG("Set selected order status to: {}", QMetaEnum::fromType<SelectedOrderStatus>().valueToKey(order_status));
             emit selectedOrderStatusChanged();
         }
     }

@@ -504,6 +504,7 @@ DexPopup
                             {
                                 id: _column
                                 width: parent.width
+                                topPadding: 8
                                 padding: 6
                                 spacing: 4
 

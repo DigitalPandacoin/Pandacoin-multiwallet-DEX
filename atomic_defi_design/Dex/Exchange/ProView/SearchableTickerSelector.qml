@@ -30,11 +30,11 @@ Dex.ComboBoxWithSearchBar
     searchBar.visible: true
     searchBar.searchModel: model
 
-    Component.onCompleted: {
-        console.log("height = " + height)
-        console.log("model.rowCount = " + model.rowCount())
-        console.log("popupMaxHeight = " + popupMaxHeight)
-    }
+    //Component.onCompleted: {
+    //    console.log("height = " + height) // 85
+    //    console.log("model.rowCount = " + model.rowCount()) // 228
+    //    console.log("popupMaxHeight = " + popupMaxHeight) // 570
+    //}
 
     delegate: ItemDelegate
     {

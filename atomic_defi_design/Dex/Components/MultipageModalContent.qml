@@ -64,7 +64,7 @@ ColumnLayout
     {
         id: modal_flickable
         flickableDirection: Flickable.VerticalFlick
-
+        boundsBehavior: Flickable.StopAtBounds
         Layout.topMargin: root.topMarginAfterTitle
         Layout.fillWidth: true
         Layout.preferredHeight: contentHeight
