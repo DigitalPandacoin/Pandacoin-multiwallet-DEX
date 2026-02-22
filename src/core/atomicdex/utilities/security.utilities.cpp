@@ -50,7 +50,7 @@ namespace atomic_dex
     t_password_key
     derive_password(const std::string& password, std::error_code& ec)
     {
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
+        spdlog::stopwatch sw;
         t_salt_array   salt{};
         t_password_key generated_crypto_key{};
 
@@ -66,15 +66,14 @@ namespace atomic_dex
             return generated_crypto_key;
         }
         SPDLOG_INFO("Key generated successfully");
-
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in derive_password: {}", duration_cast<milliseconds>(sw.elapsed()));
         return generated_crypto_key;
     }
 
     void
     encrypt(const std::filesystem::path& target_path, const char* mnemonic, const unsigned char* key)
     {
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
-
         std::array<unsigned char, g_chunk_size>     buf_in{};
         std::array<unsigned char, g_buff_len>       buf_out{};
         std::array<unsigned char, g_header_size>    header{};
@@ -100,8 +99,6 @@ namespace atomic_dex
     std::string
     decrypt(const std::filesystem::path& encrypted_file_path, const unsigned char* key, std::error_code& ec)
     {
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
-
         std::array<unsigned char, g_buff_len>       buf_in{};
         std::array<unsigned char, g_chunk_size>     buf_out{};
         std::array<unsigned char, g_header_size>    header{};

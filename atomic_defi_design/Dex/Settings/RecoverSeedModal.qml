@@ -290,6 +290,7 @@ MultipageModal
             {
                 anchors.fill: parent
                 model: portfolio_mdl.portfolio_proxy_mdl
+                clip: true
 
                 delegate: ColumnLayout
                 {

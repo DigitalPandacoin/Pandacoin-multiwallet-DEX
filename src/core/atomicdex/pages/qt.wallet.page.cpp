@@ -59,7 +59,7 @@ namespace atomic_dex
     void
     wallet_page::check_send_availability()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         auto& kdf              = m_system_manager.get_system<kdf_service>();
         auto  global_coins_cfg = m_system_manager.get_system<portfolio_page>().get_global_cfg();
         auto  ticker_info      = global_coins_cfg->get_coin_info(kdf.get_current_ticker());
@@ -96,8 +96,8 @@ namespace atomic_dex
         emit sendAvailableChanged();
         emit sendAvailabilityStateChanged();
         emit currentTickerFeesCoinEnabledChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in wallet_page::check_send_availability: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in wallet_page::check_send_availability: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 

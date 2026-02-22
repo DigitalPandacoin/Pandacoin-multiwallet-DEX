@@ -52,15 +52,6 @@ MultipageModal
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        DexLabel
-        {
-            id: _title
-            Layout.topMargin: 5
-            Layout.alignment: Qt.AlignHCenter
-            font: DexTypo.head6
-            text: qsTr("Enable assets")
-        }
-
         // Search input
         SearchField
         {
@@ -81,7 +72,6 @@ MultipageModal
             titleTopMargin: 0
             topMarginAfterTitle: 0
             spacing: 5
-
 
             RowLayout
             {
@@ -117,7 +107,7 @@ MultipageModal
                 visible: coin_cfg_model.all_disabled_proxy.length > 0
                 model: coin_cfg_model.all_disabled_proxy
 
-                Layout.topMargin: -5
+                Layout.topMargin: 5
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 300
                 Layout.fillWidth: true
@@ -152,7 +142,7 @@ MultipageModal
                                 if (checked !== backend_checked)
                                 {
                                     var data_index = coin_cfg_model.all_disabled_proxy.index(index, 0)
-                                    if ((coin_cfg_model.all_disabled_proxy.setData(data_index, checked, Qt.UserRole + 11)) === false)
+                                    if ((coin_cfg_model.all_disabled_proxy.setData(data_index, checked, Qt.UserRole + 10)) === false)
                                     {
                                         checked = false
                                     }
