@@ -5,10 +5,9 @@ import App 1.0
 DefaultRectangle {
     id: control
     signal clicked()
-    colorAnimation: false
+
     property int padding: 12
     property int spacing: 4
-    radius: 12
     property int verticalAlignment: Qt.AlignVCenter
     property int horizontalAlignment: Qt.AlignHCenter
     property int verticalPadding: 2
@@ -23,7 +22,6 @@ DefaultRectangle {
     property real textScale: 1
     property string outlinedColor: ""
     property string button_type: "default"
-    border.width: 0
     // end
 
     property alias label: _label
@@ -49,6 +47,7 @@ DefaultRectangle {
         }
     }
 
+    colorAnimation: false
     color: outlinedColor
     gradient: outlinedColor !== "" ? undefined : btnGradient
 
@@ -61,8 +60,11 @@ DefaultRectangle {
         color: DexTheme.contentColorTopBold
         border.width: 0
     }
+
     height: _label.implicitHeight + (padding * verticalPadding)
     width: _contentRow.implicitWidth + (padding * horizontalPadding)
+    radius: 12
+    border.width: 0
 
     //Component.onCompleted: {
     //   console.log("button height = " + height) // 41

@@ -50,6 +50,7 @@ namespace atomic_dex
             auto& kdf_system = m_system_manager.get_system<kdf_service>();
             if (kdf_system.is_kdf_running() && kdf_system.is_orderbook_thread_active())
             {
+                spdlog::stopwatch sw1;
                 using namespace std::string_literals;
                 const auto&            trading_pg = m_system_manager.get_system<trading_page>();
                 auto                   volume     = trading_pg.get_volume().toStdString();
@@ -86,6 +87,8 @@ namespace atomic_dex
                 emit trading_pg.get_orderbook_wrapper()->bestOrdersBusyChanged();
                 kdf::bestorders_rpc rpc{.request={.coin = std::move(coin), .volume = std::move(volume), .action = std::move(action)}};
                 kdf_system.get_kdf_client().process_rpc_async<atomic_dex::kdf::bestorders_rpc>(rpc.request, callback);
+                using namespace std::chrono;
+                SPDLOG_DEBUG("Time elapsed in outer orderbook_scanner_service::process_best_orders: {}", duration_cast<milliseconds>(sw1.elapsed()));
             }
             else
             {

@@ -398,7 +398,7 @@ DexPopup
     ColumnLayout
     {
         anchors.fill: parent
-        anchors.margins: 8
+        anchors.margins: 6
         spacing: 12
 
         Item

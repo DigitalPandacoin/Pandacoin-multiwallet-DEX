@@ -276,7 +276,7 @@ MultipageModal
             }
             Item { Layout.fillWidth: true }
 
-            GradientButton
+            DexAppOutlineButton
             {
                 Layout.preferredWidth: 199
                 visible: coin_cfg_model.length > 0

@@ -44,7 +44,7 @@
 
 namespace
 {
-    constexpr std::size_t g_timeout_q_timer_ms = 200;
+    constexpr std::size_t g_timeout_q_timer_ms = 250;
 }
 
 namespace atomic_dex
@@ -551,7 +551,7 @@ namespace atomic_dex
 
     void application::on_kdf_initialized_event([[maybe_unused]] const kdf_initialized& evt)
     {
-        SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
+        //SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
         system_manager_.get_system<qt_wallet_manager>().set_status("enabling_coins");
     }
 
