@@ -543,7 +543,6 @@ namespace atomic_dex
             using namespace std::chrono;
             SPDLOG_DEBUG("Time elapsed in first loop of orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw1.elapsed()));
 
-            spdlog::stopwatch sw2;
             // Deletion
             std::unordered_set<std::string> to_remove;
             for (auto&& id: this->m_orders_id_registry)
@@ -561,13 +560,8 @@ namespace atomic_dex
                     }
                 }
             }
-            using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in second loop of orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw2.elapsed()));
 
-            spdlog::stopwatch sw3;
             for (auto&& cur_to_remove: to_remove) { m_orders_id_registry.erase(cur_to_remove); }
-            using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in third loop of orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw3.elapsed()));
         };
 
         refresh_functor(orderbook);

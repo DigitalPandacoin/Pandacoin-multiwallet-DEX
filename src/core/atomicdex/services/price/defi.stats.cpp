@@ -100,7 +100,7 @@ namespace atomic_dex
     void
     global_defi_stats_service::process_update()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         static std::atomic_size_t nb_try = 0;
         nb_try += 1;
         auto error_functor = [this](pplx::task<void> previous_task)
@@ -126,8 +126,8 @@ namespace atomic_dex
                     nb_try = 0;
                 })
             .then(error_functor);
-       using namespace std::chrono;
-       SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::process_update: {}", duration_cast<milliseconds>(sw.elapsed()));
+       //using namespace std::chrono;
+       //SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::process_update: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string

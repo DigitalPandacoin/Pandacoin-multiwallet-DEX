@@ -77,7 +77,6 @@ namespace
     Rpc process_rpc_answer(const web::http::http_response& answer)
     {
         std::string body = TO_STD_STR(answer.extract_string(true).get());
-        // SPDLOG_INFO("body: {}", body);
         nlohmann::json json_answer;
         Rpc rpc;
         try
@@ -88,7 +87,6 @@ namespace
         catch (const nlohmann::json::parse_error& error)
         {
             SPDLOG_ERROR("rpc answer error: {}", error.what());
-            // SPDLOG_DEBUG("body: {}", body);
         }
 
         if (Rpc::is_v2)
@@ -100,7 +98,6 @@ namespace
             }
             else
             {
-                SPDLOG_DEBUG("rpc2 answer: error");
                 rpc.error = json_answer.get<typename Rpc::expected_error_type>();
                 rpc.raw_result = json_answer.dump();
             }
@@ -118,12 +115,12 @@ namespace atomic_dex::kdf
     template <typename RpcReturnType>
     RpcReturnType kdf_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command)
     {
-        spdlog::stopwatch sw;
         std::string body = TO_STD_STR(resp.extract_string(true).get());
         RpcReturnType answer;
 
         try
         {
+            spdlog::stopwatch sw;
             if (resp.status_code() not_eq 200)
             {
                 SPDLOG_WARN("rpc answer code is not 200, body : {}", body);
@@ -154,6 +151,8 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {}", rpc_command, resp.status_code(), duration_cast<milliseconds>(sw.elapsed()));
         }
         catch (const std::exception& error)
         {
@@ -164,8 +163,6 @@ namespace atomic_dex::kdf
             answer.raw_result      = error.what();
         }
 
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {}", rpc_command, resp.status_code(), duration_cast<milliseconds>(sw.elapsed()));
         return answer;
     }
 
@@ -213,7 +210,6 @@ namespace atomic_dex::kdf
                 }
                 catch (const std::exception& ex)
                 {
-                    // SPDLOG_DEBUG("process_rpc_answer rpc.result: {}", rpc.raw_result);
                     SPDLOG_ERROR(ex.what());
                 }
             });
@@ -229,20 +225,20 @@ namespace atomic_dex::kdf
     TAnswer
     kdf_client::process_rpc(TRequest&& request, std::string rpc_command, bool is_v2)
     {
-        SPDLOG_DEBUG("Processing rpc call: {}", rpc_command);
-
+        spdlog::stopwatch sw;
         nlohmann::json json_data = kdf::template_request(rpc_command, is_v2);
-
         kdf::to_json(json_data, request);
 
         auto json_copy        = json_data;
         json_copy["userpass"] = "*******";
-        SPDLOG_DEBUG("request: {}", json_copy.dump());
+        //SPDLOG_DEBUG("request: {}", json_copy.dump());
 
         web::http::http_request rpc_request(web::http::methods::POST);
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc for rpc call {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 
