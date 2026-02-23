@@ -1,15 +1,10 @@
 #!/bin/bash
 
 brew update
-brew install autoconf \
-            automake \
-            pkgconfig \
-            wget \
+brew install automake \
             nim \
-            ninja \
             gnu-sed \
             coreutils \
-            libtool \
             gnu-getopt \
             llvm
 
@@ -21,7 +16,7 @@ export MACOSX_DEPLOYMENT_TARGET=15.5
 git clone https://github.com/ElementsProject/libwally-core --recurse-submodules -b release_0.9.2
 cd libwally-core
 ./tools/autogen.sh
-./configure --disable-shared
+./configure --disable-shared --disable-tests
 sudo make -j3 install
 cd ..
 
