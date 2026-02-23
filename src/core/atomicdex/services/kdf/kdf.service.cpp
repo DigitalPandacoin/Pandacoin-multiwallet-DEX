@@ -1809,7 +1809,7 @@ namespace atomic_dex
             return;
         }
 
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto answer        = kdf::basic_batch_answer(resp);
@@ -1867,8 +1867,8 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
 
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1926,16 +1926,19 @@ namespace atomic_dex
     {
         if (only_tx)
         {
+            spdlog::stopwatch sw1;
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw1.elapsed()));
         }
         else
         {
-            spdlog::stopwatch sw;
+            spdlog::stopwatch sw2;
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed for kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed()));
+            SPDLOG_DEBUG("Time elapsed in not only_tx kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw2.elapsed()));
         }
     }
 

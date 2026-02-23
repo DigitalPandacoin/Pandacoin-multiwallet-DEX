@@ -399,6 +399,7 @@ DexPopup
     {
         anchors.fill: parent
         anchors.margins: 6
+        anchors.topMargin: 10
         spacing: 14
 
         Item
