@@ -86,11 +86,8 @@ namespace atomic_dex
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
         if (s >= 5min)
         {
-            spdlog::stopwatch sw;
             process_update();
             m_update_clock = std::chrono::high_resolution_clock::now();
-            using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::update: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 

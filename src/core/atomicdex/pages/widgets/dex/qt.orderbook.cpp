@@ -124,12 +124,12 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::clear_orderbook()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         this->m_asks->clear_orderbook();
         this->m_bids->clear_orderbook();
         this->m_best_orders->clear_orderbook();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QVariant
@@ -179,7 +179,7 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_best_orders()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         if (safe_float(m_system_manager.get_system<trading_page>().get_volume().toStdString()) > 0)
         {
             this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders();
@@ -188,8 +188,8 @@ namespace atomic_dex
         {
             get_best_orders()->clear_orderbook();
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

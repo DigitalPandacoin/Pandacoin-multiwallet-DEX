@@ -1803,14 +1803,13 @@ namespace atomic_dex
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
     {
-        spdlog::stopwatch sw;
-
         if (batch.empty())
         {
             SPDLOG_WARN("prepared batch_orderbook is empty, nothing to do");
             return;
         }
 
+        spdlog::stopwatch sw;
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto answer        = kdf::basic_batch_answer(resp);
@@ -2371,14 +2370,14 @@ namespace atomic_dex
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
         if (this->m_kdf_running)
         {
             process_orderbook(true);
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -2398,10 +2397,10 @@ namespace atomic_dex
     bool
     kdf_service::do_i_have_enough_funds(const std::string& ticker, const t_float_50& amount) const
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         t_float_50 funds = get_balance_info_f(ticker);
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::do_i_have_enough_funds for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in kdf_service::do_i_have_enough_funds for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
         return funds >= amount;
     }
 
