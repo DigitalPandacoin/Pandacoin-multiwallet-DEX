@@ -133,8 +133,8 @@ Item
             id: _swipeSimplifiedView
             currentIndex: root.currentSubPage
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 720
-            height: 650
+            //width: 720 // see https://doc.qt.io/qt-6/qml-qtquick-controls-swipeview.html
+            //height: 650
             clip: true
             interactive: false
 

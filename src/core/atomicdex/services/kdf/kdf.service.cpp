@@ -1929,7 +1929,7 @@ namespace atomic_dex
             spdlog::stopwatch sw1;
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw1.elapsed()));
+            SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread: {}", duration_cast<milliseconds>(sw1.elapsed()));
         }
         else
         {
