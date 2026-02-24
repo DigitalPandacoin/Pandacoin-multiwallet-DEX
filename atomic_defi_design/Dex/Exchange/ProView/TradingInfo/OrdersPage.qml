@@ -184,6 +184,10 @@ Item {
                     id: swapCoinFilterIcon
                     source: Qaterial.Icons.swapHorizontal
                     color: Dex.CurrentTheme.foregroundColor
+                    Component.onCompleted: {
+                        console.log("width = " + width)
+                        console.log("parent.width = " + parent.width)
+                    }
 
                     DefaultMouseArea
                     {
@@ -218,7 +222,7 @@ Item {
                 DatePicker
                 {
                     id: min_date
-                    width: parent.width * 0.45
+                    width: parent.width * 0.44
                     titleText: qsTr("From")
                     minimumDate: default_min_date
                     maximumDate:  default_max_date
@@ -231,7 +235,7 @@ Item {
                 DatePicker
                 {
                     id: max_date
-                    width: parent.width * 0.45
+                    width: parent.width * 0.44
                     titleText: qsTr("To")
                     minimumDate: default_min_date
                     maximumDate: default_max_date

@@ -435,7 +435,7 @@ namespace atomic_dex
     void
     orderbook_model::update_order(const kdf::order_contents& order)
     {
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw;
         if (const auto res = this->match(index(0, 0), UUIDRole, QString::fromStdString(order.uuid)); not res.isEmpty())
         {
             //! ID Found, update !
@@ -518,17 +518,16 @@ namespace atomic_dex
                 }
             }
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     orderbook_model::refresh_orderbook_model_data(const t_orders_contents& orderbook)
     {
-        spdlog::stopwatch sw;
         auto refresh_functor = [this](const std::vector<kdf::order_contents>& contents)
         {
-            spdlog::stopwatch sw1;
+            spdlog::stopwatch sw;
             for (auto&& order: contents)
             {
                 if (this->m_orders_id_registry.find(order.uuid) != this->m_orders_id_registry.end())
@@ -541,7 +540,7 @@ namespace atomic_dex
                 }
             }
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in first loop of orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw1.elapsed()));
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw.elapsed()));
 
             // Deletion
             std::unordered_set<std::string> to_remove;
@@ -565,8 +564,6 @@ namespace atomic_dex
         };
 
         refresh_functor(orderbook);
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in all loops orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     t_order_contents

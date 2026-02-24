@@ -1346,7 +1346,7 @@ namespace atomic_dex
                         continue;
                     }
                 }
-                SPDLOG_WARN("Getting balance for {} ", coin.ticker);
+                SPDLOG_INFO("Getting balance for {} ", coin.ticker);
                 t_balance_request balance_request{.coin = coin.ticker};
                 nlohmann::json    j = kdf::template_request("my_balance");
                 kdf::to_json(j, balance_request);
@@ -1365,7 +1365,7 @@ namespace atomic_dex
 
         if (answer.contains("error") || answer.contains("Error") || error.find("error") != std::string::npos || error.find("Error") != std::string::npos)
         {
-            SPDLOG_DEBUG("error: bad answer json for enable/electrum details: {}", error);
+            SPDLOG_WARN("error: bad answer json for enable/electrum details: {}", error);
             return {false, error};
         }
 
@@ -1386,7 +1386,7 @@ namespace atomic_dex
                 return {true, ""};
             }
         }
-        SPDLOG_DEBUG("bad answer json for enable/electrum details: {}", error);
+        SPDLOG_WARN("bad answer json for enable/electrum details: {}", error);
 
         return {false, error};
     }
@@ -1421,7 +1421,7 @@ namespace atomic_dex
             kdf::to_json(j, request);
             nlohmann::json batch = nlohmann::json::array();
             batch.push_back(j);
-            // SPDLOG_INFO("ZHTLC request: {}", batch.dump(4));
+            // SPDLOG_DEBUG("ZHTLC request: {}", batch.dump(4));
             return {batch, {coin_info.ticker}};
         };
 
@@ -1727,22 +1727,24 @@ namespace atomic_dex
     // [smk] Only called by trading_page::process_action()
     kdf::orderbook_result_rpc kdf_service::get_orderbook(t_kdf_ec& ec) const
     {
+        spdlog::stopwatch sw;
         auto&& [base, rel]          = this->m_synchronized_ticker_pair.get();
         const std::string pair      = base + "/" + rel;
         auto              orderbook = m_orderbook.get();
         if (orderbook.base.empty() && orderbook.rel.empty())
         {
+            SPDLOG_WARN("base/rel/orderbook mismatch: {} != {}", pair, orderbook.base + "/" + rel);
             ec = dextop_error::orderbook_empty;
-            // SPDLOG_WARN("base/rel/orderbook mismatch: {} != {}", pair, orderbook.base + "/" + rel);
             return {};
         }
         if (pair != orderbook.base + "/" + rel)
         {
-            // SPDLOG_WARN("base/rel/orderbook mismatch: {} != {}", pair, orderbook.base + "/" + rel);
+            SPDLOG_WARN("base/rel/orderbook mismatch: {} != {}", pair, orderbook.base + "/" + rel);
             ec = dextop_error::orderbook_ticker_not_found;
             return {};
         }
-        // SPDLOG_DEBUG("orderbook active: {}/{}", orderbook.base + "/" + orderbook.rel);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed()));
         return orderbook;
     }
 
@@ -1889,13 +1891,13 @@ namespace atomic_dex
             std::shared_lock lock(m_balance_mutex); ///< shared_lock
             if (m_balance_informations.find(cfg_infos.ticker) != m_balance_informations.cend())
             {
-                SPDLOG_DEBUG("m_balance_informations not found for {} ", cfg_infos.ticker);
+                SPDLOG_WARN("m_balance_informations not found for {} ", cfg_infos.ticker);
                 return;
             }
         }
 
         t_balance_request balance_request{.coin = cfg_infos.ticker};
-        // SPDLOG_DEBUG("Getting balance from kdf for {} ", cfg_infos.ticker);
+        // SPDLOG_INFO("Getting balance from kdf for {} ", cfg_infos.ticker);
         nlohmann::json    j = kdf::template_request("my_balance");
         kdf::to_json(j, balance_request);
         batch_array.push_back(j);
