@@ -33,7 +33,7 @@ namespace atomic_dex::kdf
     void
     from_json(const nlohmann::json& j, orderbook_result_rpc& resp)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         using namespace date;
         // atomic_dex::utils::json_keys(j);
         nlohmann::json k; 
@@ -120,8 +120,8 @@ namespace atomic_dex::kdf
             cur_bids.depth_percent = atomic_dex::utils::adjust_precision(percent_f.str());
             // SPDLOG_INFO("cur_bids: {}", cur_bids.to_string());
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in from_json orderbook_result_rpc: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in from_json orderbook_result_rpc: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
 } // namespace atomic_dex::kdf

@@ -26,7 +26,7 @@ namespace atomic_dex::kdf
     void
     to_json(nlohmann::json& j, const sell_request& request)
     {
-        SPDLOG_DEBUG("price: {}, volume: {}", request.price, request.volume);
+        //SPDLOG_DEBUG("price: {}, volume: {}", request.price, request.volume);
 
         auto volume_fraction_functor = [&request]() {
             nlohmann::json volume_fraction_repr = nlohmann::json::object();
@@ -67,11 +67,11 @@ namespace atomic_dex::kdf
             {
                 j["volume"] = volume_fraction_functor();
             }
-            SPDLOG_DEBUG("The order is picked from the orderbook price: {}, volume: {}", j.at("price").dump(4), j.at("volume").dump(4));
+            //SPDLOG_DEBUG("The order is picked from the orderbook price: {}, volume: {}", j.at("price").dump(4), j.at("volume").dump(4));
         }
         else
         {
-            SPDLOG_DEBUG("The order is not picked from orderbook we create it from volume = {}, price = {}", j.at("volume").dump(4), request.price);
+            //SPDLOG_DEBUG("The order is not picked from orderbook we create it from volume = {}, price = {}", j.at("volume").dump(4), request.price);
         }
         if (request.order_type.has_value())
         {
