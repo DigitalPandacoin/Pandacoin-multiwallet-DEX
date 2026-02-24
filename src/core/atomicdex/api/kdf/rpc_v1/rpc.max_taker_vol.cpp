@@ -53,7 +53,6 @@ namespace atomic_dex::kdf
     void
     from_json(const nlohmann::json& j, max_taker_vol_answer& answer)
     {
-        spdlog::stopwatch sw;
         extract_rpc_json_answer<max_taker_vol_answer_success>(j, answer);
         if (answer.error.has_value()) ///< we need a default fallback in this case fixed on upstream already, need to update
         {
@@ -61,10 +60,7 @@ namespace atomic_dex::kdf
                         "funds (< 0.00777)., error: {}", answer.error.value());
             answer.result = max_taker_vol_answer_success{.denom = "1", .numer = "0", .decimal = "0"};
         } else {
-            SPDLOG_WARN("Max taker volume returned error: {}", answer.error.value());
             answer.result.value().coin = j.at("coin").get<std::string>();
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in from_json max_taker_vol_answer: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex::kdf

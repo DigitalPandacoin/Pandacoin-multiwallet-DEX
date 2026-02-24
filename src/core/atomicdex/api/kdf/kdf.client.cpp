@@ -169,13 +169,10 @@ namespace atomic_dex::kdf
     pplx::task<web::http::http_response>
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
-        spdlog::stopwatch sw;
         web::http::http_request request;
         request.set_method(web::http::methods::POST);
         request.set_body(batch_array.dump());
         auto resp = generate_client().request(request, m_token_source.get_token());
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone: {}", duration_cast<milliseconds>(sw.elapsed()));
         return resp;
     }
 
