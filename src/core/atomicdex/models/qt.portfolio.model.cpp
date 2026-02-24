@@ -422,7 +422,7 @@ namespace atomic_dex
     bool
     portfolio_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        //SPDLOG_DEBUG("portfolio_model::removeRows removing {} elements at position {}", rows, position);
+        spdlog::stopwatch sw;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -431,6 +431,8 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 

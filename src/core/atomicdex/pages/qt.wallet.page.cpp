@@ -116,13 +116,15 @@ namespace atomic_dex
         auto  coin_info  = kdf_system.get_coin_info(ticker.toStdString());
         if (kdf_system.set_current_ticker(ticker.toStdString()) || force)
         {
-            // SPDLOG_INFO("new ticker: {}", ticker.toStdString());
+            spdlog::stopwatch sw;
             m_transactions_mdl->reset();
             this->set_tx_fetching_busy(true);
             kdf_system.fetch_infos_thread(true, true);
             emit currentTickerChanged();
             refresh_ticker_infos();
             check_send_availability();
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in wallet_page::set_current_ticker for ticker {}: {}", ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 
@@ -1156,7 +1158,7 @@ namespace atomic_dex
             auto answer_functor = [this](web::http::http_response resp)
             {
                 std::string body = TO_STD_STR(resp.extract_string(true).get());
-                SPDLOG_DEBUG("resp convertaddress: {}", body);
+                //SPDLOG_DEBUG("resp convertaddress: {}", body);
                 if (resp.status_code() == static_cast<web::http::status_code>(antara::app::http_code::ok))
                 {
                     auto answers        = nlohmann::json::parse(body);

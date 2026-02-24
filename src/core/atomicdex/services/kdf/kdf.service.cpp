@@ -1948,7 +1948,7 @@ namespace atomic_dex
     {
         this->m_balance_factor = utils::determine_balance_factor(with_pin_cfg);
         SPDLOG_DEBUG("balance factor is: {}", m_balance_factor);
-        SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
+        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         this->m_current_wallet_name = std::move(wallet_name);
         this->dispatcher_.trigger<coin_cfg_parsed>(this->retrieve_coins_informations());
         this->dispatcher_.trigger<force_update_defi_stats>();
@@ -2418,7 +2418,7 @@ namespace atomic_dex
         if (it == m_balance_informations.cend())
         {
             ec = dextop_error::unknown_ticker;
-            SPDLOG_INFO("Invalid Ticker {}", ticker);
+            SPDLOG_WARN("Invalid Ticker {}", ticker);
             return "Invalid Ticker";
         }
 
@@ -2478,12 +2478,10 @@ namespace atomic_dex
     void
     kdf_service::decrease_fake_balance(const std::string& ticker, const std::string& amount)
     {
-        SPDLOG_DEBUG("decrease_fake_balance for {}: [{}]", ticker, amount);
         t_float_50 balance = get_balance_info_f(ticker);
         t_float_50 amount_f(amount);
         t_float_50 result = balance - amount_f;
-        SPDLOG_DEBUG(
-            "decreasing {} - {} = {}", balance.str(8, std::ios_base::fixed), amount_f.str(8, std::ios_base::fixed), result.str(8, std::ios_base::fixed));
+        SPDLOG_DEBUG("decreasing {} - {} = {}", balance.str(8, std::ios_base::fixed), amount_f.str(8, std::ios_base::fixed), result.str(8, std::ios_base::fixed));
         if (result < 0)
         {
             reset_fake_balance_to_zero(ticker);

@@ -576,6 +576,7 @@ namespace atomic_dex
     void
     orders_model::remove_orders(const t_orders_id_registry& are_present)
     {
+        spdlog::stopwatch sw;
         std::vector<std::string> to_remove;
         for (auto&& id: this->m_orders_id_registry)
         {
@@ -593,6 +594,8 @@ namespace atomic_dex
             }
         }
         for (auto&& cur_to_remove: to_remove) { m_orders_id_registry.erase(cur_to_remove); }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orders_model::remove_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

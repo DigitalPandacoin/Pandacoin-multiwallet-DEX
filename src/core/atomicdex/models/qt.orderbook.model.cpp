@@ -490,6 +490,7 @@ namespace atomic_dex
                  OrderbookRoles::SendRole,
                  OrderbookRoles::PriceFiatRole});
 
+            spdlog::stopwatch sw1;
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
                 auto& trading_pg = m_system_mgr.get_system<trading_page>();
@@ -517,6 +518,8 @@ namespace atomic_dex
                     }
                 }
             }
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in kind::bids/MarketMode::Sell orderbook_model::update_order: {}", duration_cast<milliseconds>(sw1.elapsed()));
         }
         using namespace std::chrono;
         SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));

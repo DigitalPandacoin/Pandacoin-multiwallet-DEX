@@ -184,10 +184,10 @@ Item {
                     id: swapCoinFilterIcon
                     source: Qaterial.Icons.swapHorizontal
                     color: Dex.CurrentTheme.foregroundColor
-                    Component.onCompleted: {
-                        console.log("width = " + width)
-                        console.log("parent.width = " + parent.width)
-                    }
+                    //Component.onCompleted: {
+                    //    console.log("width = " + width) // 24
+                    //    console.log("parent.width = " + parent.width) // 77
+                    //}
 
                     DefaultMouseArea
                     {
