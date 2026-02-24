@@ -391,7 +391,7 @@ namespace atomic_dex::kdf
         {
             j["to_timestamp"] = request.to_timestamp.value();
         }
-        // SPDLOG_INFO("Full request: {}", j.dump(4));
+        // SPDLOG_DEBUG("Full request: {}", j.dump(4));
     }
 
     void
@@ -587,7 +587,7 @@ namespace atomic_dex::kdf
             request["mmrpc"] = "2.0";
             request["id"] = 42;
         }
-        // SPDLOG_INFO("template_request: {}", request.dump(4));
+        // SPDLOG_DEBUG("template_request: {}", request.dump(4));
         
         return request;
     }
@@ -722,6 +722,7 @@ namespace atomic_dex::kdf
     RpcReturnType
     rpc_process_answer_batch(nlohmann::json& json_answer, const std::string& rpc_command)
     {
+        spdlog::stopwatch sw;
         RpcReturnType answer;
 
         try
@@ -735,7 +736,8 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
         }
-
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         return answer;
     }
 
