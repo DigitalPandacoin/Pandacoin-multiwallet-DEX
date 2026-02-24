@@ -115,6 +115,7 @@ namespace atomic_dex::kdf
     template <typename RpcReturnType>
     RpcReturnType kdf_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command)
     {
+        spdlog::stopwatch sw;
         std::string body = TO_STD_STR(resp.extract_string(true).get());
         RpcReturnType answer;
 
@@ -160,16 +161,21 @@ namespace atomic_dex::kdf
             answer.raw_result      = error.what();
         }
 
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         return answer;
     }
 
     pplx::task<web::http::http_response>
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
+        spdlog::stopwatch sw;
         web::http::http_request request;
         request.set_method(web::http::methods::POST);
         request.set_body(batch_array.dump());
         auto resp = generate_client().request(request, m_token_source.get_token());
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone: {}", duration_cast<milliseconds>(sw.elapsed()));
         return resp;
     }
 
