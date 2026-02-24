@@ -671,7 +671,7 @@ namespace atomic_dex
             SPDLOG_WARN("Fetching busy skipping");
             return;
         }
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         const auto& kdf      = m_system_manager.get_system<kdf_service>();
         const auto  contents = kdf.get_orders_and_swaps();
 
@@ -686,8 +686,8 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

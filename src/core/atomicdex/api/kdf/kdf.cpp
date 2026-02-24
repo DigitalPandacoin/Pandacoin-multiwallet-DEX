@@ -519,6 +519,7 @@ namespace atomic_dex::kdf
     void
     from_json(const nlohmann::json& j, my_recent_swaps_answer_success& results)
     {
+        spdlog::stopwatch sw;
         std::unordered_map<std::string, std::vector<double>> events_time_registry;
         const auto&                                          swaps = j.at("swaps");
         results.swaps.reserve(swaps.size());
@@ -559,6 +560,8 @@ namespace atomic_dex::kdf
             double average                        = sum / values.size();
             results.average_events_time[evt_name] = average;
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in from_json my_recent_swaps_answer_success: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

@@ -314,6 +314,7 @@ namespace atomic_dex
     void
     orders_proxy_model::apply_all_filtering()
     {
+        spdlog::stopwatch sw;
         auto* model        = qobject_cast<orders_model*>(this->sourceModel());
         auto  filter_infos = model->get_filtering_infos();
 
@@ -360,6 +361,8 @@ namespace atomic_dex
 
         model->set_filtering_infos(filter_infos);
         this->set_apply_filtering(false);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orders_proxy_model::apply_all_filtering: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool

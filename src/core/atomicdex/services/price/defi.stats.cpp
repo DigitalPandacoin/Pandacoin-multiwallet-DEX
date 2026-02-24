@@ -133,16 +133,16 @@ namespace atomic_dex
     std::string
     global_defi_stats_service::get_volume_24h_usd(const std::string& base, const std::string& quote) const
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw;
         std::string volume_24h_usd = "0.00";
         auto ticker = base + "_" + quote;
         auto ticker_reversed = quote + "_" + base;
-        //SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
+        SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
 
         // Check if base/quote are the same
         if (base == quote)
         {
-            SPDLOG_INFO("Base/quote must be different, no volume data for {}", ticker);
+            SPDLOG_WARN("Base/quote must be different, no volume data for {}", ticker);
             return volume_24h_usd;
         }
 
@@ -200,8 +200,8 @@ namespace atomic_dex
         {
             SPDLOG_INFO("No volume data available for {}", ticker);
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::get_volume_24h_usd: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //using namespace std::chrono;
+        //SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::get_volume_24h_usd: {}", duration_cast<milliseconds>(sw.elapsed()));
         return volume_24h_usd;
     }
 

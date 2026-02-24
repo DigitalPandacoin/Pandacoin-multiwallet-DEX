@@ -78,6 +78,7 @@ namespace atomic_dex
     bool
     portfolio_proxy_model::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
     {
+        spdlog::stopwatch sw;
         QModelIndex idx       = this->sourceModel()->index(source_row, 0, source_parent);
         assert(this->sourceModel()->hasIndex(idx.row(), 0));
         QString     ticker    = this->sourceModel()->data(idx, atomic_dex::portfolio_model::TickerRole).toString();
@@ -127,14 +128,19 @@ namespace atomic_dex
             }
         }
 
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::filterAcceptsRow: {}", duration_cast<milliseconds>(sw.elapsed()));
         return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
     }
 
     void
     portfolio_proxy_model::reset()
     {
+        spdlog::stopwatch sw;
         this->beginResetModel();
         this->endResetModel();
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::reset: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -164,8 +170,11 @@ namespace atomic_dex
     void
     portfolio_proxy_model::sort_by_currency_balance(bool is_ascending)
     {
+        spdlog::stopwatch sw;
         this->setSortRole(atomic_dex::portfolio_model::MainCurrencyBalanceRole);
         this->sort(0, is_ascending ? Qt::AscendingOrder : Qt::DescendingOrder);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::sort_by_currency_balance: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

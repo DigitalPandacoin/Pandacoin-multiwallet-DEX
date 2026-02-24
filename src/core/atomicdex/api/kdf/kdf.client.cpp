@@ -120,7 +120,6 @@ namespace atomic_dex::kdf
 
         try
         {
-            spdlog::stopwatch sw;
             if (resp.status_code() not_eq 200)
             {
                 SPDLOG_WARN("rpc answer code is not 200, body : {}", body);
@@ -151,8 +150,6 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
-            using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for {}, status code was {}: {}", rpc_command, resp.status_code(), duration_cast<milliseconds>(sw.elapsed()));
         }
         catch (const std::exception& error)
         {
@@ -225,7 +222,6 @@ namespace atomic_dex::kdf
     TAnswer
     kdf_client::process_rpc(TRequest&& request, std::string rpc_command, bool is_v2)
     {
-        spdlog::stopwatch sw;
         nlohmann::json json_data = kdf::template_request(rpc_command, is_v2);
         kdf::to_json(json_data, request);
 
@@ -237,8 +233,6 @@ namespace atomic_dex::kdf
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc for rpc call {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 

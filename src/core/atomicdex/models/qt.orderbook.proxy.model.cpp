@@ -137,7 +137,10 @@ namespace atomic_dex
     void
     orderbook_proxy_model::qml_sort(int column, Qt::SortOrder order)
     {
+        spdlog::stopwatch sw;
         this->sort(column, order);
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in orderbook_proxy_model::qml_sort: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     bool
