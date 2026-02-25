@@ -210,13 +210,13 @@ namespace atomic_dex::kdf
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);
-                    if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
                 }
                 catch (const std::exception& ex)
                 {
                     SPDLOG_ERROR(ex.what());
                 }
             });
+       if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
