@@ -210,7 +210,7 @@ namespace atomic_dex
                 const auto  coin          = data(index, CoinRole).toString().toStdString();
                 const auto  result        = price_service.get_price_as_currency_from_amount(fiat, coin, total_amount);
                 auto        final_result  = result;
-                SPDLOG_DEBUG("Time elapsed in orderbook_model::data for coin {} role {} total amount {}: {}", coin, PriceFiatRole, total_amount, duration_cast<milliseconds>(sw.elapsed()));
+                SPDLOG_DEBUG("Time elapsed in orderbook_model::data for coin {} total amount {}: {}", coin, total_amount, duration_cast<milliseconds>(sw.elapsed()));
                 if (safe_float(result) <= 0)
                 {
                     return "0.00";
