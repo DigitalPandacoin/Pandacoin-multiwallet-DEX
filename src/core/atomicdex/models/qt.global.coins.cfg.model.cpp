@@ -247,7 +247,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.007) { SPDLOG_DEBUG("Time elapsed in global_coins_cfg_model::update_status: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in global_coins_cfg_model::update_status: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     template void global_coins_cfg_model::update_status(const QStringList&, bool);

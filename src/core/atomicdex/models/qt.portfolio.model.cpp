@@ -97,7 +97,7 @@ namespace atomic_dex
             emit lengthChanged();
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.009) { SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     bool
@@ -183,7 +183,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.009) { SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 
@@ -554,6 +554,7 @@ namespace atomic_dex
     void
     portfolio_model::balance_update_handler(const QString& prev_balance, const QString& new_balance, const QString& ticker)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         using namespace std::chrono;
         t_float_50 prev_balance_f = safe_float(prev_balance.toStdString());
         t_float_50 new_balance_f  = safe_float(new_balance.toStdString());
@@ -573,6 +574,7 @@ namespace atomic_dex
             this->m_dispatcher.trigger<balance_update_notification>(am_i_sender, amount, ticker, human_date, timestamp);
         }
         emit portfolioItemDataChanged();
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_model::balance_update_handler: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -598,6 +600,6 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.009) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex

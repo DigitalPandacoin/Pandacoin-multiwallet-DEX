@@ -180,6 +180,7 @@ namespace atomic_dex
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
+                spdlog::stopwatch sw; using namespace std::chrono;
                 const auto& data         = m_model_data.at(index.row());
                 const auto& trading_pg   = m_system_mgr.get_system<trading_page>();
                 t_float_50  volume_f     = safe_float(trading_pg.get_volume().toStdString());
@@ -191,6 +192,7 @@ namespace atomic_dex
                 }
                 t_float_50 total_amount_f = volume_f * safe_float(data.price);
                 const auto total_amount   = atomic_dex::utils::format_float(total_amount_f);
+                if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::data SendRole 268: {}", duration_cast<milliseconds>(sw.elapsed())); }
                 return QString::fromStdString(total_amount);
             }
             else
@@ -372,7 +374,7 @@ namespace atomic_dex
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.004) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int
@@ -455,7 +457,7 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
-            if (sw.elapsed().count() > 0.007) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
 
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
@@ -505,7 +507,7 @@ namespace atomic_dex
                 }
             }
             using namespace std::chrono;
-            if (sw.elapsed().count() > 0.008) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
 
             // Deletion
             std::unordered_set<std::string> to_remove;
@@ -566,7 +568,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 
@@ -657,6 +659,6 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::check_for_better_order: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::check_for_better_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex

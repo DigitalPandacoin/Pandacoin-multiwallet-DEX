@@ -728,7 +728,7 @@ namespace atomic_dex::kdf
         {
             from_json(json_answer, answer);
             answer.rpc_result_code = 200;
-            if (sw.elapsed().count() > 0.006) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {

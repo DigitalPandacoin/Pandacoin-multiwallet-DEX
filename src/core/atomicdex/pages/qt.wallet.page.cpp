@@ -124,7 +124,7 @@ namespace atomic_dex
             refresh_ticker_infos();
             check_send_availability();
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in wallet_page::set_current_ticker for ticker {}: {}", ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in wallet_page::set_current_ticker for ticker {}: {}", ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 

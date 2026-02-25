@@ -362,7 +362,7 @@ namespace atomic_dex
         model->set_filtering_infos(filter_infos);
         this->set_apply_filtering(false);
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orders_proxy_model::apply_all_filtering: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_proxy_model::apply_all_filtering: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     bool

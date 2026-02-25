@@ -152,7 +152,7 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
-            if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {
@@ -172,7 +172,7 @@ namespace atomic_dex::kdf
         request.set_method(web::http::methods::POST);
         request.set_body(batch_array.dump());
         auto resp = generate_client().request(request, m_token_source.get_token());
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone with request.set_body {}: {}", batch_array.dump(), duration_cast<milliseconds>(sw.elapsed())); }
         return resp;
     }
 
@@ -182,7 +182,7 @@ namespace atomic_dex::kdf
         spdlog::stopwatch sw; using namespace std::chrono;
         using request_type = typename Rpc::expected_request_type;
         process_rpc_async(request_type{}, on_rpc_processed);
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     // template void kdf_client::process_rpc_async<my_balance_rpc>(const std::function<void(orderbook_rpc)>&);
@@ -216,7 +216,7 @@ namespace atomic_dex::kdf
                     SPDLOG_ERROR(ex.what());
                 }
             });
-       if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
+       if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -241,7 +241,7 @@ namespace atomic_dex::kdf
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
         //SPDLOG_DEBUG("request: {}", json_copy.dump());
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 

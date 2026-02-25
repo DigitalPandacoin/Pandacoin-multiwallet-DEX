@@ -1744,7 +1744,7 @@ namespace atomic_dex
             return {};
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.002) { SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed())); }
         return orderbook;
     }
 
@@ -1869,7 +1869,7 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
 
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -1929,14 +1929,14 @@ namespace atomic_dex
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
-            if (sw.elapsed().count() > 0.007) { SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
         else
         {
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
-            if (sw.elapsed().count() > 0.009) { SPDLOG_DEBUG("Time elapsed in not only_tx kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in not only_tx kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -2359,7 +2359,7 @@ namespace atomic_dex
                 });
 
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -2567,7 +2567,7 @@ namespace atomic_dex
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
     }
 

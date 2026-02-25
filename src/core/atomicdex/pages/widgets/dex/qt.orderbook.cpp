@@ -42,7 +42,7 @@ namespace
                 trading_pg.set_min_trade_vol(cur_taker_vol);
             }
         }
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in adjust_vol of atomic_dex::qt_orderbook_wrapper: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in adjust_vol of atomic_dex::qt_orderbook_wrapper: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace
 

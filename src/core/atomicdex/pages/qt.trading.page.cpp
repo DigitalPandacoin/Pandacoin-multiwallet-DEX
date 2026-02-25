@@ -107,7 +107,7 @@ namespace atomic_dex
         emit kdfMinTradeVolChanged();
         dispatcher_.trigger<refresh_orderbook_model_data>(base.toStdString(), rel.toStdString());
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -798,7 +798,7 @@ namespace atomic_dex
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
-            if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -849,7 +849,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.008) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1234,7 +1234,7 @@ namespace atomic_dex
             this->determine_fees();
             emit preferredOrderChangeFinished();
         }
-        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1407,7 +1407,7 @@ namespace atomic_dex
         };
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
