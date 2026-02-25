@@ -455,7 +455,7 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
+            if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
 
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {

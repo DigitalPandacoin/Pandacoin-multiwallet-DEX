@@ -1744,7 +1744,7 @@ namespace atomic_dex
             return {};
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.002) { SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed())); }
         return orderbook;
     }
 

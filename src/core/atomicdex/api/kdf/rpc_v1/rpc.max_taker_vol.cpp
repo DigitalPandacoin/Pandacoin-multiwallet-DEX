@@ -42,7 +42,7 @@ namespace atomic_dex::kdf
     {
         j.at("denom").get_to(cfg.denom);
         j.at("numer").get_to(cfg.numer);
-        SPDLOG_DEBUG("max_taker_vol_answer_success: {}", j.dump(4));
+        //SPDLOG_DEBUG("max_taker_vol_answer_success: {}", j.dump(4));
 
         t_rational rat(boost::multiprecision::cpp_int(cfg.numer), boost::multiprecision::cpp_int(cfg.denom));
         t_float_50 res = rat.convert_to<t_float_50>();
