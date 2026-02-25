@@ -116,6 +116,7 @@ namespace atomic_dex::kdf
     RpcReturnType kdf_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command)
     {
         spdlog::stopwatch sw;
+        using namespace std::chrono;
         std::string body = TO_STD_STR(resp.extract_string(true).get());
         RpcReturnType answer;
 
@@ -151,18 +152,15 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
+            SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR(
-                "{} l{} f[{}], exception caught {} for rpc {}, body: {}", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string(), error.what(),
-                rpc_command, body);
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
+            SPDLOG_ERROR("{} l{} f[{}], exception caught {} for rpc {}, body: {}", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string(), error.what(), rpc_command, body);
         }
 
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()));
         return answer;
     }
 
