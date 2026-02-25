@@ -770,7 +770,7 @@ namespace atomic_dex
                     }
                 }
                 this->set_fetching_priv_key_busy(false);
-            }
+            };
             kdf_system.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor);
         }
         using namespace std::chrono;
