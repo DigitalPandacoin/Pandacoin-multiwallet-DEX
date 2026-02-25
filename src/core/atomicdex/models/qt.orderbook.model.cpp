@@ -314,7 +314,7 @@ namespace atomic_dex
             order.rel_max_volume_numer = value.toString().toStdString();
             break;
         }
-        // emit dataChanged(index, index, {role});
+        emit dataChanged(index, index, {role});
         return true;
     }
 
@@ -430,7 +430,6 @@ namespace atomic_dex
             //! ID Found, update !
             const QModelIndex& idx                  = res.at(0);
             auto&& [_, new_price, is_price_changed] = update_value(OrderbookRoles::PriceRole, QString::fromStdString(order.price), idx, *this);
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till OrderbookRoles::PriceRole: {}", duration_cast<milliseconds>(sw.elapsed()));
             update_value(OrderbookRoles::PriceNumerRole, QString::fromStdString(order.price_fraction_numer), idx, *this);
             update_value(OrderbookRoles::PriceDenomRole, QString::fromStdString(order.price_fraction_denom), idx, *this);
             update_value(OrderbookRoles::IsMineRole, order.is_mine, idx, *this);
@@ -453,8 +452,8 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till OrderbookRoles::PriceFiatRole: {}", duration_cast<milliseconds>(sw.elapsed()));
-            emit dataChanged(
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till last update_value: {}", duration_cast<milliseconds>(sw.elapsed()));
+            /*emit dataChanged(
                 idx, idx,
                 {OrderbookRoles::UUIDRole,
                  OrderbookRoles::PriceRole,
@@ -479,8 +478,7 @@ namespace atomic_dex
                  OrderbookRoles::EnoughFundsToPayMinVolume,
                  OrderbookRoles::CEXRatesRole,
                  OrderbookRoles::SendRole,
-                 OrderbookRoles::PriceFiatRole});
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till after emit dataChanged: {}", duration_cast<milliseconds>(sw.elapsed()));
+                 OrderbookRoles::PriceFiatRole});*/
 
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
@@ -510,7 +508,6 @@ namespace atomic_dex
                 }
             }
         }
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

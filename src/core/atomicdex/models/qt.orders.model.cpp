@@ -413,6 +413,7 @@ namespace atomic_dex
     {
         if (const auto res = this->match(index(0, 0), OrderIdRole, contents.order_id); !res.isEmpty())
         {
+            spdlog::stopwatch sw;
             const QModelIndex& idx = res.at(0);
             update_value(OrdersRoles::CancellableRole, contents.is_cancellable, idx, *this);
             update_value(OrdersRoles::IsMakerRole, contents.order_type == "maker", idx, *this);
@@ -424,7 +425,9 @@ namespace atomic_dex
                 update_value(OrdersRoles::BaseCoinAmountRole, contents.base_amount, idx, *this);
                 update_value(OrdersRoles::RelCoinAmountRole, contents.rel_amount, idx, *this);
             }
-            emit lengthChanged();
+            //emit lengthChanged();
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in orders_model::update_existing_order: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 
@@ -433,6 +436,7 @@ namespace atomic_dex
     {
         if (const auto res = this->match(index(0, 0), OrderIdRole, contents.order_id); !res.isEmpty())
         {
+            spdlog::stopwatch sw;
             const QModelIndex& idx = res.at(0);
             update_value(OrdersRoles::IsRecoverableRole, contents.is_recoverable, idx, *this);
             auto&& [prev_value, new_value, is_change] = update_value(OrdersRoles::OrderStatusRole, contents.order_status, idx, *this);
@@ -461,7 +465,9 @@ namespace atomic_dex
             update_value(OrdersRoles::BaseCoinAmountCurrentCurrencyRole, contents.base_amount_fiat, idx, *this);
             update_value(OrdersRoles::RelCoinAmountCurrentCurrencyRole, contents.rel_amount_fiat, idx, *this);
 
-            emit lengthChanged();
+            //emit lengthChanged();
+            using namespace std::chrono;
+            SPDLOG_DEBUG("Time elapsed in orders_model::update_swap: {}", duration_cast<milliseconds>(sw.elapsed()));
         }
     }
 

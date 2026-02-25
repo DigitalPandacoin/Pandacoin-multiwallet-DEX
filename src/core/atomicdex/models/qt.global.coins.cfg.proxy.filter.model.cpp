@@ -98,12 +98,15 @@ namespace atomic_dex
     void
     global_coins_cfg_proxy_model::set_all_state(bool checked) 
     {
+        spdlog::stopwatch sw;
         int nb_items = this->rowCount();
         for (int cur_idx = 0; cur_idx < nb_items; ++cur_idx)
         {
             QModelIndex idx = this->index(cur_idx, 0);
             update_value(global_coins_cfg_model::CoinsRoles::Checked, checked, idx, *this);
         }
+        using namespace std::chrono;
+        SPDLOG_DEBUG("Time elapsed in global_coins_cfg_proxy_model::set_all_state for {} coins: {}", nb_items, duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 
