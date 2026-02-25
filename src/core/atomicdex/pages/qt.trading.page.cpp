@@ -849,7 +849,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.008) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString

@@ -143,7 +143,7 @@ SetupPage
                     anchors.fill: parent
                     anchors.margins: 10
                     spacing: 0
-
+                    clip: true
                     model: wallets
 
                     delegate: ClipRRect
