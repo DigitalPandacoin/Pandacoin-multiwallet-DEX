@@ -372,7 +372,7 @@ namespace atomic_dex
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.004) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int
@@ -455,7 +455,7 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
-            if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.007) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
 
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
@@ -505,7 +505,7 @@ namespace atomic_dex
                 }
             }
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed()));
+            if (sw.elapsed().count() > 0.008) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
 
             // Deletion
             std::unordered_set<std::string> to_remove;
@@ -540,7 +540,7 @@ namespace atomic_dex
     bool
     orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -566,8 +566,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 

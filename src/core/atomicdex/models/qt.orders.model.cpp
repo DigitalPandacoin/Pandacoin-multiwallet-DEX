@@ -219,7 +219,7 @@ namespace atomic_dex
     bool
     orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw; using namespace std::chrono;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -227,8 +227,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
+        //SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed())); // 0ms
         return true;
     }
 
@@ -735,7 +734,7 @@ namespace atomic_dex
             this->set_current_page(1);
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.004) { SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     t_filtering_infos

@@ -1811,7 +1811,7 @@ namespace atomic_dex
             return;
         }
 
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto answer        = kdf::basic_batch_answer(resp);
@@ -1869,8 +1869,7 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
 
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -2571,7 +2570,7 @@ namespace atomic_dex
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
     }
 

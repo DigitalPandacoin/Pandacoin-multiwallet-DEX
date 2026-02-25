@@ -25,6 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -41,6 +42,7 @@ namespace
                 trading_pg.set_min_trade_vol(cur_taker_vol);
             }
         }
+        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in adjust_vol of atomic_dex::qt_orderbook_wrapper: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace
 

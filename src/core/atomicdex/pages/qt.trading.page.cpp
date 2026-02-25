@@ -772,10 +772,11 @@ namespace atomic_dex
         
         if (m_price != price)
         {
+            spdlog::stopwatch sw; using namespace std::chrono;
             m_price = std::move(price);
             if (this->m_preferred_order.has_value() && this->m_preferred_order->contains("locked"))
             {
-                // SPDLOG_WARN("releasing preferred order because price has been modified");
+                SPDLOG_WARN("releasing preferred order because price has been modified");
                 this->m_preferred_order = std::nullopt;
                 emit preferredOrderChanged();
             }
@@ -797,6 +798,7 @@ namespace atomic_dex
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
+            if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -1202,12 +1204,12 @@ namespace atomic_dex
 
     void trading_page::set_preferred_order(const QVariantMap& price_object)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         auto preferred_order = nlohmann::json::parse(QString(QJsonDocument(QJsonObject::fromVariantMap(price_object)).toJson()).toStdString());
         if (preferred_order == m_preferred_order)
         {
             return;
         }
-        // SPDLOG_DEBUG("preferred_order: {}", preferred_order.dump(-1));
         m_preferred_order = std::move(preferred_order);
         emit preferredOrderChanged();
         if (!m_preferred_order->empty() && m_preferred_order->contains("price"))
@@ -1232,6 +1234,7 @@ namespace atomic_dex
             this->determine_fees();
             emit preferredOrderChangeFinished();
         }
+        if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1526,7 +1529,7 @@ namespace atomic_dex
     void
     trading_page::determine_pair_volume_24hr()
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw; sing namespace std::chrono;
         const auto& defi_stats_service  = m_system_manager.get_system<global_defi_stats_service>();
         const auto* market_selector     = get_market_pairs_mdl();
         const auto& base                = utils::retrieve_main_ticker(market_selector->get_left_selected_coin().toStdString(), true);
@@ -1541,8 +1544,7 @@ namespace atomic_dex
             m_pair_volume_24hr = vol;
             emit pairVolume24hrChanged();
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::determine_pair_volume_24hr: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_pair_volume_24hr: {}", duration_cast<milliseconds>(sw.elapsed())); // 0ms
     }
 
     QString

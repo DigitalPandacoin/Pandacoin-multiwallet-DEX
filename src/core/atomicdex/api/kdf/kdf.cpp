@@ -704,6 +704,7 @@ namespace atomic_dex::kdf
     pplx::task<web::http::http_response>
     async_process_rpc_get(t_http_client_ptr& client, const std::string rpc_command, const std::string& url)
     {
+        // UNUSED
         SPDLOG_INFO("Processing rpc call: {}, url: {}, endpoint: {}", rpc_command, url, TO_STD_STR(client->base_uri().to_string()));
 
         web::http::http_request req;
@@ -727,7 +728,7 @@ namespace atomic_dex::kdf
         {
             from_json(json_answer, answer);
             answer.rpc_result_code = 200;
-            if (sw.elapsed().count() > 0.003) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.006) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {
