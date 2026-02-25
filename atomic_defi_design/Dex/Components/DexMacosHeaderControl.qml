@@ -4,7 +4,6 @@ import QtQuick.Controls.Universal 2.15
 import QtQuick.Layouts 1.15
 
 import Qaterial 1.0 as Qaterial
-import ModelHelper 0.1
 
 import "../Constants"
 
@@ -14,7 +13,7 @@ Row
 
     property real size: 13
     property bool hovered: minimizeButton.containsMouse || closeButton.containsMouse || extendButton.containsMouse
-    property var  orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
+    property var  orders: API.app.orders_mdl.orders_proxy_mdl
 
     anchors.top: parent.top
     width: 195

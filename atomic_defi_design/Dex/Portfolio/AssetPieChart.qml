@@ -7,7 +7,6 @@ import QtWebEngine 1.10
 import QtGraphicalEffects 1.15
 import QtCharts 2.15
 import Qaterial 1.0 as Qaterial
-import ModelHelper 0.1
 
 import AtomicDEX.WalletChartsCategories 1.0
 
