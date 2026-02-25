@@ -152,7 +152,7 @@ namespace atomic_dex
         }
         case CEXRatesRole:
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
+            //spdlog::stopwatch sw; using namespace std::chrono;
             const auto& price_service   = m_system_mgr.get_system<global_price_service>();
             const auto& trading_pg      = m_system_mgr.get_system<trading_page>();
             const auto* market_selector = trading_pg.get_market_pairs_mdl();
@@ -171,8 +171,7 @@ namespace atomic_dex
                 price_diff = t_float_50(100) * (t_float_50(1) - safe_float(price) / cex_price) * (!is_buy ? t_float_50(1) : t_float_50(-1));
                 // SPDLOG_INFO("{}/{} price_diff({}%) = 100 * (1 - price[{}] / cex_price[{}])) * ({})", base, rel, utils::format_float(price_diff),
                 // utils::adjust_precision(price), utils::format_float(cex_price), !is_buy ? 1 : -1);
-                // SPDLOG_INFO("cex rates: {}/{} is_buy: {} price: {}", base, rel, is_buy, price);
-                SPDLOG_DEBUG("Time elapsed in orderbook_model::data CEXRatesRole: {}", duration_cast<milliseconds>(sw.elapsed()));
+                // SPDLOG_DEBUG("Time elapsed in orderbook_model::data CEXRatesRole: {}", duration_cast<milliseconds>(sw.elapsed())); // 0ms
                 return QString::fromStdString(utils::format_float(price_diff));
             }
             return "0.00";
@@ -203,14 +202,14 @@ namespace atomic_dex
         {
             if (m_current_orderbook_kind == kind::best_orders)
             {
-                spdlog::stopwatch sw; using namespace std::chrono;
+                //spdlog::stopwatch sw; using namespace std::chrono;
                 const auto& price_service = m_system_mgr.get_system<global_price_service>();
                 const auto& fiat          = m_system_mgr.get_system<settings_page>().get_cfg().current_fiat;
                 const auto  total_amount  = this->data(index, SendRole).toString().toStdString();
                 const auto  coin          = data(index, CoinRole).toString().toStdString();
                 const auto  result        = price_service.get_price_as_currency_from_amount(fiat, coin, total_amount);
                 auto        final_result  = result;
-                SPDLOG_DEBUG("Time elapsed in orderbook_model::data for coin {} total amount {}: {}", coin, total_amount, duration_cast<milliseconds>(sw.elapsed()));
+                //SPDLOG_DEBUG("Time elapsed in orderbook_model::data PriceFiatRole for coin {} total amount {}: {}", coin, total_amount, duration_cast<milliseconds>(sw.elapsed())); // 0ms
                 if (safe_float(result) <= 0)
                 {
                     return "0.00";
@@ -456,33 +455,7 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till last update_value: {}", duration_cast<milliseconds>(sw.elapsed()));
-            /*emit dataChanged(
-                idx, idx,
-                {OrderbookRoles::UUIDRole,
-                 OrderbookRoles::PriceRole,
-                 OrderbookRoles::PriceNumerRole,
-                 OrderbookRoles::PriceDenomRole,
-                 OrderbookRoles::IsMineRole,
-                 OrderbookRoles::TotalRole,
-                 OrderbookRoles::PercentDepthRole,
-                 OrderbookRoles::BaseMinVolumeRole,
-                 OrderbookRoles::BaseMinVolumeDenomRole,
-                 OrderbookRoles::BaseMinVolumeNumerRole,
-                 OrderbookRoles::BaseMaxVolumeRole,
-                 OrderbookRoles::BaseMaxVolumeDenomRole,
-                 OrderbookRoles::BaseMaxVolumeNumerRole,
-                 OrderbookRoles::RelMinVolumeRole,
-                 OrderbookRoles::RelMinVolumeDenomRole,
-                 OrderbookRoles::RelMinVolumeNumerRole,
-                 OrderbookRoles::RelMaxVolumeRole,
-                 OrderbookRoles::RelMaxVolumeDenomRole,
-                 OrderbookRoles::RelMaxVolumeNumerRole,
-                 OrderbookRoles::MinVolumeRole,
-                 OrderbookRoles::EnoughFundsToPayMinVolume,
-                 OrderbookRoles::CEXRatesRole,
-                 OrderbookRoles::SendRole,
-                 OrderbookRoles::PriceFiatRole});*/
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
 
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
@@ -532,7 +505,7 @@ namespace atomic_dex
                 }
             }
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data: {}", duration_cast<milliseconds>(sw.elapsed()));
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed()));
 
             // Deletion
             std::unordered_set<std::string> to_remove;

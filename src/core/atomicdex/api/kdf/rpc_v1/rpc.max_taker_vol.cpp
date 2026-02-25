@@ -42,12 +42,12 @@ namespace atomic_dex::kdf
     {
         j.at("denom").get_to(cfg.denom);
         j.at("numer").get_to(cfg.numer);
-        // SPDLOG_INFO("max: {}", j.dump(4));
+        SPDLOG_DEBUG("max_taker_vol_answer_success: {}", j.dump(4));
 
         t_rational rat(boost::multiprecision::cpp_int(cfg.numer), boost::multiprecision::cpp_int(cfg.denom));
         t_float_50 res = rat.convert_to<t_float_50>();
         cfg.decimal    = atomic_dex::utils::extract_large_float(res.str(50));
-        //SPDLOG_INFO("decimal: {}", cfg.decimal);
+        //SPDLOG_DEBUG("decimal: {}", cfg.decimal);
     }
 
     void
@@ -57,7 +57,7 @@ namespace atomic_dex::kdf
         if (answer.error.has_value()) ///< we need a default fallback in this case fixed on upstream already, need to update
         {
             SPDLOG_WARN("Max taker volume need a default value, fallback with 0 as value, this is probably because you have an empty balance or not enough "
-                        "funds (< 0.00777)., error: {}", answer.error.value());
+                        "funds (< dust/txfee * 10)., error: {}", answer.error.value());
             answer.result = max_taker_vol_answer_success{.denom = "1", .numer = "0", .decimal = "0"};
         } else {
             answer.result.value().coin = j.at("coin").get<std::string>();
