@@ -1765,7 +1765,7 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1799,8 +1799,8 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
+        using namespace std::chrono;
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
