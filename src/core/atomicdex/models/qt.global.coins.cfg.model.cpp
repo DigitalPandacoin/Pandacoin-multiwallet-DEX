@@ -247,7 +247,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_coins_cfg_model::update_status to {} for ticker {}: {}", status, ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in global_coins_cfg_model::update_status: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     template void global_coins_cfg_model::update_status(const QStringList&, bool);
