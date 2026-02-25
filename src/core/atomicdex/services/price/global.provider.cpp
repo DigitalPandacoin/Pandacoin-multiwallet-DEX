@@ -87,7 +87,6 @@ namespace atomic_dex
     std::string
     global_price_service::get_rate_conversion(const std::string& fiat, const std::string& ticker_in, bool adjusted) const
     {
-        spdlog::stopwatch sw;
         if (fiat == utils::retrieve_main_ticker(ticker_in))
         {
             return "1.00";
@@ -149,8 +148,6 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught in get_rate_conversion: {} - fiat: {} - ticker: {}", error.what(), fiat, ticker);
             return "0.00";
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_price_service::get_rate_conversion: {}", duration_cast<milliseconds>(sw.elapsed()));
         return "0.00";
     }
 
@@ -170,6 +167,7 @@ namespace atomic_dex
     global_price_service::get_price_in_fiat_all(const std::string& fiat, std::error_code& ec) const
     {
         spdlog::stopwatch sw;
+        using namespace std::chrono;
         auto&   kdf_instance = m_system_manager.get_system<kdf_service>();
         t_coins coins        = kdf_instance.get_enabled_coins();
         try
@@ -202,6 +200,7 @@ namespace atomic_dex
             std::string result = ss.str();
             boost::trim_right_if(result, boost::is_any_of("0"));
             boost::trim_right_if(result, boost::is_any_of("."));
+            SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_in_fiat_all: {}", duration_cast<milliseconds>(sw.elapsed()));
             return result;
         }
         catch (const std::exception& error)
@@ -209,14 +208,11 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}", error.what());
             return "0.00";
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_in_fiat_all: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
     global_price_service::get_price_as_currency_from_amount(const std::string& currency, const std::string& ticker, const std::string& amount) const
     {
-        spdlog::stopwatch sw;
         try
         {
             if (amount == "" || ticker == "" || currency == "")
@@ -225,7 +221,6 @@ namespace atomic_dex
             }
 
             auto& kdf_instance = m_system_manager.get_system<kdf_service>();
-
             const auto ticker_infos = kdf_instance.get_coin_info(ticker);
             const auto current_price = get_rate_conversion(currency, ticker);
 
@@ -241,8 +236,6 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, ticker: {}, currency: {}, amount: {}", error.what(), ticker, currency, amount);
             return "0.00";
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_as_currency_from_amount: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
@@ -250,7 +243,6 @@ namespace atomic_dex
     {
         // Runs often to update fiat values for all enabled coins.
         // fetch ticker infos loop and on_update_portfolio_values_event triggers this.
-        spdlog::stopwatch sw;
         try
         {
             auto& kdf_instance = m_system_manager.get_system<kdf_service>();
@@ -297,14 +289,11 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, ticker: {}, fiat: {}", error.what(), ticker, fiat);
             return "0.00";
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_in_fiat: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
     global_price_service::get_cex_rates(const std::string& base, const std::string& rel) const
     {
-        spdlog::stopwatch sw;
         try
         {
             const std::string base_rate_str = get_rate_conversion("USD", base, false);
@@ -328,8 +317,6 @@ namespace atomic_dex
             SPDLOG_ERROR("Exception caught: {}, base: {}, rel: {}", error.what(), base, rel);
             return "0.00";
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in global_price_service::get_cex_rates: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
