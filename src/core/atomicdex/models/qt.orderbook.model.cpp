@@ -22,19 +22,6 @@
 #include "atomicdex/services/price/global.provider.hpp"
 #include "atomicdex/utilities/global.utilities.hpp"
 
-namespace
-{
-    /*template <typename TValue, typename TModel>
-    void
-    update_value(int role, const TValue& value, const QModelIndex& idx, TModel& model)
-    {
-        if (value != model.data(idx, role))
-        {
-            model.setData(idx, value, role);
-        }
-    }*/
-} // namespace
-
 namespace atomic_dex
 {
     orderbook_model::orderbook_model(kind orderbook_kind, ag::ecs::system_manager& system_mgr, QObject* parent) :
@@ -247,6 +234,7 @@ namespace atomic_dex
         {
             return false;
         }
+
         kdf::order_contents& order = m_model_data.at(index.row());
         switch (static_cast<OrderbookRoles>(role))
         {
@@ -436,11 +424,13 @@ namespace atomic_dex
     orderbook_model::update_order(const kdf::order_contents& order)
     {
         spdlog::stopwatch sw;
+        using namespace std::chrono;
         if (const auto res = this->match(index(0, 0), UUIDRole, QString::fromStdString(order.uuid)); not res.isEmpty())
         {
             //! ID Found, update !
             const QModelIndex& idx                  = res.at(0);
             auto&& [_, new_price, is_price_changed] = update_value(OrderbookRoles::PriceRole, QString::fromStdString(order.price), idx, *this);
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till OrderbookRoles::PriceRole: {}", duration_cast<milliseconds>(sw.elapsed()));
             update_value(OrderbookRoles::PriceNumerRole, QString::fromStdString(order.price_fraction_numer), idx, *this);
             update_value(OrderbookRoles::PriceDenomRole, QString::fromStdString(order.price_fraction_denom), idx, *this);
             update_value(OrderbookRoles::IsMineRole, order.is_mine, idx, *this);
@@ -463,6 +453,7 @@ namespace atomic_dex
             update_value(OrderbookRoles::CEXRatesRole, "0.00", idx, *this);
             update_value(OrderbookRoles::SendRole, "0.00", idx, *this);
             update_value(OrderbookRoles::PriceFiatRole, "0.00", idx, *this);
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till OrderbookRoles::PriceFiatRole: {}", duration_cast<milliseconds>(sw.elapsed()));
             emit dataChanged(
                 idx, idx,
                 {OrderbookRoles::UUIDRole,
@@ -489,8 +480,8 @@ namespace atomic_dex
                  OrderbookRoles::CEXRatesRole,
                  OrderbookRoles::SendRole,
                  OrderbookRoles::PriceFiatRole});
+            SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order till after emit dataChanged: {}", duration_cast<milliseconds>(sw.elapsed()));
 
-            spdlog::stopwatch sw1;
             if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids && is_price_changed)
             {
                 auto& trading_pg = m_system_mgr.get_system<trading_page>();
@@ -518,10 +509,7 @@ namespace atomic_dex
                     }
                 }
             }
-            using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in kind::bids/MarketMode::Sell orderbook_model::update_order: {}", duration_cast<milliseconds>(sw1.elapsed()));
         }
-        using namespace std::chrono;
         SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 

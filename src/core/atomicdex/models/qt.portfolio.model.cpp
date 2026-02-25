@@ -382,10 +382,6 @@ namespace atomic_dex
         case MultiTickerPrice:
         {
             item.multi_ticker_price = value.toString();
-            // auto& trade_page        = m_system_manager.get_system<trading_page>();
-            /*trade_page.get_orders_widget()->determine_multi_ticker_total_amount(
-                item.ticker, item.multi_ticker_price.value(), item.is_multi_ticker_enabled, trade_page.get_market_pairs_mdl(), trade_page.get_market_mode(),
-                trade_page.get_volume());*/
             break;
         }
         case MultiTickerReceiveAmount:
@@ -399,11 +395,9 @@ namespace atomic_dex
             break;
         case PrivKey:
             item.priv_key = value.toString();
-            // emit dataChanged(index, index, {role});
             break;
         case PercentMainCurrency:
             item.percent_main_currency = value.toString();
-            // emit dataChanged(index, index, {role});
             break;
         case PriceProvider:
             item.price_provider = value.toString();
