@@ -40,7 +40,7 @@ namespace atomic_dex
             spdlog::stopwatch sw;
             model.setData(idx, value, role);
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in update_value for model {} and role {}: {}", model.toString(), role, duration_cast<milliseconds>(sw.elapsed()));
+            SPDLOG_DEBUG("Time elapsed in update_value for role {}: {}", role, duration_cast<milliseconds>(sw.elapsed()));
             return std::make_tuple(prev_value, value, true);
         }
         return std::make_tuple(value, value, false);
