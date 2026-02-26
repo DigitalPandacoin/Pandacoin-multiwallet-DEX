@@ -835,6 +835,10 @@ Qaterial.Dialog
                     weight: Font.Normal
                 })
                 iconSource: Qaterial.Icons.logout
+                Component.onCompleted: {
+                     console.log("orders.count = " + orders.count) //
+                     console.log("height = " + height) //
+                }
                 onClicked:
                 {
                     setting_modal.close()

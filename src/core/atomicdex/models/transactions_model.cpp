@@ -216,7 +216,7 @@ namespace atomic_dex
                 this->fetchMore(QModelIndex());
             }
             using namespace std::chrono;
-            SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed()));
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed())); }
         }
         emit lengthChanged();
     }

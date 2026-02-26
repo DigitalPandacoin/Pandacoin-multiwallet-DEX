@@ -494,7 +494,7 @@ namespace atomic_dex
     void
     orders_model::common_insert(const std::vector<t_order_swaps_data>& contents, const std::string& kind)
     {
-        spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         auto& data = m_model_data.orders_and_swaps;
         beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
         data.insert(end(data), begin(contents), end(contents));
@@ -508,8 +508,7 @@ namespace atomic_dex
         {
             this->m_system_manager.get_system<kdf_service>().process_orderbook(true);
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in orders_model::common_insert: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::common_insert: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

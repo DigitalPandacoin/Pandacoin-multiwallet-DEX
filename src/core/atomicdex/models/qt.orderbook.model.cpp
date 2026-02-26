@@ -29,7 +29,6 @@ namespace atomic_dex
         m_model_proxy(new orderbook_proxy_model(system_mgr, this))
     {
         this->m_model_proxy->setSourceModel(this);
-        this->m_model_proxy->setDynamicSortFilter(true);
         this->m_model_proxy->setSortRole(PriceRole);
 
         switch (m_current_orderbook_kind)
@@ -41,12 +40,11 @@ namespace atomic_dex
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         case kind::best_orders:
-            spdlog::stopwatch sw; using namespace std::chrono;
             this->m_model_proxy->setSortRole(CEXRatesRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+            this->m_model_proxy->setDynamicSortFilter(false);
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
-            SPDLOG_DEBUG("Time elapsed in orderbook_model::orderbook_model kind::best_orders: {}", duration_cast<milliseconds>(sw.elapsed()));
             break;
         }
     }
@@ -161,7 +159,7 @@ namespace atomic_dex
             const auto& price           = m_model_data.at(index.row()).price;
             if (base == rel)
             {
-                return "0.00";
+                return "0";
             }
             const bool is_buy = trading_pg.get_market_mode() == MarketMode::Buy;
             t_float_50 price_diff(0);
@@ -174,7 +172,7 @@ namespace atomic_dex
                 // SPDLOG_DEBUG("Time elapsed in orderbook_model::data CEXRatesRole: {}", duration_cast<milliseconds>(sw.elapsed())); // 0ms
                 return QString::fromStdString(utils::format_float(price_diff));
             }
-            return "0.00";
+            return "0";
         }
         case SendRole:
         {
@@ -197,7 +195,7 @@ namespace atomic_dex
             }
             else
             {
-                return "0.00";
+                return "0";
             }
         }
         case PriceFiatRole:
@@ -529,8 +527,12 @@ namespace atomic_dex
 
             for (auto&& cur_to_remove: to_remove) { m_orders_id_registry.erase(cur_to_remove); }
         };
-
         refresh_functor(orderbook);
+
+        // dynamic sort is off for best_orders, so we need to sort
+        if (m_current_orderbook_kind == kind::best_orders) {
+            this->m_model_proxy->sort(0, Qt::DescendingOrder);
+        }
     }
 
     t_order_contents

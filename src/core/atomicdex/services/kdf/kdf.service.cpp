@@ -621,11 +621,6 @@ namespace atomic_dex
         }
     }
 
-    void kdf_service::update_coin_active(const std::vector<std::string>& tickers, bool status)
-    {
-        update_coin_status(this->m_current_wallet_name, tickers, status, m_coins_informations, m_coin_cfg_mutex);
-    }
-
     void kdf_service::enable_erc_family_coin(const coin_config_t& coin_cfg)
     {
         enable_erc_family_coins(t_coins{coin_cfg});
@@ -682,7 +677,6 @@ namespace atomic_dex
                         std::unique_lock lock(m_coin_cfg_mutex);
                         m_coins_informations[coin.ticker].currently_enabled = true;
                         tickers.push_back(coin.ticker);
-                        //fetch_single_balance(coin);
                     }
                     dispatcher_.trigger<coin_fully_initialized>(tickers);
 
@@ -693,8 +687,7 @@ namespace atomic_dex
                         m_coins_informations[coin.ticker].currently_enabled = false;
                         failed_tickers.push_back(coin.ticker);
                     }
-                    //update_coin_active(failed_tickers, false);
-                    fetch_infos_thread(false, false);
+                    //fetch_infos_thread(false, false);
                 }
             }
             catch (const std::exception& error)
@@ -790,7 +783,6 @@ namespace atomic_dex
                         std::unique_lock lock(m_coin_cfg_mutex);
                         m_coins_informations[coin.ticker].currently_enabled = true;
                         tickers.push_back(coin.ticker);
-                        //fetch_single_balance(coin);
                     }
                     dispatcher_.trigger<coin_fully_initialized>(tickers);
 
@@ -801,8 +793,7 @@ namespace atomic_dex
                         m_coins_informations[coin.ticker].currently_enabled = false;
                         failed_tickers.push_back(coin.ticker);
                     }
-                    //update_coin_active(failed_tickers, false);
-                    fetch_infos_thread(false, false);
+                    //fetch_infos_thread(false, false);
                 }
             }
             catch (const std::exception& error)
@@ -864,7 +855,6 @@ namespace atomic_dex
                 if (rpc.error->error_type.find("PlatformIsAlreadyActivated") != std::string::npos)
                 {
                     SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                    //fetch_single_balance(get_coin_info(rpc.request.ticker));
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = true;
                     dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
@@ -875,7 +865,6 @@ namespace atomic_dex
                         for (const auto& erc20_coin_info : rpc.request.erc20_tokens_requests)
                         {
                             SPDLOG_ERROR("{} {}: ", erc20_coin_info.ticker, rpc.error->error_type);
-                            //fetch_single_balance(get_coin_info(erc20_coin_info.ticker));
                             std::unique_lock lock(m_coin_cfg_mutex);
                             m_coins_informations[erc20_coin_info.ticker].currently_enabled = true;
                             dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {erc20_coin_info.ticker}});
@@ -891,14 +880,12 @@ namespace atomic_dex
                     SPDLOG_ERROR("marking {} as inactive: {}", rpc.request.ticker, rpc.error->error_type);
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = false;
-                    //update_coin_active({rpc.request.ticker}, false);
                     this->dispatcher_.trigger<enabling_coin_failed>(rpc.request.ticker, rpc.error->error);
                 }
             }
             else
             {
                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                //fetch_single_balance(get_coin_info(rpc.request.ticker));
                 std::unique_lock lock(m_coin_cfg_mutex);
                 m_coins_informations[rpc.request.ticker].currently_enabled = true;
                 SPDLOG_DEBUG("marking {} as active", rpc.request.ticker);
@@ -918,7 +905,6 @@ namespace atomic_dex
                                 SPDLOG_DEBUG("marking token {} as active", balance.first);
                                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {balance.first}});
                                 //process_balance_answer(rpc);
-                                //fetch_single_balance(get_coin_info(balance.first));
                                 std::unique_lock lock(m_coin_cfg_mutex);
                                 m_coins_informations[balance.first].currently_enabled = true;
                             }
@@ -1001,7 +987,6 @@ namespace atomic_dex
                     || rpc.error->error_type.find("TokenIsAlreadyActivated") != std::string::npos)
                 {
                     SPDLOG_ERROR("{} {}: ", rpc.request.ticker, rpc.error->error_type);
-                    //fetch_single_balance(get_coin_info(rpc.request.ticker));
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = true;
                     dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
@@ -1011,7 +996,6 @@ namespace atomic_dex
                         {
                             std::unique_lock lock(m_coin_cfg_mutex);
                             m_coins_informations[tendermint_coin_info.ticker].currently_enabled = true;
-                            //fetch_single_balance(get_coin_info(tendermint_coin_info.ticker));
                             dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tendermint_coin_info.ticker}});
                         }
                     }
@@ -1021,14 +1005,12 @@ namespace atomic_dex
                     SPDLOG_DEBUG("{} failed to activate", rpc.request.ticker);
                     std::unique_lock lock(m_coin_cfg_mutex);
                     m_coins_informations[rpc.request.ticker].currently_enabled = false;
-                    //update_coin_active({rpc.request.ticker}, false);
                     this->dispatcher_.trigger<enabling_coin_failed>(rpc.request.ticker, rpc.error->error);
                 }
             }
             else
             {
                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {rpc.request.ticker}});
-                //fetch_single_balance(get_coin_info(rpc.request.ticker));
                 std::unique_lock lock(m_coin_cfg_mutex);
                 m_coins_informations[rpc.request.ticker].currently_enabled = true;
                 if constexpr (std::is_same_v<RpcRequest, kdf::enable_tendermint_with_assets_rpc>)
@@ -1636,11 +1618,6 @@ namespace atomic_dex
                                 if (!tickers.empty())
                                 {
                                     dispatcher_.trigger<coin_fully_initialized>(tickers);
-                                    if (tickers.size() == 1)
-                                    {
-                                        SPDLOG_DEBUG("Why, oh why? For sure not: Init balance for {}...", tickers[0]);
-                                        //fetch_single_balance(get_coin_info(tickers[0]));
-                                    }
                                 }
                             }
                         }
@@ -1884,6 +1861,7 @@ namespace atomic_dex
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch_array = nlohmann::json::array();
         if (is_pin_cfg_enabled())
         {
@@ -1896,7 +1874,6 @@ namespace atomic_dex
         }
 
         t_balance_request balance_request{.coin = cfg_infos.ticker};
-        // SPDLOG_INFO("Getting balance from kdf for {} ", cfg_infos.ticker);
         nlohmann::json    j = kdf::template_request("my_balance");
         kdf::to_json(j, balance_request);
         batch_array.push_back(j);
@@ -1920,6 +1897,7 @@ namespace atomic_dex
         auto error_functor = [this, batch = batch_array](pplx::task<void> previous_task)
         { this->handle_exception_pplx_task(previous_task, "fetch_single_balance", batch); };
         m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -2384,14 +2362,12 @@ namespace atomic_dex
     void
     kdf_service::on_gui_enter_trading([[maybe_unused]] const gui_enter_trading& evt)
     {
-        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         m_orderbook_thread_active = true;
     }
 
     void
     kdf_service::on_gui_leave_trading([[maybe_unused]] const gui_leave_trading& evt)
     {
-        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         m_orderbook_thread_active = false;
     }
 

@@ -243,11 +243,11 @@ namespace atomic_dex
         t_float_50 rel_min_volume_f = safe_float(get_min_trade_vol().toStdString());
         if (is_selected_order)
         {
-            SPDLOG_DEBUG(
-                "max_volume: {} volume: {} order_volume: {}, order_volume_8_digit: {}, order_volume_8_digit_extracted: {}", m_max_volume.toStdString(),
-                m_volume.toStdString(), m_preferred_order->at("base_max_volume").get<std::string>(),
-                utils::adjust_precision(m_preferred_order->at("base_max_volume").get<std::string>()),
-                utils::extract_large_float(m_preferred_order->at("base_max_volume").get<std::string>()));
+            //SPDLOG_DEBUG(
+            //    "max_volume: {} volume: {} order_volume: {}, order_volume_8_digit: {}, order_volume_8_digit_extracted: {}", m_max_volume.toStdString(),
+            //    m_volume.toStdString(), m_preferred_order->at("base_max_volume").get<std::string>(),
+            //    utils::adjust_precision(m_preferred_order->at("base_max_volume").get<std::string>()),
+            //    utils::extract_large_float(m_preferred_order->at("base_max_volume").get<std::string>()));
         }
 
         t_buy_request req{
@@ -267,13 +267,13 @@ namespace atomic_dex
 
         if (good_until_canceled == "true")
         {
-            SPDLOG_DEBUG("Good until cancelled order");
+            //SPDLOG_DEBUG("Good until cancelled order");
             req.order_type                 = nlohmann::json::object();
             req.order_type.value()["type"] = "GoodTillCancelled";
         }
         else
         {
-            SPDLOG_DEBUG("Fill or kill order");
+            //SPDLOG_DEBUG("Fill or kill order");
             req.order_type                 = nlohmann::json::object();
             req.order_type.value()["type"] = "FillOrKill";
         }
@@ -315,7 +315,7 @@ namespace atomic_dex
         buy_request["userpass"] = "*******";
 
         //! Answer
-        SPDLOG_DEBUG("buy_request is : {}", buy_request.dump(4));
+        //SPDLOG_DEBUG("buy_request is : {}", buy_request.dump(4));
         auto answer_functor = [this](const web::http::http_response& resp)
         {
             std::string body = TO_STD_STR(resp.extract_string(true).get());
@@ -899,7 +899,7 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw;
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -1008,8 +1008,8 @@ namespace atomic_dex
                 }
             }
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed()));
+        using namespace std::chrono;
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

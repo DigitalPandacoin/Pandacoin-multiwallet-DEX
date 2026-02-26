@@ -104,6 +104,10 @@ DexWindow
                     id: logout_area
                     hoverEnabled: true
                     anchors.fill: parent
+                    Component.onCompleted: {
+                        console.log("orders.count = " + orders.count) //
+                        console.log("height = " + height) //
+                    }
                     onClicked:
                     {
                         if (orders.count != 0) app.logout_confirm_modal.open()

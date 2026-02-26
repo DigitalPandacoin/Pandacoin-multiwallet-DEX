@@ -44,6 +44,10 @@ MultipageModal {
                 }
                 return ""
             }
+            Component.onCompleted: {
+                  console.log("orders.count = " + orders.count) //
+                  console.log("height = " + height) //
+            }
         }
 
         // Buttons
