@@ -379,7 +379,6 @@ namespace atomic_dex
     void
     orderbook_model::initialize_order(const kdf::order_contents& order)
     {
-        //spdlog::stopwatch sw;
         if (m_orders_id_registry.contains(order.uuid))
         {
             SPDLOG_WARN("Order with uuid: {} already present...skipping.", order.uuid);
@@ -413,8 +412,6 @@ namespace atomic_dex
                 }
             }
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in orderbook_model::initialize_order: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -525,7 +522,7 @@ namespace atomic_dex
         if (m_current_orderbook_kind == kind::best_orders)
         {
             spdlog::stopwatch sw1; using namespace std::chrono;
-            if (m_system_manager.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
+            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
                 this->m_model_proxy->sort(0, Qt::DescendingOrder);
             }
