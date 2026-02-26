@@ -159,17 +159,14 @@ namespace
             {
                 if (registry[ticker].is_custom_coin)
                 {
-                    SPDLOG_DEBUG("Setting custom ticker: {} field {} to {}", ticker, field_name, status);
                     custom_cfg_data.at(ticker)[field_name] = status;
                 }
                 else
                 {
-                    SPDLOG_DEBUG("Setting ticker: {} field {} to {}", ticker, field_name, status);
                     config_json_data.at(ticker)[field_name] = status;
                 }
                 if (field_name == "active")
                 {
-                    SPDLOG_DEBUG("ticker: {} status active: {}", ticker, status);
                     registry[ticker].active = status;
                 }
             }
@@ -192,7 +189,7 @@ namespace
             ofs_custom.write(QString::fromStdString(custom_cfg_data.dump()).toUtf8());
             ofs_custom.close();
         }
-        SPDLOG_DEBUG("Coins file updated to set {}: {} | tickers: [{}]", field_name, status,  fmt::join(tickers, ", "));
+        //SPDLOG_DEBUG("Coins file updated to set {}: {} | tickers: [{}]", field_name, status,  fmt::join(tickers, ", "));
     }
 }
 
@@ -319,7 +316,7 @@ namespace atomic_dex
             if (!tickers.empty())
             {
                 // Mark coins as active internally, and updates the coins file
-                SPDLOG_DEBUG("Making sure {} enabled coins are marked as active", tickers.size());
+                // SPDLOG_DEBUG("Making sure {} enabled coins are marked as active", tickers.size());
                 update_coin_status(this->m_current_wallet_name, tickers, true, m_coins_informations, m_coin_cfg_mutex);
             }
 
@@ -563,7 +560,6 @@ namespace atomic_dex
                 SPDLOG_WARN("{} cannot be enabled because it already is or is being enabled.", coin_cfg.ticker);
                 continue;
             }
-            // SPDLOG_INFO("Preparing {} for activation", coin_cfg.ticker);
             if (coin_cfg.coin_type == CoinType::TENDERMINT || coin_cfg.coin_type == CoinType::TENDERMINTTOKEN)
             {
                 tendermint_coins.push_back(coin_cfg);
@@ -1387,7 +1383,7 @@ namespace atomic_dex
                 .is_testnet           = coin_info.is_testnet.value_or(false),
                 .with_tx_history      = false}; // Tx history not yet ready for ZHTLC
             bool use_date = settings_system.get_use_sync_date();
-            SPDLOG_INFO("use_date: {}", use_date);
+            // SPDLOG_DEBUG("use_date: {}", use_date);
             if (use_date)
             {
                 int sync_date = settings_system.get_pirate_sync_date();
@@ -2075,8 +2071,7 @@ namespace atomic_dex
     void
     kdf_service::batch_fetch_orders_and_swap(bool after_manual_reset)
     {
-        //spdlog::stopwatch sw;
-
+        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
         batch.push_back(my_orders_request);
@@ -2109,14 +2104,14 @@ namespace atomic_dex
         };
         to_json(my_swaps, request);
         batch.push_back(my_swaps);
-        //SPDLOG_INFO("my_swaps req: {}", my_swaps.dump(4));
+        //SPDLOG_DEBUG("my_swaps req: {}", my_swaps.dump(4));
 
         //! Active swaps
         nlohmann::json         active_swaps = kdf::template_request("active_swaps");
         t_active_swaps_request active_swaps_request{.statuses = true};
         to_json(active_swaps, active_swaps_request);
         batch.push_back(active_swaps);
-        //SPDLOG_INFO("active_swaps req: {}", active_swaps.dump(4));
+        //SPDLOG_DEBUG("active_swaps req: {}", active_swaps.dump(4));
 
         auto answer_functor = [this, limit, filter_infos, after_manual_reset](web::http::http_response resp)
         {
@@ -2166,16 +2161,6 @@ namespace atomic_dex
                 result.average_events_time = std::move(swap_success_answer.average_events_time);
             }
 
-            //! Post Metrics
-            /* SPDLOG_DEBUG(
-                "Metrics -> [total_swaps: {}, "
-                "active_swaps: {}, "
-                "nb_orders: {}, "
-                "nb_pages: {}, "
-                "current_page: {}, "
-                "total_finished_swaps: {}]",
-                result.total_swaps, result.active_swaps, result.nb_orders, result.nb_pages, result.current_page, result.total_finished_swaps); */
-
             //! Compute everything
             m_orders_and_swaps = std::move(result);
 
@@ -2186,8 +2171,7 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
 
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
@@ -2349,14 +2333,13 @@ namespace atomic_dex
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        //spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
         if (this->m_kdf_running)
         {
             process_orderbook(true);
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -2374,10 +2357,7 @@ namespace atomic_dex
     bool
     kdf_service::do_i_have_enough_funds(const std::string& ticker, const t_float_50& amount) const
     {
-        //spdlog::stopwatch sw;
         t_float_50 funds = get_balance_info_f(ticker);
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in kdf_service::do_i_have_enough_funds for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed()));
         return funds >= amount;
     }
 
@@ -2471,7 +2451,7 @@ namespace atomic_dex
     void
     kdf_service::process_tx_answer(const nlohmann::json& answer_json, std::string ticker)
     {
-        spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         kdf::tx_history_answer answer;
         kdf::from_json(answer_json, answer);
         t_tx_state state;
@@ -2542,9 +2522,8 @@ namespace atomic_dex
 
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
 

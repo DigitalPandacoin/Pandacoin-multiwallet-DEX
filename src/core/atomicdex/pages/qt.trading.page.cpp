@@ -57,9 +57,11 @@ namespace atomic_dex
     {
         if (!m_about_to_exit_the_app)
         {
+            spdlog::stopwatch sw; using namespace std::chrono;
             m_actions_queue.push(trading_actions::post_process_orderbook_finished);
             m_models_actions[orderbook_need_a_reset] = evt.is_a_reset;
             determine_max_volume();
+            if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in trading_page::on_process_orderbook_finished_event: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 } // namespace atomic_dex

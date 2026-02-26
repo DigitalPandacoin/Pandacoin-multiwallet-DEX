@@ -515,13 +515,10 @@ namespace atomic_dex
     void
     portfolio_model::reset()
     {
-        spdlog::stopwatch sw;
         this->m_ticker_registry.clear();
         this->beginResetModel();
         this->m_model_data.clear();
         this->endResetModel();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::reset: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     portfolio_model::t_portfolio_datas

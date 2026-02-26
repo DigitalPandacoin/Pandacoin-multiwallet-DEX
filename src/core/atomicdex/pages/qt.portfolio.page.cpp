@@ -53,7 +53,6 @@ namespace atomic_dex
     {
         if (this->m_current_balance_all != current_fiat_all_balance)
         {
-            //spdlog::stopwatch sw; using namespace std::chrono;
             this->m_current_balance_all = std::move(current_fiat_all_balance);
             emit       onFiatBalanceAllChanged();
             const auto currency = m_system_manager.get_system<settings_page>().get_current_currency().toStdString();
@@ -62,7 +61,6 @@ namespace atomic_dex
                 m_main_current_balance_all = m_current_balance_all;
                 emit onMainFiatBalanceAllChanged();
             }
-            //SPDLOG_DEBUG("Time elapsed in portfolio_page::set_current_balance_fiat_all to change from {} to {}: {}", m_current_balance_all.toStdString(), current_fiat_all_balance.toStdString(), duration_cast<milliseconds>(sw.elapsed())); // 0ms
         }
     }
 
@@ -121,7 +119,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_page::get_all_enabled_coins: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_page::get_all_enabled_coins: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return enabled_coins;
     }
 
