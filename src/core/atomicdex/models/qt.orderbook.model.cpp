@@ -525,7 +525,7 @@ namespace atomic_dex
         if (m_current_orderbook_kind == kind::best_orders)
         {
             spdlog::stopwatch sw1; using namespace std::chrono;
-            if (trading_pg.get_market_mode() == MarketMode::Sell)
+            if (m_system_manager.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
                 this->m_model_proxy->sort(0, Qt::DescendingOrder);
             }
