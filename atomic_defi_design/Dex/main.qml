@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Universal 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.settings 1.0
+import ModelHelper 0.1
 
 import Qaterial 1.0 as Qaterial
 
@@ -19,7 +20,7 @@ DexWindow
     property int  real_visibility
     property bool isOsx: Qt.platform.os == "osx"
     property bool logged: false
-    property var  orders: API.app.orders_mdl.orders_proxy_mdl
+    property var  orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
 
     title: API.app_name
     visible: true

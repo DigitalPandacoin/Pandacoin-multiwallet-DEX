@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
+import ModelHelper 0.1
 
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -9,7 +10,7 @@ import "../Components"
 MultipageModal {
     id: root
 
-    property var   orders: API.app.orders_mdl.orders_proxy_mdl
+    property var   orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
 
     MultipageModalContent {
         id: modal_content

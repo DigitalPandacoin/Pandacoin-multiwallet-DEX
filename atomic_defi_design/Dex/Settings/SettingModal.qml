@@ -8,6 +8,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls.Universal 2.15
 
 import Qaterial 1.0 as Qaterial
+import ModelHelper 0.1
 
 import "../Components"
 import "../Constants"
@@ -22,7 +23,7 @@ Qaterial.Dialog
     property var recommended_fiats: API.app.settings_pg.get_recommended_fiats()
     property var fiats: API.app.settings_pg.get_available_fiats()
     property var enableable_coins_count: enableable_coins_count_combo_box.currentValue
-    property var orders: API.app.orders_mdl.orders_proxy_mdl
+    property var orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
     readonly property date default_min_date: new Date("2019-01-01")
     readonly property date default_max_date: new Date(new Date().setDate(new Date().getDate()))
 

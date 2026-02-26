@@ -7,6 +7,7 @@ import QtWebEngine 1.10
 import QtGraphicalEffects 1.15
 import QtCharts 2.15
 import Qaterial 1.0 as Qaterial
+import ModelHelper 0.1
 
 import AtomicDEX.WalletChartsCategories 1.0
 
@@ -36,7 +37,7 @@ Item {
     property string total: Constants.General.formatFiat(
                                "", Constants.API.app.portfolio_pg.balance_fiat_all,
                                Constants.API.app.settings_pg.current_currency)
-    property var portfolio_helper: portfolio_mdl.pie_chart_proxy_mdl
+    property var portfolio_helper: portfolio_mdl.pie_chart_proxy_mdl.ModelHelper
     property int current_sort: sort_by_value
 
     onTotalChanged: {
