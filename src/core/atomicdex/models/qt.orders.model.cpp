@@ -309,7 +309,7 @@ namespace atomic_dex
             auto& kdf = this->m_system_manager.get_system<kdf_service>();
             kdf.set_orders_and_swaps_pagination_infos(static_cast<std::size_t>(current_page), m_model_data.limit, m_model_data.filtering_infos);
         }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {}", m_model_data.current_page, current_page, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orders_model::set_current_page with current page: {}, new page: {}: {}", m_model_data.current_page, current_page, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int

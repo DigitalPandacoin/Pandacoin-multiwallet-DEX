@@ -46,8 +46,8 @@ MultipageModal {
                 return ""
             }
             Component.onCompleted: {
-                  console.log("orders.count = " + orders.count) //
-                  console.log("height = " + height) //
+                  console.log("LogoutModal orders.count = " + orders.count) //
+                  console.log("height = " + height) // 40
             }
         }
 

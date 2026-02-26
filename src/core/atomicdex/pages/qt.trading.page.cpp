@@ -109,7 +109,7 @@ namespace atomic_dex
         emit kdfMinTradeVolChanged();
         dispatcher_.trigger<refresh_orderbook_model_data>(base.toStdString(), rel.toStdString());
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -800,7 +800,7 @@ namespace atomic_dex
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -851,7 +851,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1011,7 +1011,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -1027,7 +1027,7 @@ namespace atomic_dex
         {
             if (!max_volume.isEmpty() && max_volume != "0")
             {
-                SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
+                // SPDLOG_DEBUG("capping volume because {} (volume) > {} (max_volume)", std_volume, max_volume.toStdString());
                 this->set_volume(get_max_volume());
             }
         }

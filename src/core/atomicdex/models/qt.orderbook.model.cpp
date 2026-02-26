@@ -481,9 +481,9 @@ namespace atomic_dex
     void
     orderbook_model::refresh_orderbook_model_data(const t_orders_contents& orderbook)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         auto refresh_functor = [this](const std::vector<kdf::order_contents>& contents)
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             for (auto&& order: contents)
             {
                 if (this->m_orders_id_registry.find(order.uuid) != this->m_orders_id_registry.end())
@@ -515,13 +515,11 @@ namespace atomic_dex
             }
 
             for (auto&& cur_to_remove: to_remove) { m_orders_id_registry.erase(cur_to_remove); }
-            if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
         };
         refresh_functor(orderbook);
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            spdlog::stopwatch sw1; using namespace std::chrono;
             if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
                 this->m_model_proxy->sort(0, Qt::DescendingOrder);
@@ -531,8 +529,8 @@ namespace atomic_dex
                 this->m_model_proxy->sort(0, Qt::AscendingOrder);
 
             }
-            if (sw1.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for m_model_proxy->sort: {}", duration_cast<milliseconds>(sw1.elapsed())); }
         }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     t_order_contents

@@ -57,7 +57,6 @@ namespace
         try
         {
             using namespace std::string_literals;
-            SPDLOG_DEBUG("checking for reconfiguration");
 
             std::filesystem::path    cfg_path                   = atomic_dex::utils::get_atomic_dex_config_folder();
             std::string filename                   = std::string(atomic_dex::get_precedent_raw_version()) + "-coins." + wallet_name + ".json";
@@ -198,7 +197,6 @@ namespace atomic_dex
     std::vector<atomic_dex::coin_config_t> kdf_service::retrieve_coins_informations()
     {
         std::vector<atomic_dex::coin_config_t> cfg;
-        SPDLOG_DEBUG("retrieve_coins_informations");
 
         check_for_reconfiguration(m_current_wallet_name);
         const auto  cfg_path               = atomic_dex::utils::get_atomic_dex_config_folder();
@@ -323,7 +321,7 @@ namespace atomic_dex
             if (!m_activation_queue.empty())
             {
                 std::unique_lock lock(m_activation_mutex);
-                SPDLOG_DEBUG("{} coins in the activation queue", m_activation_queue.size());
+                //SPDLOG_DEBUG("{} coins in the activation queue", m_activation_queue.size());
                 t_coins to_enable;
                 
                 for (size_t i = 0; i < 20 && i < m_activation_queue.size(); ++i) {
@@ -644,16 +642,11 @@ namespace atomic_dex
                         {
                             if (error.find("is initialized already") != std::string::npos)
                             {
-                                SPDLOG_INFO("{} {}: ", coins[idx].ticker, error);
+                                SPDLOG_WARN("{} {}: ", coins[idx].ticker, error);
                                 activated_coins.push_back(std::move(coins[idx]));
                             }
                             else
                             {
-                                SPDLOG_DEBUG(
-                                    "bad answer for: [{}] -> removing it from enabling, idx: {}, tickers size: {}, answers size: {}",
-                                    coins[idx].ticker, idx,
-                                    coins.size(), answers.size()
-                                );
                                 failed_coins.push_back(std::move(coins[idx]));
                                 this->dispatcher_.trigger<enabling_coin_failed>(coins[idx].ticker, error);
                                 SPDLOG_ERROR(error);
@@ -750,12 +743,9 @@ namespace atomic_dex
                         auto [res, error] = this->process_batch_enable_answer(answer);
                         if (!res)
                         {
-                            SPDLOG_DEBUG(
-                                "bad answer for: [{}] -> removing it from enabling, idx: {}, tickers size: {}, answers size: {}", coins[idx].ticker, idx,
-                                coins.size(), answers.size());
                             if (error.find("already initialized") != std::string::npos)
                             {
-                                SPDLOG_INFO("{} {}: ", coins[idx].ticker, error);
+                                SPDLOG_WARN("{} {}: ", coins[idx].ticker, error);
                                 activated_coins.push_back(std::move(coins[idx]));
                             }
                             else
@@ -900,7 +890,7 @@ namespace atomic_dex
                             {
                                 SPDLOG_DEBUG("marking token {} as active", balance.first);
                                 dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {balance.first}});
-                                //process_balance_answer(rpc);
+                                process_balance_answer(rpc);
                                 std::unique_lock lock(m_coin_cfg_mutex);
                                 m_coins_informations[balance.first].currently_enabled = true;
                             }
@@ -2062,7 +2052,7 @@ namespace atomic_dex
         }
         else
         {
-            SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
+            // SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
             ec = dextop_error::balance_of_a_non_enabled_coin;
             return "0";
         }
@@ -2370,7 +2360,7 @@ namespace atomic_dex
         if (it == m_balance_informations.cend())
         {
             ec = dextop_error::unknown_ticker;
-            SPDLOG_WARN("Invalid Ticker {}", ticker);
+            //SPDLOG_WARN("Invalid Ticker {}", ticker);
             return "Invalid Ticker";
         }
 
@@ -2759,7 +2749,7 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                SPDLOG_WARN("We should reset connection here, but we don't, cause i disabled it");
+                std::this_thread::sleep_for(1s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }

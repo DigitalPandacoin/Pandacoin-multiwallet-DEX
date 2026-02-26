@@ -72,7 +72,7 @@ RowLayout
         foregroundColor: Dex.CurrentTheme.foregroundColor
         icon.source: Qaterial.Icons.windowClose
         Component.onCompleted: {
-              console.log("orders.count = " + orders.count) //
+              console.log("DexWindowHeaderControl orders.count = " + orders.count) //
               console.log("height = " + height) //
         }
         onClicked: 
