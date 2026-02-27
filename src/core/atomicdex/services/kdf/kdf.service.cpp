@@ -2750,7 +2750,7 @@ namespace atomic_dex
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
                 using namespace std::chrono_literals;
-                std::this_thread::sleep_for(1s);
+                std::this_thread::sleep_for(2s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }
