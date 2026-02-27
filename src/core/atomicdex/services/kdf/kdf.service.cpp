@@ -2749,6 +2749,7 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
+                using namespace std::chrono_literals;
                 std::this_thread::sleep_for(1s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
