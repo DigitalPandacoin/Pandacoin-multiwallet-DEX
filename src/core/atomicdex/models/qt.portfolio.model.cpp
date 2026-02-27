@@ -98,35 +98,6 @@ namespace atomic_dex
     }
 
     bool
-    portfolio_model::update_activation_status()
-    {
-        // This feels a bit heavy handed. There should be a better way to do this.
-        // Function may be UNUSED
-        const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
-        const auto         coins         = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
-
-        for (auto&& [_, coin]: coins)
-        {
-            if (m_ticker_registry.find(coin.ticker) == m_ticker_registry.end())
-            {
-                SPDLOG_WARN("[update_activation_status] ticker: {} not inserted yet in the model, skipping", coin.ticker);
-                return false;
-            }
-            const std::string& ticker = coin.ticker;
-            if (const auto res = this->match(this->index(0, 0), TickerRole, QString::fromStdString(ticker), 1, Qt::MatchFlag::MatchExactly); not res.isEmpty())
-            {
-                std::error_code    ec;
-                const QModelIndex& idx         = res.at(0);
-                auto        coin_info          = kdf_system.get_coin_info(ticker);
-                QJsonObject status = nlohmann_json_object_to_qt_json_object(coin_info.activation_status);
-                update_value(ActivationStatus, status, idx, *this);
-                return true;
-            }
-            return false;
-        }
-    }
-
-    bool
     portfolio_model::update_currency_values()
     {
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
