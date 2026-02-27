@@ -18,7 +18,6 @@
 
 #include <nlohmann/json_fwd.hpp>
 #include <cpprest/http_client.h>
-#include <pplx/threadpool.h>
 
 #ifndef _TURN_OFF_PLATFORM_STRING
 #   define _TURN_OFF_PLATFORM_STRING
@@ -32,10 +31,14 @@
 #    define FROM_STD_STR(utf8str) utf8str
 #endif
 
+#ifndef _WIN32
+#include <pplx/threadpool.h>
+void crossplat::threadpool::initialize_with_threads(60);
+#endif
+
 using t_http_client_ptr = std::unique_ptr<web::http::client::http_client>;
 using t_http_client     = web::http::client::http_client;
 using t_http_request    = web::http::http_request;
 
-void crossplat::threadpool::initialize_with_threads(60);
 t_http_request create_json_post_request(nlohmann::json&& json_data);
 void handle_exception_pplx_task(pplx::task<void> previous_task);
