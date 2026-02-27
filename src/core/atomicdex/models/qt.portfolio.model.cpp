@@ -568,7 +568,7 @@ namespace atomic_dex
             this->m_dispatcher.trigger<balance_update_notification>(am_i_sender, amount, ticker, human_date, timestamp);
         }
         emit portfolioItemDataChanged();
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_model::balance_update_handler: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::balance_update_handler: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -594,6 +594,6 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex

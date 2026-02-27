@@ -1847,7 +1847,6 @@ namespace atomic_dex
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch_array = nlohmann::json::array();
         if (is_pin_cfg_enabled())
         {
@@ -1883,7 +1882,6 @@ namespace atomic_dex
         auto error_functor = [this, batch = batch_array](pplx::task<void> previous_task)
         { this->handle_exception_pplx_task(previous_task, "fetch_single_balance", batch); };
         m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -1900,7 +1898,7 @@ namespace atomic_dex
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg, std::string rpcpass)

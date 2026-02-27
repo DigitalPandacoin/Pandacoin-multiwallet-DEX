@@ -57,11 +57,9 @@ namespace atomic_dex
     {
         if (!m_about_to_exit_the_app)
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             m_actions_queue.push(trading_actions::post_process_orderbook_finished);
             m_models_actions[orderbook_need_a_reset] = evt.is_a_reset;
             determine_max_volume();
-            if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in trading_page::on_process_orderbook_finished_event: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 } // namespace atomic_dex
@@ -81,7 +79,6 @@ namespace atomic_dex
     void
     trading_page::set_current_orderbook(const QString& base, const QString& rel)
     {
-        spdlog::stopwatch sw;
         if (base.toStdString() == "" || rel.toStdString() == "")
         {
             return;
@@ -108,8 +105,6 @@ namespace atomic_dex
 
         emit kdfMinTradeVolChanged();
         dispatcher_.trigger<refresh_orderbook_model_data>(base.toStdString(), rel.toStdString());
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_current_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -409,20 +404,20 @@ namespace atomic_dex
 
         if (m_current_trading_mode == TradingModeGadget::Simple)
         {
-            SPDLOG_DEBUG("Simple trading mode, using FillOrKill order");
+            //SPDLOG_DEBUG("Simple trading mode, using FillOrKill order");
             req.order_type                 = nlohmann::json::object();
             req.order_type.value()["type"] = "FillOrKill";
             req.min_volume                 = std::optional<std::string>{std::nullopt};
         }
         else if (good_until_canceled == "true")
         {
-            SPDLOG_DEBUG("Good until cancelled order");
+            //SPDLOG_DEBUG("Good until cancelled order");
             req.order_type                 = nlohmann::json::object();
             req.order_type.value()["type"] = "GoodTillCancelled";
         }
         else
         {
-            SPDLOG_DEBUG("Fill or kill order");
+            //SPDLOG_DEBUG("Fill or kill order");
             req.order_type                 = nlohmann::json::object();
             req.order_type.value()["type"] = "FillOrKill";
         }
@@ -1189,7 +1184,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 

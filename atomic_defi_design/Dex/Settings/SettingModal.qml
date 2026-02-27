@@ -837,8 +837,8 @@ Qaterial.Dialog
                 })
                 iconSource: Qaterial.Icons.logout
                 Component.onCompleted: {
-                     console.log("orders.count = " + orders.count) //
-                     console.log("height = " + height) //
+                     console.log("SettingModal orders.count = " + orders.count)
+                     console.log("SettingModal height = " + height) //
                 }
                 onClicked:
                 {

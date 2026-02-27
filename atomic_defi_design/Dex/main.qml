@@ -106,8 +106,8 @@ DexWindow
                     hoverEnabled: true
                     anchors.fill: parent
                     Component.onCompleted: {
-                        console.log("orders.count = " + orders.count) //
-                        console.log("height = " + height) //
+                        console.log("main orders.count = " + orders.count)
+                        console.log("main height = " + height) //
                     }
                     onClicked:
                     {

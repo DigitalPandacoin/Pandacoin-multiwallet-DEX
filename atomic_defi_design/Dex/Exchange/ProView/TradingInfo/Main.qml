@@ -67,6 +67,7 @@ ColumnLayout
             interactive: false
             currentIndex: tabView.currentIndex
             anchors.fill: parent
+            clip: true
 
             ColumnLayout
             {

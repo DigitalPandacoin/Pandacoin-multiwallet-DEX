@@ -62,6 +62,7 @@ ColumnLayout
             interactive: false
             currentIndex: marketTabView.currentIndex
             anchors.fill: parent
+            clip: true
 
             OrderBook.Vertical
             {

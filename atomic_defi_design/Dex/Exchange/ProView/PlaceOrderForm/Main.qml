@@ -140,6 +140,7 @@ ColumnLayout
             interactive: false
             currentIndex: orderformTabView.currentIndex
             anchors.fill: parent
+            clip: true
 
             Item
             {

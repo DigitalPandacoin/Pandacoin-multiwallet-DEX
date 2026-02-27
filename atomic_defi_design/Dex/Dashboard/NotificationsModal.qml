@@ -387,8 +387,8 @@ DexPopup
             {
                 text: qsTr("Quit")
                 Component.onCompleted: {
-                  console.log("orders.count = " + orders.count) //
-                  console.log("height = " + height) //
+                  console.log("NotificationsModal orders.count = " + orders.count)
+                  console.log("NotificationsModal height = " + height) //
                 }
                 onTriggered:
                 {

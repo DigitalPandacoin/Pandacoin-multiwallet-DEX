@@ -137,7 +137,7 @@ namespace atomic_dex
         this->beginResetModel();
         this->endResetModel();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::reset: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::reset: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
     }
 
     void
@@ -171,7 +171,7 @@ namespace atomic_dex
         this->setSortRole(atomic_dex::portfolio_model::MainCurrencyBalanceRole);
         this->sort(0, is_ascending ? Qt::AscendingOrder : Qt::DescendingOrder);
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::sort_by_currency_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::sort_by_currency_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
