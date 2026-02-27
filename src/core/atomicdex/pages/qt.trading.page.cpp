@@ -800,7 +800,7 @@ namespace atomic_dex
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
-            if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -1189,7 +1189,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed()));
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 
@@ -1236,7 +1236,7 @@ namespace atomic_dex
             this->determine_fees();
             emit preferredOrderChangeFinished();
         }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString

@@ -366,7 +366,7 @@ namespace atomic_dex
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int
@@ -474,7 +474,7 @@ namespace atomic_dex
                     }
                 }
             }
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -530,7 +530,7 @@ namespace atomic_dex
 
             }
         }
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.1) { SPDLOG_DEBUG("Time elapsed in orderbook_model::refresh_orderbook_model_data for {} entries: {}", this->rowCount(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     t_order_contents

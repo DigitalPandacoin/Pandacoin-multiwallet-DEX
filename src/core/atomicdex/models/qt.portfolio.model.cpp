@@ -132,7 +132,6 @@ namespace atomic_dex
     bool
     portfolio_model::update_currency_values()
     {
-        spdlog::stopwatch sw;
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
         const auto&        price_service = this->m_system_manager.get_system<global_price_service>();
         const auto&        provider      = this->m_system_manager.get_system<komodo_prices_provider>();
@@ -182,8 +181,6 @@ namespace atomic_dex
                 update_value(ActivationStatus, status, idx, *this);
             }
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::update_currency_values: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 

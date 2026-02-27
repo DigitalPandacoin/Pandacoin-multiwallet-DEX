@@ -60,7 +60,7 @@ Widget
         reuseItems: true
         scrollbar_visible: false
 
-        Component.onCompleted: {
+        Component.onCountChanged: {
             positionViewAtBeginning()
         }
 

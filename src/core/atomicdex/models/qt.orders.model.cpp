@@ -628,7 +628,7 @@ namespace atomic_dex
         this->endResetModel();
         this->set_fetching_busy(false);
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::reset: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::reset: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -717,7 +717,7 @@ namespace atomic_dex
             this->set_current_page(1);
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     t_filtering_infos

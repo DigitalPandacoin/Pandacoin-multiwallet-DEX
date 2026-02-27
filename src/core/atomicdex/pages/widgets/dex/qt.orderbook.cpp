@@ -101,7 +101,7 @@ namespace atomic_dex
         }
         this->set_both_taker_vol();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {}", answer.bids.size(), answer.asks.size(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.1) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_orderbook_model_data with bids/asks size {}/{}: {}", answer.bids.size(), answer.asks.size(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

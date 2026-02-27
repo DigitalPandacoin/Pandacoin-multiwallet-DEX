@@ -1893,15 +1893,14 @@ namespace atomic_dex
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in only_tx of kdf_service::fetch_infos_thread: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
         else
         {
             const auto& enabled_coins = get_enabled_coins();
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in not only_tx kdf_service::fetch_infos_thread with {} enabled coins: {}", enabled_coins.size(), duration_cast<milliseconds>(sw.elapsed())); }
         }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg, std::string rpcpass)
@@ -2161,7 +2160,7 @@ namespace atomic_dex
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
 
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
@@ -2512,8 +2511,8 @@ namespace atomic_dex
 
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
 
@@ -2740,6 +2739,8 @@ namespace atomic_dex
         {
             for (auto&& cur: request) cur["userpass"] = "";
             SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
+            using namespace std::chrono_literals;
+            std::this_thread::sleep_for(1s);
 
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
@@ -2749,8 +2750,6 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                using namespace std::chrono_literals;
-                std::this_thread::sleep_for(2s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
         }
