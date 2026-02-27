@@ -314,14 +314,14 @@ namespace atomic_dex
             if (!tickers.empty())
             {
                 // Mark coins as active internally, and updates the coins file
-                // SPDLOG_DEBUG("Making sure {} enabled coins are marked as active", tickers.size());
+                SPDLOG_DEBUG("Making sure {} enabled coins are marked as active", tickers.size());
                 update_coin_status(this->m_current_wallet_name, tickers, true, m_coins_informations, m_coin_cfg_mutex);
             }
 
             if (!m_activation_queue.empty())
             {
                 std::unique_lock lock(m_activation_mutex);
-                //SPDLOG_DEBUG("{} coins in the activation queue", m_activation_queue.size());
+                SPDLOG_DEBUG("{} coins in the activation queue", m_activation_queue.size());
                 t_coins to_enable;
                 
                 for (size_t i = 0; i < 20 && i < m_activation_queue.size(); ++i) {
@@ -1647,7 +1647,7 @@ namespace atomic_dex
         {
             if (coin_info.activation_status.contains("result"))
             {
-                SPDLOG_DEBUG("coin_info.activation_status {} {} :", coin, coin_info.activation_status.dump(4));
+                //SPDLOG_DEBUG("coin_info.activation_status {} {} :", coin, coin_info.activation_status.dump(4));
                 if (coin_info.activation_status.at("result").contains("status"))
                 {
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
@@ -2048,7 +2048,7 @@ namespace atomic_dex
         }
         else
         {
-            // SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
+            SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
             ec = dextop_error::balance_of_a_non_enabled_coin;
             return "0";
         }

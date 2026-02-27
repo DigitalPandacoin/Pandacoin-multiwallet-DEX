@@ -161,11 +161,13 @@ namespace atomic_dex
                 const auto  coin_info           = this->m_system_mgr.get_system<portfolio_page>().get_global_cfg()->get_coin_info(ticker);
                 std::string left_ticker         = this->m_system_mgr.get_system<trading_page>().get_market_pairs_mdl()->get_left_selected_coin().toStdString();
                 const auto  left_coin_info      = this->m_system_mgr.get_system<portfolio_page>().get_global_cfg()->get_coin_info(left_ticker);
+                t_float_50  fiat_price          = safe_float(this->sourceModel()->data(idx, orderbook_model::PriceFiatRole).toString().toStdString());
 
                 if (coin_info.ticker.empty() || coin_info.wallet_only) //< this means it's not present in our cfg - skipping
                 {
                     return false;
                 }
+
                 if (left_coin_info.is_testnet.value_or(false))
                 {
                     if (coin_info.is_testnet.value_or(false))
@@ -174,6 +176,12 @@ namespace atomic_dex
                     }
                     return false;
                 }
+
+                if (fiat_price <= 0)
+                {
+                    return false;
+                }
+
                 return true;
             }
         }

@@ -40,7 +40,7 @@ namespace atomic_dex
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         case kind::best_orders:
-            this->m_model_proxy->setSortRole(PriceFiatRole);
+            this->m_model_proxy->setSortRole(CEXRatesRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
             this->m_model_proxy->setDynamicSortFilter(false);

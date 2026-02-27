@@ -33,6 +33,7 @@ namespace atomic_dex::kdf
     //! Deserialization
     void from_json(const nlohmann::json& j, enable_z_coin_status_answer_success& answer)
     {
+        SPDLOG_DEBUG("rpc2.task.enable_z_coin.status in use");
         j.at("result").at("status").get_to(answer.status);     // [InProgress, Ready]
         j.at("result").at("details").get_to(answer.details);
 

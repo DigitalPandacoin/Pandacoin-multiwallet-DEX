@@ -186,7 +186,7 @@ jobs:
       - name: Cache vcpkg
         uses: actions/cache@v4
         with:
-          path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
+          path: ${{ github.workspace }}/vcpkg_cache
           key: vcpkg-${{ runner.os }}-${{ matrix.type }}-${{ hashFiles('vcpkg*.json') }}
 
       - name: Build Komodo Wallet (MacOS)

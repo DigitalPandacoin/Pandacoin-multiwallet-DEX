@@ -100,7 +100,6 @@ namespace atomic_dex
     void
     global_defi_stats_service::process_update()
     {
-        //spdlog::stopwatch sw;
         static std::atomic_size_t nb_try = 0;
         nb_try += 1;
         auto error_functor = [this](pplx::task<void> previous_task)
@@ -126,8 +125,6 @@ namespace atomic_dex
                     nb_try = 0;
                 })
             .then(error_functor);
-       //using namespace std::chrono;
-       //SPDLOG_DEBUG("Time elapsed in global_defi_stats_service::process_update: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     std::string
@@ -136,7 +133,7 @@ namespace atomic_dex
         std::string volume_24h_usd = "0.00";
         auto ticker = base + "_" + quote;
         auto ticker_reversed = quote + "_" + base;
-        SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
+        //SPDLOG_INFO("Getting 24hr volume data for {}", ticker);
 
         // Check if base/quote are the same
         if (base == quote)
