@@ -89,7 +89,6 @@ namespace atomic_dex
         bool                                 setData(const QModelIndex& index, const QVariant& value, int role) final; //< Will be used internally
         [[nodiscard]] int                    rowCount(const QModelIndex& parent) const final;
         [[nodiscard]] QHash<int, QByteArray> roleNames() const final;
-        bool                                 removeRows(int row, int count, const QModelIndex& parent) final;
 
         //! QML API
         Q_INVOKABLE void clean_priv_keys();

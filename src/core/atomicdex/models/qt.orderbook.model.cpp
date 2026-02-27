@@ -519,7 +519,7 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            SPDLOG_DEBUG("test_diff from CEXRatesRole is {}:", this->data(this->index(0, 0), CEXRatesRole).toString());
+            SPDLOG_DEBUG("test_diff from CEXRatesRole is {}:", safe_float(this->data(this->index(0, 0), CEXRatesRole).toString().toStdString()));
             //if (test_diff == 0)
             //{
             //    this->m_model_proxy->setSortRole(PriceFiatRole);
