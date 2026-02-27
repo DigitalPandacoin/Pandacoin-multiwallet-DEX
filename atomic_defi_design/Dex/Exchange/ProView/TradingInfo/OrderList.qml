@@ -39,10 +39,10 @@ Item
             Layout.fillWidth: true
             Layout.fillHeight: true
             //Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
-            Component.onCompleted: {
-              console.log("OrderList parent.height = " + parent.height) //
-              console.log("OrderList height = " + height) //
-            }
+            //Component.onCompleted: {
+            //  console.log("OrderList parent.height = " + parent.height) // 1376
+            //  console.log("OrderList height = " + height) // 0
+            //}
 
             model: items.orders_proxy_mdl
             enabled: !is_history || !API.app.orders_mdl.fetching_busy

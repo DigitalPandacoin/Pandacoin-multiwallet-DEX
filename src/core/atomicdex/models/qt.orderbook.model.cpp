@@ -519,6 +519,11 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
+            if (m_model_data.at(0).price_diff == 0)
+            {
+                this->m_model_proxy->setSortRole(PriceFiatRole);
+            }
+
             if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
                 this->m_model_proxy->sort(0, Qt::DescendingOrder);

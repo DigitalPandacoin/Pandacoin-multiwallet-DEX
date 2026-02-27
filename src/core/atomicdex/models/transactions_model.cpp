@@ -23,7 +23,7 @@
 
 namespace
 {
-    constexpr int g_file_count_limit = 30_sz;
+    constexpr int g_file_count_limit = 40_sz;
 }
 
 namespace atomic_dex
@@ -189,6 +189,7 @@ namespace atomic_dex
 
     void transactions_model::init_transactions(const t_transactions& transactions)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         if (m_model_data.size() == 0)
         {
             beginResetModel();
@@ -199,7 +200,6 @@ namespace atomic_dex
         else
         {
             //! Other time insertion
-            spdlog::stopwatch sw;
             beginInsertRows(QModelIndex(), m_file_count, m_file_count + transactions.size() - 1);
             m_file_count += transactions.size();
             if (m_model_data.size() < g_file_count_limit)
@@ -215,10 +215,9 @@ namespace atomic_dex
             {
                 this->fetchMore(QModelIndex());
             }
-            using namespace std::chrono;
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed())); }
         }
         emit lengthChanged();
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions for {} transactions: {}", transactions.size(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)

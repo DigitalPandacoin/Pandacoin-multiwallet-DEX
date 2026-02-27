@@ -1265,7 +1265,7 @@ namespace atomic_dex
         }
         else
         {
-            std::size_t     limit =  250;
+            std::size_t     limit =  100;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
             if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN)
@@ -1276,7 +1276,7 @@ namespace atomic_dex
                     // Don't request balance / history if not completely activated.
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
                     {
-                        limit = 30;
+                        //limit = 40;
                         method = "z_coin_tx_history";
                     }
                     else

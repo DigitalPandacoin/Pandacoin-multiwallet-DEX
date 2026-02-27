@@ -8,8 +8,6 @@
     "boost-random",
     "boost-lockfree",
     "boost-stacktrace",
-    "doctest",
-    "zlib-ng",
     "nlohmann-json",
     "range-v3",
     "libsodium",
@@ -36,7 +34,7 @@
     "strong-type",
     "tl-expected"
   ],
-  "builtin-baseline": "6d7bf7ef2193e2d1c5798a5ff8811d533104c861",
+  "builtin-baseline": "ffc071e0c08432c60c9b64f00334c0227667931b",
   "overrides": [
     {
       "name": "entt",
