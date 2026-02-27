@@ -30,8 +30,9 @@ Dex.ListView
     }
     height: calculateHeight()
 
-    onCountChanged: {
-        positionViewAtBeginning()
+    Component.onCompleted: {
+        list.contentY = 0
+        //positionViewAtBeginning()
     }
 
     // Transaction Row
