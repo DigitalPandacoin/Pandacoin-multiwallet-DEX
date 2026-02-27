@@ -221,7 +221,6 @@ namespace atomic_dex
     template <typename TArray>
     void global_coins_cfg_model::update_status(const TArray& tickers, bool status)
     {
-        spdlog::stopwatch sw;
         auto update_functor = [this, status](QModelIndexList res, [[maybe_unused]] const QString& ticker) {
             const QModelIndex& idx = res.at(0);
             update_value(Active, status, idx, *this);
@@ -246,8 +245,6 @@ namespace atomic_dex
                 update_functor(res, final_ticker);
             }
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in global_coins_cfg_model::update_status: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     template void global_coins_cfg_model::update_status(const QStringList&, bool);

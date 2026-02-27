@@ -24,7 +24,7 @@
 
 #import <AppKit/AppKit.h>
 
-// unused
+// UNUSED
 // static NSColor *colorFromRGB(unsigned char r, unsigned char g, unsigned char b)
 // {
 //     return [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0];

@@ -555,7 +555,6 @@ namespace atomic_dex
         system_manager_.get_system<qt_wallet_manager>().set_status("enabling_coins");
     }
 
-    // Function appears to be unused.
     void application::refresh_orders_and_swaps()
     {
         spdlog::stopwatch sw;
@@ -565,7 +564,7 @@ namespace atomic_dex
             kdf.batch_fetch_orders_and_swap();
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in application::refresh_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in application::refresh_orders_and_swaps: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
     }
 
     bool application::disconnect()

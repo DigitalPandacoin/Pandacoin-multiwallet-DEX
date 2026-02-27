@@ -191,7 +191,7 @@ namespace atomic_dex
             get_best_orders()->clear_orderbook();
         }
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -294,7 +294,7 @@ namespace atomic_dex
 
         // SPDLOG_INFO("final_taker_vol: {}", cur_taker_vol.toStdString());
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::get_current_min_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::get_current_min_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return cur_taker_vol;
     }
 } // namespace atomic_dex

@@ -519,10 +519,11 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            if (m_model_data.at(0).price_diff == 0)
-            {
-                this->m_model_proxy->setSortRole(PriceFiatRole);
-            }
+            SPDLOG_DEBUG("test_diff from CEXRatesRole is {}:", this->data(this->index(0, 0), CEXRatesRole).toString());
+            //if (test_diff == 0)
+            //{
+            //    this->m_model_proxy->setSortRole(PriceFiatRole);
+            //}
 
             if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
@@ -585,7 +586,7 @@ namespace atomic_dex
         this->endResetModel();
         emit lengthChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     orderbook_proxy_model*
@@ -635,7 +636,6 @@ namespace atomic_dex
     void
     orderbook_model::check_for_better_order(trading_page& trading_pg, const QVariantMap& preferred_order, std::string uuid)
     {
-        spdlog::stopwatch sw;
         if (trading_pg.get_market_mode() == MarketMode::Sell)
         {
             t_float_50 preferred_price = safe_float(preferred_order.value("price", "0").toString().toStdString());
@@ -661,7 +661,5 @@ namespace atomic_dex
                 trading_pg.set_selected_order_status(SelectedOrderStatus::OrderNotExistingAnymore);
             }
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_model::check_for_better_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex

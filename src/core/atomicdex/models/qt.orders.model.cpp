@@ -563,7 +563,7 @@ namespace atomic_dex
             }
         }
         remove_orders(are_present);
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

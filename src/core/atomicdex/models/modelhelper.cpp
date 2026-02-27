@@ -29,15 +29,12 @@ class ModelHelperPropertyMap : public QQmlPropertyMap
 
 QVariant ModelHelperPropertyMap::updateValue(const QString& key, const QVariant& input)
 {
-    spdlog::stopwatch sw;
     int role = m_model->roleNames().key(key.toUtf8(), -1);
     if (role == -1)
         return input;
 
     QModelIndex index = modelIndex();
     m_model->setData(index, input, role);
-    using namespace std::chrono;
-    SPDLOG_DEBUG("Time elapsed in ModelHelperPropertyMap::updateValue: {}", duration_cast<milliseconds>(sw.elapsed()));
     return m_model->data(index, role);
 }
 

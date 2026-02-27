@@ -101,7 +101,7 @@ namespace atomic_dex
     portfolio_model::update_activation_status()
     {
         // This feels a bit heavy handed. There should be a better way to do this.
-        // Function may be unused.
+        // Function may be UNUSED
         const auto&        kdf_system    = this->m_system_manager.get_system<kdf_service>();
         const auto         coins         = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
 
@@ -184,7 +184,7 @@ namespace atomic_dex
     bool
     portfolio_model::update_balance_values(const std::vector<std::string>& tickers)
     {
-        spdlog::stopwatch sw;
+        // UNUSED
         for (auto&& ticker: tickers)
         {
             if (ticker.empty())
@@ -239,8 +239,6 @@ namespace atomic_dex
                 }
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::update_balance_values: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return true;
     }
 
@@ -403,23 +401,6 @@ namespace atomic_dex
         return true;
     }
 
-    bool
-    portfolio_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
-    {
-        spdlog::stopwatch sw;
-        beginRemoveRows(QModelIndex(), position, position + rows - 1);
-        for (int i = position + rows - 1; i >= position; --i)
-        {
-            this->m_ticker_registry.erase(this->m_model_data.at(i).ticker.toStdString());
-            this->m_model_data.removeAt(i);
-        }
-        endRemoveRows();
-        emit lengthChanged();
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
-        return true;
-    }
-
     QString
     portfolio_model::coin_balance(QString coin)
     {
@@ -536,7 +517,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::clean_priv_keys: {}", duration_cast<milliseconds>(sw.elapsed()));
+        SPDLOG_DEBUG("Time elapsed in portfolio_model::clean_priv_keys: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
     }
 } // namespace atomic_dex
 
