@@ -40,7 +40,7 @@ namespace atomic_dex
             this->m_model_proxy->sort(0, Qt::DescendingOrder);
             break;
         case kind::best_orders:
-            this->m_model_proxy->setSortRole(CEXRatesRole);
+            this->m_model_proxy->setSortRole(PriceFiatRole);
             this->m_model_proxy->setFilterRole(NameAndTicker);
             this->m_model_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
             this->m_model_proxy->setDynamicSortFilter(false);
@@ -350,9 +350,9 @@ namespace atomic_dex
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
         spdlog::stopwatch sw;
-        this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
+        this->beginResetModel();
         for (auto&& order: m_model_data)
         {
             if (this->m_orders_id_registry.find(order.uuid) == m_orders_id_registry.end())
@@ -366,7 +366,7 @@ namespace atomic_dex
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int

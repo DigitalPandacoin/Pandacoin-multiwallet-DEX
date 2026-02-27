@@ -37,8 +37,12 @@ Item
             property bool           resetAnimation: false
 
             Layout.fillWidth: true
-            Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
             Layout.fillHeight: true
+            //Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
+            Component.onCompleted: {
+              console.log("OrderList parent.height = " + parent.height) //
+              console.log("OrderList height = " + height) //
+            }
 
             model: items.orders_proxy_mdl
             enabled: !is_history || !API.app.orders_mdl.fetching_busy

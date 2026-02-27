@@ -431,9 +431,9 @@ namespace atomic_dex
         
         if (is_selected_order)
         {
-            SPDLOG_DEBUG(
-                "The order is a selected order, treating it, input_vol: {} orderbook_max_vol {}", m_volume.toStdString(),
-                orderbook_available_quantity.toStdString());
+            //SPDLOG_DEBUG(
+            //    "The order is a selected order, treating it, input_vol: {} orderbook_max_vol {}", m_volume.toStdString(),
+            //    orderbook_available_quantity.toStdString());
 
             const auto base_min_vol_orderbook = m_preferred_order->at("base_min_volume").get<std::string>();
 
@@ -478,8 +478,8 @@ namespace atomic_dex
         kdf::to_json(sell_request, req);
         batch.push_back(sell_request);
 
-        sell_request["userpass"] = "******";
-        SPDLOG_DEBUG("sell request: {}", sell_request.dump(4));
+        //sell_request["userpass"] = "******";
+        //SPDLOG_DEBUG("sell request: {}", sell_request.dump(4));
 
         //! Answer
         auto answer_functor = [this](web::http::http_response resp)
@@ -846,7 +846,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1231,7 +1231,7 @@ namespace atomic_dex
             this->determine_fees();
             emit preferredOrderChangeFinished();
         }
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1243,7 +1243,6 @@ namespace atomic_dex
     void
     trading_page::set_total_amount(QString total_amount)
     {
-        //spdlog::stopwatch sw;
         if (m_total_amount != total_amount)
         {
             m_total_amount = std::move(total_amount);
@@ -1251,8 +1250,6 @@ namespace atomic_dex
             emit baseAmountChanged();
             emit relAmountChanged();
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in trading_page::set_total_amount: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
@@ -1526,7 +1523,6 @@ namespace atomic_dex
     void
     trading_page::determine_pair_volume_24hr()
     {
-        //spdlog::stopwatch sw; sing namespace std::chrono;
         const auto& defi_stats_service  = m_system_manager.get_system<global_defi_stats_service>();
         const auto* market_selector     = get_market_pairs_mdl();
         const auto& base                = utils::retrieve_main_ticker(market_selector->get_left_selected_coin().toStdString(), true);
@@ -1541,7 +1537,6 @@ namespace atomic_dex
             m_pair_volume_24hr = vol;
             emit pairVolume24hrChanged();
         }
-        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_pair_volume_24hr: {}", duration_cast<milliseconds>(sw.elapsed())); // 0ms
     }
 
     QString

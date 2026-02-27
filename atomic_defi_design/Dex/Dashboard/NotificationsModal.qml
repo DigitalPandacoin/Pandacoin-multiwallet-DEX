@@ -386,10 +386,9 @@ DexPopup
             MenuItem
             {
                 text: qsTr("Quit")
-                Component.onCompleted: {
-                  console.log("NotificationsModal orders.count = " + orders.count)
-                  console.log("NotificationsModal height = " + height) //
-                }
+                //Component.onCompleted: {
+                //  console.log("NotificationsModal height = " + height) // 570
+                //}
                 onTriggered:
                 {
                     if (orders.count != 0) logout_modal.open()

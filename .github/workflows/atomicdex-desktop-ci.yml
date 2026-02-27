@@ -14,7 +14,7 @@ env:
   DEX_COMPANY: "KomodoPlatform"
   DEX_VERSION: "0.8.2"
   DEX_WEBSITE: "https://atomicdex.io/"
-  VCPKG_BINARY_SOURCES: clear;default,readwrite
+  VCPKG_BINARY_SOURCES: clear;files,${{ github.workspace }}/vcpkg_cache,readwrite
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
   RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
   VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
@@ -187,9 +187,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
-          key: ${{ runner.os }}-vcpkg-binary-cache-${{ hashFiles('vcpkg*.json') }}
-          restore-keys: |
-            ${{ runner.os }}-vcpkg-binary-cache-
+          key: vcpkg-${{ runner.os }}-${{ matrix.type }}-${{ hashFiles('vcpkg*.json') }}
 
       - name: Build Komodo Wallet (MacOS)
         if: runner.os == 'macOS'

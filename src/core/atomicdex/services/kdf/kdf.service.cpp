@@ -1647,7 +1647,7 @@ namespace atomic_dex
         {
             if (coin_info.activation_status.contains("result"))
             {
-                // SPDLOG_DEBUG("coin_info.activation_status {} {} :", coin, coin_info.activation_status.dump(4));
+                SPDLOG_DEBUG("coin_info.activation_status {} {} :", coin, coin_info.activation_status.dump(4));
                 if (coin_info.activation_status.at("result").contains("status"))
                 {
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
@@ -1898,7 +1898,7 @@ namespace atomic_dex
             for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
-        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg, std::string rpcpass)
@@ -2018,7 +2018,6 @@ namespace atomic_dex
         std::error_code ec;
         std::string     balance_str = get_balance_info(ticker, ec);
         t_float_50      balance_f = safe_float(balance_str);
-        // SPDLOG_DEBUG("get_balance for {}: [{}]", ticker, balance_str);
         return balance_f;
     }
 
@@ -2357,7 +2356,7 @@ namespace atomic_dex
         if (it == m_balance_informations.cend())
         {
             ec = dextop_error::unknown_ticker;
-            //SPDLOG_WARN("Invalid Ticker {}", ticker);
+            SPDLOG_WARN("Invalid Ticker {}", ticker);
             return "Invalid Ticker";
         }
 

@@ -225,7 +225,6 @@ namespace atomic_dex
     {
         if (const auto res = this->match(this->index(0, 0), TxHashRole, QString::fromStdString(tx.tx_hash)); not res.isEmpty())
         {
-            //spdlog::stopwatch sw;
             const QModelIndex&  idx       = res.at(0);
             quint64             timestamp = tx.timestamp;
 
@@ -233,8 +232,6 @@ namespace atomic_dex
             update_value(DateRole, QString::fromStdString(tx.date), idx, *this);
             update_value(ConfirmationsRole, static_cast<quint64>(tx.confirmations), idx, *this);
             update_value(UnconfirmedRole, tx.unconfirmed, idx, *this);
-            //using namespace std::chrono;
-            //SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_transaction: {}", duration_cast<milliseconds>(sw.elapsed())); // 0ms
         }
     }
 

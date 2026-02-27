@@ -52,7 +52,6 @@ namespace atomic_dex
     void
     atomic_dex::portfolio_model::initialize_portfolio(const std::vector<std::string>& tickers)
     {
-        spdlog::stopwatch sw;
         QVector<portfolio_data> datas;
 
         for (auto&& ticker: tickers)
@@ -96,8 +95,6 @@ namespace atomic_dex
             endInsertRows();
             emit lengthChanged();
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_model::initialize_portfolio for new size of {}: {}", this->get_length(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     bool
@@ -574,7 +571,7 @@ namespace atomic_dex
     void
     portfolio_model::adjust_percent_current_currency(QString balance_all)
     {
-        spdlog::stopwatch sw;
+        //spdlog::stopwatch sw; using namespace std::chrono;
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
@@ -593,7 +590,6 @@ namespace atomic_dex
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        //if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex
