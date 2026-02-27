@@ -33,7 +33,6 @@
 
 #ifndef _WIN32
 #include <pplx/threadpool.h>
-void crossplat::threadpool::initialize_with_threads(60);
 #endif
 
 using t_http_client_ptr = std::unique_ptr<web::http::client::http_client>;

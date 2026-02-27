@@ -227,7 +227,6 @@ namespace atomic_dex::kdf
         int            rpc_result_code;
     };
 
-    // kmd_rewards_info_answer rpc_kmd_rewards_info(std::shared_ptr<t_http_client> kdf_client);
     kmd_rewards_info_answer process_kmd_rewards_answer(nlohmann::json result);
 
     template <typename RpcReturnType>
