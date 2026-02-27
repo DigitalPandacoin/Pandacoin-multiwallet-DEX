@@ -30,7 +30,7 @@ Dex.ListView
     }
     height: calculateHeight()
 
-    Component.onCountChanged: {
+    onCountChanged: {
         positionViewAtBeginning()
     }
 
