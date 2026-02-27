@@ -353,10 +353,12 @@ handle_settings(QSettings& settings)
 inline int
 run_app(int argc, char** argv)
 {
-#ifndef _WIN32
-    using namespace crossplat;
-    threadpool::initialize_with_threads(60);
-#endif
+// Exception caught: the cpprestsdk threadpool has already been initialized
+// because it was already initialized by the library
+//#ifndef _WIN32
+//    using namespace crossplat;
+//    threadpool::initialize_with_threads(60);
+//#endif
 #if !defined(ATOMICDEX_HOT_RELOAD)
     SPDLOG_DEBUG("Installing qt_message_handler");
     qInstallMessageHandler(&qt_message_handler);
