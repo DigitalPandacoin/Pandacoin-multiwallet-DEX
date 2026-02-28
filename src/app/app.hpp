@@ -145,7 +145,6 @@ namespace atomic_dex
         Q_INVOKABLE bool is_pin_cfg_enabled() const ;
 
         Q_INVOKABLE static QString to_eth_checksum_qt(const QString& eth_lowercase_address);
-        Q_INVOKABLE static void    change_state(int visibility);
 
         //! Portfolio QML API Bindings
         Q_INVOKABLE QString recover_fund(const QString& uuid);

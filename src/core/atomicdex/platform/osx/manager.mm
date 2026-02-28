@@ -24,12 +24,6 @@
 
 #import <AppKit/AppKit.h>
 
-// UNUSED
-// static NSColor *colorFromRGB(unsigned char r, unsigned char g, unsigned char b)
-// {
-//     return [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0];
-// }
-
 void atomic_dex::mac_window_setup(long winid, bool fullscreen)
 {
     (void)winid;
@@ -44,8 +38,6 @@ void atomic_dex::mac_window_setup(long winid, bool fullscreen)
     }*/
     [nativeWindow setStyleMask: windowMask];
     //[nativeWindow setTitlebarAppearsTransparent:YES];
-    //NSColor *myColor = colorFromRGB(30, 41, 56);
-    //[myColor set];
     //[nativeWindow setBackgroundColor: myColor];
     //[nativeWindow setTitleVisibility: static_cast<NSWindowTitleVisibility>(1)];
     }

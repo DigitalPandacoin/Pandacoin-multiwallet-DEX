@@ -49,17 +49,6 @@ namespace
 
 namespace atomic_dex
 {
-    void atomic_dex::application::change_state([[maybe_unused]] int visibility)
-    {
-/*#ifdef __APPLE__
-        {
-            QWindowList windows = QGuiApplication::allWindows();
-            auto        win     = windows.first();
-            atomic_dex::mac_window_setup(win->winId(), visibility == QWindow::FullScreen);
-        }
-#endif*/
-    }
-
     bool atomic_dex::application::enable_coins(const QStringList& coins)
     {
         auto enableable_coins_count = entity_registry_.template ctx<QSettings>().value("MaximumNbCoinsEnabled").toULongLong();

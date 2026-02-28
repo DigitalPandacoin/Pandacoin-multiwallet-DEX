@@ -519,7 +519,7 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == 0)
+            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0")
             {
                 SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
