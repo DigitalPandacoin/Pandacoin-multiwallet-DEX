@@ -366,7 +366,7 @@ namespace atomic_dex
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.07) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int
@@ -519,11 +519,11 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            SPDLOG_DEBUG("test_diff from CEXRatesRole is {}:", this->data(this->index(0, 0), CEXRatesRole).toString().toStdString());
-            //if (test_diff == 0)
-            //{
-            //    this->m_model_proxy->setSortRole(PriceFiatRole);
-            //}
+            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == 0)
+            {
+                SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
+                this->m_model_proxy->setSortRole(PriceFiatRole);
+            }
 
             if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
             {
