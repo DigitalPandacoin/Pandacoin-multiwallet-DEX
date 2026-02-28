@@ -166,7 +166,6 @@ namespace atomic_dex
     std::string
     global_price_service::get_price_in_fiat_all(const std::string& fiat, std::error_code& ec) const
     {
-        //spdlog::stopwatch sw; using namespace std::chrono;
         auto&   kdf_instance = m_system_manager.get_system<kdf_service>();
         t_coins coins        = kdf_instance.get_enabled_coins();
         try
@@ -199,7 +198,6 @@ namespace atomic_dex
             std::string result = ss.str();
             boost::trim_right_if(result, boost::is_any_of("0"));
             boost::trim_right_if(result, boost::is_any_of("."));
-            //SPDLOG_DEBUG("Time elapsed in global_price_service::get_price_in_fiat_all: {}", duration_cast<milliseconds>(sw.elapsed()));
             return result;
         }
         catch (const std::exception& error)

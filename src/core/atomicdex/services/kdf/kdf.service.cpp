@@ -1768,7 +1768,6 @@ namespace atomic_dex
             return;
         }
 
-        spdlog::stopwatch sw; using namespace std::chrono;
         auto answer_functor = [this, is_a_reset](web::http::http_response resp)
         {
             auto answer        = kdf::basic_batch_answer(resp);
@@ -1822,7 +1821,6 @@ namespace atomic_dex
                 }
             }
         };
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
 
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
@@ -2051,7 +2049,6 @@ namespace atomic_dex
     void
     kdf_service::batch_fetch_orders_and_swap(bool after_manual_reset)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch             = nlohmann::json::array();
         nlohmann::json my_orders_request = kdf::template_request("my_orders");
         batch.push_back(my_orders_request);
@@ -2147,8 +2144,6 @@ namespace atomic_dex
             this->dispatcher_.trigger<process_swaps_and_orders_finished>(after_manual_reset);
         };
 
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
-
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
@@ -2156,7 +2151,6 @@ namespace atomic_dex
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         std::error_code ec;
         using namespace std::string_literals;
         auto construct_url_functor = [this](
@@ -2294,13 +2288,12 @@ namespace atomic_dex
                         this->dispatcher_.trigger<tx_fetch_finished>(false, ticker);
                     }
                 })
-            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
+
             .then(
                 [this](pplx::task<void> previous_task)
                 {
                     this->handle_exception_pplx_task(previous_task, "process_tx_tokenscan", {});
                 });
-
     }
 
     void
@@ -2428,7 +2421,6 @@ namespace atomic_dex
     void
     kdf_service::process_tx_answer(const nlohmann::json& answer_json, std::string ticker)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         kdf::tx_history_answer answer;
         kdf::from_json(answer_json, answer);
         t_tx_state state;
@@ -2499,7 +2491,6 @@ namespace atomic_dex
 
         //! History
         m_tx_informations->insert_or_assign("result", std::make_pair(out, state));
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_answer for {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
     }
 
