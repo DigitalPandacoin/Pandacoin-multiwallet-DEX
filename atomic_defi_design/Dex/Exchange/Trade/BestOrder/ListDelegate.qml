@@ -149,7 +149,6 @@ Item
                 property string coin_to_enable_ticker: coin
                 id: cannot_enable_coin_modal
                 sourceComponent: CannotEnableCoinModal { coin_to_enable_ticker: cannot_enable_coin_modal.coin_to_enable_ticker }
-                asynchronous: true
             }
         }
         delay: 200

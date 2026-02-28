@@ -259,7 +259,6 @@ Item {
     {
         id: order_modal
         sourceComponent: OrderModal {}
-        asynchronous: true
     }
 
     FileDialog

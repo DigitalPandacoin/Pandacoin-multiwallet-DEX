@@ -40,7 +40,6 @@ namespace atomic_dex::kdf
     void
     from_json(const nlohmann::json& j, bestorders_result_rpc& resp)
     {
-        //spdlog::stopwatch sw;
         if (j.empty())
         {
             SPDLOG_WARN("best orders result not available yet - probably seed node unsync");
@@ -68,7 +67,5 @@ namespace atomic_dex::kdf
                 }
             }
         }
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in from_json bestorders_result_rpc: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex::kdf

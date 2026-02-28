@@ -119,7 +119,7 @@ namespace atomic_dex
             }
         }
         using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_page::get_all_enabled_coins: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
+        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_page::get_all_coins_by_type: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return enabled_coins;
     }
 

@@ -39,10 +39,6 @@ Item
             Layout.fillWidth: true
             Layout.fillHeight: true
             //Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
-            //Component.onCompleted: {
-            //  console.log("OrderList parent.height = " + parent.height) // 1376
-            //  console.log("OrderList height = " + height) // 0
-            //}
 
             model: items.orders_proxy_mdl
             enabled: !is_history || !API.app.orders_mdl.fetching_busy
@@ -69,8 +65,11 @@ Item
                 }
             }
 
-            onResetAnimationChanged:
+            //onResetAnimationChanged:
+            Component.onCompleted:
             {
+                //console.log("OrderList parent.height = " + parent.height) // 1376
+                //console.log("OrderList height = " + height) // 0
                 list.animationTimestamp = 0
                 spawn_anim_timer.repeat = true
                 spawn_anim_timer.restart()
@@ -79,8 +78,7 @@ Item
             Timer
             {
                 id: spawn_anim_timer
-                interval: 200
-                //running: true
+                interval: 50
                 repeat: true
                 onTriggered: () => {
                     list.animationTimestamp += interval

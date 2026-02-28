@@ -25,7 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
+        // UNUSED
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -42,7 +42,6 @@ namespace
                 trading_pg.set_min_trade_vol(cur_taker_vol);
             }
         }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in adjust_vol of atomic_dex::qt_orderbook_wrapper: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace
 
@@ -107,7 +106,6 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::reset_orderbook(kdf::orderbook_result_rpc answer)
     {
-        //spdlog::stopwatch sw;
         this->m_asks->reset_orderbook(answer.asks);
         this->m_bids->reset_orderbook(answer.bids);
         this->set_both_taker_vol();
@@ -119,19 +117,14 @@ namespace atomic_dex
         }
         m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void
     qt_orderbook_wrapper::clear_orderbook()
     {
-        //spdlog::stopwatch sw;
         this->m_asks->clear_orderbook();
         this->m_bids->clear_orderbook();
         this->m_best_orders->clear_orderbook();
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     QVariant
@@ -149,7 +142,6 @@ namespace atomic_dex
     void
     atomic_dex::qt_orderbook_wrapper::set_both_taker_vol()
     {
-        //spdlog::stopwatch sw;
         auto&& [base, rel]         = m_system_manager.get_system<kdf_service>().get_taker_vol();
         this->m_base_max_taker_vol = QJsonObject{
             {"denom", QString::fromStdString(base.denom)},
@@ -170,8 +162,6 @@ namespace atomic_dex
         this->m_rel_min_taker_vol = QString::fromStdString(min_rel.min_trading_vol);
         emit relMinTakerVolChanged();
         emit currentMinTakerVolChanged();
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in atomic_dex::qt_orderbook_wrapper::set_both_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 } // namespace atomic_dex
 

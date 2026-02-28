@@ -155,6 +155,5 @@ Dex.ListView
     {
         id: tx_details_modal
         sourceComponent: TransactionDetailsModal {}
-        asynchronous: true
     }
 }
