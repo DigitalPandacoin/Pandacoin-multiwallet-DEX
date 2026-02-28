@@ -350,9 +350,9 @@ namespace atomic_dex
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
         spdlog::stopwatch sw;
+        this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
-        this->beginResetModel();
         for (auto&& order: m_model_data)
         {
             if (this->m_orders_id_registry.find(order.uuid) == m_orders_id_registry.end())
