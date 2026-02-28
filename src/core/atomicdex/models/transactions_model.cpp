@@ -180,8 +180,8 @@ namespace atomic_dex
 
     void atomic_dex::transactions_model::reset()
     {
-        this->m_file_count = 0;
         this->beginResetModel();
+        this->m_file_count = 0;
         this->m_model_data.clear();
         this->endResetModel();
         emit lengthChanged();
@@ -209,11 +209,11 @@ namespace atomic_dex
             {
                 m_model_data.insert(begin(m_model_data) + g_file_count_limit, begin(transactions), end(transactions));
             }
-            endInsertRows();
             if (this->canFetchMore(QModelIndex()) && m_model_data.size() >= g_file_count_limit)
             {
                 this->fetchMore(QModelIndex());
             }
+            endInsertRows();
         }
         emit lengthChanged();
     }

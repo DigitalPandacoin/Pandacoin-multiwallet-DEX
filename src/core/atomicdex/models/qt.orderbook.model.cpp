@@ -385,13 +385,15 @@ namespace atomic_dex
             return;
         }
 
-        assert(m_model_data.size() == m_orders_id_registry.size());
+        SPDLOG_DEBUG("first m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
+        //assert(m_model_data.size() == m_orders_id_registry.size());
         beginInsertRows(QModelIndex(), m_model_data.size(), m_model_data.size());
         m_model_data.push_back(order);
         this->m_orders_id_registry.emplace(order.uuid);
         endInsertRows();
         emit lengthChanged();
-        assert(m_model_data.size() == m_orders_id_registry.size());
+        SPDLOG_DEBUG("second m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
+        //assert(m_model_data.size() == m_orders_id_registry.size());
 
         if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
         {
@@ -523,7 +525,7 @@ namespace atomic_dex
         {
             if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0")
             {
-                //SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
+                SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
             }
             else

@@ -455,9 +455,9 @@ namespace atomic_dex
             return;
         beginResetModel();
         m_model_data = contents;
-        endResetModel();
         m_orders_id_registry = std::move(m_model_data.orders_registry);
         m_swaps_id_registry  = std::move(m_model_data.swaps_registry);
+        endResetModel();
         emit lengthChanged();
         emit currentPageChanged();
         emit limitNbElementsChanged();
@@ -471,8 +471,8 @@ namespace atomic_dex
     orders_model::common_insert(const std::vector<t_order_swaps_data>& contents, const std::string& kind)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
-        auto& data = m_model_data.orders_and_swaps;
         beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
+        auto& data = m_model_data.orders_and_swaps;
         data.insert(end(data), begin(contents), end(contents));
         if (kind == "orders")
         {

@@ -461,8 +461,8 @@ namespace atomic_dex
     void
     portfolio_model::reset()
     {
-        this->m_ticker_registry.clear();
         this->beginResetModel();
+        this->m_ticker_registry.clear();
         this->m_model_data.clear();
         this->endResetModel();
     }
