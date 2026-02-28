@@ -179,10 +179,8 @@ namespace atomic_dex::kdf
     template <rpc Rpc>
     void kdf_client::process_rpc_async(const std::function<void(Rpc)>& on_rpc_processed)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         using request_type = typename Rpc::expected_request_type;
         process_rpc_async(request_type{}, on_rpc_processed);
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async 1: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     // template void kdf_client::process_rpc_async<my_balance_rpc>(const std::function<void(orderbook_rpc)>&);
@@ -199,7 +197,6 @@ namespace atomic_dex::kdf
     template <kdf::rpc Rpc>
     void kdf_client::process_rpc_async(typename Rpc::expected_request_type request, const std::function<void(Rpc)>& on_rpc_processed)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         auto http_request = make_request<Rpc>(request);
         generate_client()
             .request(http_request, m_token_source.get_token())
@@ -216,7 +213,6 @@ namespace atomic_dex::kdf
                     SPDLOG_ERROR(ex.what());
                 }
             });
-       if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async 2: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -229,7 +225,6 @@ namespace atomic_dex::kdf
     TAnswer
     kdf_client::process_rpc(TRequest&& request, std::string rpc_command, bool is_v2)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json json_data = kdf::template_request(rpc_command, is_v2);
         kdf::to_json(json_data, request);
 
@@ -241,7 +236,6 @@ namespace atomic_dex::kdf
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
         //SPDLOG_DEBUG("request: {}", json_copy.dump());
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 

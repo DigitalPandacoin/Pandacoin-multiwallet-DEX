@@ -385,16 +385,12 @@ namespace atomic_dex
             return;
         }
 
-        SPDLOG_DEBUG("first m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
-        //assert(m_model_data.size() == m_orders_id_registry.size());
-
+        assert(m_model_data.size() == m_orders_id_registry.size());
         beginInsertRows(QModelIndex(), m_model_data.size(), m_model_data.size());
         m_model_data.push_back(order);
         this->m_orders_id_registry.emplace(order.uuid);
         endInsertRows();
         emit lengthChanged();
-
-        SPDLOG_DEBUG("second m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
         assert(m_model_data.size() == m_orders_id_registry.size());
 
         if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
