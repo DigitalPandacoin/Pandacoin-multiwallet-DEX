@@ -41,8 +41,6 @@ DexWindow
         // 3 is minimized, ignore that
         if (visibility !== 3)
             real_visibility = visibility
-
-        API.app.change_state(visibility)
     }
 
     DexWindowControl

@@ -1690,7 +1690,6 @@ namespace atomic_dex
     // [smk] Only called by trading_page::process_action()
     kdf::orderbook_result_rpc kdf_service::get_orderbook(t_kdf_ec& ec) const
     {
-        spdlog::stopwatch sw;
         auto&& [base, rel]          = this->m_synchronized_ticker_pair.get();
         const std::string pair      = base + "/" + rel;
         auto              orderbook = m_orderbook.get();
@@ -1706,8 +1705,6 @@ namespace atomic_dex
             ec = dextop_error::orderbook_ticker_not_found;
             return {};
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::get_orderbook for {}/{}: {}", orderbook.base, orderbook.rel, duration_cast<milliseconds>(sw.elapsed())); }
         return orderbook;
     }
 
@@ -1728,7 +1725,6 @@ namespace atomic_dex
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
-        spdlog::stopwatch sw;
         auto callback = [this, is_a_reset]<typename RpcRequest>(RpcRequest rpc)
         {
             nlohmann::json batch = nlohmann::json::array();
@@ -1762,8 +1758,6 @@ namespace atomic_dex
 
         kdf::orderbook_rpc rpc{.request={.base = base, .rel = rel}};
         m_kdf_client.process_rpc_async<kdf::orderbook_rpc>(rpc.request, callback);
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::prepare_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::process_orderbook_extras(nlohmann::json batch, bool is_a_reset)
@@ -1828,11 +1822,11 @@ namespace atomic_dex
                 }
             }
         };
+        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
+
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "process_orderbook_extras", batch); });
-
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed for kdf_service::process_orderbook_extras: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::fetch_current_orderbook_thread(bool is_a_reset)
@@ -2153,16 +2147,16 @@ namespace atomic_dex
             this->dispatcher_.trigger<process_swaps_and_orders_finished>(after_manual_reset);
         };
 
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
+
         m_kdf_client.async_rpc_batch_standalone(batch)
             .then(answer_functor)
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
-
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elasped in kdf_service::batch_fetch_orders_and_swap: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
     {
-        spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         std::error_code ec;
         using namespace std::string_literals;
         auto construct_url_functor = [this](
@@ -2300,14 +2294,13 @@ namespace atomic_dex
                         this->dispatcher_.trigger<tx_fetch_finished>(false, ticker);
                     }
                 })
+            if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
             .then(
                 [this](pplx::task<void> previous_task)
                 {
                     this->handle_exception_pplx_task(previous_task, "process_tx_tokenscan", {});
                 });
 
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::process_tx_tokenscan for ticker {}: {}", ticker, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -2319,13 +2312,11 @@ namespace atomic_dex
     void
     kdf_service::on_refresh_orderbook_model_data(const refresh_orderbook_model_data& evt)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         this->m_synchronized_ticker_pair = std::make_pair(evt.base, evt.rel);
         if (this->m_kdf_running)
         {
             process_orderbook(true);
         }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in kdf_service::on_refresh_orderbook_model_data for pair [{} / {}]: {}", evt.base, evt.rel, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

@@ -79,8 +79,8 @@ Item
             Timer
             {
                 id: spawn_anim_timer
-                interval: General.delta_time
-                running: true
+                interval: 200
+                //running: true
                 repeat: true
                 onTriggered: () => {
                     list.animationTimestamp += interval

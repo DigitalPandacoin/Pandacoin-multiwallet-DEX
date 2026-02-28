@@ -177,6 +177,12 @@ jobs:
         run: |
           ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
 
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE }}
+          key: deps-${{ runner.os }}-${{ matrix.type }}
+
       - name: vcpkg deps (All)
         uses: lukka/run-vcpkg@v11
         with:
