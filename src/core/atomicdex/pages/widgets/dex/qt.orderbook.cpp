@@ -251,9 +251,8 @@ namespace atomic_dex
     }
 
     QString
-    qt_orderbook_wrapper::get_current_min_taker_vol() const
+    qt_orderbook_wrapper::get_current_min_taker_vol() const //UNUSED
     {
-        spdlog::stopwatch sw;
         QString    cur_taker_vol   = get_base_min_taker_vol();
         auto&      trading_pg      = m_system_manager.get_system<trading_page>();
         auto       preferred_order = trading_pg.get_raw_preferred_order();
@@ -283,8 +282,6 @@ namespace atomic_dex
         }
 
         // SPDLOG_INFO("final_taker_vol: {}", cur_taker_vol.toStdString());
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::get_current_min_taker_vol: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return cur_taker_vol;
     }
 } // namespace atomic_dex

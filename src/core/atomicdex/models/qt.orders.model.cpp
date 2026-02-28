@@ -216,21 +216,6 @@ namespace atomic_dex
         return {};
     }
 
-    bool
-    orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
-    {
-        spdlog::stopwatch sw; using namespace std::chrono;
-        beginRemoveRows(QModelIndex(), position, position + rows - 1);
-        for (int i = position + rows - 1; i >= position; --i)
-        {
-            this->m_model_data.orders_and_swaps.erase(begin(m_model_data.orders_and_swaps) + i);
-        }
-        endRemoveRows();
-        emit lengthChanged();
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed())); }
-        return true;
-    }
-
     QHash<int, QByteArray>
     orders_model::roleNames() const
     {
@@ -699,7 +684,6 @@ namespace atomic_dex
             //! Filtering changed
             this->set_fetching_busy(true);
             this->reset();
-            // this->reset_backend("set_filtering_infos"); ///< We change page, we need to clear, but do not notify the front-end
             if (this->m_system_manager.has_system<kdf_service>())
             {
                 auto& kdf = this->m_system_manager.get_system<kdf_service>();

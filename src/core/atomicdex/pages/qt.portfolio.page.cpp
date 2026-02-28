@@ -101,9 +101,8 @@ namespace atomic_dex
     }
 
     QStringList
-    atomic_dex::portfolio_page::get_all_coins_by_type(const QString& coin_type) const
+    atomic_dex::portfolio_page::get_all_coins_by_type(const QString& coin_type) const //UNUSED
     {
-        spdlog::stopwatch sw;
         QStringList enabled_coins;
         const auto& portfolio_list = this->get_portfolio()->get_underlying_data();
         enabled_coins.reserve(portfolio_list.count());
@@ -118,8 +117,6 @@ namespace atomic_dex
                 enabled_coins.push_back(cur_coin.ticker);
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in atomic_dex::portfolio_page::get_all_coins_by_type: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
         return enabled_coins;
     }
 

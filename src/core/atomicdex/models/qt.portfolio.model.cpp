@@ -474,9 +474,8 @@ namespace atomic_dex
     }
 
     void
-    portfolio_model::clean_priv_keys()
+    portfolio_model::clean_priv_keys() //UNUSED
     {
-        spdlog::stopwatch sw;
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
@@ -487,8 +486,6 @@ namespace atomic_dex
                 update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in portfolio_model::clean_priv_keys: {}", duration_cast<milliseconds>(sw.elapsed())); // UNUSED
     }
 } // namespace atomic_dex
 

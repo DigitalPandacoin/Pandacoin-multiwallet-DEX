@@ -32,7 +32,7 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 600
+            readonly property int   animationTime: 1200
             readonly property int   animationDelay: 50
             property bool           resetAnimation: false
 
@@ -68,10 +68,17 @@ Item
             //onResetAnimationChanged:
             Component.onCompleted:
             {
-                //console.log("OrderList parent.height = " + parent.height) // 1376
-                //console.log("OrderList height = " + height) // 0
                 list.animationTimestamp = 0
                 spawn_anim_timer.repeat = true
+                console.log("OrderList parent.height = " + parent.height) // 1376
+                console.log("OrderList height = " + height) // 0
+                console.log("OrderList list.count = " + list.count)
+                console.log("OrderList list.width = " + list.width)
+                console.log("OrderList list.animationDelay = " + list.animationDelay)
+                console.log("OrderList list.animationTime = " + list.animationTime)
+                console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
+                console.log("OrderList list.resetAnimation = " + list.resetAnimation)
+                console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
                 spawn_anim_timer.restart()
             }
 
@@ -84,6 +91,8 @@ Item
                     list.animationTimestamp += interval
                     if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
                         repeat = false
+                    console.log("Timer list.animationTimestamp = " + list.animationTimestamp)
+                    console.log("Timer repeat = " + repeat)
                 }
             }
         }

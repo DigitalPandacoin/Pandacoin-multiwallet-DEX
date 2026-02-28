@@ -86,7 +86,6 @@ namespace atomic_dex
         [[nodiscard]] QVariant               data(const QModelIndex& index, int role) const final;
         [[nodiscard]] QHash<int, QByteArray> roleNames() const final;
         bool                                 setData(const QModelIndex& index, const QVariant& value, int role) final;
-        bool                                 removeRows(int row, int count, const QModelIndex& parent) override;
 
         void                                 reset_orderbook(const t_orders_contents& orderbook);
         void                                 refresh_orderbook_model_data(const t_orders_contents& orderbook);
