@@ -32,13 +32,12 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 1200
+            readonly property int   animationTime: 900
             readonly property int   animationDelay: 50
             property bool           resetAnimation: false
 
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            //Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
+            Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
 
             model: items.orders_proxy_mdl
             enabled: !is_history || !API.app.orders_mdl.fetching_busy
@@ -65,7 +64,7 @@ Item
                 }
             }
 
-            //Component.onCompleted: {
+            Component.onCompleted: { spawn_anim_timer.start() }
 
             onResetAnimationChanged:
             {

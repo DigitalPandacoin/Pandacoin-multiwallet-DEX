@@ -573,10 +573,6 @@ namespace atomic_dex
         addressbook_pg->clear();
 
         orders_model* orders = qobject_cast<orders_model*>(m_manager_models.at("orders"));
-        if (auto count = orders->rowCount(QModelIndex()); count > 0)
-        {
-            orders->removeRows(0, count, QModelIndex());
-        }
         orders->reset();
 
         system_manager_.get_system<portfolio_page>().get_portfolio()->reset();
