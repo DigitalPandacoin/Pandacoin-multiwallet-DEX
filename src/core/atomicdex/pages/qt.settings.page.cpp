@@ -707,7 +707,6 @@ namespace atomic_dex
 
     QStringList settings_page::retrieve_seed(const QString& wallet_name, const QString& password)
     {
-        spdlog::stopwatch sw;
         QStringList     out;
         std::error_code ec;
         auto            key = atomic_dex::derive_password(password.toStdString(), ec);
@@ -773,8 +772,6 @@ namespace atomic_dex
             };
             kdf_system.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor);
         }
-        using namespace std::chrono;
-        SPDLOG_DEBUG("Time elapsed in settings_page::retrieve_seed: {}", duration_cast<milliseconds>(sw.elapsed()));
         return {QString::fromStdString(seed), QString::fromStdString(kdf::get_rpc_password())};
     }
 

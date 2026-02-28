@@ -481,7 +481,7 @@ namespace atomic_dex
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {}", size, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {}", size, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

@@ -474,7 +474,7 @@ namespace atomic_dex
                     }
                 }
             }
-            if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -521,7 +521,7 @@ namespace atomic_dex
         {
             if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0")
             {
-                SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
+                //SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
             }
 

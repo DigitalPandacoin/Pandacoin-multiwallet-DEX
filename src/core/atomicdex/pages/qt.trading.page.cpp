@@ -846,7 +846,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -1184,7 +1184,7 @@ namespace atomic_dex
         emit priceChanged();
         emit priceReversedChanged();
         using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 
@@ -1407,8 +1407,6 @@ namespace atomic_dex
     void
     trading_page::determine_error_cases()
     {
-        //spdlog::stopwatch sw;
-
         if (!m_system_manager.has_system<kdf_service>())
             return;
         TradingError current_trading_error = TradingError::None;
@@ -1494,14 +1492,11 @@ namespace atomic_dex
 
         //! Check for base coin
         this->set_trading_error(current_trading_error);
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_error_cases: {}", duration_cast<milliseconds>(sw.elapsed())); 
     }
 
     void
     trading_page::determine_cex_rates()
     {
-        //spdlog::stopwatch sw;
         const auto& price_service   = m_system_manager.get_system<global_price_service>();
         const auto* market_selector = get_market_pairs_mdl();
         const auto& base            = market_selector->get_left_selected_coin().toStdString();
@@ -1516,8 +1511,6 @@ namespace atomic_dex
             emit cexPriceReversedChanged();
         }
         emit cexPriceDiffChanged();
-        //using namespace std::chrono;
-        //SPDLOG_DEBUG("Time elapsed in trading_page::determine_cex_rates: {}", duration_cast<milliseconds>(sw.elapsed()));
     }
 
     void

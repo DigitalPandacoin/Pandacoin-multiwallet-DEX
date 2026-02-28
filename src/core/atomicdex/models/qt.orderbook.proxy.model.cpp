@@ -134,13 +134,6 @@ namespace atomic_dex
         return true;
     }
 
-    void
-    orderbook_proxy_model::qml_sort(int column, Qt::SortOrder order)
-    {
-        // UNUSED
-        this->sort(column, order);
-    }
-
     bool
     orderbook_proxy_model::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
     {

@@ -337,7 +337,7 @@ namespace atomic_dex
             }
         }
 
-        if (s_info >= 113s)
+        if (s_info >= 77s)
         {
             std::unique_lock lock(m_activation_mutex);
             if (m_activation_queue.empty())

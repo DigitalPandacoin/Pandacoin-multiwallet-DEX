@@ -21,18 +21,17 @@ Dex.ListView
 
     model: transactions_mdl.proxy_mdl
 
-    function calculateHeight(): real {
-        console.log("parent.height: " + parent.height)
-        console.log("list.height: " + list.height)
-        console.log("list.row_height: " + list.row_height)
-        console.log("height: " + Math.floor(list.height / list.row_height) * list.row_height);
-        return Math.floor(list.height / list.row_height) * list.row_height;
-    }
-    height: calculateHeight()
+    //function calculateHeight(): real {
+    //    console.log("parent.height: " + parent.height)
+    //    console.log("list.height: " + list.height)
+    //    console.log("list.row_height: " + list.row_height)
+    //    console.log("height: " + Math.floor(list.height / list.row_height) * list.row_height);
+    //    return Math.floor(list.height / list.row_height) * list.row_height;
+    //}
+    //height: calculateHeight()
 
     Component.onCompleted: {
-        list.contentY = 0
-        //positionViewAtBeginning()
+        positionViewAtBeginning()
     }
 
     // Transaction Row
@@ -156,5 +155,6 @@ Dex.ListView
     {
         id: tx_details_modal
         sourceComponent: TransactionDetailsModal {}
+        asynchronous: true
     }
 }

@@ -83,7 +83,7 @@ namespace atomic_dex
         int64_t m_timesync_clock_ts = std::chrono::duration_cast<std::chrono::seconds>(m_timesync_clock.time_since_epoch()).count();
         int64_t now_ts   = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
         int64_t ts_diff  = now_ts - m_timesync_clock_ts;
-        if (abs(ts_diff) > 1213)
+        if (abs(ts_diff) > 777)
         {
             if (!m_timesync_status)
             {

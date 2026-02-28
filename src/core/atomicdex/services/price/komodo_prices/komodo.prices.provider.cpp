@@ -90,7 +90,7 @@ namespace atomic_dex
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_clock);
 
-        if (s >= 181s)
+        if (s >= 113s)
         {
             process_update();
             m_clock = std::chrono::high_resolution_clock::now();

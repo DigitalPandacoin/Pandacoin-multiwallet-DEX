@@ -523,7 +523,6 @@ namespace atomic_dex
     void
     portfolio_model::adjust_percent_current_currency(QString balance_all)
     {
-        //spdlog::stopwatch sw; using namespace std::chrono;
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {
@@ -542,6 +541,5 @@ namespace atomic_dex
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
             }
         }
-        //if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::adjust_percent_current_currency: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 } // namespace atomic_dex
