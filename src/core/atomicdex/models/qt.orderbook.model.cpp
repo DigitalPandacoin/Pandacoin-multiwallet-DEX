@@ -384,13 +384,19 @@ namespace atomic_dex
             SPDLOG_WARN("Order with uuid: {} already present...skipping.", order.uuid);
             return;
         }
+
+        SPDLOG_DEBUG("m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
         assert(m_model_data.size() == m_orders_id_registry.size());
+
         beginInsertRows(QModelIndex(), m_model_data.size(), m_model_data.size());
         m_model_data.push_back(order);
         this->m_orders_id_registry.emplace(order.uuid);
         endInsertRows();
         emit lengthChanged();
+
+        SPDLOG_DEBUG("m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
         assert(m_model_data.size() == m_orders_id_registry.size());
+
         if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
         {
             auto& trading_pg = m_system_mgr.get_system<trading_page>();
@@ -523,6 +529,10 @@ namespace atomic_dex
             {
                 //SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
+            }
+            else
+            {
+                this->m_model_proxy->setSortRole(CEXRatesRole);
             }
 
             if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)

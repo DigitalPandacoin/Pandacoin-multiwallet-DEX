@@ -64,6 +64,7 @@ namespace atomic_dex
             {
                 dispatcher_.trigger<fiat_rate_updated>("");
                 SPDLOG_ERROR("error occured when fetching price: {}", e.what());
+                std::this_thread::sleep_for(2s);
                 if (!fallback)
                 {
                     process_update(true);
