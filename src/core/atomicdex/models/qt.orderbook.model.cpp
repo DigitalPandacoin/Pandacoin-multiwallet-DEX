@@ -350,6 +350,7 @@ namespace atomic_dex
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
         spdlog::stopwatch sw;
+
         this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
@@ -365,6 +366,23 @@ namespace atomic_dex
         // This assert was causing a crash due to duplicated UUIDs being filtered out for orders that exist for both segwit and non-segwit of a coin,
         // because bestorders response will add duplicate entries (one for each address format) to the response.
         assert(m_model_data.size() == m_orders_id_registry.size());
+
+        if (m_current_orderbook_kind == kind::best_orders)
+        {
+            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
+                SPDLOG_DEBUG("orderbook_model::reset_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
+                this->m_model_proxy->setSortRole(PriceFiatRole);
+            } else if (this->m_model_proxy->sortRole()) != 267) {
+                SPDLOG_DEBUG("orderbook_model::reset_orderbook current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
+                this->m_model_proxy->setSortRole(CEXRatesRole);
+            }
+            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell) {
+                this->m_model_proxy->sort(0, Qt::DescendingOrder);
+            } else {
+                this->m_model_proxy->sort(0, Qt::AscendingOrder);
+            }
+        }
+
         using namespace std::chrono;
         if (sw.elapsed().count() > 0.07) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
@@ -523,25 +541,17 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0")
-            {
-                SPDLOG_DEBUG("CEXRatesRole is 0, switching to PriceFiatRole");
+            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
+                SPDLOG_DEBUG("orderbook_model::refresh_orderbook_model_data CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
-            }
-            else
-            {
-                SPDLOG_DEBUG("current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
+            } else if (this->m_model_proxy->sortRole()) != 267) {
+                SPDLOG_DEBUG("orderbook_model::refresh_orderbook_model_data current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
-
-            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell)
-            {
+            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell) {
                 this->m_model_proxy->sort(0, Qt::DescendingOrder);
-            }
-            else
-            {
+            } else {
                 this->m_model_proxy->sort(0, Qt::AscendingOrder);
-
             }
         }
     }
@@ -553,7 +563,7 @@ namespace atomic_dex
     }
 
     bool
-    orderbook_model::removeRows(int position, int rows, const QModelIndex& parent)
+    orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
@@ -592,6 +602,21 @@ namespace atomic_dex
         m_orders_id_registry.clear();
         this->endResetModel();
         emit lengthChanged();
+        if (m_current_orderbook_kind == kind::best_orders)
+        {
+            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
+                SPDLOG_DEBUG("orderbook_model::clear_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
+                this->m_model_proxy->setSortRole(PriceFiatRole);
+            } else if (this->m_model_proxy->sortRole()) != 267) {
+                SPDLOG_DEBUG("orderbook_model::clear_orderbook current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
+                this->m_model_proxy->setSortRole(CEXRatesRole);
+            }
+            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell) {
+                this->m_model_proxy->sort(0, Qt::DescendingOrder);
+            } else {
+                this->m_model_proxy->sort(0, Qt::AscendingOrder);
+            }
+        }
         using namespace std::chrono;
         if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }

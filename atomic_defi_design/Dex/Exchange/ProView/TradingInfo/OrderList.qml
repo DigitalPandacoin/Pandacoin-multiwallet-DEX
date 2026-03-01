@@ -64,7 +64,7 @@ Item
                 }
             }
 
-            Component.onCompleted: { spawn_anim_timer.start() }
+            // Component.onCompleted: { spawn_anim_timer.start() }
 
             onResetAnimationChanged:
             {
@@ -86,6 +86,7 @@ Item
             {
                 id: spawn_anim_timer
                 interval: 50
+                running: true
                 repeat: true
                 onTriggered: () => {
                     list.animationTimestamp += interval
