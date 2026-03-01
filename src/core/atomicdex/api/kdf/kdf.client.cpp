@@ -139,7 +139,7 @@ namespace atomic_dex::kdf
                             answer.error = body;
                         }
                         if (answer.error.has_value()) { SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value()); }
-                        else { SPDLOG_DEBUG("answer.error is empty!") }
+                        else { SPDLOG_DEBUG("answer.error is empty!"); }
                     }
                 }
                 answer.rpc_result_code = resp.status_code();

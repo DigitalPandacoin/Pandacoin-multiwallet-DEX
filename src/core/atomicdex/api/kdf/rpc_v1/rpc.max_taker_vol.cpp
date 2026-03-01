@@ -60,7 +60,6 @@ namespace atomic_dex::kdf
                         "funds (< dust/txfee * 10)., error: {}", answer.error.value());
             answer.result = max_taker_vol_answer_success{.denom = "1", .numer = "0", .decimal = "0"};
         } else {
-            SPDLOG_DEBUG("potential CRASH here when answer.result.has_value() is false");
             answer.result.value().coin = j.at("coin").get<std::string>();
         }
     }
