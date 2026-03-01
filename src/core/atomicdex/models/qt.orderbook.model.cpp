@@ -369,7 +369,7 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
+            if ((this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") && ((this->m_model_proxy->sortRole()) != 269)) {
                 SPDLOG_DEBUG("orderbook_model::reset_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
             } else if ((this->m_model_proxy->sortRole()) != 267) {
@@ -541,7 +541,7 @@ namespace atomic_dex
 
         if (m_current_orderbook_kind == kind::best_orders)
         {
-            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
+            if ((this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") && ((this->m_model_proxy->sortRole()) != 269)) {
                 SPDLOG_DEBUG("orderbook_model::refresh_orderbook_model_data CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
             } else if ((this->m_model_proxy->sortRole()) != 267) {
@@ -602,21 +602,6 @@ namespace atomic_dex
         m_orders_id_registry.clear();
         this->endResetModel();
         emit lengthChanged();
-        if (m_current_orderbook_kind == kind::best_orders)
-        {
-            if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
-                SPDLOG_DEBUG("orderbook_model::clear_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
-                this->m_model_proxy->setSortRole(PriceFiatRole);
-            } else if ((this->m_model_proxy->sortRole()) != 267) {
-                SPDLOG_DEBUG("orderbook_model::clear_orderbook current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
-                this->m_model_proxy->setSortRole(CEXRatesRole);
-            }
-            if (m_system_mgr.get_system<trading_page>().get_market_mode() == MarketMode::Sell) {
-                this->m_model_proxy->sort(0, Qt::DescendingOrder);
-            } else {
-                this->m_model_proxy->sort(0, Qt::AscendingOrder);
-            }
-        }
         using namespace std::chrono;
         if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }

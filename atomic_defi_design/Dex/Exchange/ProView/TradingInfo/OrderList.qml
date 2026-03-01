@@ -32,8 +32,8 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 1800
-            readonly property int   animationDelay: 50
+            readonly property int   animationTime: 3600
+            readonly property int   animationDelay: 100
             property bool           resetAnimation: false
 
             Layout.fillWidth: true
@@ -72,12 +72,12 @@ Item
                 spawn_anim_timer.repeat = true
                 //console.log("OrderList parent.height = " + parent.height) // 1376
                 //console.log("OrderList height = " + height) // 0
-                //console.log("OrderList list.count = " + list.count)
+                console.log("OrderList list.count = " + list.count)
                 //console.log("OrderList list.width = " + list.width)
                 //console.log("OrderList list.animationDelay = " + list.animationDelay)
                 //console.log("OrderList list.animationTime = " + list.animationTime)
-                //console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
-                //console.log("OrderList list.resetAnimation = " + list.resetAnimation)
+                console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
+                console.log("OrderList list.resetAnimation = " + list.resetAnimation)
                 //console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
                 spawn_anim_timer.restart()
             }
@@ -85,15 +85,13 @@ Item
             Timer
             {
                 id: spawn_anim_timer
-                interval: 50
+                interval: 100
                 running: true
                 repeat: true
                 onTriggered: () => {
                     list.animationTimestamp += interval
                     if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
                         repeat = false
-                    //console.log("Timer list.animationTimestamp = " + list.animationTimestamp)
-                    //console.log("Timer repeat = " + repeat)
                 }
             }
         }

@@ -219,7 +219,6 @@ namespace atomic_dex
     bool
     orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        SPDLOG_DEBUG("UNUSED ??");
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
