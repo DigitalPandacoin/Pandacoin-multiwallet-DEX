@@ -385,14 +385,13 @@ namespace atomic_dex
             return;
         }
 
-        SPDLOG_DEBUG("first m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
+        if (m_model_data.size() != m_orders_id_registry.size()) { SPDLOG_ERROR("m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size()); }
         //assert(m_model_data.size() == m_orders_id_registry.size());
         beginInsertRows(QModelIndex(), m_model_data.size(), m_model_data.size());
         m_model_data.push_back(order);
         this->m_orders_id_registry.emplace(order.uuid);
         endInsertRows();
         emit lengthChanged();
-        SPDLOG_DEBUG("second m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size());
         //assert(m_model_data.size() == m_orders_id_registry.size());
 
         if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
@@ -530,6 +529,7 @@ namespace atomic_dex
             }
             else
             {
+                SPDLOG_DEBUG("TEST do we ever get here?");
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
 
@@ -580,7 +580,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 

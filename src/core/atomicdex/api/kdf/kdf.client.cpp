@@ -139,7 +139,6 @@ namespace atomic_dex::kdf
                         {
                             answer.error = body;
                         }
-                        SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value());
                     }
                 }
                 answer.rpc_result_code = resp.status_code();

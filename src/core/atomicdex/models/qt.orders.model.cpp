@@ -227,7 +227,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed())); }
+        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
