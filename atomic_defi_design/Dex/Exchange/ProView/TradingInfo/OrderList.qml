@@ -15,6 +15,13 @@ Item
     property var    items
     property bool   is_history: false
 
+    Component.onCompleted: {
+        console.log("OrderList root.height = " + root.height) //
+        console.log("OrderList parent.page_index = " + parent.page_index)
+        console.log("OrdersPage currentIndex = " + currentIndex)
+        console.log("OrdersPage root.is_history = " + root.is_history)
+    }
+
     ColumnLayout
     {
         width: parent.width
@@ -32,7 +39,7 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 3600
+            readonly property int   animationTime: 700
             readonly property int   animationDelay: 100
             property bool           resetAnimation: false
 
@@ -67,7 +74,8 @@ Item
             Component.onCompleted:
             {
                 console.log("OrderList parent.height = " + parent.height) // 1376
-                console.log("OrderList height = " + height) // 0
+                console.log("OrderList root.height = " + root.height) //
+                console.log("OrderList list.height = " + list.height) //
                 console.log("OrderList list.count = " + list.count)
                 //spawn_anim_timer.start()
             }
@@ -86,11 +94,11 @@ Item
                 running: true
                 repeat: true
                 onTriggered: () => {
-                    list.animationTimestamp += interval
-                    if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
-                        repeat = false
                     console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
                     console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
+                    if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
+                        repeat = false
+                    list.animationTimestamp += interval
                 }
             }
         }
