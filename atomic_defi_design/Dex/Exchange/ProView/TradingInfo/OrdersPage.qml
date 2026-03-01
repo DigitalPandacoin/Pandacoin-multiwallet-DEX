@@ -78,10 +78,6 @@ Item {
     }
 
     Component.onCompleted: {
-        console.log("OrdersPage root.height = " + root.height) //
-        console.log("OrdersPage root.page_index = " + root.page_index)
-        console.log("OrdersPage currentIndex = " + currentIndex)
-        console.log("OrdersPage root.is_history = " + root.is_history)
         list_model_proxy.is_history = root.is_history
         applyFilter()
         list_model_proxy.apply_all_filtering()

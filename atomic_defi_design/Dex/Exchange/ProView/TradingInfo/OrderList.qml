@@ -10,17 +10,12 @@ import Dex.Themes 1.0 as Dex
 Item
 {
     id: root
+    visible: currentIndex > 0
+    enabled: visible
 
     property string title
     property var    items
     property bool   is_history: false
-
-    Component.onCompleted: {
-        console.log("OrderList root.height = " + root.height) //
-        console.log("OrderList parent.page_index = " + parent.page_index)
-        console.log("OrdersPage currentIndex = " + currentIndex)
-        console.log("OrdersPage root.is_history = " + root.is_history)
-    }
 
     ColumnLayout
     {
@@ -41,7 +36,7 @@ Item
             property int            animationTimestamp: 0
             readonly property int   animationTime: 700
             readonly property int   animationDelay: 100
-            property bool           resetAnimation: false
+            property bool           resetAnimation: true
 
             Layout.fillWidth: true
             Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
@@ -71,15 +66,6 @@ Item
                 }
             }
 
-            Component.onCompleted:
-            {
-                console.log("OrderList parent.height = " + parent.height) // 1376
-                console.log("OrderList root.height = " + root.height) //
-                console.log("OrderList list.height = " + list.height) //
-                console.log("OrderList list.count = " + list.count)
-                //spawn_anim_timer.start()
-            }
-
             onResetAnimationChanged:
             {
                 list.animationTimestamp = 0
@@ -94,6 +80,9 @@ Item
                 running: true
                 repeat: true
                 onTriggered: () => {
+                    console.log("OrderList currentIndex = " + currentIndex) // 0, initial (Chart)
+                    console.log("OrderList list.count = " + list.count) // 0, Component.onCompleted
+                    console.log("OrderList list.height = " + list.height) // 0
                     console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
                     console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
                     if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)

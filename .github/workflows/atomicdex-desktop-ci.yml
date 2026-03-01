@@ -71,21 +71,22 @@ jobs:
 
       - uses: lukka/get-cmake@latest
 
-      - name: Upload env variable for vcpkg (MacOS)
+      - name: Set env variables (MacOS)
         if: runner.os == 'macOS'
         run: |
           echo "CXX=/usr/local/opt/llvm/bin/clang++" >> $GITHUB_ENV
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
           echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $GITHUB_ENV
+          echo "HOMEBREW_CACHE=${{ github.workspace }}/homebrew_cache" >> $GITHUB_ENV
 
-      - name: Upload env variable for vcpkg (Linux)
+      - name: Set env variables (Linux)
         if: runner.os == 'Linux'
         run: |
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
           echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $GITHUB_ENV
 
-      - name: Upload env variable for vcpkg (Windows)
+      - name: Set env variables (Windows)
         if: runner.os == 'Windows'
         run: |
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $env:GITHUB_ENV
@@ -176,6 +177,13 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           ./ci_tools_atomic_dex/ci_scripts/osx_script.sh
+
+      - name: Cache homebrew (MacOS)
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.HOMEBREW_CACHE }}
+          key: homebrew-${{ runner.os }}-${{ matrix.type }}
 
       - name: Cache deps
         uses: actions/cache@v4
