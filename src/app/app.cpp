@@ -546,6 +546,7 @@ namespace atomic_dex
 
     void application::refresh_orders_and_swaps() //UNUSED
     {
+        SPDLOG_DEBUG("UNUSED ??");
         auto& kdf = get_kdf();
         if (kdf.is_kdf_running())
         {

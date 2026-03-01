@@ -131,8 +131,9 @@ namespace atomic_dex
     }
 
     void
-    portfolio_proxy_model::reset() //UNUSED
+    portfolio_proxy_model::reset()
     {
+        SPDLOG_DEBUG("UNUSED ??");
         this->beginResetModel();
         this->endResetModel();
     }

@@ -25,7 +25,7 @@ namespace
     void
     adjust_vol(atomic_dex::trading_page& trading_pg, atomic_dex::qt_orderbook_wrapper& wrapper)
     {
-        // UNUSED
+        SPDLOG_DEBUG("UNUSED ??");
         t_float_50 price_f = safe_float(trading_pg.get_price().toStdString());
         if (price_f > 0)
         {
@@ -251,8 +251,9 @@ namespace atomic_dex
     }
 
     QString
-    qt_orderbook_wrapper::get_current_min_taker_vol() const //UNUSED
+    qt_orderbook_wrapper::get_current_min_taker_vol() const
     {
+        SPDLOG_DEBUG("UNUSED ??");
         QString    cur_taker_vol   = get_base_min_taker_vol();
         auto&      trading_pg      = m_system_manager.get_system<trading_page>();
         auto       preferred_order = trading_pg.get_raw_preferred_order();

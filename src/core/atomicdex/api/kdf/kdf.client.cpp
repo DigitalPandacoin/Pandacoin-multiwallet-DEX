@@ -124,13 +124,12 @@ namespace atomic_dex::kdf
         {
             if (resp.status_code() not_eq 200)
             {
-                SPDLOG_WARN("rpc answer code is not 200, body : {}", body);
+                SPDLOG_WARN("rpc answer code is not 200: {}", resp.status_code());
                 if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
                     SPDLOG_DEBUG("error field detected inside the RpcReturnType");
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
-                        SPDLOG_DEBUG("The error field type is string, parsing it from the response body");
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())
                         {
                             answer.error = json_data.at("error").get<std::string>();
@@ -139,6 +138,8 @@ namespace atomic_dex::kdf
                         {
                             answer.error = body;
                         }
+                        if (answer.error.has_value()) { SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value()); }
+                        else { SPDLOG_DEBUG("answer.error is empty!") }
                     }
                 }
                 answer.rpc_result_code = resp.status_code();
@@ -146,7 +147,8 @@ namespace atomic_dex::kdf
                 return answer;
             }
 
-            assert(not body.empty());
+            if (body.empty()) { SPDLOG_DEBUG("in kdf_client::rpc_process_answer for rpc_command {} body should not be empty here", rpc_command); }
+            //assert(not body.empty());
             auto json_answer       = nlohmann::json::parse(body);
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;

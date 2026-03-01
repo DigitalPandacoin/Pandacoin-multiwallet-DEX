@@ -155,7 +155,7 @@ namespace atomic_dex
     bool
     portfolio_model::update_balance_values(const std::vector<std::string>& tickers)
     {
-        // UNUSED
+        SPDLOG_DEBUG("UNUSED ??");
         for (auto&& ticker: tickers)
         {
             if (ticker.empty())
@@ -474,8 +474,9 @@ namespace atomic_dex
     }
 
     void
-    portfolio_model::clean_priv_keys() //UNUSED
+    portfolio_model::clean_priv_keys()
     {
+        SPDLOG_DEBUG("UNUSED ??");
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {

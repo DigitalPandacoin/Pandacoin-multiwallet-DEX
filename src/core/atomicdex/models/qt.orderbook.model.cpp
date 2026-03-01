@@ -529,7 +529,7 @@ namespace atomic_dex
             }
             else
             {
-                SPDLOG_DEBUG("TEST do we ever get here?");
+                SPDLOG_DEBUG("current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
 
@@ -552,9 +552,9 @@ namespace atomic_dex
     }
 
     bool
-    orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
+    orderbook_model::removeRows(int position, int rows, const QModelIndex& parent)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
+        //spdlog::stopwatch sw; using namespace std::chrono;
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -580,7 +580,7 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed()));
+        //SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 

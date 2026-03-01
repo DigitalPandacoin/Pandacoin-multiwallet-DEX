@@ -101,8 +101,9 @@ namespace atomic_dex
     }
 
     QStringList
-    atomic_dex::portfolio_page::get_all_coins_by_type(const QString& coin_type) const //UNUSED
+    atomic_dex::portfolio_page::get_all_coins_by_type(const QString& coin_type) const
     {
+        SPDLOG_DEBUG("UNUSED ??");
         QStringList enabled_coins;
         const auto& portfolio_list = this->get_portfolio()->get_underlying_data();
         enabled_coins.reserve(portfolio_list.count());
