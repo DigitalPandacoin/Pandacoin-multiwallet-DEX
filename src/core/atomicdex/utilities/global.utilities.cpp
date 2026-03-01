@@ -323,10 +323,10 @@ namespace atomic_dex::utils
 
     void json_keys(nlohmann::json j)
     {
-        SPDLOG_DEBUG("UNUSED ??");
         for (auto& [key, val] : j.items())
         {
-            SPDLOG_DEBUG("key: {}, value: {}", key, val);
+            SPDLOG_DEBUG("UNUSED ??");
+            //SPDLOG_DEBUG("key: {}, value: {}", key, val); // does not compile
         }
     }
 } // namespace atomic_dex::utils

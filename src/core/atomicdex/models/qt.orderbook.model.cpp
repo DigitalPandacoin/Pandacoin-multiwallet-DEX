@@ -392,6 +392,7 @@ namespace atomic_dex
         this->m_orders_id_registry.emplace(order.uuid);
         endInsertRows();
         emit lengthChanged();
+        if (m_model_data.size() != m_orders_id_registry.size()) { SPDLOG_ERROR("m_model_data.size = {}, m_orders_id_registry.size = {}", m_model_data.size(), m_orders_id_registry.size()); }
         //assert(m_model_data.size() == m_orders_id_registry.size());
 
         if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)

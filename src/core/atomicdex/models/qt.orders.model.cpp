@@ -219,7 +219,7 @@ namespace atomic_dex
     bool
     orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
+        SPDLOG_DEBUG("UNUSED ??");
         beginRemoveRows(QModelIndex(), position, position + rows - 1);
         for (int i = position + rows - 1; i >= position; --i)
         {
@@ -227,7 +227,6 @@ namespace atomic_dex
         }
         endRemoveRows();
         emit lengthChanged();
-        SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed()));
         return true;
     }
 
