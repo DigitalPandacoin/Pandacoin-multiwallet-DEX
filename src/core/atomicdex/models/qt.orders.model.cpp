@@ -216,6 +216,21 @@ namespace atomic_dex
         return {};
     }
 
+    bool
+    orders_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
+    {
+        spdlog::stopwatch sw; using namespace std::chrono;
+        beginRemoveRows(QModelIndex(), position, position + rows - 1);
+        for (int i = position + rows - 1; i >= position; --i)
+        {
+            this->m_model_data.orders_and_swaps.erase(begin(m_model_data.orders_and_swaps) + i);
+        }
+        endRemoveRows();
+        emit lengthChanged();
+        if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in orders_model::removeRows for removing {} elements at position {}: {}", rows, position, duration_cast<milliseconds>(sw.elapsed())); }
+        return true;
+    }
+
     QHash<int, QByteArray>
     orders_model::roleNames() const
     {
@@ -471,8 +486,8 @@ namespace atomic_dex
     orders_model::common_insert(const std::vector<t_order_swaps_data>& contents, const std::string& kind)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
-        beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
         auto& data = m_model_data.orders_and_swaps;
+        beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
         data.insert(end(data), begin(contents), end(contents));
         if (kind == "orders")
         {

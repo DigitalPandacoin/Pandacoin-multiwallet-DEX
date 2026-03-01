@@ -32,7 +32,7 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 900
+            readonly property int   animationTime: 1800
             readonly property int   animationDelay: 50
             property bool           resetAnimation: false
 

@@ -90,6 +90,7 @@ namespace atomic_dex
         //! Official override from Qt Model
         int                    rowCount(const QModelIndex& parent = QModelIndex()) const final;
         QVariant               data(const QModelIndex& index, int role) const final;
+        bool                   removeRows(int row, int count, const QModelIndex& parent) final;
         QHash<int, QByteArray> roleNames() const final;
         bool                   setData(const QModelIndex& index, const QVariant& value, int role) final;
 

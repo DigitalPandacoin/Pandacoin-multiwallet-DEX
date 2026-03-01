@@ -551,6 +551,39 @@ namespace atomic_dex
         return m_model_data.at(index.row());
     }
 
+    bool
+    orderbook_model::removeRows(int position, int rows, [[maybe_unused]] const QModelIndex& parent)
+    {
+        spdlog::stopwatch sw; using namespace std::chrono;
+        beginRemoveRows(QModelIndex(), position, position + rows - 1);
+        for (int i = position + rows - 1; i >= position; --i)
+        {
+            auto       it                 = m_model_data.begin() + i;
+            const auto uuid_to_be_removed = it->uuid;
+            if (m_system_mgr.has_system<trading_page>() && m_current_orderbook_kind == kind::bids)
+            {
+                auto&      trading_pg      = m_system_mgr.get_system<trading_page>();
+                const auto preferred_order = trading_pg.get_preferred_order();
+                if (!preferred_order.empty())
+                {
+                    const auto selected_order_uuid = preferred_order.value("uuid", "").toString().toStdString();
+                    if (selected_order_uuid == uuid_to_be_removed)
+                    {
+                        SPDLOG_WARN(
+                            "The selected order uuid: {} is removed from the orderbook model, checking if a better order is available", uuid_to_be_removed);
+                        check_for_better_order(trading_pg, preferred_order, selected_order_uuid);
+                    }
+                }
+            }
+            // functor(it);
+            m_model_data.erase(it);
+        }
+        endRemoveRows();
+        emit lengthChanged();
+        if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in orderbook_model::removeRows: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        return true;
+    }
+
     void
     orderbook_model::clear_orderbook()
     {
