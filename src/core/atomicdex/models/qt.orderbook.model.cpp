@@ -372,7 +372,7 @@ namespace atomic_dex
             if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
                 SPDLOG_DEBUG("orderbook_model::reset_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
-            } else if (this->m_model_proxy->sortRole()) != 267) {
+            } else if ((this->m_model_proxy->sortRole()) != 267) {
                 SPDLOG_DEBUG("orderbook_model::reset_orderbook current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
@@ -544,7 +544,7 @@ namespace atomic_dex
             if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
                 SPDLOG_DEBUG("orderbook_model::refresh_orderbook_model_data CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
-            } else if (this->m_model_proxy->sortRole()) != 267) {
+            } else if ((this->m_model_proxy->sortRole()) != 267) {
                 SPDLOG_DEBUG("orderbook_model::refresh_orderbook_model_data current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
@@ -607,7 +607,7 @@ namespace atomic_dex
             if (this->data(this->index(0, 0), CEXRatesRole).toString().toStdString() == "0") {
                 SPDLOG_DEBUG("orderbook_model::clear_orderbook CEXRatesRole is 0, switching to PriceFiatRole");
                 this->m_model_proxy->setSortRole(PriceFiatRole);
-            } else if (this->m_model_proxy->sortRole()) != 267) {
+            } else if ((this->m_model_proxy->sortRole()) != 267) {
                 SPDLOG_DEBUG("orderbook_model::clear_orderbook current SortRole is {}, setting it to CEXRatesRole", this->m_model_proxy->sortRole());
                 this->m_model_proxy->setSortRole(CEXRatesRole);
             }
