@@ -23,7 +23,7 @@ RowLayout
     {
         currentValue = Constants.API.app.orders_mdl.current_page
         var model = []
-        if (pageSize < 9) {
+        if (pageSize < 7) {
             for (var i = 0; i < pageSize; i++) {
                 model.push({
                     number: i + 1,
@@ -91,7 +91,7 @@ RowLayout
     DexText
     {
         Layout.preferredWidth: (root.width / 100) * 16
-        Layout.leftMargin: 10
+        Layout.leftMargin: 8
         Layout.alignment: Qt.AlignLeft
         font.pixelSize: 12
         text: qsTr("items per page")

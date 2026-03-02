@@ -1860,7 +1860,11 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                SPDLOG_ERROR("exception in fetch_single_balance: {}", error.what());
+                if (std::string(error.what()).find("Failed to read response body") == std::string::npos) {
+                    SPDLOG_WARN("exception in kdf_service::fetch_single_balance, Failed to read response body");
+                } else {
+                    SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
+                }
             }
         };
 
@@ -2220,7 +2224,11 @@ namespace atomic_dex
 
                     if (answer.rpc_result_code != 200)
                     {
-                        SPDLOG_ERROR("{}", answer.raw_result);
+                        if (std::string(answer.raw_result).find("attempting to parse an empty input") == std::string::npos) {
+                            SPDLOG_WARN("answer is empty in kdf::async_process_rpc_get for url: {}", url);
+                        } else {
+                            SPDLOG_ERROR("{}", answer.raw_result);
+                        }
                         this->dispatcher_.trigger<tx_fetch_finished>(true, ticker);
                     }
                     else if (answer.rpc_result_code not_eq -1 and answer.result.has_value())
@@ -2710,18 +2718,23 @@ namespace atomic_dex
         }
         catch (const std::exception& e)
         {
+            for (auto&& cur: request) cur["userpass"] = "";
+
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
+                SPDLOG_WARN("mutex lock failed in kdf_service::handle_exception_pplx_task from {} with request: {}", from, request.dump(4));
                 return;
             }
-            for (auto&& cur: request) cur["userpass"] = "";
-            SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
 
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
+                SPDLOG_WARN("timeout in kdf_service::handle_exception_pplx_task from {} with request: {}", from, request.dump(4));
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
+            } else {
+                SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
             }
+
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }

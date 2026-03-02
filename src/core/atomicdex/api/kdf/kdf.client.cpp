@@ -158,7 +158,11 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            SPDLOG_ERROR("kdf_client::rpc_process_answer exception for rpc_command {} with body {}: {}", rpc_command, body, answer.raw_result);
+            if (std::string(error.what()).find("attempting to parse an empty input") == std::string::npos) {
+                SPDLOG_WARN("rpc answer is empty in kdf_client::rpc_process_answer for rpc_command {}", rpc_command);
+            } else {
+                SPDLOG_ERROR("kdf_client::rpc_process_answer exception for rpc_command {} with body {}: {}", rpc_command, body, answer.raw_result);
+            }
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
