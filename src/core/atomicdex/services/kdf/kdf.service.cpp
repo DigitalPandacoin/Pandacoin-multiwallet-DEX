@@ -2033,7 +2033,7 @@ namespace atomic_dex
         }
         else
         {
-            SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
+            //SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
             ec = dextop_error::balance_of_a_non_enabled_coin;
             return "0";
         }
@@ -2610,6 +2610,7 @@ namespace atomic_dex
     kdf_service::remove_custom_coin(const std::string& ticker)
     {
         //! Coin need to be disabled to be removed
+        SPDLOG_DEBUG("kdf_service::remove_custom_coin");
         assert(not get_coin_info(ticker).currently_enabled);
 
         //! Remove from our cfg
