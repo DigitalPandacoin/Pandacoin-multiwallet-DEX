@@ -42,7 +42,7 @@ namespace
     {
         using namespace std::chrono_literals;
         
-        constexpr auto                          client_timeout = 30s;
+        constexpr auto                          client_timeout = 10s;
         web::http::client::http_client_config   cfg;
 
         cfg.set_timeout(client_timeout);
