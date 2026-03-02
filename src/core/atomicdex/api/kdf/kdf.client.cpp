@@ -127,7 +127,8 @@ namespace atomic_dex::kdf
                 SPDLOG_WARN("rpc answer code is not 200: {}", resp.status_code());
                 if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
-                    SPDLOG_DEBUG("error field detected inside the RpcReturnType");
+                    // TODO: this doesn't work, we end up trying to json_parse a 404 Not Found
+                    // SPDLOG_DEBUG("error field detected inside the RpcReturnType");
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())
@@ -138,10 +139,9 @@ namespace atomic_dex::kdf
                         {
                             answer.error = body;
                         }
-                        if (answer.error.has_value()) { SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value()); }
-                        else { SPDLOG_DEBUG("answer.error is empty!"); }
                     }
                 }
+                if (answer.error.has_value()) { SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value()); }
                 answer.rpc_result_code = resp.status_code();
                 answer.raw_result      = body;
                 return answer;
@@ -209,7 +209,8 @@ namespace atomic_dex::kdf
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);
-                    if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
+                    nlohmann::to_json(json_data, request);
+                    if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
                 }
                 catch (const std::exception& ex)
                 {

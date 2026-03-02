@@ -752,7 +752,7 @@ namespace atomic_dex
                             {
                                 failed_coins.push_back(std::move(coins[idx]));
                                 this->dispatcher_.trigger<enabling_coin_failed>(coins[idx].ticker, error);
-                                SPDLOG_ERROR(error);
+                                SPDLOG_ERROR("Error in kdf_service::enable_utxo_qrc20_coins: {}", error);
                             }
                         }
                         else
@@ -1333,7 +1333,6 @@ namespace atomic_dex
 
         if (answer.contains("error") || answer.contains("Error") || error.find("error") != std::string::npos || error.find("Error") != std::string::npos)
         {
-            SPDLOG_WARN("error: bad answer json for enable/electrum details: {}", error);
             return {false, error};
         }
 
@@ -1354,7 +1353,6 @@ namespace atomic_dex
                 return {true, ""};
             }
         }
-        SPDLOG_WARN("bad answer json for enable/electrum details: {}", error);
 
         return {false, error};
     }

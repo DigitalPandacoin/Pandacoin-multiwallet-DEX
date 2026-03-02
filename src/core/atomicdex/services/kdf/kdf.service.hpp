@@ -24,7 +24,7 @@
 #include <QNetworkAccessManager>
 #include <antara/gaming/ecs/system.hpp>
 #include <antara/gaming/ecs/system.manager.hpp>
-#include <boost/thread/shared_mutex.hpp>
+// #include <boost/thread/shared_mutex.hpp>
 #include <boost/thread/synchronized_value.hpp>
 
 #include "atomicdex/api/kdf/kdf.client.hpp"

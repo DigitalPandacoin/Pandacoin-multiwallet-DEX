@@ -41,7 +41,7 @@ namespace atomic_dex
     {
         if (m_bestorders_busy)
         {
-            SPDLOG_WARN("process_best_orders is busy - skipping");
+            // SPDLOG_WARN("process_best_orders is busy - skipping");
             return;
         }
 
@@ -83,7 +83,7 @@ namespace atomic_dex
                 this->m_bestorders_busy = true;
                 emit trading_pg.get_orderbook_wrapper()->bestOrdersBusyChanged();
                 kdf::bestorders_rpc rpc{.request={.coin = std::move(coin), .volume = std::move(volume), .action = std::move(action)}};
-                if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::process_best_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
+                if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in orderbook_scanner_service::process_best_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
                 kdf_system.get_kdf_client().process_rpc_async<atomic_dex::kdf::bestorders_rpc>(rpc.request, callback);
             }
             else
