@@ -705,7 +705,6 @@ namespace atomic_dex::kdf
     async_process_rpc_get(t_http_client_ptr& client, const std::string rpc_command, const std::string& url)
     {
         SPDLOG_INFO("Processing rpc call: {}, url: {}, endpoint: {}", rpc_command, url, TO_STD_STR(client->base_uri().to_string()));
-        // Processing rpc call: tx_history, url: /api/v2/erc20_tx_history/0x
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
         if (not url.empty())
@@ -733,7 +732,8 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            SPDLOG_ERROR("exception caught for rpc {} answer: {}, exception: {}", rpc_command, json_answer.dump(4), error.what());
+            SPDLOG_ERROR("rpc_process_answer_batch exception caught for rpc_command {} and answer {}: {}", rpc_command, json_answer.dump(4), error.what());
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
         return answer;
     }

@@ -159,7 +159,8 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            SPDLOG_ERROR("{} l{} f[{}], exception caught {} for rpc {}, body: {}", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string(), error.what(), rpc_command, body);
+            SPDLOG_ERROR("kdf_client::rpc_process_answer exception for rpc_command {} with body {}: {}", rpc_command, body, error.what());
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
         return answer;
@@ -184,7 +185,6 @@ namespace atomic_dex::kdf
         process_rpc_async(request_type{}, on_rpc_processed);
     }
 
-    // template void kdf_client::process_rpc_async<my_balance_rpc>(const std::function<void(orderbook_rpc)>&);
     template void kdf_client::process_rpc_async<orderbook_rpc>(const std::function<void(orderbook_rpc)>&);
     template void kdf_client::process_rpc_async<bestorders_rpc>(const std::function<void(bestorders_rpc)>&);
     template void kdf_client::process_rpc_async<enable_erc20_rpc>(const std::function<void(enable_erc20_rpc)>&);
@@ -205,6 +205,7 @@ namespace atomic_dex::kdf
             {
                 try
                 {
+                    SPDLOG_DEBUG("UNUSED ??");
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);
@@ -212,6 +213,7 @@ namespace atomic_dex::kdf
                 catch (const std::exception& ex)
                 {
                     SPDLOG_ERROR(ex.what());
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });
     }

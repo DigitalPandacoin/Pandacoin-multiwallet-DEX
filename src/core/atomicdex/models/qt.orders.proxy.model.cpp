@@ -142,7 +142,8 @@ namespace atomic_dex
             return false;
         }
 
-        assert(not data.isEmpty());
+        //assert(not data.isEmpty());
+        if (data.isEmpty()) { SPDLOG_ERROR("orders_proxy_model::filterAcceptsRow data.isEmpty true"); }
 
         if (this->m_is_history)
         {

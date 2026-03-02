@@ -34,9 +34,9 @@ Item
             id: list
 
             property int            animationTimestamp: 0
-            readonly property int   animationTime: 700
-            readonly property int   animationDelay: 100
-            property bool           resetAnimation: true
+            readonly property int   animationTime: 600
+            readonly property int   animationDelay: 20
+            property bool           resetAnimation: false
 
             Layout.fillWidth: true
             Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
@@ -76,14 +76,11 @@ Item
             Timer
             {
                 id: spawn_anim_timer
-                interval: 100
+                interval: 20
                 running: true
                 repeat: true
                 onTriggered: () => {
-                    console.log("OrderList currentIndex = " + currentIndex) // 0, initial (Chart)
-                    console.log("OrderList list.count = " + list.count) // 0, Component.onCompleted
-                    console.log("OrderList list.height = " + list.height) // 0
-                    console.log("OrderList list.animationTimestamp = " + list.animationTimestamp)
+                    console.log("OrderList list.count = " + list.count)
                     console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
                     if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
                         repeat = false
