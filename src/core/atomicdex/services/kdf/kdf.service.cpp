@@ -2333,7 +2333,7 @@ namespace atomic_dex
         if (it == m_balance_informations.cend())
         {
             ec = dextop_error::unknown_ticker;
-            SPDLOG_WARN("Invalid Ticker {}", ticker);
+            //SPDLOG_WARN("Invalid Ticker {}", ticker);
             return "Invalid Ticker";
         }
 
@@ -2710,21 +2710,19 @@ namespace atomic_dex
         }
         catch (const std::exception& e)
         {
-            for (auto&& cur: request) cur["userpass"] = "";
-            SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
-            using namespace std::chrono_literals;
-            std::this_thread::sleep_for(1s);
-
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
                 return;
             }
+            for (auto&& cur: request) cur["userpass"] = "";
+            SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
 
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 

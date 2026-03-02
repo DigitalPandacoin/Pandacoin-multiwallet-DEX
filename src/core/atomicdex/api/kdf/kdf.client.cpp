@@ -158,7 +158,7 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            SPDLOG_ERROR("kdf_client::rpc_process_answer exception for rpc_command {} with body {}: {}", rpc_command, body, error.what());
+            SPDLOG_ERROR("kdf_client::rpc_process_answer exception for rpc_command {} with body {}: {}", rpc_command, body, answer.raw_result);
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
@@ -210,11 +210,12 @@ namespace atomic_dex::kdf
                     on_rpc_processed(rpc);
                     nlohmann::json json_data;
                     nlohmann::to_json(json_data, request);
-                    if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
+                    if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
                 }
                 catch (const std::exception& ex)
                 {
-                    SPDLOG_ERROR("Exception in kdf_client::process_rpc_async: {}", ex.what());
+                    auto what = ex.what();
+                    SPDLOG_ERROR("Exception in kdf_client::process_rpc_async: {}", what);
                     using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });
