@@ -198,6 +198,7 @@ namespace atomic_dex::kdf
     template <kdf::rpc Rpc>
     void kdf_client::process_rpc_async(typename Rpc::expected_request_type request, const std::function<void(Rpc)>& on_rpc_processed)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         auto http_request = make_request<Rpc>(request);
         generate_client()
             .request(http_request, m_token_source.get_token())
@@ -205,14 +206,14 @@ namespace atomic_dex::kdf
             {
                 try
                 {
-                    SPDLOG_DEBUG("UNUSED ??");
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);
+                    if (sw.elapsed().count() > 0.001) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async: {}", duration_cast<milliseconds>(sw.elapsed())); }
                 }
                 catch (const std::exception& ex)
                 {
-                    SPDLOG_ERROR(ex.what());
+                    SPDLOG_ERROR("Exception in kdf_client::process_rpc_async: {}", ex.what());
                     using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });
@@ -238,7 +239,7 @@ namespace atomic_dex::kdf
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
-        //SPDLOG_DEBUG("request: {}", json_copy.dump());
+        SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 

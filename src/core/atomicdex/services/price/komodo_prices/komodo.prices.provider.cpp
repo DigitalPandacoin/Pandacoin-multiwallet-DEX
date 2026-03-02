@@ -46,6 +46,7 @@ namespace atomic_dex
             else
             {
                 SPDLOG_ERROR("Error during the rpc call to komodo price provider: {}", body);
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)
                 {
                     process_update(true);
@@ -64,8 +65,7 @@ namespace atomic_dex
             {
                 dispatcher_.trigger<fiat_rate_updated>("");
                 SPDLOG_ERROR("error occured when fetching price: {}", e.what());
-                using namespace std::chrono_literals;
-                std::this_thread::sleep_for(2s);
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)
                 {
                     process_update(true);

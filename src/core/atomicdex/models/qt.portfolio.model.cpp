@@ -476,7 +476,7 @@ namespace atomic_dex
     void
     portfolio_model::clean_priv_keys()
     {
-        SPDLOG_DEBUG("UNUSED ??");
+        //SPDLOG_DEBUG("UNUSED ??");
         const auto coins = this->m_system_manager.get_system<portfolio_page>().get_global_cfg()->get_enabled_coins();
         for (auto&& [coin, cfg]: coins)
         {

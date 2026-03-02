@@ -38,6 +38,7 @@ Item
             readonly property int   animationDelay: 20
             property bool           resetAnimation: false
 
+            clip: true
             Layout.fillWidth: true
             Layout.preferredHeight: is_history ? parent.height - 70 : parent.height
 
@@ -80,8 +81,8 @@ Item
                 running: true
                 repeat: true
                 onTriggered: () => {
-                    console.log("OrderList list.count = " + list.count)
-                    console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
+                    //console.log("OrderList list.count = " + list.count)
+                    //console.log("OrderList spawn_anim_timer.repeat = " + spawn_anim_timer.repeat)
                     if (list.animationTimestamp > list.animationDelay * list.count + list.animationTime)
                         repeat = false
                     list.animationTimestamp += interval
