@@ -198,7 +198,6 @@ namespace atomic_dex::kdf
     template <kdf::rpc Rpc>
     void kdf_client::process_rpc_async(typename Rpc::expected_request_type request, const std::function<void(Rpc)>& on_rpc_processed)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         auto http_request = make_request<Rpc>(request);
         generate_client()
             .request(http_request, m_token_source.get_token())
@@ -206,6 +205,7 @@ namespace atomic_dex::kdf
             {
                 try
                 {
+                    spdlog::stopwatch sw; using namespace std::chrono;
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);

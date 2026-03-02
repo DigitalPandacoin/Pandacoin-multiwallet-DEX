@@ -189,7 +189,9 @@ jobs:
         if: runner.os == 'macOS'
         uses: actions/cache@v4
         with:
-          path: /Users/runner/.nimble
+          path: |
+            /Users/runner/.nimble
+            /Users/runner/.choosenim
           key: nimble-${{ runner.os }}-${{ matrix.type }}
 
       - name: Cache libwally
