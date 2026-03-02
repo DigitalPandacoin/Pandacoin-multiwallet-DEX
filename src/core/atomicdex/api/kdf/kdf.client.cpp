@@ -141,7 +141,6 @@ namespace atomic_dex::kdf
                         }
                     }
                 }
-                if (answer.error.has_value()) { SPDLOG_DEBUG("The error after getting extracted is: {}", answer.error.value()); }
                 answer.rpc_result_code = resp.status_code();
                 answer.raw_result      = body;
                 return answer;
