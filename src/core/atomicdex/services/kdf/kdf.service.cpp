@@ -2610,7 +2610,7 @@ namespace atomic_dex
     kdf_service::remove_custom_coin(const std::string& ticker)
     {
         //! Coin need to be disabled to be removed
-        SPDLOG_DEBUG("kdf_service::remove_custom_coin");
+        //SPDLOG_DEBUG("kdf_service::remove_custom_coin");
         assert(not get_coin_info(ticker).currently_enabled);
 
         //! Remove from our cfg

@@ -533,14 +533,12 @@ namespace atomic_dex
     QString application::get_balance_info_qstr(const QString& coin)
     {
         std::error_code ec;
-        // SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
         auto            res = get_kdf().get_balance_info(coin.toStdString(), ec);
         return QString::fromStdString(res);
     }
 
     void application::on_kdf_initialized_event([[maybe_unused]] const kdf_initialized& evt)
     {
-        //SPDLOG_DEBUG("{} l{}", __FUNCTION__, __LINE__);
         system_manager_.get_system<qt_wallet_manager>().set_status("enabling_coins");
     }
 
@@ -753,7 +751,7 @@ namespace atomic_dex
     application::get_portfolio_page() const
     {
         portfolio_page* ptr = const_cast<portfolio_page*>(std::addressof(system_manager_.get_system<portfolio_page>()));
-        SPDLOG_DEBUG("application::get_portfolio_page");
+        //SPDLOG_DEBUG("application::get_portfolio_page");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -810,7 +808,7 @@ namespace atomic_dex
     application::get_trading_page() const
     {
         auto ptr = const_cast<trading_page*>(std::addressof(system_manager_.get_system<trading_page>()));
-        SPDLOG_DEBUG("application::get_trading_page");
+        //SPDLOG_DEBUG("application::get_trading_page");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -823,7 +821,7 @@ namespace atomic_dex
     application::get_wallet_page() const
     {
         auto ptr = const_cast<wallet_page*>(std::addressof(system_manager_.get_system<wallet_page>()));
-        SPDLOG_DEBUG("application::get_wallet_page");
+        //SPDLOG_DEBUG("application::get_wallet_page");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -836,7 +834,7 @@ namespace atomic_dex
     application::get_settings_page() const
     {
         auto ptr = const_cast<settings_page*>(std::addressof(system_manager_.get_system<settings_page>()));
-        SPDLOG_DEBUG("application::get_settings_page");
+        //SPDLOG_DEBUG("application::get_settings_page");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -849,7 +847,7 @@ namespace atomic_dex
     application::get_addressbook_page() const
     {
         auto ptr = const_cast<addressbook_page*>(std::addressof(system_manager_.get_system<addressbook_page>()));
-        SPDLOG_DEBUG("application::get_addressbook_page");
+        //SPDLOG_DEBUG("application::get_addressbook_page");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -871,7 +869,7 @@ namespace atomic_dex
     timesync_checker_service* application::get_timesync_checker_service() const
     {
         auto ptr = const_cast<timesync_checker_service*>(std::addressof(system_manager_.get_system<timesync_checker_service>()));
-        SPDLOG_DEBUG("application::get_timesync_checker_service");
+        //SPDLOG_DEBUG("application::get_timesync_checker_service");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -883,7 +881,7 @@ namespace atomic_dex
     zcash_params_service* application::get_zcash_params_service() const
     {
         auto ptr = const_cast<zcash_params_service*>(std::addressof(system_manager_.get_system<zcash_params_service>()));
-        SPDLOG_DEBUG("application::get_zcash_params_service");
+        //SPDLOG_DEBUG("application::get_zcash_params_service");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -896,7 +894,7 @@ namespace atomic_dex
     application::get_exporter_service() const
     {
         auto ptr = const_cast<exporter_service*>(std::addressof(system_manager_.get_system<exporter_service>()));
-        SPDLOG_DEBUG("application::get_exporter_service");
+        //SPDLOG_DEBUG("application::get_exporter_service");
         assert(ptr != nullptr);
         return ptr;
     }
@@ -909,7 +907,7 @@ namespace atomic_dex
     application::get_wallet_mgr() const
     {
         auto ptr = const_cast<qt_wallet_manager*>(std::addressof(system_manager_.get_system<qt_wallet_manager>()));
-        SPDLOG_DEBUG("application::get_wallet_mgr");
+        //SPDLOG_DEBUG("application::get_wallet_mgr");
         assert(ptr != nullptr);
         return ptr;
     }

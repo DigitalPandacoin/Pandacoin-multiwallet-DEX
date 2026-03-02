@@ -35,7 +35,7 @@ namespace atomic_dex
     bool
     global_coins_cfg_proxy_model::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
     {
-        SPDLOG_DEBUG("global_coins_cfg_proxy_model::filterAcceptsRow");
+        //SPDLOG_DEBUG("global_coins_cfg_proxy_model::filterAcceptsRow");
         [[maybe_unused]] QModelIndex idx = this->sourceModel()->index(source_row, 0, source_parent);
         assert(this->sourceModel()->hasIndex(idx.row(), 0));
 
