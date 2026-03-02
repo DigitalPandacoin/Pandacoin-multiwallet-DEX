@@ -383,11 +383,6 @@ namespace atomic_dex
 #if defined(_WIN32) || defined(WIN32)
             atomic_dex::kill_executable(atomic_dex::g_dex_api);
 #else
-            /*const reproc::stop_actions stop_actions = {
-                {reproc::stop::terminate, reproc::milliseconds(2000)},
-                {reproc::stop::kill, reproc::milliseconds(5000)},
-                {reproc::stop::wait, reproc::milliseconds(2000)}};*/
-
             /*const auto ec = m_kdf_instance.stop(stop_actions).second;
 
             if (ec)

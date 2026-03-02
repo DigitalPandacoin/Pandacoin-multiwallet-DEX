@@ -209,6 +209,7 @@ namespace atomic_dex::kdf
                     auto rpc = process_rpc_answer<Rpc>(resp);
                     rpc.request = request;
                     on_rpc_processed(rpc);
+                    nlohmann::json json_data;
                     nlohmann::to_json(json_data, request);
                     if (sw.elapsed().count() > 0.005) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
                 }
