@@ -1854,12 +1854,12 @@ namespace atomic_dex
         nlohmann::json    j = kdf::template_request("my_balance");
         kdf::to_json(j, balance_request);
         batch_array.push_back(j);
+        //SPDLOG_DEBUG("batch_array in kdf_service::fetch_single_balance is: {}", batch_array.dump(4));
 
         auto answer_functor = [this](web::http::http_response resp)
         {
             try
             {
-                SPDLOG_DEBUG("batch_array in kdf_service::fetch_single_balance is: {}", batch_array.dump(4));
                 auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
                 SPDLOG_DEBUG("answers in kdf_service::fetch_single_balance is: {}", answers.dump(4));
                 if (!answers.contains("error") && !answers[0].contains("error"))
