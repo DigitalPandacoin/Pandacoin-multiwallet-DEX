@@ -188,9 +188,12 @@ jobs:
 
       - name: Install apt deps (Linux)
         if: runner.os == 'Linux'
-        uses: gerlero/apt-install@v1
+        uses: tecolicom/actions-use-apt-tools@v1
         with:
-          packages: |
+          cache: yes
+          method: package
+          key: ${{ matrix.type }}
+          tools: |
             autoconf
             bison
             build-essential
