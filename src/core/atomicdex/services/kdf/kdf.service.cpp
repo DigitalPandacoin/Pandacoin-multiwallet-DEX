@@ -2723,7 +2723,7 @@ namespace atomic_dex
 
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
-                SPDLOG_WARN("mutex lock failed in kdf_service::handle_exception_pplx_task from {} with request: {}", from, request.dump(4));
+                SPDLOG_WARN("mutex lock failed in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(1s);
                 return;
             }
@@ -2731,10 +2731,10 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                SPDLOG_WARN("timeout in kdf_service::handle_exception_pplx_task from {} with request: {}", from, request.dump(4));
+                SPDLOG_WARN("timeout in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
-                SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
+                SPDLOG_ERROR("pplx task error in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
             }
 
             std::this_thread::sleep_for(1s);

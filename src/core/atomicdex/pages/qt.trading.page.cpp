@@ -800,7 +800,7 @@ namespace atomic_dex
     }
 
     void
-    trading_page::clear_forms(QString from)
+    trading_page::clear_forms([[maybe_unused]] QString from)
     {
         spdlog::stopwatch sw;
 

@@ -628,7 +628,7 @@ namespace atomic_dex
     }
 
     void
-    orders_model::reset_backend(const std::string& from)
+    orders_model::reset_backend([[maybe_unused]] const std::string& from)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
         const auto limit     = this->m_model_data.limit;
