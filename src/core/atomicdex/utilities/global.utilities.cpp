@@ -324,7 +324,7 @@ namespace atomic_dex::utils
 
     void json_keys(nlohmann::json j)
     {
-        for (auto& [key, val] : j.items())
+        for ([[maybe_unused]] auto& [key, val] : j.items())
         {
             SPDLOG_DEBUG("UNUSED ??");
         }

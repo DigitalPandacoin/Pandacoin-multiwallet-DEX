@@ -1841,6 +1841,7 @@ namespace atomic_dex
         nlohmann::json batch_array = nlohmann::json::array();
         if (is_pin_cfg_enabled())
         {
+            SPDLOG_DEBUG("wtf is is_pin_cfg_enabled??");
             std::shared_lock lock(m_balance_mutex); ///< shared_lock
             if (m_balance_informations.find(cfg_infos.ticker) != m_balance_informations.cend())
             {
@@ -1858,7 +1859,9 @@ namespace atomic_dex
         {
             try
             {
-                auto answers = kdf::basic_batch_answer(resp);
+                SPDLOG_DEBUG("batch_array in kdf_service::fetch_single_balance is: {}", batch_array.dump(4));
+                auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
+                SPDLOG_DEBUG("answers in kdf_service::fetch_single_balance is: {}", answers.dump(4));
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
@@ -1872,7 +1875,10 @@ namespace atomic_dex
         };
 
         auto error_functor = [this, batch = batch_array](pplx::task<void> previous_task)
-        { this->handle_exception_pplx_task(previous_task, "fetch_single_balance", batch); };
+        {
+            this->handle_exception_pplx_task(previous_task, "fetch_single_balance", batch);
+        };
+
         m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
     }
 
@@ -2055,8 +2061,8 @@ namespace atomic_dex
         //SPDLOG_DEBUG("my_orders_request {}", my_orders_request.dump(4));
 
         //! Swaps preparation
-        std::size_t       total           = 0;
-        std::size_t       nb_active_swaps = 0;
+        [[maybe_unused]]  std::size_t       total           = 0;
+        [[maybe_unused]]  std::size_t       nb_active_swaps = 0;
         std::size_t       current_page    = 0;
         std::size_t       limit           = 0;
         t_filtering_infos filter_infos;

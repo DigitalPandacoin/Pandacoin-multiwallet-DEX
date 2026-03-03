@@ -672,10 +672,13 @@ namespace atomic_dex::kdf
     basic_batch_answer(const web::http::http_response& resp)
     {
         nlohmann::json answer;
-        std::string    body = TO_STD_STR(resp.extract_string(true).get());
+        std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
+        SPDLOG_DEBUG("body in basic_batch_answer is: {}", body.dump(4));
+
         try
         {
             answer = nlohmann::json::parse(body);
+            SPDLOG_DEBUG("answer in basic_batch_answer is: {}", answer.dump(4));
         }
         catch (const nlohmann::detail::parse_error& err)
         {
