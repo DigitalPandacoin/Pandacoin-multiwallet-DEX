@@ -42,7 +42,7 @@ namespace
     {
         using namespace std::chrono_literals;
         
-        constexpr auto                          client_timeout = 10s;
+        constexpr auto                          client_timeout = 30s;
         web::http::client::http_client_config   cfg;
 
         cfg.set_timeout(client_timeout);
@@ -86,7 +86,12 @@ namespace
         }
         catch (const nlohmann::json::parse_error& error)
         {
-            SPDLOG_ERROR("rpc answer error: {}", error.what());
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in process_rpc_answer: {}", error.what());
+            } else {
+                SPDLOG_ERROR("exception in process_rpc_answer: {}", error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
         if (Rpc::is_v2)
@@ -159,7 +164,7 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
             if (std::string(error.what()).find("attempting to parse an empty input") != std::string::npos) {
-                SPDLOG_WARN("rpc answer is empty in kdf_client::rpc_process_answer for rpc_command {}", rpc_command);
+                SPDLOG_WARN("error parsing empty rpc answer in kdf_client::rpc_process_answer for rpc_command {}", rpc_command);
             } else {
                 SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
             }

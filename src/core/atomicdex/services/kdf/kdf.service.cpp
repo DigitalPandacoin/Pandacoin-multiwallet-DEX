@@ -230,7 +230,12 @@ namespace atomic_dex
                 }
                 catch (const std::exception& error)
                 {
-                    SPDLOG_ERROR("exception caught: {}", error.what());
+                    if (std::string(error.what()).find(" ") != std::string::npos) {
+                        SPDLOG_WARN("exception in kdf_service::retrieve_coins_informations: {}", error.what());
+                    } else {
+                        SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
+                    }
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             }
             SPDLOG_DEBUG("Coins file does not exist!");
@@ -676,7 +681,12 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                SPDLOG_ERROR(error.what());
+                if (std::string(error.what()).find(" ") != std::string::npos) {
+                    SPDLOG_WARN("exception in kdf_service::enable_erc_family_coins: {}", error.what());
+                } else {
+                    SPDLOG_ERROR("exception in kdf_service::enable_erc_family_coins: {}", error.what());
+                }
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
         
@@ -779,7 +789,12 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                SPDLOG_ERROR(error.what());
+                if (std::string(error.what()).find(" ") != std::string::npos) {
+                    SPDLOG_WARN("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
+                } else {
+                    SPDLOG_ERROR("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
+                }
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
         
@@ -1237,6 +1252,8 @@ namespace atomic_dex
                     catch (const std::exception& error)
                     {
                         if (std::string(error.what()).find(" ") != std::string::npos) {
+                            SPDLOG_WARN("exception in kdf_service::batch_balance_and_tx: {}", error.what());
+                        } else {
                             SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
                         }
                         using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
@@ -2527,8 +2544,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("exception in process_balance_answer: {}", error.what());
-            SPDLOG_DEBUG("exception in process_balance_answer: {}", answer.dump(4));
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
+            } else {
+                SPDLOG_ERROR("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 

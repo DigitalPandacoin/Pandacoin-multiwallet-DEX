@@ -145,7 +145,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught in get_rate_conversion: {} - fiat: {} - ticker: {}", error.what(), fiat, ticker);
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in global_price_service::get_rate_conversion for ticker {} fiat {}: {}", ticker, fiat, error.what());
+            } else {
+                SPDLOG_ERROR("exception in global_price_service::get_rate_conversion for ticker {} fiat {}: {}", ticker, fiat, error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             return "0.00";
         }
         return "0.00";
@@ -202,7 +207,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}", error.what());
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in global_price_service::get_price_in_fiat_all for fiat {}: {}", fiat, error.what());
+            } else {
+                SPDLOG_ERROR("exception in global_price_service::get_price_in_fiat_all for fiat {}: {}", fiat, error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             return "0.00";
         }
     }
@@ -230,7 +240,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}, ticker: {}, currency: {}, amount: {}", error.what(), ticker, currency, amount);
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in global_price_service::get_price_as_currency_from_amount for ticker {}: {}", ticker, error.what());
+            } else {
+                SPDLOG_ERROR("exception in global_price_service::get_price_as_currency_from_amount for ticker {}: {}", ticker, error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             return "0.00";
         }
     }
@@ -283,7 +298,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}, ticker: {}, fiat: {}", error.what(), ticker, fiat);
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in global_price_service::get_price_in_fiat for ticker {} fiat {}: {}", ticker, fiat, error.what());
+            } else {
+                SPDLOG_ERROR("exception in global_price_service::get_price_in_fiat for ticker {} fiat {}: {}", ticker, fiat, error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             return "0.00";
         }
     }
@@ -311,7 +331,12 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}, base: {}, rel: {}", error.what(), base, rel);
+            if (std::string(error.what()).find(" ") != std::string::npos) {
+                SPDLOG_WARN("exception in global_price_service::get_cex_rates for base {} rel {}: {}", base, rel, error.what());
+            } else {
+                SPDLOG_ERROR("exception in global_price_service::get_cex_rates for base {} rel {}: {}", base, rel, error.what());
+            }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             return "0.00";
         }
     }
