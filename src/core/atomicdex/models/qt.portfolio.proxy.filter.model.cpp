@@ -78,7 +78,6 @@ namespace atomic_dex
     bool
     portfolio_proxy_model::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
     {
-        //SPDLOG_DEBUG("portfolio_proxy_model::filterAcceptsRow");
         QModelIndex idx       = this->sourceModel()->index(source_row, 0, source_parent);
         assert(this->sourceModel()->hasIndex(idx.row(), 0));
         QString     ticker    = this->sourceModel()->data(idx, atomic_dex::portfolio_model::TickerRole).toString();

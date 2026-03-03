@@ -54,6 +54,7 @@ namespace
 {
     void check_for_reconfiguration(const std::string& wallet_name)
     {
+        SPDLOG_DEBUG("UNUSED ??");
         try
         {
             using namespace std::string_literals;
@@ -128,6 +129,7 @@ namespace
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("Exception caught: {}", error.what());
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 
@@ -188,7 +190,6 @@ namespace
             ofs_custom.write(QString::fromStdString(custom_cfg_data.dump()).toUtf8());
             ofs_custom.close();
         }
-        //SPDLOG_DEBUG("Coins file updated to set {}: {} | tickers: [{}]", field_name, status,  fmt::join(tickers, ", "));
     }
 }
 
@@ -1579,6 +1580,7 @@ namespace atomic_dex
                                                 catch (const std::exception& error)
                                                 {
                                                     SPDLOG_INFO("exception caught in zhtlc batch_enable_coins: {}", error.what());
+                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                                                 }
                                             }
                                         }
@@ -1608,7 +1610,7 @@ namespace atomic_dex
                         {
                             SPDLOG_ERROR("exception caught in batch_enable_coins: {}", error.what());
                             update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
-                            //! Emit event here
+                            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         }
                     })
                 .then(
@@ -2619,7 +2621,6 @@ namespace atomic_dex
     kdf_service::remove_custom_coin(const std::string& ticker)
     {
         //! Coin need to be disabled to be removed
-        //SPDLOG_DEBUG("kdf_service::remove_custom_coin");
         assert(not get_coin_info(ticker).currently_enabled);
 
         //! Remove from our cfg
@@ -2724,7 +2725,7 @@ namespace atomic_dex
 
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
-                SPDLOG_WARN("mutex lock failed in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(1s);
                 return;
             }
@@ -2732,10 +2733,10 @@ namespace atomic_dex
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
-                SPDLOG_WARN("timeout in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
-                SPDLOG_ERROR("pplx task error in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
             }
 
             std::this_thread::sleep_for(1s);

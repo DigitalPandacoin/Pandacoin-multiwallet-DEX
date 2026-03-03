@@ -144,8 +144,8 @@ namespace atomic_dex::kdf
                 return answer;
             }
 
-            if (body.empty()) { SPDLOG_DEBUG("in kdf_client::rpc_process_answer for rpc_command {} body should not be empty here", rpc_command); }
             //assert(not body.empty());
+            if (body.empty()) { SPDLOG_ERROR("in kdf_client::rpc_process_answer for rpc_command {} body should not be empty here", rpc_command); }
             auto json_answer       = nlohmann::json::parse(body);
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;

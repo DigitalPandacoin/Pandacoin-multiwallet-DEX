@@ -661,7 +661,7 @@ namespace atomic_dex
 
         if (is_fetching_busy())
         {
-            SPDLOG_WARN("Fetching busy skipping");
+            SPDLOG_WARN("Fetching busy, skipping orders_model::refresh_or_insert");
             return;
         }
         const auto& kdf      = m_system_manager.get_system<kdf_service>();
@@ -686,7 +686,7 @@ namespace atomic_dex
         spdlog::stopwatch sw;
         if (this->is_fetching_busy())
         {
-            SPDLOG_WARN("Fetching busy - skipping filtering infos set");
+            SPDLOG_WARN("Fetching busy, skipping orders_model::set_filtering_infos");
             return;
         }
 

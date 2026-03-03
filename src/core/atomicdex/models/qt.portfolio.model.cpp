@@ -380,6 +380,8 @@ namespace atomic_dex
         if (not res.empty())
         {
             return QString(this->data(res.at(0), BalanceRole).toString());
+        } else {
+            SPDLOG_ERROR("res.empty in portfolio_model::coin_balance");
         }
         return "0";
     }
@@ -394,6 +396,8 @@ namespace atomic_dex
             if (not res.empty())
             {
                 this->removeRow(res.at(0).row());
+            } else {
+                SPDLOG_ERROR("res.empty in portfolio_model::disable_coins");
             }
         }
     }
@@ -485,6 +489,8 @@ namespace atomic_dex
             if (not res.empty())
             {
                 update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
+            } else {
+                SPDLOG_ERROR("res.empty in portfolio_model::clean_priv_keys");
             }
         }
     }
@@ -537,6 +543,8 @@ namespace atomic_dex
                     update_value(PortfolioRoles::PercentMainCurrency, percent, res.at(0), *this);
                 }
                 // update_value(PortfolioRoles::PrivKey, "", res.at(0), *this);
+            } else {
+                SPDLOG_ERROR("res.empty in portfolio_model::adjust_percent_current_currency");
             }
         }
     }

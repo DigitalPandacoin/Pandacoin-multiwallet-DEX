@@ -58,7 +58,6 @@ namespace atomic_dex
     {
         int role        = filterRole();
         QModelIndex idx = sourceModel()->index(source_row, 0, source_parent);
-        //SPDLOG_DEBUG("addressbook_proxy_model::filterAcceptsRow");
         assert(sourceModel()->hasIndex(idx.row(), 0));
         
         switch (static_cast<addressbook_model::AddressBookRoles>(role))
