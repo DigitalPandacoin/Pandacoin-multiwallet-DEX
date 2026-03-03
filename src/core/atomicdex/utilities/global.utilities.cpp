@@ -327,7 +327,6 @@ namespace atomic_dex::utils
         for (auto& [key, val] : j.items())
         {
             SPDLOG_DEBUG("UNUSED ??");
-            //SPDLOG_DEBUG("key: {}, value: {}", key, val); // does not compile
         }
     }
 } // namespace atomic_dex::utils

@@ -95,8 +95,9 @@ namespace atomic_dex::kdf
             }
             catch (const std::exception& ex)
             {
+                auto err = ex.what();
+                //SPDLOG_ERROR("Error parsing memo: {}", err);
                 cfg.memo = "";
-                SPDLOG_ERROR("Error parsing memo: {}", ex.what());
             }
         }
 

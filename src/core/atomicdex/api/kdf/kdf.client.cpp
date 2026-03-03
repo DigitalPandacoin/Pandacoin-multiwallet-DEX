@@ -41,11 +41,8 @@ namespace
     t_http_client generate_client()
     {
         using namespace std::chrono_literals;
-        
-        constexpr auto                          client_timeout = 30s;
         web::http::client::http_client_config   cfg;
-
-        cfg.set_timeout(client_timeout);
+        cfg.set_timeout(std::chrono::seconds(60));
         return {FROM_STD_STR(atomic_dex::g_dex_rpc), cfg};
     }
 
@@ -237,11 +234,12 @@ namespace atomic_dex::kdf
         auto json_copy        = json_data;
         json_copy["userpass"] = "*******";
 
+        SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
+
         web::http::http_request rpc_request(web::http::methods::POST);
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
         rpc_request.set_body(json_data.dump());
         auto resp = generate_client().request(rpc_request).get();
-        SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
         return rpc_process_answer<TAnswer>(resp, rpc_command);
     }
 

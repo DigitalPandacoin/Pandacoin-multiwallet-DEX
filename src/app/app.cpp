@@ -542,16 +542,6 @@ namespace atomic_dex
         system_manager_.get_system<qt_wallet_manager>().set_status("enabling_coins");
     }
 
-    void application::refresh_orders_and_swaps()
-    {
-        SPDLOG_DEBUG("UNUSED ??");
-        auto& kdf = get_kdf();
-        if (kdf.is_kdf_running())
-        {
-            kdf.batch_fetch_orders_and_swap();
-        }
-    }
-
     bool application::disconnect()
     {
         //! Clears pending events

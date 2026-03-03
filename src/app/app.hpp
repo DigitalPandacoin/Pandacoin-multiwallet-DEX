@@ -150,7 +150,6 @@ namespace atomic_dex
         Q_INVOKABLE QString recover_fund(const QString& uuid);
 
         Q_INVOKABLE void               reset_coin_cfg();
-        Q_INVOKABLE void               refresh_orders_and_swaps();
         Q_INVOKABLE static QString     get_mnemonic();
         Q_INVOKABLE static bool        first_run();
         Q_INVOKABLE bool               disconnect();

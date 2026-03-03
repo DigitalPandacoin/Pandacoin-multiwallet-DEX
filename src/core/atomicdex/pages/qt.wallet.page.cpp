@@ -653,8 +653,8 @@ namespace atomic_dex
                             }
                             catch (const std::exception& error)
                             {
-                                set_withdraw_status(QString::fromStdString(error.what()));
                                 SPDLOG_ERROR("exception caught in zhtlc withdraw_status: {}", error.what());
+                                set_withdraw_status(QString::fromStdString(error.what()));
                             }
                         }
                     }
