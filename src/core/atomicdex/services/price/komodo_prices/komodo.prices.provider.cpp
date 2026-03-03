@@ -63,11 +63,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                if (std::string(e.what()).find(" ") != std::string::npos) {
-                    SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
-                } else {
-                    SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
-                }
+                SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
                 dispatcher_.trigger<fiat_rate_updated>("");
                 using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)

@@ -86,11 +86,7 @@ namespace
         }
         catch (const nlohmann::json::parse_error& error)
         {
-            if (std::string(error.what()).find(" ") != std::string::npos) {
-                SPDLOG_WARN("exception in process_rpc_answer: {}", error.what());
-            } else {
-                SPDLOG_ERROR("exception in process_rpc_answer: {}", error.what());
-            }
+            SPDLOG_ERROR("exception in process_rpc_answer: {}", error.what());
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
@@ -163,11 +159,7 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            if (std::string(error.what()).find("attempting to parse an empty input") != std::string::npos) {
-                SPDLOG_WARN("error parsing empty rpc answer in kdf_client::rpc_process_answer for rpc_command {}", rpc_command);
-            } else {
-                SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
-            }
+            SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
@@ -223,11 +215,7 @@ namespace atomic_dex::kdf
                 }
                 catch (const std::exception& ex)
                 {
-                    if (std::string(ex.what()).find(" ") != std::string::npos) {
-                        SPDLOG_WARN("exception in kdf_client::process_rpc_async: {}", ex.what());
-                    } else {
-                        SPDLOG_ERROR("exception in kdf_client::process_rpc_async: {}", ex.what());
-                    }
+                    SPDLOG_ERROR("exception in kdf_client::process_rpc_async: {}", ex.what());
                     using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });

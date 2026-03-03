@@ -162,11 +162,7 @@ namespace
         }
         catch (const std::exception& error)
         {
-            if (std::string(error.what()).find(" ") != std::string::npos) {
-                SPDLOG_WARN("exception in determine_amounts_in_current_currency: {}", error.what());
-            } else {
-                SPDLOG_ERROR("exception in determine_amounts_in_current_currency: {}", error.what());
-            }
+            SPDLOG_ERROR("exception in determine_amounts_in_current_currency: {}", error.what());
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
         return {};
@@ -617,6 +613,7 @@ namespace atomic_dex::kdf
         }
         catch (const web::http::http_exception& exception)
         {
+            SPDLOG_ERROR("exception in rpc_version: {}", exception.what());
             return "error occured during rpc_version";
         }
         return "";
@@ -644,6 +641,7 @@ namespace atomic_dex::kdf
         }
         catch (const web::http::http_exception& exception)
         {
+            SPDLOG_ERROR("exception in peer_id: {}", exception.what());
             return "error occured during rpc_version";
         }
         return "";
@@ -681,11 +679,7 @@ namespace atomic_dex::kdf
         }
         catch (const nlohmann::detail::parse_error& err)
         {
-            if (std::string(err.what()).find(" ") != std::string::npos) {
-                SPDLOG_WARN("exception in basic_batch_answer with body {}: {}", body, err.what());
-            } else {
-                SPDLOG_ERROR("exception in basic_batch_answer with body {}: {}", body, err.what());
-            }
+            SPDLOG_ERROR("exception in basic_batch_answer with body {}: {}", body, err.what());
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             answer["error"] = body;
         }

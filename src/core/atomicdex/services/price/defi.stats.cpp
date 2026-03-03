@@ -110,11 +110,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                if (std::string(e.what()).find(" ") != std::string::npos) {
-                    SPDLOG_WARN("exception in global_defi_stats_service::process_update: {}", e.what());
-                } else {
-                    SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
-                }
+                SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
                 using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 this->process_update();
             };

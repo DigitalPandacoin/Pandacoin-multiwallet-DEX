@@ -230,11 +230,7 @@ namespace atomic_dex
                 }
                 catch (const std::exception& error)
                 {
-                    if (std::string(error.what()).find(" ") != std::string::npos) {
-                        SPDLOG_WARN("exception in kdf_service::retrieve_coins_informations: {}", error.what());
-                    } else {
-                        SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
-                    }
+                    SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
                     using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             }
@@ -681,11 +677,7 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                if (std::string(error.what()).find(" ") != std::string::npos) {
-                    SPDLOG_WARN("exception in kdf_service::enable_erc_family_coins: {}", error.what());
-                } else {
-                    SPDLOG_ERROR("exception in kdf_service::enable_erc_family_coins: {}", error.what());
-                }
+                SPDLOG_ERROR("exception in kdf_service::enable_erc_family_coins: {}", error.what());
                 using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
@@ -789,11 +781,7 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                if (std::string(error.what()).find(" ") != std::string::npos) {
-                    SPDLOG_WARN("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
-                } else {
-                    SPDLOG_ERROR("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
-                }
+                SPDLOG_ERROR("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
                 using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
@@ -1251,11 +1239,7 @@ namespace atomic_dex
                     }
                     catch (const std::exception& error)
                     {
-                        if (std::string(error.what()).find(" ") != std::string::npos) {
-                            SPDLOG_WARN("exception in kdf_service::batch_balance_and_tx: {}", error.what());
-                        } else {
-                            SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
-                        }
+                        SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
                         using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         this->dispatcher_.trigger<tx_fetch_finished>(true);
                     }
@@ -1880,11 +1864,7 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                if (std::string(error.what()).find("Failed to read response body") != std::string::npos) {
-                    SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
-                } else {
-                    SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
-                }
+                SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
                 using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
@@ -2544,11 +2524,7 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            if (std::string(error.what()).find(" ") != std::string::npos) {
-                SPDLOG_WARN("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
-            } else {
-                SPDLOG_ERROR("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
-            }
+            SPDLOG_ERROR("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }

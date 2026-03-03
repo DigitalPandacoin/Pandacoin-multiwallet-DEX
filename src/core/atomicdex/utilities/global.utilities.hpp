@@ -59,6 +59,7 @@ namespace atomic_dex::utils
         }
         catch (const std::exception& error)
         {
+            SPDLOG_ERROR("exception in to_human_date: {}", error.what());
             return date::format(std::move(format), tp);
         }
     }

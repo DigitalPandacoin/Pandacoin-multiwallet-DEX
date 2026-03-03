@@ -48,8 +48,7 @@ handle_exception_pplx_task(pplx::task<void> previous_task)
     }
     catch (const std::exception& e)
     {
-        auto error = e.what();
-        SPDLOG_ERROR("pplx task error: {}", error);
+        SPDLOG_ERROR("pplx task error: {}", e.what());
 //#if defined(linux) || defined(__APPLE__)
 //        SPDLOG_ERROR("stacktrace: {}", boost::stacktrace::to_string(boost::stacktrace::stacktrace()));
 //#endif

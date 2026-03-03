@@ -211,6 +211,7 @@ namespace atomic_dex::utils
             }
             catch (const std::invalid_argument& e)
             {
+                SPDLOG_ERROR("exception in to_eth_checksum: {}", e.what());
                 final_eth_address += address[i];
             }
         }
