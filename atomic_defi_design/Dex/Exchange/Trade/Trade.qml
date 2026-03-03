@@ -179,15 +179,15 @@ Item
         spacing: 8
         anchors.margins: 5
 
-        TradeViewHeader
-        {
-            id: header
-            width: parent.width
-            height: 50
-            proViewTrInfo: proView.trInfo
-            proViewMarketsOrderBook: proView.marketsOrderBook
-            proViewPlaceOrderForm: proView.placeOrderForm
-        }
+        //TradeViewHeader
+        //{
+        //    id: header
+        //    width: parent.width
+        //    height: 50
+        //    proViewTrInfo: proView.trInfo
+        //    proViewMarketsOrderBook: proView.marketsOrderBook
+        //    proViewPlaceOrderForm: proView.placeOrderForm
+        //}
 
         ProView
         {

@@ -78,7 +78,7 @@ RowLayout
         readonly property
         var options: [5, 10, 25]
 
-        Layout.preferredWidth: (root.width / 100) * 14
+        Layout.preferredWidth: (root.width / 100) * 13
         Layout.maximumWidth: 62
         Layout.preferredHeight: 35
         Layout.alignment: Qt.AlignLeft
@@ -90,8 +90,7 @@ RowLayout
 
     DexText
     {
-        Layout.preferredWidth: (root.width / 100) * 16
-        Layout.leftMargin: 4
+        Layout.preferredWidth: (root.width / 100) * 15
         Layout.alignment: Qt.AlignLeft
         font.pixelSize: 12
         text: qsTr("items per page")

@@ -1236,7 +1236,10 @@ namespace atomic_dex
                     }
                     catch (const std::exception& error)
                     {
-                        SPDLOG_ERROR("exception in batch_balance_and_tx: {}", error.what());
+                        if (std::string(e.what()).find(" ") != std::string::npos) {
+                            SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
+                        }
+                        using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         this->dispatcher_.trigger<tx_fetch_finished>(true);
                     }
                 })
@@ -1860,11 +1863,12 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                if (std::string(error.what()).find("Failed to read response body") == std::string::npos) {
-                    SPDLOG_WARN("exception in kdf_service::fetch_single_balance, Failed to read response body");
+                if (std::string(error.what()).find("Failed to read response body") != std::string::npos) {
+                    SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
                 } else {
                     SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
                 }
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
 
@@ -2224,7 +2228,7 @@ namespace atomic_dex
 
                     if (answer.rpc_result_code != 200)
                     {
-                        if (std::string(answer.raw_result).find("attempting to parse an empty input") == std::string::npos) {
+                        if (std::string(answer.raw_result).find("attempting to parse an empty input") != std::string::npos) {
                             SPDLOG_WARN("answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: {}", answer.rpc_result_code);
                         } else {
                             SPDLOG_ERROR("answer.rpc_result_code is {} in kdf::async_process_rpc_get with answer.raw_result: {}", answer.rpc_result_code, answer.raw_result);

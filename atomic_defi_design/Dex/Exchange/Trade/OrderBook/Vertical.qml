@@ -25,7 +25,7 @@ Widget
 
     Header
     {
-        Layout.topMargin: 2
+        Layout.topMargin: 4
         Layout.bottomMargin: 6
         Layout.fillWidth: true
     }
@@ -34,7 +34,7 @@ Widget
     {
         isAsk: true
         Layout.topMargin: 6
-        Layout.bottomMargin: 6
+        Layout.bottomMargin: 4
         Layout.fillHeight: true
         Layout.fillWidth: true
     }
@@ -56,7 +56,7 @@ Widget
     List
     {
         isAsk: false
-        Layout.topMargin: 6
+        Layout.topMargin: 4
         Layout.bottomMargin: 6
         Layout.fillHeight: true
         Layout.fillWidth: true
