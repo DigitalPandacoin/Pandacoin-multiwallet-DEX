@@ -54,7 +54,7 @@ namespace
 {
     void check_for_reconfiguration(const std::string& wallet_name)
     {
-        SPDLOG_DEBUG("UNUSED ??");
+        //SPDLOG_DEBUG("UNUSED ??");
         try
         {
             using namespace std::string_literals;
@@ -2740,6 +2740,7 @@ namespace atomic_dex
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                m_token_source.cancel();
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());

@@ -30,10 +30,10 @@ ColumnLayout
     Layout.fillHeight: false
     Layout.maximumHeight: flickMax
 
-    Component.onCompleted: {
-        console.log("MultipageModalContent root.flickMax =" + root.flickMax) //
-        console.log("MultipageModalContent height = " + height) //
-    }
+    //Component.onCompleted: {
+    //    console.log("MultipageModalContent root.flickMax =" + root.flickMax) // 500, 708, 1442
+    //    console.log("MultipageModalContent height = " + height) // 190
+    //}
 
     DexLabel
     {
