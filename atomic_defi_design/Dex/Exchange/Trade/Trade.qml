@@ -193,7 +193,7 @@ Item
         {
             id: proView
             width: parent.width
-            height: parent.height - 60
+            height: parent.height - 10
             visible: API.app.trading_pg.current_trading_mode == TradingMode.Pro
             enabled: visible
         }

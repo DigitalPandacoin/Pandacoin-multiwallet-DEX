@@ -25,7 +25,7 @@ Widget
 
     Header
     {
-        Layout.topMargin: 4
+        Layout.topMargin: 6
         Layout.bottomMargin: 6
         Layout.fillWidth: true
     }

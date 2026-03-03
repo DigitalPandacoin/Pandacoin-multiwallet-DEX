@@ -39,8 +39,7 @@ main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
     }
     catch (const std::exception& error)
     {
-        auto error = error.what();
-        SPDLOG_ERROR("Exception caught: {}", error);
+        SPDLOG_ERROR("Exception caught: {}", error.what());
 #if defined(linux) || defined(__APPLE__)
         SPDLOG_ERROR("stacktrace: {}", boost::stacktrace::to_string(boost::stacktrace::stacktrace()));
 #endif
