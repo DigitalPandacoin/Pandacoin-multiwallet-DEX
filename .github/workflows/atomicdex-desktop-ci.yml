@@ -78,7 +78,6 @@ jobs:
           echo "CC=/usr/local/opt/llvm/bin/clang" >> $GITHUB_ENV
           echo "CMAKE_BUILD_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
           echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $GITHUB_ENV
-          echo "HOMEBREW_CACHE=${{ github.workspace }}/homebrew_cache" >> $GITHUB_ENV
 
       - name: Set env variables (Linux)
         if: runner.os == 'Linux'
@@ -104,13 +103,6 @@ jobs:
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Cache homebrew (MacOS)
-        if: runner.os == 'macOS'
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.HOMEBREW_CACHE }}
-          key: homebrew-${{ runner.os }}-${{ matrix.type }}
-
       - name: Cache nim (MacOS)
         if: runner.os == 'macOS'
         uses: actions/cache@v4
@@ -119,12 +111,6 @@ jobs:
             /Users/runner/.nimble
             /Users/runner/.choosenim
           key: nimble-${{ runner.os }}-${{ matrix.type }}
-
-      - name: Cache deps
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE }}
-          key: deps-${{ runner.os }}-${{ matrix.type }}
 
       - name: Build libwally (Windows)
         if: runner.os == 'Windows'
@@ -200,11 +186,74 @@ jobs:
             gnu-getopt
             llvm
 
+      - name: Install apt deps (Linux)
+        if: runner.os == 'Linux'
+        uses: gerlero/apt-install@v1
+        with:
+          packages: |
+            autoconf
+            bison
+            build-essential
+            curl
+            gperf
+            libcap-dev
+            libpulse-dev
+            libtool
+            libssl-dev
+            libxkbcommon-x11-0
+            libxcb-icccm4
+            libxcb-image0
+            libxcb1-dev
+            libxcb-keysyms1-dev
+            libxcb-render-util0-dev
+            libxcb-xinerama0
+            libfuse2
+            libxcursor-dev
+            libxcomposite-dev
+            libxdamage-dev
+            libxrandr-dev
+            libxtst-dev
+            libxss-dev
+            libdbus-1-dev
+            libevent-dev
+            libfontconfig1-dev
+            libgl1-mesa-dev
+            libudev-dev
+            libpci-dev
+            libnss3-dev
+            libasound2-dev
+            libegl1-mesa-dev
+            linux-libc-dev
+            lsb-release
+            ninja-build
+            nodejs
+            software-properties-common
+            unzip
+            wget
+            zstd
+            qtbase5-dev
+            qtdeclarative5-dev
+            qtquickcontrols2-5-dev
+            qttools5-dev
+            qtwebengine5-dev
+            libqt5svg5-dev
+            libqt5charts5-dev
+            libqt5waylandclient5-dev
+            qml-module-qtquick-controls
+            qml-module-qtquick-controls2
+            qml-module-qtquick-dialogs
+            qml-module-qtquick-extras
+            qml-module-qtquick-layouts
+            qml-module-qtquick-shapes
+            qml-module-qtcharts
+            qml-module-qtgraphicaleffects
+            qml-module-qtwebengine
+            qml-module-qt-labs-platform
+            qml-module-qt-labs-settings
+
       - name: Install deps (Linux)
         if: runner.os == 'Linux'
         run: |
-          echo "DEBIAN_FRONTEND=noninteractive" >> $GITHUB_ENV
-          echo ${{ github.sha }}
           sudo ./ci_tools_atomic_dex/ci_scripts/linux_script.sh
 
       - name: Install deps (MacOS)
