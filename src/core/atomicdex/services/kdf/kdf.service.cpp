@@ -1236,7 +1236,7 @@ namespace atomic_dex
                     }
                     catch (const std::exception& error)
                     {
-                        if (std::string(e.what()).find(" ") != std::string::npos) {
+                        if (std::string(error.what()).find(" ") != std::string::npos) {
                             SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
                         }
                         using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
