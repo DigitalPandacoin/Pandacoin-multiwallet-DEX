@@ -33,7 +33,7 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 0
         topMarginAfterTitle: 8
-        flickMax: window.height - 450
+        flickMax: window.height - 60
 
         header: [
             // Complete image
