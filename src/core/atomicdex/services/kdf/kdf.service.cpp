@@ -2718,11 +2718,13 @@ namespace atomic_dex
         }
         catch (const std::exception& e)
         {
+            using namespace std::chrono_literals;
             for (auto&& cur: request) cur["userpass"] = "";
 
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
                 SPDLOG_WARN("mutex lock failed in kdf_service::handle_exception_pplx_task from {} with request: {}", from, request.dump(4));
+                std::this_thread::sleep_for(1s);
                 return;
             }
 
@@ -2735,7 +2737,7 @@ namespace atomic_dex
                 SPDLOG_ERROR("pplx task error: {} from: {}, request: {}", e.what(), from, request.dump(4));
             }
 
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+            std::this_thread::sleep_for(1s);
         }
     }
 

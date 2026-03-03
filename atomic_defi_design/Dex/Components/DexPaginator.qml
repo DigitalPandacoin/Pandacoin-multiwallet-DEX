@@ -12,7 +12,7 @@ RowLayout
 {
     id: root
 
-    spacing: 3
+    spacing: 4
 
     property var pageSize: Constants.API.app.orders_mdl.nb_pages
     property var currentValue: Constants.API.app.orders_mdl.current_page
@@ -91,7 +91,7 @@ RowLayout
     DexText
     {
         Layout.preferredWidth: (root.width / 100) * 16
-        Layout.leftMargin: 8
+        Layout.leftMargin: 4
         Layout.alignment: Qt.AlignLeft
         font.pixelSize: 12
         text: qsTr("items per page")

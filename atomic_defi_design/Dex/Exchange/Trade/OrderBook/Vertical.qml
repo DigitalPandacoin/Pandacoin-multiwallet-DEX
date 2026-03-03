@@ -17,7 +17,7 @@ Widget
     readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
     property int page_index: 0
-    margins: 8
+    margins: 4
     spacing: 8
     collapsable: false
     visible: root.page_index === 0
@@ -25,21 +25,22 @@ Widget
 
     Header
     {
-        Layout.topMargin: 6
-        Layout.bottomMargin: 6
+        Layout.bottomMargin: 8
         Layout.fillWidth: true
     }
 
     List
     {
         isAsk: true
+        Layout.topMargin: 8
+        Layout.bottomMargin: 8
         Layout.fillHeight: true
         Layout.fillWidth: true
     }
 
     Item
     {
-        Layout.preferredHeight: 1
+        Layout.preferredHeight: 2
         Layout.fillWidth: true
         Rectangle
         {
@@ -54,6 +55,8 @@ Widget
     List
     {
         isAsk: false
+        Layout.topMargin: 8
+        Layout.bottomMargin: 8
         Layout.fillHeight: true
         Layout.fillWidth: true
     }
@@ -62,8 +65,7 @@ Widget
     {
         id: volume_text
         visible: parseFloat(pair_volume_24hr) > 0
-        Layout.topMargin: 2
-        Layout.bottomMargin: 2
+        Layout.topMargin: 8
         Layout.alignment: Qt.AlignHCenter
         color: Dex.CurrentTheme.foregroundColor2
         text_value: pair + qsTr(" 24hrs  |  %1  |  %2 trades").arg(General.convertUsd(pair_volume_24hr)).arg(pair_trades_24hr)
