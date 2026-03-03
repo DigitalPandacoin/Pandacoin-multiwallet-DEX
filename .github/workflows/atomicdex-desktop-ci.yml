@@ -188,6 +188,18 @@ jobs:
           export PATH=/Users/runner/.nimble/bin:$PATH
           chmod +x /Users/runner/.choosenim/toolchains/nim-1.6.2/bin/*
 
+      - name: Install brew deps (MacOS)
+        if: runner.os == 'macOS'
+        uses: gerlero/brew-install@v1
+        with:
+          packages: |
+            automake
+            nim
+            gnu-sed
+            coreutils
+            gnu-getopt
+            llvm
+
       - name: Install deps (Linux)
         if: runner.os == 'Linux'
         run: |

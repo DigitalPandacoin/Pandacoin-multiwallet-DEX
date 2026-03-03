@@ -929,7 +929,7 @@ namespace atomic_dex
         nlohmann::json     batch      = nlohmann::json::array();
         auto&              kdf_system = m_system_manager.get_system<kdf_service>();
         std::error_code    ec;
-        t_withdraw_request withdraw_req{.coin = "KMDCL", .to = kdf_system.address("KMDCL", ec), .amount = "0", .max = true};
+        t_withdraw_request withdraw_req{.coin = "KMD", .to = kdf_system.address("KMD", ec), .amount = "0", .max = true};
         nlohmann::json     json_data = kdf::template_request("withdraw", true);
         kdf::to_json(json_data, withdraw_req);
         batch.push_back(json_data);

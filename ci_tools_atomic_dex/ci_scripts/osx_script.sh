@@ -1,13 +1,5 @@
 #!/bin/bash
 
-brew update
-brew install automake \
-            nim \
-            gnu-sed \
-            coreutils \
-            gnu-getopt \
-            llvm
-
 pip3 install yq
 export CC=clang
 export CXX=clang++
