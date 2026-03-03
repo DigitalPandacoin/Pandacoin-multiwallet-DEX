@@ -673,7 +673,7 @@ namespace atomic_dex::kdf
     {
         nlohmann::json answer;
         std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
-        SPDLOG_DEBUG("body in basic_batch_answer is: {}", body.dump(4));
+        SPDLOG_DEBUG("body in basic_batch_answer is: {}", body);
 
         try
         {
