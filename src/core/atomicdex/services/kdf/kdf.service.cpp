@@ -1574,9 +1574,9 @@ namespace atomic_dex
                                                     {
                                                         SPDLOG_INFO("{} enable loop complete!", tickers[idx]);
                                                         //SPDLOG_DEBUG("z_error.dump was: {}", z_error.dump(4));
-                                                        std::unique_lock lock(m_coin_cfg_mutex);
+                                                        std::unique_lock info_lock(m_coin_cfg_mutex);
                                                         m_coins_informations[tickers[idx]].currently_enabled = true;
-                                                        std::unique_lock lock(m_balance_mutex);
+                                                        std::unique_lock balance_lock(m_balance_mutex);
                                                         m_balance_informations.at(tickers[idx]).balance = z_error[0].at("result").at("details").at("wallet_balance").at("balance").at("spendable");
                                                         this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
                                                     }
