@@ -65,7 +65,7 @@ namespace atomic_dex
             {
                 SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
                 dispatcher_.trigger<fiat_rate_updated>("");
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
                 if (!fallback)
                 {
                     process_update(true);

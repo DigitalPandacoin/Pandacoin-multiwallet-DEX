@@ -681,7 +681,7 @@ namespace atomic_dex::kdf
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer with body {}: {}", body, err.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+            using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
             answer["error"] = body;
         }
         return answer;

@@ -1573,6 +1573,7 @@ namespace atomic_dex
                                                     else
                                                     {
                                                         SPDLOG_INFO("{} enable loop complete!", tickers[idx]);
+                                                        SPDLOG_DEBUG("z_error.dump was: {}"; z_error.dump(4));
                                                         this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
                                                     }
                                                 }
@@ -1645,7 +1646,7 @@ namespace atomic_dex
         {
             if (coin_info.activation_status.contains("result"))
             {
-                //SPDLOG_DEBUG("coin_info.activation_status {} {} :", coin, coin_info.activation_status.dump(4));
+                SPDLOG_DEBUG("kdf_service::is_zhtlc_coin_ready coin_info.activation_status for coin {}: {}", coin, coin_info.activation_status.dump(4));
                 if (coin_info.activation_status.at("result").contains("status"))
                 {
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
@@ -1867,7 +1868,7 @@ namespace atomic_dex
             catch (const std::exception& error)
             {
                 SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
             }
         };
 
@@ -2237,6 +2238,7 @@ namespace atomic_dex
                             SPDLOG_WARN("answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: {}", answer.rpc_result_code);
                         } else {
                             SPDLOG_ERROR("answer.rpc_result_code is {} in kdf::async_process_rpc_get with answer.raw_result: {}", answer.rpc_result_code, answer.raw_result);
+                            // answer.rpc_result_code is -1 in kdf::async_process_rpc_get with answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
                         }
                         this->dispatcher_.trigger<tx_fetch_finished>(true, ticker);
                     }

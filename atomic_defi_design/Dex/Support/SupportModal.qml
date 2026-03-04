@@ -24,7 +24,7 @@ Qaterial.Dialog
     //readonly property bool update_needed: API.app.self_update_service.update_needed
 
     width: 950
-    height: 650
+    height: 750
     padding: 20
     topPadding: 30
     bottomPadding: 30
