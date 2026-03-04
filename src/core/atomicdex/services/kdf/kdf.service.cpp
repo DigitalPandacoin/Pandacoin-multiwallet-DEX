@@ -1573,7 +1573,7 @@ namespace atomic_dex
                                                     else
                                                     {
                                                         SPDLOG_INFO("{} enable loop complete!", tickers[idx]);
-                                                        SPDLOG_DEBUG("z_error.dump was: {}"; z_error.dump(4));
+                                                        SPDLOG_DEBUG("z_error.dump was: {}", z_error.dump(4));
                                                         this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
                                                     }
                                                 }
