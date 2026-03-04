@@ -2029,21 +2029,24 @@ namespace atomic_dex
             {
                 if (!is_zhtlc_coin_ready(ticker))
                 {
+                    SPDLOG_WARN("ZHTLC coin {} not ready in kdf_service::get_balance_info", ticker);
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
                     return "0";
                 }
-                SPDLOG_ERROR("get_balance_info not found for enabled coin: {}", ticker);
+                else
+                {
+                    SPDLOG_ERROR("kdf_service::get_balance_info not found for enabled coin: {}", ticker);
+                }
                 ec = dextop_error::balance_of_a_non_enabled_coin;
                 return "0";
             }
             else
             {
-                // SPDLOG_DEBUG("get_balance_info for {}: [{}]", ticker, it->second.balance);
                 return it->second.balance;
             }
         }
         else
         {
-            //SPDLOG_DEBUG("get_balance_info request skipped for not enabled coin: {}", ticker);
             ec = dextop_error::balance_of_a_non_enabled_coin;
             return "0";
         }
@@ -2734,7 +2737,8 @@ namespace atomic_dex
             }
 
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
-                std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
+                std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
+                std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(10s);

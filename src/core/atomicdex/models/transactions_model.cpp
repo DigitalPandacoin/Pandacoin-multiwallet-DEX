@@ -239,6 +239,8 @@ namespace atomic_dex
             SPDLOG_WARN("old model data already bigger than the new one, bypassing");
             return;
         }
+
+        spdlog::stopwatch sw; using namespace std::chrono;
         t_transactions to_init;
         auto           difference = transactions.size() - this->m_model_data.size();
 
@@ -272,6 +274,7 @@ namespace atomic_dex
         {
             this->init_transactions(to_init);
         }
+        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_or_insert_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int transactions_model::get_length() const
