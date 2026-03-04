@@ -148,7 +148,7 @@ MultipageModal
         height: 450
         titleTopMargin: 0
         topMarginAfterTitle: 10
-        flickMax: window.height - 480
+        flickMax: window.height - 280
 
         DefaultComboBox
         {

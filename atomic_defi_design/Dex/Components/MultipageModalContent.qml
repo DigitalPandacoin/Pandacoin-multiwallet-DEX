@@ -73,7 +73,7 @@ ColumnLayout
         Layout.topMargin: root.topMarginAfterTitle
         Layout.fillWidth: true
         Layout.preferredHeight: contentHeight
-        Layout.maximumHeight: flickMax - 340
+        Layout.maximumHeight: flickMax - 240
         contentHeight: _innerLayout.height
 
         ColumnLayout

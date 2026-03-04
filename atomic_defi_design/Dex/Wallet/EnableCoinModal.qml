@@ -72,6 +72,7 @@ MultipageModal
             titleTopMargin: 0
             topMarginAfterTitle: 0
             spacing: 5
+            flickMax: window.height - 240
 
             RowLayout
             {
