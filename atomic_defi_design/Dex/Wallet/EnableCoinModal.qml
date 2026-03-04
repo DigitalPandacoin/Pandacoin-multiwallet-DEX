@@ -15,8 +15,8 @@ import Dex.Themes 1.0 as Dex
 MultipageModal
 {
     id: root
-    horizontalPadding: 35
-    verticalPadding: 35
+    horizontalPadding: 30
+    verticalPadding: 30
 
     property var coin_cfg_model: API.app.portfolio_pg.global_cfg_mdl
 
@@ -110,7 +110,7 @@ MultipageModal
 
                 Layout.topMargin: 5
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: 300
+                Layout.preferredHeight: window.height - 300
                 Layout.fillWidth: true
 
                 delegate: Item

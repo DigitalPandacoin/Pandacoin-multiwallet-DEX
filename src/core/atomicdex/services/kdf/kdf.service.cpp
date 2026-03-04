@@ -1459,15 +1459,14 @@ namespace atomic_dex
                                                     z_error                                          = z_answers;
 
                                                     std::string status = z_answers[0].at("result").at("status").get<std::string>();
-                                                    // SPDLOG_DEBUG("{} status : {}", tickers[idx], status);
-                                                    // SPDLOG_INFO("{} Activation Status: {}", tickers[idx], z_answers[0].dump());
 
                                                     if (status == "Ok")
                                                     {
-                                                        // SPDLOG_INFO("{} activation ready...", tickers[idx]);
+                                                        SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
+                                                        SPDLOG_DEBUG("z_answers[0].dump is: {}", z_answers[0].dump());
+
                                                         std::unique_lock lock(m_coin_cfg_mutex);
                                                         m_coins_informations[tickers[idx]].activation_status = z_answers[0];
-
 
                                                         if (z_answers[0].at("result").at("details").contains("error"))
                                                         {
@@ -1482,7 +1481,7 @@ namespace atomic_dex
                                                             SPDLOG_INFO("Enabling [{}] error: {}", tickers[idx], event);
                                                             break;
                                                         }
-                                                        // SPDLOG_INFO("{} activation complete!", tickers[idx]);
+                                                        SPDLOG_INFO("{} activation complete!", tickers[idx]);
                                                         m_coins_informations[tickers[idx]].currently_enabled = true;
 
                                                         dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
@@ -1573,11 +1572,6 @@ namespace atomic_dex
                                                     else
                                                     {
                                                         SPDLOG_INFO("{} enable loop complete!", tickers[idx]);
-                                                        //SPDLOG_DEBUG("z_error.dump was: {}", z_error.dump(4));
-                                                        std::unique_lock info_lock(m_coin_cfg_mutex);
-                                                        m_coins_informations[tickers[idx]].currently_enabled = true;
-                                                        std::unique_lock balance_lock(m_balance_mutex);
-                                                        m_balance_informations.at(tickers[idx]).balance = z_error[0].at("result").at("details").at("wallet_balance").at("balance").at("spendable");
                                                         this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
                                                     }
                                                 }

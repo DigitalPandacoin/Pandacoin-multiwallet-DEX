@@ -21,7 +21,6 @@ env:
   packages_to_install: llvm ninja git 7zip
   cache_version: v0
   cache_hash_seed_file_path: './.github/workflows/cache_seed_file_for_scoop.txt'
-  CMAKE_CXX_FLAGS: "-Wno-missing-field-initializers"
 
 jobs:
 

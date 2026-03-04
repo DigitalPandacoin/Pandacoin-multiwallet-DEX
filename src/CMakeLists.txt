@@ -106,6 +106,7 @@ endif ()
 if (LINUX)
     get_target_property(exe_runtime_directory_at ${PROJECT_NAME} RUNTIME_OUTPUT_DIRECTORY)
     set(output_dir_at "${exe_runtime_directory_at}/AntaraAtomicDexAppDir")
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wno-missing-field-initializers)
 
     magic_game_app_image_generation("${CMAKE_SOURCE_DIR}/cmake/install/linux"
             "dex.desktop"
@@ -134,7 +135,7 @@ if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Release)
         message(STATUS "disabling console")
         target_compile_definitions(${PROJECT_NAME} PRIVATE WINDOWS_RELEASE_MAIN)
-        target_compile_options(${PROJECT_NAME} PRIVATE -Wno-deprecated-declarations)
+        target_compile_options(${PROJECT_NAME} PRIVATE -Wno-deprecated-declarations -Wno-missing-field-initializers)
         target_link_options(${PROJECT_NAME} PUBLIC --for-linker -subsystem:windows)
     endif ()
     set(WINDEPLOYQT_PATH "")
