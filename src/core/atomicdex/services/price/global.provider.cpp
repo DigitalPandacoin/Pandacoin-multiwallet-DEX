@@ -84,6 +84,12 @@ namespace atomic_dex
     {
     }
 
+    void
+    global_price_service::stop()
+    {
+        g_token_source.cancel();
+    }
+
     std::string
     global_price_service::get_rate_conversion(const std::string& fiat, const std::string& ticker_in, bool adjusted) const
     {
