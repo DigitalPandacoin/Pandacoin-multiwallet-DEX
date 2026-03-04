@@ -18,6 +18,9 @@ env:
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
   RUNVCPKG_VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
   VCPKG_ROOT: ${{ github.workspace }}\komodo-wallet-desktop\ci_tools_atomic_dex\vcpkg-repo
+  packages_to_install: llvm ninja git 7zip
+  cache_version: v0
+  cache_hash_seed_file_path: './.github/workflows/cache_seed_file_for_scoop.txt'
 
 jobs:
 
@@ -152,6 +155,38 @@ jobs:
           modules: 'qtcharts debug_info qtwebengine'
           tools: 'tools_ifw'
           cache: true
+
+      - name: Create scoop cache seed file (Windows)
+        if: runner.os == 'Windows'
+        run: echo ${{ env.packages_to_install }} >> ${{ env.cache_hash_seed_file_path }}
+
+      - name: Restore scoop cache (Windows)
+        if: runner.os == 'Windows'
+        id: restore_cache
+        uses: actions/cache@v4
+        with:
+          path: '~/scoop'
+          key: cache_version_${{ env.cache_version }}-${{ hashFiles(env.cache_hash_seed_file_path) }}
+
+      - name: Install scoop (Windows)
+        if: runner.os == 'Windows'
+        uses: MinoruSekine/setup-scoop@v4.0.2
+        if: steps.restore_cache.outputs.cache-hit != 'true'
+        with:
+          install_scoop: 'true'
+          buckets: extras
+          apps: ${{ env.packages_to_install }}
+          scoop_update: 'true'
+          update_path: 'true'
+
+      - name: Setup scoop PATH (Windows)
+        if: runner.os == 'Windows'
+        uses: MinoruSekine/setup-scoop@v4.0.2
+        if: steps.restore_cache.outputs.cache-hit == 'true'
+        with:
+          install_scoop: 'false'
+          scoop_update: 'false'
+          update_path: 'true'
 
       - name: Install nim (Linux)
         if: runner.os == 'Linux'
