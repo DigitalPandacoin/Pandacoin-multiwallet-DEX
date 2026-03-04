@@ -673,12 +673,10 @@ namespace atomic_dex::kdf
     {
         nlohmann::json answer;
         std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
-        SPDLOG_DEBUG("body in basic_batch_answer is: {}", body);
 
         try
         {
             answer = nlohmann::json::parse(body);
-            SPDLOG_DEBUG("answer in basic_batch_answer is: {}", answer.dump(4));
         }
         catch (const nlohmann::detail::parse_error& err)
         {

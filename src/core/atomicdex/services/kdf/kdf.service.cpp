@@ -376,7 +376,7 @@ namespace atomic_dex
             }
         }
         m_kdf_running = false;
-        // m_token_source.cancel();
+        m_kdf_client.m_token_source.cancel();
         m_kdf_client.stop();
 
         if (!kdf_stopped)
@@ -1854,14 +1854,12 @@ namespace atomic_dex
         nlohmann::json    j = kdf::template_request("my_balance");
         kdf::to_json(j, balance_request);
         batch_array.push_back(j);
-        //SPDLOG_DEBUG("batch_array in kdf_service::fetch_single_balance is: {}", batch_array.dump(4));
 
         auto answer_functor = [this](web::http::http_response resp)
         {
             try
             {
                 auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
-                SPDLOG_DEBUG("answers in kdf_service::fetch_single_balance is: {}", answers.dump(4));
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
@@ -2740,7 +2738,8 @@ namespace atomic_dex
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                m_kdf_client.m_token_source.cancel();
+                std::this_thread::sleep_for(10s);
+                //m_kdf_client.m_token_source.cancel();
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
