@@ -122,11 +122,10 @@ namespace atomic_dex::kdf
         {
             if (resp.status_code() not_eq 200)
             {
-                SPDLOG_WARN("rpc answer code is not 200: {}", resp.status_code());
                 if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
                     // TODO: this doesn't work, we end up trying to json_parse a 404 Not Found
-                    // SPDLOG_DEBUG("error field detected inside the RpcReturnType");
+                    SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())

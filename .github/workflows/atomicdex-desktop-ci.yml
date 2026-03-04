@@ -185,6 +185,7 @@ jobs:
             coreutils
             gnu-getopt
             llvm
+            yq
 
       - name: Install apt deps (Linux)
         if: runner.os == 'Linux'

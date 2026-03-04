@@ -21,6 +21,7 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
         subtitleAlignment: Qt.AlignHCenter
         topMarginAfterTitle: 15
+        flickMax: window.height - 60
 
         TextEditWithCopy
         {

@@ -2743,9 +2743,8 @@ namespace atomic_dex
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                std::this_thread::sleep_for(1s);
             }
-
-            std::this_thread::sleep_for(1s);
         }
     }
 

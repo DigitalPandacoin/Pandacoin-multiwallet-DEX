@@ -1,6 +1,5 @@
 #!/bin/bash
 
-pip3 install yq
 export CC=clang
 export CXX=clang++
 export MACOSX_DEPLOYMENT_TARGET=15.5
