@@ -169,9 +169,8 @@ jobs:
           key: cache_version_${{ env.cache_version }}-${{ hashFiles(env.cache_hash_seed_file_path) }}
 
       - name: Install scoop (Windows)
-        if: runner.os == 'Windows'
+        if: ${{ (runner.os == 'Windows') && (steps.restore_cache.outputs.cache-hit != 'true') }}
         uses: MinoruSekine/setup-scoop@v4.0.2
-        if: steps.restore_cache.outputs.cache-hit != 'true'
         with:
           install_scoop: 'true'
           buckets: extras
@@ -180,9 +179,8 @@ jobs:
           update_path: 'true'
 
       - name: Setup scoop PATH (Windows)
-        if: runner.os == 'Windows'
+        if: ${{ (runner.os == 'Windows') && (steps.restore_cache.outputs.cache-hit == 'true') }}
         uses: MinoruSekine/setup-scoop@v4.0.2
-        if: steps.restore_cache.outputs.cache-hit == 'true'
         with:
           install_scoop: 'false'
           scoop_update: 'false'
