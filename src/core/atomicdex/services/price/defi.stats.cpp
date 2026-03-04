@@ -110,8 +110,17 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                using namespace std::chrono_literals;
+                if (std::string(e.what()).find("Error resolving address") != std::string::npos)
+                {
+                    SPDLOG_WARN("exception in global_defi_stats_service::process_update: {}", e.what());
+                    std::this_thread::sleep_for(10s);
+                }
+                else
+                {
+                    SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
+                    std::this_thread::sleep_for(2s);
+                }
                 this->process_update();
             };
         };

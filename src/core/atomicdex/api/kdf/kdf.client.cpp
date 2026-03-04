@@ -42,7 +42,7 @@ namespace
     {
         using namespace std::chrono_literals;
         web::http::client::http_client_config   cfg;
-        cfg.set_timeout(std::chrono::seconds(60));
+        cfg.set_timeout(std::chrono::seconds(40));
         return {FROM_STD_STR(atomic_dex::g_dex_rpc), cfg};
     }
 

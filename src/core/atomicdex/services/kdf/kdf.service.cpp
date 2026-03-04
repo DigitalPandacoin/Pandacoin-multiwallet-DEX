@@ -1573,7 +1573,9 @@ namespace atomic_dex
                                                     else
                                                     {
                                                         SPDLOG_INFO("{} enable loop complete!", tickers[idx]);
-                                                        SPDLOG_DEBUG("z_error.dump was: {}", z_error.dump(4));
+                                                        //SPDLOG_DEBUG("z_error.dump was: {}", z_error.dump(4));
+                                                        std::unique_lock lock(m_balance_mutex);
+                                                        m_balance_informations.at(tickers[idx]).balance = z_error[0].at("result").at("details").at("wallet_balance").at("balance").at("spendable");
                                                         this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
                                                     }
                                                 }
@@ -1646,7 +1648,7 @@ namespace atomic_dex
         {
             if (coin_info.activation_status.contains("result"))
             {
-                SPDLOG_DEBUG("kdf_service::is_zhtlc_coin_ready coin_info.activation_status for coin {}: {}", coin, coin_info.activation_status.dump(4));
+                //SPDLOG_DEBUG("kdf_service::is_zhtlc_coin_ready coin_info.activation_status for coin {}: {}", coin, coin_info.activation_status.dump(4));
                 if (coin_info.activation_status.at("result").contains("status"))
                 {
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
@@ -2734,7 +2736,7 @@ namespace atomic_dex
             if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(1s);
+                std::this_thread::sleep_for(2s);
                 return;
             }
 
@@ -2743,12 +2745,12 @@ namespace atomic_dex
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(10s);
+                std::this_thread::sleep_for(22s);
                 //m_kdf_client.m_token_source.cancel();
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             } else {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(1s);
+                std::this_thread::sleep_for(2s);
             }
         }
     }
