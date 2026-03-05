@@ -682,7 +682,7 @@ namespace atomic_dex::kdf
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
             using namespace std::chrono_literals; std::this_thread::sleep_for(10s);
-            answer["error"] = body;
+            //answer["error"] = body;
         }
         return answer;
     }
