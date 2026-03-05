@@ -1866,6 +1866,8 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
+                using namespace std::chrono_literals;
+
                 if (std::string(error.what()).find("Failed to read response body") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
@@ -1960,7 +1962,6 @@ namespace atomic_dex
         m_kdf_init_thread = std::thread(
             [this, kdf_cfg_path]()
             {
-                // std::this_thread::
                 using namespace std::chrono_literals;
                 auto               check_kdf_alive = []() { return kdf::rpc_version() != "error occured during rpc_version"; };
                 static std::size_t nb_try          = 0;
