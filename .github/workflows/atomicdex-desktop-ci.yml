@@ -98,7 +98,6 @@ jobs:
         uses: crazy-max/ghaction-github-runtime@v3
 
       - name: Setup Python
-        if: runner.os != 'macOS'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -212,7 +211,6 @@ jobs:
         uses: gerlero/brew-install@v1
         with:
           packages: |
-            python@3.11
             automake
             nim
             gnu-sed
