@@ -42,24 +42,8 @@ if (APPLE)
     message("Property of cpprestsdk::cpprest: ${KK_VAR}")
 endif ()
 #find_package(absl CONFIG REQUIRED)
-find_package(Boost COMPONENTS filesystem random system thread REQUIRED)
+find_package(Boost COMPONENTS random system thread REQUIRED)
 if (CONAN_ENABLED)
-    if (NOT TARGET Boost::filesystem)
-        add_library(Boost::filesystem INTERFACE IMPORTED)
-        if (WIN32)
-            target_link_libraries(Boost::filesystem INTERFACE
-                    CONAN_LIB::Boost_libboost_filesystem
-                    CONAN_LIB::Boost_libboost_system
-                    Boost::Boost)
-        else ()
-
-            target_link_libraries(Boost::filesystem INTERFACE
-                    CONAN_LIB::Boost_boost_filesystem
-                    CONAN_LIB::Boost_boost_system
-                    Boost::Boost)
-        endif ()
-    endif ()
-
     if (NOT TARGET Boost::random)
         add_library(Boost::random INTERFACE IMPORTED)
         if (WIN32)

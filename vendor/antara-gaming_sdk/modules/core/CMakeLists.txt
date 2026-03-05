@@ -1,5 +1,5 @@
 ##! shared sources between the module and his unit tests
-find_package(Boost REQUIRED COMPONENTS filesystem)
+## find_package(Boost REQUIRED COMPONENTS filesystem)
 
 add_library(antara_core_shared_sources STATIC)
 target_sources(antara_core_shared_sources PRIVATE antara/gaming/core/real.path.cpp antara/gaming/core/api.scaling.cpp
@@ -28,7 +28,7 @@ target_link_libraries(antara_core_shared_sources PUBLIC
         antara::default_settings
         antara::entt
         antara::refl-cpp
-        Boost::filesystem
+#        Boost::filesystem
         PRIVATE
         #$<$<PLATFORM_ID:Darwin>:${APPLE_FOUNDATION_FRAMEWORK_LIBRARY}>
         )
