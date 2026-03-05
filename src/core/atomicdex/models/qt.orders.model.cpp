@@ -654,7 +654,7 @@ namespace atomic_dex
     void
     orders_model::refresh_or_insert(bool after_manual_reset)
     {
-        spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         if (after_manual_reset)
         {
             this->set_fetching_busy(false);
@@ -685,7 +685,7 @@ namespace atomic_dex
     void
     orders_model::set_filtering_infos(t_filtering_infos infos)
     {
-        spdlog::stopwatch sw;
+        spdlog::stopwatch sw; using namespace std::chrono;
         if (this->is_fetching_busy())
         {
             SPDLOG_WARN("Fetching busy, skipping orders_model::set_filtering_infos");
@@ -713,7 +713,6 @@ namespace atomic_dex
         {
             this->set_current_page(1);
         }
-        using namespace std::chrono;
         if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
