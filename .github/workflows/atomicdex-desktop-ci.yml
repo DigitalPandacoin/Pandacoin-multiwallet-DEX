@@ -212,13 +212,13 @@ jobs:
         uses: gerlero/brew-install@v1
         with:
           packages: |
+            python@3.11
             automake
             nim
             gnu-sed
             coreutils
             gnu-getopt
             llvm
-            python-setuptools
 
       - name: Install apt deps (Linux)
         if: runner.os == 'Linux'
