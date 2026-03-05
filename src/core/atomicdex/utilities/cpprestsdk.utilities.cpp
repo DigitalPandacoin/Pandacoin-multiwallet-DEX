@@ -17,13 +17,6 @@
 //! Deps
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#if defined(linux) || defined(__APPLE__)
-#    define BOOST_STACKTRACE_USE_ADDR2LINE
-#    if defined(__APPLE__)
-#        define _GNU_SOURCE
-#    endif
-#    include <boost/stacktrace.hpp>
-#endif
 #include <cpprest/filestream.h>
 
 //! Project Headers
@@ -49,8 +42,5 @@ handle_exception_pplx_task(pplx::task<void> previous_task)
     catch (const std::exception& e)
     {
         SPDLOG_ERROR("pplx task error: {}", e.what());
-//#if defined(linux) || defined(__APPLE__)
-//        SPDLOG_ERROR("stacktrace: {}", boost::stacktrace::to_string(boost::stacktrace::stacktrace()));
-//#endif
     }
 }

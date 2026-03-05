@@ -3,11 +3,9 @@
   "version-string": "0.8.2",
   "dependencies": [
     "boost-multiprecision",
-    "boost-filesystem",
     "boost-thread",
     "boost-random",
     "boost-lockfree",
-    "boost-stacktrace",
     "nlohmann-json",
     "range-v3",
     "libsodium",
