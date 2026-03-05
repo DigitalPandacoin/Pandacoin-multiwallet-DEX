@@ -140,36 +140,37 @@ namespace
         {
             return;
         }
+
         if (tickers.empty())
         {
             SPDLOG_DEBUG("Tickers list empty, skipping update_coin_status");
             return;
         }
+
         SPDLOG_INFO("Update coins status to: {} - field_name: {} - tickers: {}", status, field_name, fmt::join(tickers, ", "));
-        std::filesystem::path    cfg_path               = atomic_dex::utils::get_atomic_dex_config_folder();
-        std::string filename               = std::string(atomic_dex::get_raw_version()) + "-coins." + wallet_name + ".json";
-        std::string custom_tokens_filename = "custom-tokens." + wallet_name + ".json";
-        std::filesystem::path    custom_tokens_filepath = cfg_path / custom_tokens_filename;
+        std::filesystem::path	cfg_path		= atomic_dex::utils::get_atomic_dex_config_folder();
+        std::string		filename		= std::string(atomic_dex::get_raw_version()) + "-coins." + wallet_name + ".json";
+        std::string		custom_tokens_filename	= "custom-tokens." + wallet_name + ".json";
+        std::filesystem::path	custom_tokens_filepath	= cfg_path / custom_tokens_filename;
 
         nlohmann::json config_json_data = atomic_dex::utils::read_json_file(cfg_path / filename);
         nlohmann::json custom_cfg_data = atomic_dex::utils::read_json_file(custom_tokens_filepath);
 
+        std::shared_lock lock(registry_mtx);
+        for (auto&& ticker: tickers)
         {
-            std::shared_lock lock(registry_mtx);
-            for (auto&& ticker: tickers)
+            if (registry[ticker].is_custom_coin)
             {
-                if (registry[ticker].is_custom_coin)
-                {
-                    custom_cfg_data.at(ticker)[field_name] = status;
-                }
-                else
-                {
-                    config_json_data.at(ticker)[field_name] = status;
-                }
-                if (field_name == "active")
-                {
-                    registry[ticker].active = status;
-                }
+                custom_cfg_data.at(ticker)[field_name] = status;
+            }
+            else
+            {
+                config_json_data.at(ticker)[field_name] = status;
+            }
+
+            if (field_name == "active")
+            {
+                registry[ticker].active = status;
             }
         }
 
@@ -232,7 +233,7 @@ namespace atomic_dex
                 catch (const std::exception& error)
                 {
                     SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
                 }
             }
             SPDLOG_DEBUG("Coins file does not exist!");
@@ -334,7 +335,6 @@ namespace atomic_dex
                 m_activation_clock = std::chrono::high_resolution_clock::now();
             }
             else {
-                //SPDLOG_DEBUG("Coins activation queue is empty.");
                 m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(6));
             }
         }
@@ -1172,7 +1172,6 @@ namespace atomic_dex
                 SPDLOG_WARN("{}", ec.message());
             }
         }
-
         update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
     }
 
@@ -1587,7 +1586,6 @@ namespace atomic_dex
                                         tickers.erase(std::remove(tickers.begin(), tickers.end(), t), tickers.end());
                                         disable_coins.push_back(t);
                                     }
-                                    SPDLOG_DEBUG("Updating coins status...");
                                     update_coin_status(this->m_current_wallet_name, disable_coins, false, m_coins_informations, m_coin_cfg_mutex);
                                 }
 
@@ -2237,6 +2235,7 @@ namespace atomic_dex
                     {
                         if (std::string(answer.raw_result).find("attempting to parse an empty input") != std::string::npos) {
                             SPDLOG_WARN("answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: {}", answer.rpc_result_code);
+                            // answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: -1
                         } else {
                             SPDLOG_ERROR("answer.rpc_result_code is {} in kdf::async_process_rpc_get with answer.raw_result: {}", answer.rpc_result_code, answer.raw_result);
                             // answer.rpc_result_code is -1 in kdf::async_process_rpc_get with answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'

@@ -6,6 +6,7 @@ export MACOSX_DEPLOYMENT_TARGET=11.3
 
 # get SDK
 curl -LJO https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz
+mkdir $HOME/sdk
 tar -xf MacOSX11.3.sdk.tar.xz -C $HOME/sdk
 
 # build libwally
