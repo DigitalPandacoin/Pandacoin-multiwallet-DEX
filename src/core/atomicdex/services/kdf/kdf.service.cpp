@@ -1463,8 +1463,6 @@ namespace atomic_dex
                                                     if (status == "Ok")
                                                     {
                                                         SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
-                                                        SPDLOG_DEBUG("z_answers[0].dump is: {}", z_answers[0].dump());
-
                                                         std::unique_lock lock(m_coin_cfg_mutex);
                                                         m_coins_informations[tickers[idx]].activation_status = z_answers[0];
 
@@ -1478,12 +1476,14 @@ namespace atomic_dex
                                                                 }
                                                             }
                                                             event = z_answers[0].at("result").at("details").at("error").get<std::string>();
-                                                            SPDLOG_INFO("Enabling [{}] error: {}", tickers[idx], event);
+                                                            SPDLOG_ERROR("Enabling [{}] error: {}", tickers[idx], event);
                                                             break;
                                                         }
+
                                                         SPDLOG_INFO("{} activation complete!", tickers[idx]);
                                                         m_coins_informations[tickers[idx]].currently_enabled = true;
-
+                                                        settings_system.set_zhtlc_status(z_answers[0]);
+                                                        update_coin_status(this->m_current_wallet_name, tickers, true, m_coins_informations, m_coin_cfg_mutex);
                                                         dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
                                                         break;
                                                     }
@@ -1577,8 +1577,8 @@ namespace atomic_dex
                                                 }
                                                 catch (const std::exception& error)
                                                 {
-                                                    SPDLOG_INFO("exception caught in zhtlc batch_enable_coins: {}", error.what());
-                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                                                    SPDLOG_ERROR("exception caught in zhtlc batch_enable_coins: {}", error.what());
+                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
                                                 }
                                             }
                                         }
@@ -1615,6 +1615,7 @@ namespace atomic_dex
                     [this, tickers, batch](pplx::task<void> previous_task)
                     {
                         this->handle_exception_pplx_task(previous_task, "batch_enable_coins", batch);
+                        SPDLOG_DEBUG("update_coin_status of {} to false", fmt::join(tickers, ", "));
                         update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
                     });
         };
@@ -2742,9 +2743,10 @@ namespace atomic_dex
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(22s);
-                //m_kdf_client.m_token_source.cancel();
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
-            } else {
+            }
+            else
+            {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(2s);
             }

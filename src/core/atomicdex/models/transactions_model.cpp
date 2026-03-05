@@ -180,15 +180,18 @@ namespace atomic_dex
 
     void atomic_dex::transactions_model::reset()
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         this->beginResetModel();
         this->m_file_count = 0;
         this->m_model_data.clear();
         this->endResetModel();
         emit lengthChanged();
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::reset: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void transactions_model::init_transactions(const t_transactions& transactions)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         if (m_model_data.size() == 0)
         {
             beginResetModel();
@@ -216,6 +219,7 @@ namespace atomic_dex
             endInsertRows();
         }
         emit lengthChanged();
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in transactions_model::init_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void atomic_dex::transactions_model::update_transaction(const tx_infos& tx)
@@ -274,7 +278,7 @@ namespace atomic_dex
         {
             this->init_transactions(to_init);
         }
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_or_insert_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_or_insert_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int transactions_model::get_length() const

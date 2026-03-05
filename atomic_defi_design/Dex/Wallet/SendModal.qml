@@ -253,7 +253,7 @@ MultipageModal
 
         titleText: qsTr("Prepare to send ") + current_ticker_infos.name
         titleAlignment: Qt.AlignHCenter
-        flickMax: window.height - 20
+        flickMax: 600
 
         DefaultRectangle
         {
