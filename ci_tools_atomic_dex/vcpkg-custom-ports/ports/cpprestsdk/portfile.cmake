@@ -3,7 +3,7 @@ vcpkg_from_github(
     REPO eugenegff/cpprestsdk
     HEAD_REF master
     REF 32b9dd42edc89b0cb54c4d894a6db1caf9ac3895
-    SHA512 0
+    SHA512 a8307474356d2bcda8e6ee44ac4a79f8161b2dda5916f6c233892b10fa97c440af7e7126b63d6c4d3f421daa27e9bc48d6c10bd925b4775f9f678a9c7baf5d5a
 )
 
 vcpkg_check_features(
