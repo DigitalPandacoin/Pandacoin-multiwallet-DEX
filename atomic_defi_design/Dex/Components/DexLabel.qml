@@ -28,6 +28,3 @@ Text
     onLinkActivated: Qt.openUrlExternally(link)
     linkColor: color
 }
-
-// 90% similar to DexText.qml
-// This could be refactored down.

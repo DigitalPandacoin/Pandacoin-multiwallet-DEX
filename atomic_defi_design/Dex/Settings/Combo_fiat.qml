@@ -96,7 +96,7 @@ Item
             anchors.horizontalCenter: parent.horizontalCenter
             height: 50
 
-            DexText
+            DexLabel
             {
                 text: qsTr("Recommended: ")
                 font.pixelSize: Style.textSizeSmall4
@@ -120,7 +120,7 @@ Item
                 {
                     model: recommended_fiats
 
-                    delegate: DexText
+                    delegate: DexLabel
                     {
                         text: modelData
                         color: DexTheme.foregroundColor

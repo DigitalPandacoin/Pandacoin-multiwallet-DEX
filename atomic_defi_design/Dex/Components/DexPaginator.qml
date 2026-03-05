@@ -88,7 +88,7 @@ RowLayout
         onCurrentValueChanged: Constants.API.app.orders_mdl.limit_nb_elements = currentValue
     }
 
-    DexText
+    DexLabel
     {
         Layout.preferredWidth: (root.width / 100) * 15
         Layout.alignment: Qt.AlignLeft

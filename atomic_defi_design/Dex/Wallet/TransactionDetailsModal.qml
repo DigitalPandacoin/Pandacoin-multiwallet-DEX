@@ -29,7 +29,7 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("Transaction Details")
-        flickMax: window.height - 260
+        flickMax: 720
 
         // Warning for spam/poison transactions
         DexLabel
