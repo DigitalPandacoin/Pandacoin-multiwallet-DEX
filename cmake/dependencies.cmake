@@ -7,7 +7,6 @@ if (WIN32)
 endif ()
 
 find_package(asio REQUIRED)
-add_library(asio INTERFACE)
 target_link_libraries(asio INTERFACE asio::asio)
 
 find_package(EnTT REQUIRED)

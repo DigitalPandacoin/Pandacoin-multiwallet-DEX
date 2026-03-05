@@ -5,8 +5,7 @@ export CXX=clang++
 export MACOSX_DEPLOYMENT_TARGET=11.3
 
 # get SDK
-curl -O https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz
-mkdir $HOME/sdk
+curl -LJO https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz
 tar -xf MacOSX11.3.sdk.tar.xz -C $HOME/sdk
 
 # build libwally
