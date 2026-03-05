@@ -1458,6 +1458,10 @@ namespace atomic_dex
 
                                                     if (status == "Ok")
                                                     {
+                                                        SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
+                                                        std::unique_lock lock(m_coin_cfg_mutex);
+                                                        m_coins_informations[tickers[idx]].activation_status = z_answers[0];
+
                                                         if (z_answers[0].at("result").at("details").contains("error"))
                                                         {
                                                             if (z_answers[0].at("result").at("details").at("error").contains("error_type"))
@@ -1472,12 +1476,8 @@ namespace atomic_dex
                                                             break;
                                                         }
 
-                                                        SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
-                                                        std::unique_lock lock(m_coin_cfg_mutex);
                                                         m_coins_informations[tickers[idx]].currently_enabled = true;
                                                         this->dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
-                                                        this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
-                                                        SPDLOG_INFO("{} activation complete!", tickers[idx]);
                                                         break;
                                                     }
                                                     else if (status == "Error")
@@ -1508,11 +1508,11 @@ namespace atomic_dex
                                                         {
                                                             event = z_answers[0].at("result").at("details").get<std::string>();
                                                         }
-                                                        // SPDLOG_DEBUG("{} activation event [{}]", event, tickers[idx]);
+                                                        SPDLOG_DEBUG("{} activation event [{}]", event, tickers[idx]);
 
                                                         if (event != last_event)
                                                         {
-                                                            // SPDLOG_INFO("Waiting for {} to enable [{}: {}]...", tickers[idx], status, event);
+                                                            SPDLOG_INFO("Waiting for {} to enable [{}: {}]...", tickers[idx], status, event);
                                                             if (!m_coins_informations[tickers[idx]].currently_enabled && event != "ActivatingCoin")
                                                             {
                                                                 std::unique_lock lock(m_coin_cfg_mutex);
@@ -1599,9 +1599,9 @@ namespace atomic_dex
                         }
                         catch (const std::exception& error)
                         {
-                            SPDLOG_ERROR("exception caught in batch_enable_coins: {}", error.what());
+                            SPDLOG_ERROR("exception caught in batch_enable_coins, update_coin_status to false: {}", error.what());
                             update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
-                            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+                            using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
                         }
                     })
                 .then(
@@ -2032,7 +2032,7 @@ namespace atomic_dex
                 if (!is_zhtlc_coin_ready(ticker))
                 {
                     SPDLOG_WARN("ZHTLC coin {} not ready in kdf_service::get_balance_info", ticker);
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(5s);
                     return "0";
                 }
                 else
