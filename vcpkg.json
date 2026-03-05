@@ -2,6 +2,7 @@
   "name": "komodo-wallet-desktop",
   "version-string": "0.8.2",
   "dependencies": [
+    "asio",
     "boost-multiprecision",
     "boost-filesystem",
     "boost-thread",
