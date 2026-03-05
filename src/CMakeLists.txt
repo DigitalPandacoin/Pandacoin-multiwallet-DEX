@@ -74,12 +74,6 @@ dex_generate_qrc(${CMAKE_SOURCE_DIR}/atomic_defi_design/assets assets_qrc
 
 # Main executable
 add_executable(${PROJECT_NAME}
-if (LINUX)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
-endif ()
-if (WIN32)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
-endif ()
         MACOSX_BUNDLE
         ${ICON}
 
@@ -97,6 +91,13 @@ endif ()
         ##! Linguistic
         ${QM_FILES}
         ${TS_FILES})
+
+if (LINUX)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
+endif ()
+if (WIN32)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
+endif ()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
