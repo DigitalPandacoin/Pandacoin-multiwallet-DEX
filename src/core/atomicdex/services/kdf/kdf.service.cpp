@@ -1866,8 +1866,16 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
-                using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
+                if (std::string(e.what()).find("Failed to read response body") != std::string::npos)
+                {
+                    SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
+                    std::this_thread::sleep_for(10s);
+                }
+                else
+                {
+                    SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
+                    std::this_thread::sleep_for(5s);
+                }
             }
         };
 

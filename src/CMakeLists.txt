@@ -92,13 +92,6 @@ add_executable(${PROJECT_NAME}
         ${QM_FILES}
         ${TS_FILES})
 
-if (LINUX)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
-endif ()
-if (WIN32)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
-endif ()
-
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::core Qaterial)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ENTT_API_IMPORT)
 set_target_properties(${PROJECT_NAME}

@@ -2,7 +2,7 @@
 
 export CC=clang
 export CXX=clang++
-export MACOSX_DEPLOYMENT_TARGET=15.5
+export MACOSX_DEPLOYMENT_TARGET=11.3
 
 git clone https://github.com/ElementsProject/libwally-core --recurse-submodules -b release_0.9.2
 cd libwally-core

@@ -261,7 +261,7 @@ jobs:
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
           export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
           export PATH=/Users/runner/.nimble/bin:$PATH
-          export MACOSX_DEPLOYMENT_TARGET=15.5
+          export MACOSX_DEPLOYMENT_TARGET=11.3
           export CC=clang
           export CXX=clang++
           export CXXFLAGS=-stdlib=libc++
