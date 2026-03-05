@@ -2739,11 +2739,12 @@ namespace atomic_dex
             }
 
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
+                std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(22s);
+                std::this_thread::sleep_for(20s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
             else
