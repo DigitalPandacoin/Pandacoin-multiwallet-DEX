@@ -1,12 +1,4 @@
 
-if (LINUX)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
-endif ()
-
-if (WIN32)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
-endif ()
-
 include(DEX_NEW_LIB)
 include(dex_generate_qrc)
 
@@ -31,6 +23,15 @@ DEX_NEW_LIB(core INTERFACE
             DEX_APPDATA_FOLDER="${DEX_APPDATA_FOLDER}"
         INTERFACE_DEFS
             ENTT_API_EXPORT)
+
+if (LINUX)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
+endif ()
+
+if (WIN32)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
+endif ()
+
 target_precompile_headers(${PROJECT_NAME}_core INTERFACE core/atomicdex/pch.hpp)
 
 if (APPLE)

@@ -111,15 +111,16 @@ namespace atomic_dex
             catch (const std::exception& e)
             {
                 using namespace std::chrono_literals;
-                if (std::string(e.what()).find("Error resolving address") != std::string::npos)
+                if (std::string(e.what()).find("Error resolving address") != std::string::npos ||
+                    std::string(e.what()).find("Request canceled by user") != std::string::npos)
                 {
-                    SPDLOG_WARN("exception in global_defi_stats_service::process_update: {}", e.what());
+                    SPDLOG_WARN("exception in komodo_prices_provider::process_update: {}", e.what());
                     std::this_thread::sleep_for(10s);
                 }
                 else
                 {
-                    SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
-                    std::this_thread::sleep_for(2s);
+                    SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
+                    std::this_thread::sleep_for(5s);
                 }
                 this->process_update();
             };

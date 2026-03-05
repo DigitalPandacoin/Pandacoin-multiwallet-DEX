@@ -16,6 +16,6 @@ proc generate_solution*(build_type: string, osx_sdk_path: string, compiler_path:
                     os.getCurrentDir().parentDir().parentDir()
     when defined(osx):
         if os.dirExists(osx_sdk_path):
-            cmd_line = cmd_line & " -DCMAKE_OSX_SYSROOT=" & osx_sdk_path & " -DCMAKE_OSX_DEPLOYMENT_TARGET=14.2"
+            cmd_line = cmd_line & " -DCMAKE_OSX_SYSROOT=" & osx_sdk_path & " -DCMAKE_OSX_DEPLOYMENT_TARGET=15.5"
     echo "cmd line: " & cmd_line
     discard execCmd(cmd_line)
