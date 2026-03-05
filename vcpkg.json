@@ -34,7 +34,7 @@
       "features": [
         "openssl"
       ]
-    }
+    },
     "cpprestsdk",
     "entt",
     "refl-cpp",
