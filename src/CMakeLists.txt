@@ -23,15 +23,6 @@ DEX_NEW_LIB(core INTERFACE
             DEX_APPDATA_FOLDER="${DEX_APPDATA_FOLDER}"
         INTERFACE_DEFS
             ENTT_API_EXPORT)
-
-if (LINUX)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
-endif ()
-
-if (WIN32)
-    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
-endif ()
-
 target_precompile_headers(${PROJECT_NAME}_core INTERFACE core/atomicdex/pch.hpp)
 
 if (APPLE)
@@ -83,6 +74,12 @@ dex_generate_qrc(${CMAKE_SOURCE_DIR}/atomic_defi_design/assets assets_qrc
 
 # Main executable
 add_executable(${PROJECT_NAME}
+if (LINUX)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-field-initializers)
+endif ()
+if (WIN32)
+    target_compile_options(${PROJECT_NAME} BEFORE PRIVATE -Wno-missing-designated-field-initializers)
+endif ()
         MACOSX_BUNDLE
         ${ICON}
 
