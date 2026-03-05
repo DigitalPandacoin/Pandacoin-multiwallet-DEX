@@ -672,16 +672,17 @@ namespace atomic_dex::kdf
     basic_batch_answer(const web::http::http_response& resp)
     {
         nlohmann::json answer;
+        std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
+
         try
         {
-            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
             answer = nlohmann::json::parse(body);
         }
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
             using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
-            //answer["error"] = body;
+            answer["error"] = body;
         }
         return answer;
     }

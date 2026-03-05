@@ -1866,7 +1866,7 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                if (std::string(e.what()).find("Failed to read response body") != std::string::npos)
+                if (std::string(error.what()).find("Failed to read response body") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
                     std::this_thread::sleep_for(10s);
