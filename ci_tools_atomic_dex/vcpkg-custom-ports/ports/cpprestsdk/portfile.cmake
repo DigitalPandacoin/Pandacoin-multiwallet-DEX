@@ -25,6 +25,7 @@ vcpkg_cmake_configure(
         ${FEATURE_OPTIONS}
         -DBUILD_TESTS=OFF
         -DBUILD_SAMPLES=OFF
+        -DCPPREST_EXCLUDE_WEBSOCKETS=ON
         -DCPPREST_EXPORT_DIR=share/cpprestsdk
         -DWERROR=OFF
         -DPKG_CONFIG_EXECUTABLE=FALSE
