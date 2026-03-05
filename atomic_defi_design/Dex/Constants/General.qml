@@ -7,7 +7,7 @@ QtObject {
     readonly property int width: 1280 // Set for maximum user compatibility 
     readonly property int height: 860 // See https://gs.statcounter.com/screen-resolution-stats/desktop/worldwide
     readonly property int minimumWidth: 1280
-    readonly property int minimumHeight: 768
+    readonly property int minimumHeight: 860
     readonly property int max_camo_pw_length: 256
     readonly property int max_std_pw_length: 256
     readonly property int max_pw_length: max_std_pw_length + max_camo_pw_length

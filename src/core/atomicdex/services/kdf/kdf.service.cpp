@@ -1412,13 +1412,9 @@ namespace atomic_dex
 
                                     if (!res)
                                     {
-                                        SPDLOG_DEBUG(
-                                            "bad answer for: [{}] -> removing it from enabling, idx: {}, tickers size: {}, answers size: {}", tickers[idx], idx,
-                                            tickers.size(), answers.size());
                                         if (error.find("CoinIsAlreadyActivated") != std::string::npos)
                                         {
-                                            SPDLOG_ERROR(error);
-                                            SPDLOG_DEBUG("{} activation complete!", tickers[idx]);
+                                            SPDLOG_WARN("{} already activated: {}", tickers[idx], error);
                                             std::unique_lock lock(m_coin_cfg_mutex);
                                             m_coins_informations[tickers[idx]].currently_enabled = true;
                                             this->dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
@@ -1426,7 +1422,7 @@ namespace atomic_dex
                                         }
                                         else
                                         {
-                                            SPDLOG_ERROR(error);
+                                            SPDLOG_ERROR("Error activating {}: {}", tickers[idx], error);
                                             to_remove.emplace(tickers[idx]);
                                             this->dispatcher_.trigger<enabling_coin_failed>(tickers[idx], error);
                                         }
@@ -1462,10 +1458,6 @@ namespace atomic_dex
 
                                                     if (status == "Ok")
                                                     {
-                                                        SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
-                                                        std::unique_lock lock(m_coin_cfg_mutex);
-                                                        m_coins_informations[tickers[idx]].activation_status = z_answers[0];
-
                                                         if (z_answers[0].at("result").at("details").contains("error"))
                                                         {
                                                             if (z_answers[0].at("result").at("details").at("error").contains("error_type"))
@@ -1480,11 +1472,12 @@ namespace atomic_dex
                                                             break;
                                                         }
 
-                                                        SPDLOG_INFO("{} activation complete!", tickers[idx]);
+                                                        SPDLOG_INFO("{} activation ready, status is {}", tickers[idx], status);
+                                                        std::unique_lock lock(m_coin_cfg_mutex);
                                                         m_coins_informations[tickers[idx]].currently_enabled = true;
-                                                        settings_system.set_zhtlc_status(z_answers[0]);
-                                                        update_coin_status(this->m_current_wallet_name, tickers, true, m_coins_informations, m_coin_cfg_mutex);
-                                                        dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
+                                                        this->dispatcher_.trigger<coin_fully_initialized>(coin_fully_initialized{.tickers = {tickers[idx]}});
+                                                        this->dispatcher_.trigger<enabling_z_coin_status>(tickers[idx], "Complete!");
+                                                        SPDLOG_INFO("{} activation complete!", tickers[idx]);
                                                         break;
                                                     }
                                                     else if (status == "Error")

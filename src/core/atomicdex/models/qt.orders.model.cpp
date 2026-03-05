@@ -654,6 +654,7 @@ namespace atomic_dex
     void
     orders_model::refresh_or_insert(bool after_manual_reset)
     {
+        spdlog::stopwatch sw;
         if (after_manual_reset)
         {
             this->set_fetching_busy(false);
@@ -678,6 +679,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
