@@ -6,6 +6,10 @@ if (WIN32)
     set(BUILD_SHARED_LIBS OFF CACHE BOOL "Override option" FORCE)
 endif ()
 
+find_package(asio REQUIRED)
+add_library(asio INTERFACE)
+target_link_libraries(asio INTERFACE asio::asio)
+
 find_package(EnTT REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(range-v3 REQUIRED)

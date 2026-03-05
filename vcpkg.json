@@ -28,7 +28,6 @@
       ],
       "platform": "windows"
     },
-    "boost-asio",
     "asio",
     {
       "name": "asio",
