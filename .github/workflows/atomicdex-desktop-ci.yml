@@ -218,6 +218,7 @@ jobs:
             coreutils
             gnu-getopt
             llvm
+            python-setuptools
 
       - name: Install apt deps (Linux)
         if: runner.os == 'Linux'
