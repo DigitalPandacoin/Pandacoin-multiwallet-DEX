@@ -6,6 +6,7 @@
     "boost-thread",
     "boost-random",
     "boost-lockfree",
+    "openssl",
     "nlohmann-json",
     "range-v3",
     "libsodium",
