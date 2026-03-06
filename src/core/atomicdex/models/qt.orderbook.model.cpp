@@ -181,10 +181,6 @@ namespace atomic_dex
                 t_float_50  volume_f     = safe_float(trading_pg.get_volume().toStdString());
                 const bool  is_buy       = trading_pg.get_market_mode() == MarketMode::Buy;
                 const auto  trading_mode = trading_pg.get_current_trading_mode();
-                if (!is_buy && trading_mode == TradingMode::Simple)
-                {
-                    volume_f = safe_float(data.base_max_volume);
-                }
                 t_float_50 total_amount_f = volume_f * safe_float(data.price);
                 const auto total_amount   = atomic_dex::utils::format_float(total_amount_f);
                 return QString::fromStdString(total_amount);
@@ -641,10 +637,6 @@ namespace atomic_dex
             out["rel_min_volume"]         = QString::fromStdString(order.rel_min_volume);
             out["rel_max_volume"]         = QString::fromStdString(order.rel_max_volume);
             out["uuid"]                   = QString::fromStdString(order.uuid);
-            if (trading_pg.get_current_trading_mode() == TradingModeGadget::Simple)
-            {
-                out["initial_input_volume"] = trading_pg.get_volume();
-            }
         }
 
         return out;

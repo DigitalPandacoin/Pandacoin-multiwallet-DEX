@@ -135,7 +135,6 @@ namespace atomic_dex
         const bool is_maker       = this->sourceModel()->data(idx, orders_model::OrdersRoles::IsMakerRole).toBool();
         auto       timestamp      = this->sourceModel()->data(idx, orders_model::OrdersRoles::UnixTimestampRole).toULongLong();
         auto       date           = QDateTime::fromMSecsSinceEpoch(timestamp).date();
-        const bool is_simple_view = m_system_manager.get_system<trading_page>().get_current_trading_mode() == TradingModeGadget::Simple;
 
         if (not this->m_is_history && not date_in_range(date))
         {
@@ -158,11 +157,6 @@ namespace atomic_dex
             {
                 return false;
             }
-        }
-
-        if (!this->m_is_history && is_maker && !is_swap && is_simple_view)
-        {
-            return false;
         }
 
         if (not this->m_is_history && this->filterRole() == orders_model::OrdersRoles::TickerPairRole)

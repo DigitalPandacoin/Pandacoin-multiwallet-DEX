@@ -15,11 +15,11 @@ ScrollBar
     property bool visibleBackground: true
     width: 6
 
-    Component.onCompleted:
-    {
-        console.log("ScrollBar visibleBackground = " + visibleBackground)
-        console.log("ScrollBar policy = " + policy)
-    }
+    //Component.onCompleted:
+    //{
+    //    console.log("ScrollBar visibleBackground = " + visibleBackground)
+    //    console.log("ScrollBar policy = " + policy)
+    //}
 
     contentItem: Item
     {

@@ -2740,6 +2740,7 @@ namespace atomic_dex
 
             if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
+                std::string(e.what()).find("Failed to write request headers") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {

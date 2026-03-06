@@ -207,12 +207,8 @@ namespace atomic_dex
             out["rel_max_volume"]        = QString::fromStdString(order.rel_max_volume);
             out["uuid"]                  = QString::fromStdString(order.uuid);
             auto& trading_pg             = m_system_manager.get_system<trading_page>();
-            if (trading_pg.get_current_trading_mode() == TradingModeGadget::Simple)
-            {
-                out["initial_input_volume"] = trading_pg.get_volume();
-            }
-            m_selected_best_order = out;
 
+            m_selected_best_order = out;
 
             auto right_coin = trading_pg.get_market_pairs_mdl()->get_right_selected_coin();
             if (right_coin == out.value("coin").toString())
