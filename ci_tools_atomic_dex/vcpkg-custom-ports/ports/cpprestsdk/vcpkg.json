@@ -8,6 +8,20 @@
   ],
   "homepage": "https://github.com/cipig/cpprestsdk",
   "license": "MIT",
+  "dependencies": [
+    {
+      "name": "openssl",
+      "platform": "!uwp & !windows"
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
   "default-features": [
     {
       "name": "brotli",
