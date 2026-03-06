@@ -26,13 +26,6 @@
       ],
       "platform": "windows"
     },
-    "wolfssl",
-    {
-      "name": "wolfssl",
-      "features": [
-        "asio"
-      ]
-    },
     "asio",
     {
       "name": "asio",
