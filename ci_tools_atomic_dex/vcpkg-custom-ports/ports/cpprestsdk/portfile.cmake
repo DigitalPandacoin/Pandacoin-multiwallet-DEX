@@ -1,8 +1,8 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO eugenegff/cpprestsdk
+    REPO cipig/cpprestsdk
     HEAD_REF master
-    REF 32b9dd42edc89b0cb54c4d894a6db1caf9ac3895
+    REF 39e0e5c17e89df018566ce8f1a9f9cda94058b83
     SHA512 a8307474356d2bcda8e6ee44ac4a79f8161b2dda5916f6c233892b10fa97c440af7e7126b63d6c4d3f421daa27e9bc48d6c10bd925b4775f9f678a9c7baf5d5a
 )
 
@@ -26,7 +26,6 @@ vcpkg_cmake_configure(
         -DBUILD_TESTS=OFF
         -DBUILD_SAMPLES=OFF
         -DCPPREST_EXCLUDE_WEBSOCKETS=ON
-        -DCPPREST_FILEIO_IMPL=none
         -DCPPREST_EXPORT_DIR=share/cpprestsdk
         -DWERROR=OFF
         -DPKG_CONFIG_EXECUTABLE=FALSE
