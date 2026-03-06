@@ -27,12 +27,6 @@
       "platform": "windows"
     },
     "asio",
-    {
-      "name": "asio",
-      "features": [
-        "wolfssl"
-      ]
-    },
     "cpprestsdk",
     "entt",
     "refl-cpp",
