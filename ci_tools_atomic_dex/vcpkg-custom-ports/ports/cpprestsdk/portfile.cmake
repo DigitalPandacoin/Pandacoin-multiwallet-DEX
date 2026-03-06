@@ -26,6 +26,7 @@ vcpkg_cmake_configure(
         -DBUILD_TESTS=OFF
         -DBUILD_SAMPLES=OFF
         -DCPPREST_EXCLUDE_WEBSOCKETS=ON
+        -DCPPREST_FILEIO_IMPL=none
         -DCPPREST_EXPORT_DIR=share/cpprestsdk
         -DWERROR=OFF
         -DPKG_CONFIG_EXECUTABLE=FALSE
