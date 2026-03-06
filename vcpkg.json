@@ -2,9 +2,7 @@
   "name": "komodo-wallet-desktop",
   "version-string": "0.8.2",
   "dependencies": [
-    "boost-asio",
     "boost-multiprecision",
-    "boost-filesystem",
     "boost-thread",
     "boost-random",
     "boost-lockfree",
@@ -32,7 +30,7 @@
     {
       "name": "asio",
       "features": [
-        "openssl"
+        "wolfssl"
       ]
     },
     "cpprestsdk",
