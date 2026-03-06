@@ -1,9 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO Esri/cpprestsdk
-    HEAD_REF release/200.8
-    REF 53eceef56e9d83e4cba04898bfa018ab9877893c
-    SHA512 2288ae326a23a6d72705ca5e3e967cdf99ec5242b783075749b5b7b2f0d61b536a430fd6277db9d4eed9911f79ff45a8738f20b812b50eb508f4ed9c6198ac0f
+    REPO eugenegff/cpprestsdk
+    HEAD_REF master
+    REF 32b9dd42edc89b0cb54c4d894a6db1caf9ac3895
+    SHA512 a8307474356d2bcda8e6ee44ac4a79f8161b2dda5916f6c233892b10fa97c440af7e7126b63d6c4d3f421daa27e9bc48d6c10bd925b4775f9f678a9c7baf5d5a
 )
 
 vcpkg_check_features(
