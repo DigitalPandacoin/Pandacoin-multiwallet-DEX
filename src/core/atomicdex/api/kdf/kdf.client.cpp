@@ -122,13 +122,14 @@ namespace atomic_dex::kdf
         {
             if (resp.status_code() not_eq 200)
             {
-                if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>) // TODO: this doesn't work, we end up trying to json_parse a 404 Not Found
+                if constexpr (std::experimental::is_detected_v<have_error_field, RpcReturnType>)
                 {
-                    // SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
+                    SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
                     // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 404: Not Found
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
                         SPDLOG_DEBUG("kdf_client::rpc_process_answer before trying parse(body) on body {}", body);
+                        // kdf_client::rpc_process_answer before trying parse(body) on body  // aka empty
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())
                         {
                             answer.error = json_data.at("error").get<std::string>();
@@ -141,22 +142,22 @@ namespace atomic_dex::kdf
                 }
                 answer.rpc_result_code = resp.status_code();
                 answer.raw_result      = body;
+                SPDLOG_DEBUG("in kdf_client::rpc_process_answer answer is: {}", answer);
                 return answer;
             }
 
-            //assert(not body.empty());
-            if (body.empty()) { SPDLOG_ERROR("in kdf_client::rpc_process_answer for rpc_command {} body should not be empty here", rpc_command); }
+            assert(not body.empty());
             auto json_answer       = nlohmann::json::parse(body);
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
-            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {} with json_answer: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()), json_answer.dump()); }
         }
         catch (const std::exception& error)
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            // SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
+            SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
             // exception in kdf_client::rpc_process_answer for rpc_command tx_history with body Not Found and answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }

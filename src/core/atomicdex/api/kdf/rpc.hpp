@@ -17,6 +17,7 @@
 #pragma once
 
 #include <type_traits>
+#include <experimental/type_traits>
 
 #include <nlohmann/json_fwd.hpp> //> nlohmann::json
 
