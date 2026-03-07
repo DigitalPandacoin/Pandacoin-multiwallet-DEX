@@ -150,7 +150,7 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
-            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {} with json_answer: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed()), json_answer.dump()); }
+            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {
@@ -158,6 +158,7 @@ namespace atomic_dex::kdf
             answer.raw_result      = error.what();
             SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
             // exception in kdf_client::rpc_process_answer for rpc_command tx_history with body Not Found and answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
+            // exception in kdf_client::rpc_process_answer for rpc_command tx_history with body  and answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: attempting to parse an empty input; check that your input string or stream contains the expected JSON
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 

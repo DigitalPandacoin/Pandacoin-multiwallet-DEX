@@ -112,6 +112,7 @@ namespace atomic_dex
             {
                 using namespace std::chrono_literals;
                 if (std::string(e.what()).find("Error resolving address") != std::string::npos ||
+                    std::string(e.what()).find("Error in SSL handshake") != std::string::npos ||
                     std::string(e.what()).find("Request canceled by user") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in global_defi_stats_service::process_update: {}", e.what());
