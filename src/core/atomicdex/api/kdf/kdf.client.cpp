@@ -122,7 +122,7 @@ namespace atomic_dex::kdf
         {
             if (resp.status_code() not_eq 200)
             {
-                if constexpr (std::experimental::is_detected_v<have_error_field, RpcReturnType>)
+                if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
                     SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
                     // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 404: Not Found
@@ -142,7 +142,6 @@ namespace atomic_dex::kdf
                 }
                 answer.rpc_result_code = resp.status_code();
                 answer.raw_result      = body;
-                SPDLOG_DEBUG("in kdf_client::rpc_process_answer answer is: {}", answer);
                 return answer;
             }
 
