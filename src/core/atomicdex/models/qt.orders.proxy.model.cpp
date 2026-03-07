@@ -131,8 +131,6 @@ namespace atomic_dex
             return false;
         }
         auto       data           = this->sourceModel()->data(idx, orders_model::OrdersRoles::OrderStatusRole).toString();
-        const bool is_swap        = this->sourceModel()->data(idx, orders_model::OrdersRoles::IsSwapRole).toBool();
-        const bool is_maker       = this->sourceModel()->data(idx, orders_model::OrdersRoles::IsMakerRole).toBool();
         auto       timestamp      = this->sourceModel()->data(idx, orders_model::OrdersRoles::UnixTimestampRole).toULongLong();
         auto       date           = QDateTime::fromMSecsSinceEpoch(timestamp).date();
 

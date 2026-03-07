@@ -28,22 +28,16 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(LINUX TRUE)
 endif ()
 
-if (UNIX AND NOT APPLE)
-    #message("Forcing stdlib C++")
-    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-endif ()
-
 ##! We fetch our dependencies
 if (APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-mac-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-linux-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-win-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-win-x86-64.zip)
 endif ()
 
 FetchContent_Declare(

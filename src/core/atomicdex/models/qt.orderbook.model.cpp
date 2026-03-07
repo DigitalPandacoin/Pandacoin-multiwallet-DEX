@@ -179,8 +179,6 @@ namespace atomic_dex
                 const auto& data         = m_model_data.at(index.row());
                 const auto& trading_pg   = m_system_mgr.get_system<trading_page>();
                 t_float_50  volume_f     = safe_float(trading_pg.get_volume().toStdString());
-                const bool  is_buy       = trading_pg.get_market_mode() == MarketMode::Buy;
-                const auto  trading_mode = trading_pg.get_current_trading_mode();
                 t_float_50 total_amount_f = volume_f * safe_float(data.price);
                 const auto total_amount   = atomic_dex::utils::format_float(total_amount_f);
                 return QString::fromStdString(total_amount);
