@@ -2731,14 +2731,16 @@ namespace atomic_dex
             using namespace std::chrono_literals;
             for (auto&& cur: request) cur["userpass"] = "";
 
-            if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
+            if (std::string(e.what()).find("Operation canceled") != std::string::npos)
+            {
+                SPDLOG_INFO("exception in kdf_service::handle_exception_pplx_task from {}: {}", from, e.what());
+            }
+            else if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
                 std::this_thread::sleep_for(2s);
-                return;
             }
-
-            if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
+            else if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
                 std::string(e.what()).find("Failed to write request headers") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||

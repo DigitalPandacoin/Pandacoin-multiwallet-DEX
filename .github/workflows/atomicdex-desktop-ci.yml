@@ -106,15 +106,6 @@ jobs:
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Cache nim (MacOS)
-        if: runner.os == 'macOS'
-        uses: actions/cache@v4
-        with:
-          path: |
-            /Users/runner/.nimble
-            /Users/runner/.choosenim
-          key: nimble-${{ runner.os }}-${{ matrix.type }}
-
       - name: Build libwally (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -186,22 +177,12 @@ jobs:
           scoop_update: 'false'
           update_path: 'true'
 
-      - name: Install nim (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          echo "CHOOSENIM_CHOOSE_VERSION=1.6.2" >> $GITHUB_ENV
-          export CHOOSENIM_CHOOSE_VERSION=1.6.2
-          ./ci_tools_atomic_dex/ci_scripts/choosenim.sh -y
-          export PATH=/Users/runner/.nimble/bin:$PATH
-          chmod +x /Users/runner/.choosenim/toolchains/nim-1.6.2/bin/*
-
       - name: Install brew deps (MacOS)
         if: runner.os == 'macOS'
         uses: gerlero/brew-install@v1
         with:
           packages: |
             automake
-            nim
             gnu-sed
             coreutils
             gnu-getopt
@@ -242,14 +223,11 @@ jobs:
         run: |
           xcrun --sdk macosx --show-sdk-path
           export SDK_PATH=$(xcrun --sdk macosx --show-sdk-path)
-          echo $SDK_PATH
           ls $SDK_PATH
-          echo $HOME/sdk
-          ls $HOME/sdk || true
+          ls $HOME/sdk/MacOSX11.3.sdk
           ls $(xcrun --show-sdk-path)/usr/include/c++
           export QT_INSTALL_CMAKE_PATH=${{ github.workspace }}/Qt/${{ matrix.qt }}/clang_64/lib/cmake
           export QT_ROOT=${{ github.workspace }}/Qt/${{ matrix.qt }}
-          export PATH=/Users/runner/.nimble/bin:$PATH
           export MACOSX_DEPLOYMENT_TARGET=11.3
           export CC=clang
           export CXX=clang++
@@ -257,9 +235,11 @@ jobs:
           export LDFLAGS=-stdlib=libc++
           export CMAKE_BUILD_TYPE=${{ matrix.type }}
           export VCPKG_BUILD_TYPE=${{ matrix.typelc }}
-          cd ci_tools_atomic_dex
-          nimble build -y
-          ./ci_tools_atomic_dex bundle ${{ matrix.type }} --osx_sdk=$HOME/sdk/MacOSX11.3.sdk --compiler=clang++
+          mkdir ci_tools_atomic_dex/build-${{ matrix.type }}
+          cd ci_tools_atomic_dex/build-${{ matrix.type }}
+          cmake -GNinja -DCMAKE_BUILD_TYPE=${{ matrix.type }} ../../ -DCMAKE_OSX_SYSROOT=$HOME/sdk/MacOSX11.3.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=11.3
+          cmake --build . --config ${{ matrix.type }}
+          ninja install
 
       - name: Build Komodo Wallet (Linux)
         if: runner.os == 'Linux'

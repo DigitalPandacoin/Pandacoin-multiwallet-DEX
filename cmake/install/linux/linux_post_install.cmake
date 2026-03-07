@@ -34,12 +34,12 @@ else ()
     message(FATAL_ERROR "Didn't find ${PROJECT_APP_PATH}")
 endif ()
 
-set(LINUX_DEPLOY_PATH ${PROJECT_ROOT_DIR}/ci_tools_atomic_dex/linux_misc/linuxdeployqt-continuous-x86_64.AppImage)
-if (EXISTS ${LINUX_DEPLOY_PATH})
-    message(STATUS "linuxdeployqt path is -> ${LINUX_DEPLOY_PATH}")
-else ()
-    message(FATAL_ERROR "Didn't find ${LINUX_DEPLOY_PATH}")
-endif ()
+#set(LINUX_DEPLOY_PATH ${PROJECT_ROOT_DIR}/ci_tools_atomic_dex/linux_misc/linuxdeployqt-continuous-x86_64.AppImage)
+#if (EXISTS ${LINUX_DEPLOY_PATH})
+#    message(STATUS "linuxdeployqt path is -> ${LINUX_DEPLOY_PATH}")
+#else ()
+#    message(FATAL_ERROR "Didn't find ${LINUX_DEPLOY_PATH}")
+#endif ()
 
 message(STATUS "Copying required libraries for QtWebEngine")
 list(APPEND LIST_LIBS
