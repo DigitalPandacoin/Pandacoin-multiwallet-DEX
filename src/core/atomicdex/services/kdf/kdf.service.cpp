@@ -1827,7 +1827,6 @@ namespace atomic_dex
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch_array = nlohmann::json::array();
 
         if (is_pin_cfg_enabled())
@@ -1850,12 +1849,13 @@ namespace atomic_dex
         {
             try
             {
+                spdlog::stopwatch sw; using namespace std::chrono;
                 auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
-                    if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
                 }
+                if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
             }
             catch (const std::exception& error)
             {
