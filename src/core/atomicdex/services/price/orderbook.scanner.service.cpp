@@ -65,7 +65,7 @@ namespace atomic_dex
                         SPDLOG_ERROR("error: bad answer json for process_best_orders: {}", rpc.error->error);
                         this->m_bestorders_busy = false;
                         this->dispatcher_.trigger<process_orderbook_finished>(true);
-                        using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
+                        using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                     }
                     else
                     {

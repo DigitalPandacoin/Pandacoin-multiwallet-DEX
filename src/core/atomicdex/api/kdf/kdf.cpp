@@ -673,19 +673,20 @@ namespace atomic_dex::kdf
     {
         spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json answer;
+        std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
+        std::this_thread::sleep_for(std::chrono::milliseconds(200)); // till find a way to limit the size of the batch
 
         try
         {
-            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
             answer = nlohmann::json::parse(body);
         }
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(5s);
-            //answer["error"] = body;
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
+            answer["error"] = body;
         }
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 

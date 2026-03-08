@@ -215,7 +215,7 @@ namespace atomic_dex::kdf
                 catch (const std::exception& ex)
                 {
                     SPDLOG_ERROR("exception in kdf_client::process_rpc_async: {}", ex.what());
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });
     }

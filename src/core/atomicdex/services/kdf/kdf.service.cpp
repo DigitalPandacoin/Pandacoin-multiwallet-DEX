@@ -233,7 +233,7 @@ namespace atomic_dex
                 catch (const std::exception& error)
                 {
                     SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
+                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             }
             SPDLOG_DEBUG("Coins file does not exist!");
@@ -1523,7 +1523,7 @@ namespace atomic_dex
                                                             last_event = event;
                                                         }
                                                         // TODO: refactor to a background task
-                                                        std::this_thread::sleep_for(5s);
+                                                        std::this_thread::sleep_for(4s);
                                                     }
                                                     std::unique_lock lock(m_coin_cfg_mutex);
                                                     m_coins_informations[tickers[idx]].activation_status = z_answers[0];
@@ -1570,7 +1570,7 @@ namespace atomic_dex
                                                 catch (const std::exception& error)
                                                 {
                                                     SPDLOG_ERROR("exception caught in zhtlc batch_enable_coins: {}", error.what());
-                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(2s);
+                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                                                 }
                                             }
                                         }
@@ -1599,7 +1599,7 @@ namespace atomic_dex
                         {
                             SPDLOG_ERROR("exception caught in batch_enable_coins, update_coin_status to false: {}", error.what());
                             update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
-                            using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
+                            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         }
                     })
                 .then(
@@ -1858,18 +1858,15 @@ namespace atomic_dex
             }
             catch (const std::exception& error)
             {
-                using namespace std::chrono_literals;
-
                 if (std::string(error.what()).find("Failed to read response body") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
-                    std::this_thread::sleep_for(5s);
                 }
                 else
                 {
                     SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
-                    std::this_thread::sleep_for(3s);
                 }
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
 
@@ -2032,7 +2029,6 @@ namespace atomic_dex
                 if (!is_zhtlc_coin_ready(ticker))
                 {
                     SPDLOG_WARN("ZHTLC coin {} not ready in kdf_service::get_balance_info", ticker);
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(5s);
                     return "0";
                 }
                 else
@@ -2730,7 +2726,6 @@ namespace atomic_dex
         }
         catch (const std::exception& e)
         {
-            using namespace std::chrono_literals;
             for (auto&& cur: request) cur["userpass"] = "";
 
             if (std::string(e.what()).find("Operation canceled") != std::string::npos)
@@ -2740,7 +2735,6 @@ namespace atomic_dex
             else if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(2s);
             }
             else if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
@@ -2749,14 +2743,13 @@ namespace atomic_dex
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(10s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
             else
             {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(5s);
             }
+            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 

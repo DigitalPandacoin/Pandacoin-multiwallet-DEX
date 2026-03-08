@@ -63,20 +63,18 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                using namespace std::chrono_literals;
                 if (std::string(e.what()).find("Error resolving address") != std::string::npos ||
                     std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
                     std::string(e.what()).find("Request canceled by user") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in komodo_prices_provider::process_update: {}", e.what());
-                    std::this_thread::sleep_for(10s);
                 }
                 else
                 {
                     SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
-                    std::this_thread::sleep_for(5s);
                 }
 
+                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)
                 {
                     process_update(true);
