@@ -685,7 +685,7 @@ namespace atomic_dex::kdf
             using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             answer["error"] = body;
         }
-        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 
