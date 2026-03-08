@@ -169,6 +169,7 @@ namespace atomic_dex::kdf
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
+        SPDLOG_DEBUG("kdf_client::async_rpc_batch_standalone called with batch_array: {}", batch_array.dump());
         web::http::http_request request;
         request.set_method(web::http::methods::POST);
         request.set_body(batch_array.dump());
