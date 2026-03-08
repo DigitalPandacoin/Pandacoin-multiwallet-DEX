@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO cipig/cpprestsdk
     HEAD_REF master
-    REF cbd1db3c48c6049bbdf1d07d53bfcdb16526d14c
+    REF 74df27c8edf3f7b7fdfd3d6aacbdef6bb0057dd7
     SHA512 0
 )
 
