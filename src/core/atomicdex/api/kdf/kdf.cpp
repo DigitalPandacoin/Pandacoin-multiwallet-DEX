@@ -674,7 +674,6 @@ namespace atomic_dex::kdf
         spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json answer;
         std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
-        //std::this_thread::sleep_for(std::chrono::milliseconds(200)); // till find a way to limit the size of the batch
 
         try
         {

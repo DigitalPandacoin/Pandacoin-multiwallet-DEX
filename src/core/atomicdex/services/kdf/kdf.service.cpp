@@ -1391,7 +1391,6 @@ namespace atomic_dex
 
         auto answer_functor = [this](nlohmann::json batch, std::vector<std::string> tickers)
         {
-            
             m_kdf_client.async_rpc_batch_standalone(batch)
                 .then(
                     [this, tickers](web::http::http_response resp) mutable
@@ -1830,6 +1829,7 @@ namespace atomic_dex
     {
         spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch_array = nlohmann::json::array();
+
         if (is_pin_cfg_enabled())
         {
             SPDLOG_DEBUG("wtf is is_pin_cfg_enabled??");
@@ -1854,6 +1854,7 @@ namespace atomic_dex
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
+                    if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
                 }
             }
             catch (const std::exception& error)
@@ -1876,13 +1877,11 @@ namespace atomic_dex
         };
 
         m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
     kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
@@ -1890,10 +1889,13 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
-            for (auto&& coin: enabled_coins) { fetch_single_balance(coin); }
+            for (auto&& coin: enabled_coins)
+            {
+                fetch_single_balance(coin);
+                std::this_thread::sleep_for(std::chrono::milliseconds(100)); // without this, chance of deadlock is high
+            }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
-        if (sw.elapsed().count() > 0.08) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with only_tx {}: {}", only_tx, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg, std::string rpcpass)
