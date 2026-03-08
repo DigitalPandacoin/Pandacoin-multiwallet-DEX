@@ -679,7 +679,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

@@ -492,7 +492,8 @@ namespace atomic_dex
             wallet_mgr->set_wallet_default_name(wallet_mgr->get_default_wallet_name());
             // set_wallet_default_name(get_default_wallet_name());
         }
-        SPDLOG_INFO("application created");
+        unsigned int n = std::thread::hardware_concurrency();
+        SPDLOG_INFO("application created, supporting {} threads", n);
     }
 
     void

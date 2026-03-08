@@ -671,6 +671,7 @@ namespace atomic_dex::kdf
     nlohmann::json
     basic_batch_answer(const web::http::http_response& resp)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json answer;
 
         try
@@ -681,9 +682,10 @@ namespace atomic_dex::kdf
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(10s);
+            using namespace std::chrono_literals; std::this_thread::sleep_for(5s);
             //answer["error"] = body;
         }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 

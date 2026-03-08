@@ -1828,6 +1828,7 @@ namespace atomic_dex
 
     void kdf_service::fetch_single_balance(const coin_config_t& cfg_infos)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json batch_array = nlohmann::json::array();
         if (is_pin_cfg_enabled())
         {
@@ -1862,12 +1863,12 @@ namespace atomic_dex
                 if (std::string(error.what()).find("Failed to read response body") != std::string::npos)
                 {
                     SPDLOG_WARN("exception in kdf_service::fetch_single_balance: {}", error.what());
-                    std::this_thread::sleep_for(10s);
+                    std::this_thread::sleep_for(5s);
                 }
                 else
                 {
                     SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
-                    std::this_thread::sleep_for(5s);
+                    std::this_thread::sleep_for(3s);
                 }
             }
         };
@@ -1878,6 +1879,7 @@ namespace atomic_dex
         };
 
         m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -2747,13 +2749,13 @@ namespace atomic_dex
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(20s);
+                std::this_thread::sleep_for(10s);
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
             else
             {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
-                std::this_thread::sleep_for(10s);
+                std::this_thread::sleep_for(5s);
             }
         }
     }
