@@ -3,7 +3,7 @@ vcpkg_from_github(
     REPO cipig/cpprestsdk
     HEAD_REF master
     REF 8cd13b2ec4f7073db071783d4598dc964b57f14f
-    SHA512 0
+    SHA512 008238aecbd80dddcd586c53265de548762689be79b3b788c2ed96a79cf3f8c06345ab32d30d331d8d4f08e748b33f19a02991064cd12ef1bf79b73daf7281e3
 )
 
 vcpkg_check_features(
