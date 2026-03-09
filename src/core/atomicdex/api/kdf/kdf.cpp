@@ -672,13 +672,13 @@ namespace atomic_dex::kdf
 
         try
         {
-            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good, moved inside try-catch
+            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
             answer = nlohmann::json::parse(body);
         }
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
-            answer["error"] = body;
+            answer["error"] = err.what();
         }
 
         if (sw.elapsed().count() > 0.07) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
@@ -723,7 +723,6 @@ namespace atomic_dex::kdf
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
-        return 0;
     }
 
     template <typename RpcReturnType>

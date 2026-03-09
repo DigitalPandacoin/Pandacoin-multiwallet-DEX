@@ -89,6 +89,5 @@ namespace atomic_dex::komodo_prices::api
         {
             SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
         }
-        return 0;
     }
 } // namespace atomic_dex::komodo_prices::api
