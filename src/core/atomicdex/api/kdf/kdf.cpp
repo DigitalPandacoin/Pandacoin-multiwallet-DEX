@@ -720,7 +720,7 @@ namespace atomic_dex::kdf
             }
             return client->request(req);
         }
-        catch catch (const std::exception& error)
+        catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
