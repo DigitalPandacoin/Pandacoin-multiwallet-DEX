@@ -723,7 +723,7 @@ namespace atomic_dex::kdf
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
-        return false;
+        return 0;
     }
 
     template <typename RpcReturnType>
