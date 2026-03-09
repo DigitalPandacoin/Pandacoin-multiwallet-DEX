@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO cipig/asyncplusplus
     HEAD_REF master
-    REF 62fa849a124e88dcc77a50fec8f3d48bd625638e
+    REF 5fc8fd8dcf4f008e21aba8ecfb02c34d3eb57638
     SHA512 0
 )
 
