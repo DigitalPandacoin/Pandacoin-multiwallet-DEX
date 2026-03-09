@@ -365,8 +365,8 @@ namespace atomic_dex
     global_price_service::is_currency_available(const std::string& currency) const
     {
         bool available = true;
-        SPDLOG_INFO("coin_rate_providers size: {}", m_coin_rate_providers.size());
         available = m_coin_rate_providers.find(currency) != m_coin_rate_providers.end();
+        SPDLOG_DEBUG("global_price_service::is_currency_available coin_rate_providers size is {}, available: ", m_coin_rate_providers.size(), available);
         return available;
     }
 } // namespace atomic_dex

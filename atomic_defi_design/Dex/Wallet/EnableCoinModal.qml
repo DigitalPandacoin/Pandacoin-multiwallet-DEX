@@ -113,6 +113,10 @@ MultipageModal
                 Layout.preferredHeight: window.height - 300
                 Layout.fillWidth: true
 
+                Component.onCompleted: {
+                    positionViewAtBeginning()
+                }
+
                 delegate: Item
                 {
                     height: 30

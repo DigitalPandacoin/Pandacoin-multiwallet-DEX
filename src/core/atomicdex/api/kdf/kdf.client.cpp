@@ -79,7 +79,6 @@ namespace
         try
         {
             json_answer = nlohmann::json::parse(body);
-            // SPDLOG_DEBUG("json_answer: {}", json_answer.dump(4));
         }
         catch (const nlohmann::json::parse_error& error)
         {
@@ -112,8 +111,7 @@ namespace atomic_dex::kdf
     template <typename RpcReturnType>
     RpcReturnType kdf_client::rpc_process_answer(const web::http::http_response& resp, const std::string& rpc_command)
     {
-        spdlog::stopwatch sw;
-        using namespace std::chrono;
+        spdlog::stopwatch sw; using namespace std::chrono;
         std::string body = TO_STD_STR(resp.extract_string(true).get());
         RpcReturnType answer;
 
@@ -149,7 +147,7 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = resp.status_code();
             answer.raw_result      = body;
             from_json(json_answer, answer);
-            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in kdf_client::rpc_process_answer for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {
@@ -167,11 +165,18 @@ namespace atomic_dex::kdf
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
-        web::http::http_request request;
-        request.set_method(web::http::methods::POST);
-        request.set_body(batch_array.dump());
-        auto resp = generate_client().request(request, m_token_source.get_token());
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone with batch_array {}: {}", batch_array.dump(), duration_cast<milliseconds>(sw.elapsed())); }
+        try
+        {
+            web::http::http_request request;
+            request.set_method(web::http::methods::POST);
+            request.set_body(batch_array.dump());
+            auto resp = generate_client().request(request, m_token_source.get_token());
+        }
+        catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
+        }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone for coin {} and method {}: {}", batch_array[0].at("coin"), batch_array[0].at("method"), duration_cast<milliseconds>(sw.elapsed())); }
         return resp;
     }
 
@@ -208,7 +213,7 @@ namespace atomic_dex::kdf
                     on_rpc_processed(rpc);
                     nlohmann::json json_data;
                     nlohmann::to_json(json_data, request);
-                    if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
+                    if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in kdf_client::process_rpc_async for request {}: {}", json_data.dump(), duration_cast<milliseconds>(sw.elapsed())); }
                 }
                 catch (const std::exception& ex)
                 {

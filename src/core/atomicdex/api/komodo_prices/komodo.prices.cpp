@@ -10,8 +10,8 @@
 
 namespace
 {
-    constexpr const char*                 g_komodo_prices_endpoint = "https://myprice.cipig.net:1717";
-    constexpr const char*                 g_komodo_prices_endpoint_fallback = "https://prices.cipig.net:1717";
+    constexpr const char*                 g_komodo_prices_endpoint = "https://prices.cipig.net:1717";
+    constexpr const char*                 g_komodo_prices_endpoint_fallback = "https://defistats.gleec.com";
 
     web::http::client::http_client_config g_komodo_prices_cfg{[]()
                                                               {
@@ -79,7 +79,7 @@ namespace atomic_dex::komodo_prices::api
     {
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
-        std::string endpoint = "api/v2/tickers?expire_at=259200";
+        std::string endpoint = fallback ? "api/v3/prices/tickers_v2?expire_at=259200" : "api/v2/tickers?expire_at=259200";
         req.set_request_uri(FROM_STD_STR(endpoint));
         return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);
     }

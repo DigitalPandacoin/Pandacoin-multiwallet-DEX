@@ -1261,7 +1261,7 @@ namespace atomic_dex
         }
         else
         {
-            std::size_t     limit =  100;
+            std::size_t     limit =  300;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
             if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN)
@@ -1272,7 +1272,7 @@ namespace atomic_dex
                     // Don't request balance / history if not completely activated.
                     if (coin_info.activation_status.at("result").at("status") == "Ok")
                     {
-                        //limit = 40;
+                        limit = 100;
                         method = "z_coin_tx_history";
                     }
                     else
@@ -1876,6 +1876,7 @@ namespace atomic_dex
     void
     kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
@@ -1884,9 +1885,16 @@ namespace atomic_dex
         {
             const auto& enabled_coins = get_enabled_coins();
             async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 8), [this, &enabled_coins](int x) {
-                   //SPDLOG_DEBUG("kdf_service::fetch_infos_thread fetching balance for {}", enabled_coins[x].ticker);
-                   fetch_single_balance(enabled_coins[x]);
+                try
+                {
+                    fetch_single_balance(enabled_coins[x]);
+                }
+                catch (const std::exception& error)
+                {
+                    SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
+                }
             });
+            SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread before call to batch_balance_and_tx: {}", duration_cast<milliseconds>(sw.elapsed()));
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
     }

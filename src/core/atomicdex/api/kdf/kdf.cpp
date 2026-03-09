@@ -683,7 +683,7 @@ namespace atomic_dex::kdf
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
             answer["error"] = body;
         }
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 
@@ -731,7 +731,7 @@ namespace atomic_dex::kdf
         {
             from_json(json_answer, answer);
             answer.rpc_result_code = 200;
-            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
+            if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
         }
         catch (const std::exception& error)
         {

@@ -17,7 +17,7 @@ DexPopup
     id: root
 
     width: 406
-    height: 570
+    height: 700
     backgroundColor: Dex.CurrentTheme.floatingBackgroundColor
 
     property var orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
