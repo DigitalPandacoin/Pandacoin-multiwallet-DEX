@@ -9,6 +9,7 @@ Flickable {
 
     boundsBehavior: Flickable.StopAtBounds
     ScrollBar.vertical: DefaultScrollBar {
+        policy: root.scrollbar_visible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
         anchors.rightMargin: root.rightMargin
     }
 
