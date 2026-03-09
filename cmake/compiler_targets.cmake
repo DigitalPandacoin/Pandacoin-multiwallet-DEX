@@ -14,8 +14,8 @@ target_compile_options(
         $<$<AND:$<PLATFORM_ID:Darwin>,$<CXX_COMPILER_ID:AppleClang>>:-Wall -Wextra -Wfatal-errors>
         $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${ClangCL}>>,$<CXX_COMPILER_ID:Clang>>:-Wall -Wextra -Wfatal-errors -Wno-missing-designated-field-initializers>
         $<$<AND:$<PLATFORM_ID:Windows>,$<BOOL:${ClangCL}>,$<CXX_COMPILER_ID:Clang>>:/W4 /permissive->
+        $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/W4 /permissive- /std:c++latest>)
 
-# $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/W4 /permissive- /std:c++latest>)
 # $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${ClangCL}>>,$<CXX_COMPILER_ID:Clang>>:-Wall -Wextra -Wfatal-errors>
 # $<$<AND:$<PLATFORM_ID:Windows>,$<BOOL:${ClangCL}>,$<CXX_COMPILER_ID:Clang>>:/W4 /permissive->
 ##! We are using C++20 for all of our targets
@@ -44,8 +44,8 @@ target_compile_options(antara_optimize_settings INTERFACE
         $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:Clang>,$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${ClangCL}>>>:-O0 -g>
         $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>,$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${ClangCL}>>>:-O3 -ffast-math>
         $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:Clang>,$<PLATFORM_ID:Windows>,$<BOOL:${ClangCL}>>:/Zi /FS /DEBUG /Od /MDd /Oy->
-#        $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/Zi /FS /DEBUG /Od /MDd /Oy->
-#        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:/Ox -DNDEBUG>
+        $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/Zi /FS /DEBUG /Od /MDd /Oy->
+        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:/Ox -DNDEBUG>
         $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>,$<PLATFORM_ID:Windows>,$<BOOL:${ClangCL}>>:/Ox -DNDEBUG>
         )
 target_compile_definitions(antara_optimize_settings INTERFACE
