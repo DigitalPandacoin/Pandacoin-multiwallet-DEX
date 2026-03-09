@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-
+#include <async++.h>
 #include <boost/thread/thread.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <range/v3/algorithm/any_of.hpp>
@@ -1889,10 +1889,14 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
+            SPDLOG_DEBUG("kdf_service::fetch_infos_thread called with {} coins", enabled_coins.size());
+            async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 30), [](int x) {
+                   SPDLOG_DEBUG("kdf_service::fetch_infos_thread thread with coin: {}", enabled_coins[x]);
+            });
             for (auto&& coin: enabled_coins)
             {
                 fetch_single_balance(coin);
-                std::this_thread::sleep_for(std::chrono::milliseconds(100)); // without this, chance of deadlock is high
+                //std::this_thread::sleep_for(std::chrono::milliseconds(100)); // without this, chance of deadlock is high
             }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
