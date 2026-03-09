@@ -587,7 +587,7 @@ namespace atomic_dex
                                 {
                                     set_withdraw_status("Generating transaction");
                                 }
-                                std::this_thread::sleep_for(1s);
+                                std::this_thread::sleep_for(2s);
                                 z_nb_try += 1;
 
                             } while (z_nb_try < loop_limit);

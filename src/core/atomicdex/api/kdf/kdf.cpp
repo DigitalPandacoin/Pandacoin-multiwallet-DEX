@@ -163,7 +163,6 @@ namespace
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in determine_amounts_in_current_currency: {}", error.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
         return {};
     }
@@ -682,7 +681,6 @@ namespace atomic_dex::kdf
         catch (const nlohmann::detail::parse_error& err)
         {
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             answer["error"] = body;
         }
         if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
@@ -740,7 +738,6 @@ namespace atomic_dex::kdf
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
             SPDLOG_ERROR("rpc_process_answer_batch exception caught for rpc_command {} and answer {}: {}", rpc_command, json_answer.dump(4), error.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
         return answer;
     }

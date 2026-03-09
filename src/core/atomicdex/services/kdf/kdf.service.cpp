@@ -129,7 +129,6 @@ namespace
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("Exception caught: {}", error.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 
@@ -233,10 +232,12 @@ namespace atomic_dex
                 catch (const std::exception& error)
                 {
                     SPDLOG_ERROR("exception in kdf_service::retrieve_coins_informations: {}", error.what());
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             }
-            SPDLOG_DEBUG("Coins file does not exist!");
+            else
+            {
+                SPDLOG_ERROR("Coins file does not exist!");
+            }
             return {};
         };
 
@@ -291,13 +292,13 @@ namespace atomic_dex
         const auto s_activation = std::chrono::duration_cast<std::chrono::seconds>(now - m_activation_clock);
         const auto s_orders     = std::chrono::duration_cast<std::chrono::seconds>(now - m_orders_clock);
 
-        if (s_orderbook >= 23s)
+        if (s_orderbook >= 17s)
         {
             fetch_current_orderbook_thread(false); // process_orderbook (not a reset) if on trading page
             m_orderbook_clock = std::chrono::high_resolution_clock::now();
         }
 
-        if (s_orders >= 17s)
+        if (s_orders >= 13s)
         {
             batch_fetch_orders_and_swap(); // gets 'my_orders', 'my_recent_swaps' & 'active_swaps'
             m_orders_clock = std::chrono::high_resolution_clock::now();
@@ -344,7 +345,7 @@ namespace atomic_dex
             std::unique_lock lock(m_activation_mutex);
             if (m_activation_queue.empty())
             {
-                fetch_infos_thread(); // leads to batch_balance_and_tx
+                fetch_infos_thread();
                 m_info_clock = std::chrono::high_resolution_clock::now();
             }
         }
@@ -678,7 +679,6 @@ namespace atomic_dex
             catch (const std::exception& error)
             {
                 SPDLOG_ERROR("exception in kdf_service::enable_erc_family_coins: {}", error.what());
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
         
@@ -782,7 +782,6 @@ namespace atomic_dex
             catch (const std::exception& error)
             {
                 SPDLOG_ERROR("exception in kdf_service::enable_utxo_qrc20_coins: {}", error.what());
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
         
@@ -1239,7 +1238,6 @@ namespace atomic_dex
                     catch (const std::exception& error)
                     {
                         SPDLOG_ERROR("exception in kdf_service::batch_balance_and_tx: {}", error.what());
-                        using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         this->dispatcher_.trigger<tx_fetch_finished>(true);
                     }
                 })
@@ -1569,7 +1567,6 @@ namespace atomic_dex
                                                 catch (const std::exception& error)
                                                 {
                                                     SPDLOG_ERROR("exception caught in zhtlc batch_enable_coins: {}", error.what());
-                                                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                                                 }
                                             }
                                         }
@@ -1598,7 +1595,6 @@ namespace atomic_dex
                         {
                             SPDLOG_ERROR("exception caught in batch_enable_coins, update_coin_status to false: {}", error.what());
                             update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
-                            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                         }
                     })
                 .then(
@@ -1866,7 +1862,6 @@ namespace atomic_dex
                 {
                     SPDLOG_ERROR("exception in kdf_service::fetch_single_balance: {}", error.what());
                 }
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             }
         };
 
@@ -1889,13 +1884,9 @@ namespace atomic_dex
         {
             const auto& enabled_coins = get_enabled_coins();
             async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 8), [this, &enabled_coins](int x) {
-                   SPDLOG_DEBUG("kdf_service::fetch_infos_thread fetching balance for {}", enabled_coins[x].ticker);
+                   //SPDLOG_DEBUG("kdf_service::fetch_infos_thread fetching balance for {}", enabled_coins[x].ticker);
                    fetch_single_balance(enabled_coins[x]);
             });
-//            for (auto&& coin: enabled_coins)
-//            {
-//                fetch_single_balance(coin);
-//            }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
     }
@@ -1904,7 +1895,6 @@ namespace atomic_dex
     {
         this->m_balance_factor = utils::determine_balance_factor(with_pin_cfg);
         SPDLOG_DEBUG("balance factor is: {}", m_balance_factor);
-        //SPDLOG_DEBUG("{} l{} f[{}]", __FUNCTION__, __LINE__, std::filesystem::path(__FILE__).filename().string());
         this->m_current_wallet_name = std::move(wallet_name);
         this->dispatcher_.trigger<coin_cfg_parsed>(this->retrieve_coins_informations());
         this->dispatcher_.trigger<force_update_defi_stats>();
@@ -2537,7 +2527,6 @@ namespace atomic_dex
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in kdf_service::process_balance_answer: {}, for answer.dump", error.what(), answer.dump(4));
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 
@@ -2738,7 +2727,7 @@ namespace atomic_dex
             }
             else if (std::string(e.what()).find("mutex lock failed") != std::string::npos)
             {
-                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {}: {}", from, e.what());
             }
             else if (std::string(e.what()).find("Failed to read HTTP status line") != std::string::npos ||
                 std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
@@ -2746,14 +2735,13 @@ namespace atomic_dex
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
                 std::string(e.what()).find("Request canceled by user") != std::string::npos)
             {
-                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
+                SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {}: {}", from, e.what());
                 //this->dispatcher_.trigger<fatal_notification>("connection dropped");
             }
             else
             {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
             }
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
     }
 

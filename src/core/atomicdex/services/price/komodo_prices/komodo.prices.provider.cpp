@@ -46,7 +46,6 @@ namespace atomic_dex
             else
             {
                 SPDLOG_ERROR("resp.status_code is {} in komodo_prices_provider::process_update and body: {}", resp.status_code(), body);
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)
                 {
                     process_update(true);
@@ -74,7 +73,6 @@ namespace atomic_dex
                     SPDLOG_ERROR("exception in komodo_prices_provider::process_update: {}", e.what());
                 }
 
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 if (!fallback)
                 {
                     process_update(true);
@@ -98,7 +96,7 @@ namespace atomic_dex
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_clock);
 
-        if (s >= 113s)
+        if (s >= 97s)
         {
             process_update();
             m_clock = std::chrono::high_resolution_clock::now();

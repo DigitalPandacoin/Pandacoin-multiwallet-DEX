@@ -84,7 +84,7 @@ namespace atomic_dex
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        if (s >= 5min)
+        if (s >= 3min)
         {
             process_update();
             m_update_clock = std::chrono::high_resolution_clock::now();
@@ -121,7 +121,6 @@ namespace atomic_dex
                     SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
                 }
                 this->process_update();
-                using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
             };
         };
         async_fetch_defi_stats_volumes()

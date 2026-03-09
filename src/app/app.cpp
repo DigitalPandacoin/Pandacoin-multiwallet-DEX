@@ -44,7 +44,7 @@
 
 namespace
 {
-    constexpr std::size_t g_timeout_q_timer_ms = 500;
+    constexpr std::size_t g_timeout_q_timer_ms = 250;
 }
 
 namespace atomic_dex
@@ -166,8 +166,6 @@ namespace atomic_dex
     bool application::has_coins_with_balance()
     {
         // UNUSED (only in SimpleView)
-        // TODO: Does this ignore test coins?
-        // Simple view on fresh wallet with only test coins from faucet returns `no tradable assets`
         auto* portfolio_page = get_portfolio_page();
         auto* portfolio_mdl = portfolio_page->get_portfolio();
         auto portfolio_data = portfolio_mdl->get_underlying_data();

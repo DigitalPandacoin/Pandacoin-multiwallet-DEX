@@ -40,9 +40,9 @@ namespace
 
     t_http_client generate_client()
     {
-        using namespace std::chrono_literals;
+        //using namespace std::chrono_literals;
+        //cfg.set_timeout(std::chrono::seconds(40));
         web::http::client::http_client_config   cfg;
-        cfg.set_timeout(std::chrono::seconds(40));
         return {FROM_STD_STR(atomic_dex::g_dex_rpc), cfg};
     }
 
@@ -84,7 +84,6 @@ namespace
         catch (const nlohmann::json::parse_error& error)
         {
             SPDLOG_ERROR("exception in process_rpc_answer: {}", error.what());
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
         if (Rpc::is_v2)
@@ -159,7 +158,6 @@ namespace atomic_dex::kdf
             SPDLOG_ERROR("exception in kdf_client::rpc_process_answer for rpc_command {} with body {} and answer.raw_result: {}", rpc_command, body, answer.raw_result);
             // exception in kdf_client::rpc_process_answer for rpc_command tx_history with body Not Found and answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
             // exception in kdf_client::rpc_process_answer for rpc_command tx_history with body  and answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: attempting to parse an empty input; check that your input string or stream contains the expected JSON
-            using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
         }
 
         return answer;
@@ -173,7 +171,7 @@ namespace atomic_dex::kdf
         request.set_method(web::http::methods::POST);
         request.set_body(batch_array.dump());
         auto resp = generate_client().request(request, m_token_source.get_token());
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone with batch_array {}: {}", batch_array.dump(), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone with batch_array {}: {}", batch_array.dump(), duration_cast<milliseconds>(sw.elapsed())); }
         return resp;
     }
 
@@ -215,7 +213,6 @@ namespace atomic_dex::kdf
                 catch (const std::exception& ex)
                 {
                     SPDLOG_ERROR("exception in kdf_client::process_rpc_async: {}", ex.what());
-                    using namespace std::chrono_literals; std::this_thread::sleep_for(1s);
                 }
             });
     }
