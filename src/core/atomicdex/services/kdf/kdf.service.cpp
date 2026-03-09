@@ -1890,7 +1890,7 @@ namespace atomic_dex
         {
             const auto& enabled_coins = get_enabled_coins();
             SPDLOG_DEBUG("kdf_service::fetch_infos_thread called with {} coins", enabled_coins.size());
-            async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 30), [](int x) {
+            async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 30), [&enabled_coins](int x) {
                    SPDLOG_DEBUG("kdf_service::fetch_infos_thread thread with coin: {}", enabled_coins[x]);
             });
             for (auto&& coin: enabled_coins)
