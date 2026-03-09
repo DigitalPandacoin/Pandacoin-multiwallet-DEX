@@ -1877,6 +1877,7 @@ namespace atomic_dex
     kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
+
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);

@@ -549,7 +549,7 @@ namespace atomic_dex
                 const auto& settings_system     = m_system_manager.get_system<settings_page>();
                 const auto& global_price_system = m_system_manager.get_system<global_price_service>();
                 const auto& current_fiat        = settings_system.get_current_fiat().toStdString();
-                auto            answers        = kdf::basic_batch_answer(resp);
+                auto        answers             = kdf::basic_batch_answer(resp);
 
                 if (answers[0].contains("result"))
                 {

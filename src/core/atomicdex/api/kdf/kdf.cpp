@@ -593,7 +593,6 @@ namespace atomic_dex::kdf
     rpc_version()
     {
         nlohmann::json json_data = template_request("version");
-        // SPDLOG_DEBUG("version request {}", json_data.dump(4));
         try
         {
             auto                    client = std::make_unique<web::http::client::http_client>(FROM_STD_STR(atomic_dex::g_dex_rpc));
@@ -607,7 +606,6 @@ namespace atomic_dex::kdf
                 nlohmann::json body_json = nlohmann::json::parse(body);
                 return body_json.at("result").get<std::string>();
             }
-
             return "error occured during rpc_version";
         }
         catch (const web::http::http_exception& exception)
@@ -635,7 +633,6 @@ namespace atomic_dex::kdf
                 nlohmann::json body_json = nlohmann::json::parse(body);
                 return body_json.at("result").get<std::string>();
             }
-
             return "error occured during rpc_version";
         }
         catch (const web::http::http_exception& exception)
@@ -672,10 +669,10 @@ namespace atomic_dex::kdf
     {
         spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json answer;
-        std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
 
         try
         {
+            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good, moved inside try-catch
             answer = nlohmann::json::parse(body);
         }
         catch (const nlohmann::detail::parse_error& err)
@@ -683,7 +680,8 @@ namespace atomic_dex::kdf
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
             answer["error"] = body;
         }
-        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
+
+        if (sw.elapsed().count() > 0.07) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 
@@ -709,21 +707,23 @@ namespace atomic_dex::kdf
     pplx::task<web::http::http_response>
     async_process_rpc_get(t_http_client_ptr& client, const std::string rpc_command, const std::string& url)
     {
-        SPDLOG_INFO("Processing rpc call: {}, url: {}, endpoint: {}", rpc_command, url, TO_STD_STR(client->base_uri().to_string()));
         try
         {
+            spdlog::stopwatch sw; using namespace std::chrono;
             web::http::http_request req;
             req.set_method(web::http::methods::GET);
             if (not url.empty())
             {
                 req.set_request_uri(FROM_STD_STR(url));
             }
+            if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in async_process_rpc_get for rpc call {}, url {}, endpoint {}:", rpc_command, url, TO_STD_STR(client->base_uri().to_string()), duration_cast<milliseconds>(sw.elapsed())); }
             return client->request(req);
         }
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
+        return false;
     }
 
     template <typename RpcReturnType>

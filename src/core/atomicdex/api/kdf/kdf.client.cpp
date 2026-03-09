@@ -178,6 +178,7 @@ namespace atomic_dex::kdf
         {
             SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
         }
+        return false;
     }
 
     template <rpc Rpc>

@@ -62,6 +62,7 @@ namespace
         {
             SPDLOG_ERROR("exception in async_fetch_defi_stats_volumes: {}", error.what());
         }
+        return false;
     }
 
     nlohmann::json
