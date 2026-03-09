@@ -50,11 +50,18 @@ namespace
     pplx::task<web::http::http_response>
     async_fetch_defi_stats_volumes()
     {
-        web::http::http_request req;
-        req.set_method(web::http::methods::GET);
-        req.set_request_uri(FROM_STD_STR("api/v3/pairs/volumes_24hr"));
-        //SPDLOG_INFO("defi_stats req: {}", TO_STD_STR(req.to_string()));
-        return g_defi_stats_client->request(req, d_token_source.get_token());
+        try
+        {
+            web::http::http_request req;
+            req.set_method(web::http::methods::GET);
+            req.set_request_uri(FROM_STD_STR("api/v3/pairs/volumes_24hr"));
+            //SPDLOG_INFO("defi_stats req: {}", TO_STD_STR(req.to_string()));
+            return g_defi_stats_client->request(req, d_token_source.get_token());
+        }
+        catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in async_fetch_defi_stats_volumes: {}", error.what());
+        }
     }
 
     nlohmann::json

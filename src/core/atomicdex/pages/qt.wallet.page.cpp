@@ -676,7 +676,7 @@ namespace atomic_dex
                 }
                 catch (const std::exception& e)
                 {
-                    SPDLOG_ERROR("error caught in send: {}", e.what());
+                    SPDLOG_ERROR("exception caught in send: {}", e.what());
                     auto error_json = QJsonObject({{"error_code", 500}, {"error_message", QString::fromStdString(e.what())}});
                     this->set_rpc_send_data(error_json);
                     this->set_send_busy(false);
@@ -818,7 +818,7 @@ namespace atomic_dex
                 }
                 catch (const std::exception& e)
                 {
-                    SPDLOG_ERROR("error caught in send: {}", e.what());
+                    SPDLOG_ERROR("exception caught in send: {}", e.what());
                     auto error_json = QJsonObject({{"error_code", 500}, {"error_message", QString::fromStdString(e.what())}});
                     this->set_rpc_send_data(error_json);
                     this->set_send_busy(false);
@@ -913,7 +913,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("error caught in broadcast finished: {}", e.what());
+                SPDLOG_ERROR("exception caught in broadcast finished: {}", e.what());
                 this->set_rpc_broadcast_data(QString::fromStdString(e.what()));
                 this->set_broadcast_busy(false);
             }
@@ -967,7 +967,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("error caught in claim_rewards: {}", e.what());
+                SPDLOG_ERROR("exception caught in claim_rewards: {}", e.what());
                 auto error_json = QJsonObject({{"error_code", 500}, {"error_message", QString::fromStdString(e.what())}});
                 this->set_rpc_claiming_data(error_json);
                 this->set_claiming_is_busy(false);

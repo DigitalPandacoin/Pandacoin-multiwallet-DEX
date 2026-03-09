@@ -34,10 +34,17 @@ namespace
     pplx::task<web::http::http_response>
     async_fetch_timesync()
     {
-        web::http::http_request req;
-        req.set_method(web::http::methods::GET);
-        req.set_request_uri(FROM_STD_STR("developer/api/timezone/UTC"));
-        return g_timesync_client->request(req, g_synctoken_source.get_token());
+        try
+        {
+            web::http::http_request req;
+            req.set_method(web::http::methods::GET);
+            req.set_request_uri(FROM_STD_STR("developer/api/timezone/UTC"));
+            return g_timesync_client->request(req, g_synctoken_source.get_token());
+        }
+        catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
+        }
     }
 
     bool get_timesync_info_rpc(web::http::http_response resp_http)

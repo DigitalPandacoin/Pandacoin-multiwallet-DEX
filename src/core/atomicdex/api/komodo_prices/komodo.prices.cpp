@@ -77,10 +77,17 @@ namespace atomic_dex::komodo_prices::api
     pplx::task<web::http::http_response>
     async_market_infos(bool fallback)
     {
-        web::http::http_request req;
-        req.set_method(web::http::methods::GET);
-        std::string endpoint = fallback ? "api/v3/prices/tickers_v2?expire_at=259200" : "api/v2/tickers?expire_at=259200";
-        req.set_request_uri(FROM_STD_STR(endpoint));
-        return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);
+        try
+        {
+            web::http::http_request req;
+            req.set_method(web::http::methods::GET);
+            std::string endpoint = fallback ? "api/v3/prices/tickers_v2?expire_at=259200" : "api/v2/tickers?expire_at=259200";
+            req.set_request_uri(FROM_STD_STR(endpoint));
+            return fallback ? g_komodo_prices_client_fallback->request(req) : g_komodo_prices_client->request(req);
+        }
+        catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
+        }
     }
 } // namespace atomic_dex::komodo_prices::api

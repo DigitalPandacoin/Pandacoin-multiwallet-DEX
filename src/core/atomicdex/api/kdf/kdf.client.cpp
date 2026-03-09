@@ -171,13 +171,13 @@ namespace atomic_dex::kdf
             request.set_method(web::http::methods::POST);
             request.set_body(batch_array.dump());
             auto resp = generate_client().request(request, m_token_source.get_token());
+            return resp;
         }
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
         }
         if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone for coin {} and method {}: {}", batch_array[0].at("coin"), batch_array[0].at("method"), duration_cast<milliseconds>(sw.elapsed())); }
-        return resp;
     }
 
     template <rpc Rpc>

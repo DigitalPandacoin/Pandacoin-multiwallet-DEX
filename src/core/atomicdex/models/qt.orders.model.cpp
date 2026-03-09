@@ -789,7 +789,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("pplx task error from orders_model::recover_fund(QString uuid): {}", e.what());
+                SPDLOG_ERROR("exception in orders_model::recover_fund(QString uuid): {}", e.what());
                 nlohmann::json j_out = nlohmann::json::object();
                 j_out["is_valid"]    = false;
                 j_out["error"]       = e.what();

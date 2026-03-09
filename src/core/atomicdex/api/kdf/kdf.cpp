@@ -710,13 +710,20 @@ namespace atomic_dex::kdf
     async_process_rpc_get(t_http_client_ptr& client, const std::string rpc_command, const std::string& url)
     {
         SPDLOG_INFO("Processing rpc call: {}, url: {}, endpoint: {}", rpc_command, url, TO_STD_STR(client->base_uri().to_string()));
-        web::http::http_request req;
-        req.set_method(web::http::methods::GET);
-        if (not url.empty())
+        try
         {
-            req.set_request_uri(FROM_STD_STR(url));
+            web::http::http_request req;
+            req.set_method(web::http::methods::GET);
+            if (not url.empty())
+            {
+                req.set_request_uri(FROM_STD_STR(url));
+            }
+            return client->request(req);
         }
-        return client->request(req);
+        catch catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
+        }
     }
 
     template <typename RpcReturnType>

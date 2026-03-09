@@ -128,7 +128,7 @@ namespace
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}", error.what());
+            SPDLOG_ERROR("exception caught: {}", error.what());
         }
     }
 
