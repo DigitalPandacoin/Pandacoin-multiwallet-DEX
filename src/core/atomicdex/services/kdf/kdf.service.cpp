@@ -1831,7 +1831,6 @@ namespace atomic_dex
 
         if (is_pin_cfg_enabled())
         {
-            SPDLOG_DEBUG("wtf is is_pin_cfg_enabled??");
             std::shared_lock lock(m_balance_mutex); ///< shared_lock
             if (m_balance_informations.find(cfg_infos.ticker) != m_balance_informations.cend())
             {
@@ -1890,13 +1889,13 @@ namespace atomic_dex
         {
             const auto& enabled_coins = get_enabled_coins();
             async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 8), [&enabled_coins](int x) {
-                   SPDLOG_DEBUG("kdf_service::fetch_infos_thread thread called for coin: {}", enabled_coins[x].dump());
-                   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                   SPDLOG_DEBUG("kdf_service::fetch_infos_thread fetching balance for {}", enabled_coins[x].ticker);
+                   fetch_single_balance(enabled_coins[x]);
             });
-            for (auto&& coin: enabled_coins)
-            {
-                fetch_single_balance(coin);
-            }
+//            for (auto&& coin: enabled_coins)
+//            {
+//                fetch_single_balance(coin);
+//            }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
     }
