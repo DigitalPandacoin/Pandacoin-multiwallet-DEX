@@ -1877,7 +1877,6 @@ namespace atomic_dex
     kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
     {
         spdlog::stopwatch sw; using namespace std::chrono;
-
         if (only_tx)
         {
             batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
@@ -1895,9 +1894,9 @@ namespace atomic_dex
                     SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
                 }
             });
-            SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread before call to batch_balance_and_tx: {}", duration_cast<milliseconds>(sw.elapsed()));
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread before call to batch_balance_and_tx: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void kdf_service::spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg, std::string rpcpass)

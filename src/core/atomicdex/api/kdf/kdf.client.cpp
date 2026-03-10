@@ -121,11 +121,12 @@ namespace atomic_dex::kdf
             {
                 if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
-                    SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
+                    // SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
                     // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 404: Not Found
+                    // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 500:
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
-                        SPDLOG_DEBUG("kdf_client::rpc_process_answer before trying parse(body) on body {}", body);
+                        // SPDLOG_DEBUG("kdf_client::rpc_process_answer before trying parse(body) on body {}", body);
                         // kdf_client::rpc_process_answer before trying parse(body) on body  // aka empty
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())
                         {
@@ -164,20 +165,20 @@ namespace atomic_dex::kdf
     pplx::task<web::http::http_response>
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         try
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             web::http::http_request request;
             request.set_method(web::http::methods::POST);
             request.set_body(batch_array.dump());
             auto resp = generate_client().request(request, m_token_source.get_token());
-            if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone for coin {} and method {}: {}", batch_array[0].at("coin").get<std::string>(), batch_array[0].at("method").get<std::string>(), duration_cast<milliseconds>(sw.elapsed())); }
             return resp;
         }
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
         }
+        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone for coin {} and method {}: {}", batch_array[0].at("coin").get<std::string>(), batch_array[0].at("method").get<std::string>(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     template <rpc Rpc>

@@ -707,22 +707,22 @@ namespace atomic_dex::kdf
     pplx::task<web::http::http_response>
     async_process_rpc_get(t_http_client_ptr& client, const std::string rpc_command, const std::string& url)
     {
+        spdlog::stopwatch sw; using namespace std::chrono;
         try
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             web::http::http_request req;
             req.set_method(web::http::methods::GET);
             if (not url.empty())
             {
                 req.set_request_uri(FROM_STD_STR(url));
             }
-            if (sw.elapsed().count() > 0.04) { SPDLOG_INFO("Time elapsed in async_process_rpc_get for rpc_command {}, url {}, endpoint {}:", rpc_command, url, TO_STD_STR(client->base_uri().to_string()), duration_cast<milliseconds>(sw.elapsed())); }
             return client->request(req);
         }
         catch (const std::exception& error)
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_INFO("Time elapsed in async_process_rpc_get for rpc_command {}, url {}, endpoint {}:", rpc_command, url, TO_STD_STR(client->base_uri().to_string()), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     template <typename RpcReturnType>

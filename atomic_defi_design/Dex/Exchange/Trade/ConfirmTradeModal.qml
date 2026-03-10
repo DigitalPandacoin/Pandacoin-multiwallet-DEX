@@ -19,6 +19,7 @@ MultipageModal
     width: 720
     horizontalPadding: 10
     verticalPadding: 0
+    bottomPadding: 10
     closePolicy: Popup.NoAutoClose
 
     MultipageModalContent
@@ -27,7 +28,7 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 5
         topMarginAfterTitle: 5
-        flickMax: 780
+        flickMax: 720
 
         header: [
             RowLayout
