@@ -500,7 +500,7 @@ namespace atomic_dex
         {
             for (auto&& order: contents)
             {
-                if (this->m_orders_id_registry.find(order.uuid) != this->m_orders_id_registry.end())
+                if (this->m_orders_id_registry.find(order.uuid) != this->m_orders_id_registry.end()) // crash: (__lhs="5763aab7-bfa2-4277-b1ed-0395115c160e-segwit", __rhs=<error reading variable: Cannot access memory at address 0x5550357008c9>)
                 {
                     this->update_order(order);
                 }
