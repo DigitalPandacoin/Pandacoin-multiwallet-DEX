@@ -27,7 +27,6 @@
       ],
       "platform": "windows"
     },
-    "asio",
     "asyncplusplus",
     "cpprestsdk",
     "entt",
