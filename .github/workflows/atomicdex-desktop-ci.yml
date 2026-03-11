@@ -66,7 +66,7 @@ jobs:
             host: 'windows'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           submodules: 'true'
@@ -95,10 +95,10 @@ jobs:
           echo "VCPKG_BUILD_TYPE=${{ matrix.typelc }}" >> $env:GITHUB_ENV
 
       - name: Expose GitHub Runtime Env
-        uses: crazy-max/ghaction-github-runtime@v3
+        uses: crazy-max/ghaction-github-runtime@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -154,7 +154,7 @@ jobs:
       - name: Restore scoop cache (Windows)
         if: runner.os == 'Windows'
         id: restore_cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: '~/scoop'
           key: cache_version_${{ env.cache_version }}-${{ hashFiles(env.cache_hash_seed_file_path) }}
@@ -213,7 +213,7 @@ jobs:
           vcpkgJsonGlob: 'vcpkg.json'
 
       - name: Cache vcpkg
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
           key: vcpkg-${{ runner.os }}-${{ matrix.type }}-${{ hashFiles('vcpkg*.json') }}
@@ -273,7 +273,7 @@ jobs:
 
       - name: Upload bundle artifact (Linux ZSTD)
         if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_zstd }}
           path: ./bundled/linux/${{ env.target_name_zstd }}
@@ -282,7 +282,7 @@ jobs:
 
       - name: Upload bundle artifact (Linux ZIP)
         if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_zip }}
           path: ./bundled/linux/${{ env.target_name_zip }}
@@ -291,7 +291,7 @@ jobs:
 
       - name: Upload bundle artifact (Linux AppImage)
         if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_appimage }}
           path: ./bundled/linux/${{ env.target_name_appimage }}
@@ -305,7 +305,7 @@ jobs:
 
       - name: Upload artifacts (MacOS dmg)
         if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_dmg }}
           path: ./bundled/osx/${{ env.DEX_PROJECT_NAME }}.dmg
@@ -321,7 +321,7 @@ jobs:
 
       - name: Upload artifacts (Windows zip)
         if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_zip }}
           path: ./bundled/windows/${{ env.DEX_PROJECT_NAME }}.zip
@@ -330,7 +330,7 @@ jobs:
 
       - name: Upload artifacts (Windows installer)
         if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.artifact_name_installer }}
           path: ./bundled/windows/${{ env.DEX_PROJECT_NAME }}_installer.exe
