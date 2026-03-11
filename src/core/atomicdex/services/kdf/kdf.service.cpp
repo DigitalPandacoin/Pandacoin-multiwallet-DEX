@@ -2750,6 +2750,7 @@ namespace atomic_dex
             {
                 SPDLOG_ERROR("exception in kdf_service::handle_exception_pplx_task from {} with request {} and error: {}", from, request.dump(4), e.what());
             }
+            using namespace std::chrono; std::this_thread::sleep_for(std::chrono::milliseconds(300));
         }
     }
 
