@@ -107,8 +107,6 @@ namespace atomic_dex
     void
     global_defi_stats_service::process_update()
     {
-        static std::atomic_size_t nb_try = 0;
-        nb_try += 1;
         auto error_functor = [this](pplx::task<void> previous_task)
         {
             try
@@ -127,8 +125,6 @@ namespace atomic_dex
                 {
                     SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
                 }
-                using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
-                this->process_update();
             };
         };
         async_fetch_defi_stats_volumes()
@@ -136,7 +132,6 @@ namespace atomic_dex
                 [this](web::http::http_response resp)
                 {
                     this->m_defi_stats_volumes = process_fetch_defi_stats_volumes_answer(resp);
-                    nb_try = 0;
                 })
             .then(error_functor);
     }
