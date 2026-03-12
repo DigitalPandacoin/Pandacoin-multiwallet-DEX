@@ -127,6 +127,7 @@ namespace atomic_dex
                 {
                     SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
                 }
+                using namespace std::chrono_literals; std::this_thread::sleep_for(3s);
                 this->process_update();
             };
         };
