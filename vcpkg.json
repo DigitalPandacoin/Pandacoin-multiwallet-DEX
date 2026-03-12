@@ -28,6 +28,7 @@
       "platform": "windows"
     },
     "asyncplusplus",
+    "asio",
     "cpprestsdk",
     "entt",
     "refl-cpp",
