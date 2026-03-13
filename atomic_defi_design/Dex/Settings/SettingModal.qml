@@ -377,11 +377,11 @@ Qaterial.Dialog
                                         cancelButtonText: qsTr("Cancel"),
                                         onAccepted: function()
                                         {
-                                            restart_modal.open()
-                                            restart_modal.item.onTimerEnded = () =>
-                                            {
+                                            //restart_modal.open()
+                                            //restart_modal.item.onTimerEnded = () =>
+                                            //{
                                                 API.app.reset_coin_cfg()
-                                            }
+                                            //}
                                         }
                                     })
                                     reset_dialog.close()
