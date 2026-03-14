@@ -3423,11 +3423,6 @@ Please select a new order.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../Dex/Settings/SettingModal.qml" line="270"/>
-        <source>Maximum number of enabled coins</source>
-        <translation>Maximale Anzahl aktivierter Coins</translation>
-    </message>
-    <message>
         <location filename="../../Dex/Settings/SettingModal.qml" line="297"/>
         <source>Logs</source>
         <translation>Protokolle</translation>

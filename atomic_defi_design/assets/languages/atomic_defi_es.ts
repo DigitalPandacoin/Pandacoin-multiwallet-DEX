@@ -3420,11 +3420,6 @@ Please select a new order.</source>
         <translation>Habilitar notificaciones de escritorio</translation>
     </message>
     <message>
-        <location filename="../../Dex/Settings/SettingModal.qml" line="270"/>
-        <source>Maximum number of enabled coins</source>
-        <translation>Número máximo de monedas habilitadas</translation>
-    </message>
-    <message>
         <location filename="../../Dex/Settings/SettingModal.qml" line="297"/>
         <source>Logs</source>
         <translation>Registros</translation>

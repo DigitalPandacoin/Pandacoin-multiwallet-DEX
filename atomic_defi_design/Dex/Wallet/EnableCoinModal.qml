@@ -217,39 +217,9 @@ MultipageModal
 
         Item
         {
-            Layout.topMargin: 6
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
-            DexLabel
-            {
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                text: coin_cfg_model.all_disabled_proxy.length > 0 ?
-                        qsTr("You can still enable %1 assets. Selected: %2.")
-                            .arg(setting_modal.enableable_coins_count - API.app.portfolio_pg.portfolio_mdl.length - coin_cfg_model.checked_nb)
-                            .arg(coin_cfg_model.checked_nb) :
-                        qsTr("All assets are already enabled!")
-                color: Dex.CurrentTheme.textPlaceholderColor
-            }
-        }
-
-        Item
-        {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             Layout.preferredHeight: 40
-
-            DexTransparentButton
-            {
-                anchors.left: parent.left
-                text: qsTr("Change assets limit")
-                Layout.preferredHeight: 35
-                onClicked:
-                {
-                    setting_modal.selectedMenuIndex = 0; 
-                    setting_modal.open()
-                }
-            }
 
             DexTransparentButton
             {

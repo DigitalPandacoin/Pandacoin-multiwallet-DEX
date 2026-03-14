@@ -2644,10 +2644,6 @@ Please select a new order.</source>
         <source>Enable Desktop Notifications</source>
     </message>
     <message>
-        <location filename="../../Dex/Settings/SettingModal.qml" line="242"/>
-        <source>Maximum number of enabled coins</source>
-    </message>
-    <message>
         <location filename="../../Dex/Settings/SettingModal.qml" line="269"/>
         <source>Logs</source>
     </message>

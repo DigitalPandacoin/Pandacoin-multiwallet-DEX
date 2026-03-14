@@ -148,18 +148,11 @@ namespace atomic_dex
             }
             if (real_value)
             {
-                auto enableable_coins_count = m_entity_registry.ctx<QSettings>().value("MaximumNbCoinsEnabled").toULongLong();
-                if (enableable_coins_count <= get_enabled_coins().size() + m_checked_nb)
-                {
-                    return false;
-                }
                 item.checked = real_value;
-                m_checked_nb++;
             }
             else
             {
                 item.checked = real_value;
-                m_checked_nb--;
             }
             emit checked_nbChanged();
             break;

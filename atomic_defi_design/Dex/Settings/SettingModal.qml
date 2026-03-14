@@ -22,7 +22,6 @@ Qaterial.Dialog
     property alias selectedMenuIndex: menu_list.currentIndex
     property var recommended_fiats: API.app.settings_pg.get_recommended_fiats()
     property var fiats: API.app.settings_pg.get_available_fiats()
-    property var enableable_coins_count: enableable_coins_count_combo_box.currentValue
     property var orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
     readonly property date default_min_date: new Date("2019-01-01")
     readonly property date default_max_date: new Date(new Date().setDate(new Date().getDate()))
@@ -253,39 +252,6 @@ Qaterial.Dialog
                                     Layout.alignment: Qt.AlignVCenter
                                     Component.onCompleted: checked = API.app.settings_pg.spamfilter_enabled
                                     onCheckedChanged: API.app.settings_pg.spamfilter_enabled = checked
-                                }
-                            }
-
-                            // Max Coins Dropdown
-                            RowLayout
-                            {
-                                width: parent.width - 30
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                height: 50
-
-                                DexLabel
-                                {
-                                    Layout.alignment: Qt.AlignVCenter
-                                    font: DexTypo.subtitle1
-                                    text: qsTr("Maximum number of enabled coins")
-                                }
-
-                                Item { Layout.fillWidth: true }
-
-                                DefaultComboBox
-                                {
-                                    id: enableable_coins_count_combo_box
-                                    Layout.alignment: Qt.AlignVCenter
-                                    width: 140
-                                    height: 45
-                                    dropDownMaxHeight: 600
-                                    model: [25, 50, 100, 250, 500]
-                                    currentIndex: model.indexOf(parseInt(atomic_settings2.value("MaximumNbCoinsEnabled")))
-                                    onCurrentIndexChanged: atomic_settings2.setValue("MaximumNbCoinsEnabled", model[currentIndex])
-                                    Component.onCompleted:
-                                    {
-                                        currentIndex: model.indexOf(parseInt(atomic_settings2.value("MaximumNbCoinsEnabled")))
-                                    }
                                 }
                             }
 
