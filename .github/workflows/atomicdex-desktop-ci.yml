@@ -334,8 +334,8 @@ jobs:
       - name: Rename files to desired artifact name
         if: runner.os == 'Windows'
         run: |
-             mv ./bundled/windows/${{ env.DEX_PROJECT_NAME }}.zip ./bundled/windows/${{ env.artifact_name_installer }}
-             mv ./bundled/windows/${{ env.DEX_PROJECT_NAME }}_installer.exe ./bundled/windows/${{ env.artifact_name_zip }}
+             mv ./bundled/windows/${{ env.DEX_PROJECT_NAME }}.zip ./bundled/windows/${{ env.artifact_name_zip }}
+             mv ./bundled/windows/${{ env.DEX_PROJECT_NAME }}_installer.exe ./bundled/windows/${{ env.artifact_name_installer }}
 
       - name: Upload artifacts (Windows zip)
         if: runner.os == 'Windows'
