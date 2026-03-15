@@ -331,6 +331,7 @@ jobs:
           echo "artifact_name_installer=${{ env.DEX_PROJECT_NAME }}-${{ matrix.name }}-installer-$(git rev-parse --short HEAD).exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Rename files to desired artifact name
+        shell: bash
         if: runner.os == 'Windows'
         run: |
              mv ./bundled/windows/${{ env.DEX_PROJECT_NAME }}.zip ./bundled/windows/${{ env.artifact_name_zip }}
