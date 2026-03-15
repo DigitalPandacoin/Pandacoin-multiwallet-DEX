@@ -14,7 +14,6 @@ import "../Exchange"
 import "../Settings"
 import "../Support"
 import "../Sidebar" as Sidebar
-import "../Fiat"
 import "../Settings" as SettingsPage
 import "../Support" as SupportPage
 import "../Screens"
