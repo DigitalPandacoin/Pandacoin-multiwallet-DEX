@@ -12,7 +12,7 @@ env:
   DEX_PROJECT_NAME: "komodo-wallet"
   DEX_DISPLAY_NAME: "Komodo Wallet"
   DEX_COMPANY: "KomodoPlatform"
-  DEX_VERSION: "0.8.2"
+  DEX_VERSION: "0.9.9"
   DEX_WEBSITE: "https://atomicdex.io/"
   VCPKG_BINARY_SOURCES: default,readwrite
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
@@ -322,7 +322,7 @@ jobs:
           path: ./bundled/osx/${{ env.artifact_name_dmg }}
           archive: false
           compression-level: 0
-          retention-days: 7
+          retention-days: 30
 
       - name: Upload env variable for artifacts (Windows)
         if: runner.os == 'Windows'
@@ -344,7 +344,7 @@ jobs:
           path: ./bundled/windows/${{ env.artifact_name_zip }}
           archive: false
           compression-level: 0
-          retention-days: 7
+          retention-days: 30
 
       - name: Upload artifacts (Windows installer)
         if: runner.os == 'Windows'
@@ -353,5 +353,5 @@ jobs:
           path: ./bundled/windows/${{ env.artifact_name_installer }}
           archive: false
           compression-level: 0
-          retention-days: 7
+          retention-days: 30
 

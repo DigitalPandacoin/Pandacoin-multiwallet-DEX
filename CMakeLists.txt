@@ -10,7 +10,7 @@ include(compiler_prerequisites)
 include(vcpkg_prerequisites)
 include(qt_prerequisites)
 
-project(${DEX_PROJECT_NAME} LANGUAGES CXX VERSION 0.8.2)
+project(${DEX_PROJECT_NAME} LANGUAGES CXX VERSION 0.9.9)
 message(STATUS "${PROJECT_NAME} is version ${PROJECT_VERSION}")
 
 include(cmake_default_options)
