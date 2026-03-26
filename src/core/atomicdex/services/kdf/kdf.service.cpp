@@ -2741,7 +2741,7 @@ namespace atomic_dex
                 std::string(e.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
                 std::string(e.what()).find("Failed to write request headers") != std::string::npos ||
                 std::string(e.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
-                std::string(e.what()).find("Request canceled by user") != std::string::npos)
+                std::string(e.what()).find("Request canceled by user") != std::string::npos) ||
                 std::string(e.what()).find("Error resolving address") != std::string::npos)
             {
                 SPDLOG_WARN("exception in kdf_service::handle_exception_pplx_task from {}: {}", from, e.what());
