@@ -149,10 +149,12 @@ namespace atomic_dex
             if (real_value)
             {
                 item.checked = real_value;
+                m_checked_nb++;
             }
             else
             {
                 item.checked = real_value;
+                m_checked_nb--;
             }
             emit checked_nbChanged();
             break;
