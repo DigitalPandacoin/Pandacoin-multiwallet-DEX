@@ -37,10 +37,6 @@ Widget
         Layout.bottomMargin: 4
         Layout.fillHeight: true
         Layout.fillWidth: true
-
-        Component.onCompleted: {
-            positionViewAtEnd()
-        }
     }
 
     Item
@@ -64,10 +60,6 @@ Widget
         Layout.bottomMargin: 6
         Layout.fillHeight: true
         Layout.fillWidth: true
-
-        Component.onCompleted: {
-            positionViewAtBeginning()
-        }
     }
 
     DexLabel

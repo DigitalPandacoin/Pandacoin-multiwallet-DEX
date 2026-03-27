@@ -25,6 +25,11 @@ Item
         spacing: 8
         opacity: API.app.trading_pg.maker_mode ? 0.6 : 1
 
+        Component.onCompleted: {
+            if (isAsk) { positionViewAtEnd() }
+            else { positionViewAtBeginning() }
+        }
+
         onContentHeightChanged:
         {
             if (isAsk){
