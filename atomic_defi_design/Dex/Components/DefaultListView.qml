@@ -34,5 +34,6 @@ ListView
         id: scrollVert
         policy: scrollbar_visible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
         visibleBackground: root.visibleBackground
+        minimumSize: 0.05
     }
 }
