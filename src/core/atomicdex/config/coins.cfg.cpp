@@ -34,7 +34,7 @@ namespace
         {
             return CoinType::ERC20;
         }
-        if (coin_type == "TRC-20")
+        if ((coin_type == "TRC-20") || (coin_type == "TRX"))
         {
             return CoinType::TRC20;
         }
@@ -122,7 +122,7 @@ namespace
         {
             return CoinType::ZHTLC;
         }
-        SPDLOG_INFO("Invalid coin type: {}", coin_type);
+        SPDLOG_ERROR("Invalid coin type: {}", coin_type);
         return CoinType::Invalid;
         // throw std::invalid_argument{"Undefined given coin type."};
     }
