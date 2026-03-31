@@ -34,7 +34,6 @@ namespace
         {
             return CoinType::ERC20;
         }
-        }
         if (coin_type == "TRC-20")
         {
             return CoinType::TRC20;
