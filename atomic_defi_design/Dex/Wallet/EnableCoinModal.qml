@@ -17,6 +17,7 @@ MultipageModal
     id: root
     horizontalPadding: 30
     verticalPadding: 30
+    width: 600
 
     property var coin_cfg_model: API.app.portfolio_pg.global_cfg_mdl
 
@@ -29,8 +30,6 @@ MultipageModal
     {
         coin_cfg_model.all_disabled_proxy.setFilterFixedString(text === undefined ? input_coin_filter.textField.text : text)
     }
-
-    width: 600
 
     onOpened: 
     {
@@ -72,7 +71,7 @@ MultipageModal
             titleTopMargin: 0
             topMarginAfterTitle: 0
             spacing: 5
-            flickMax: window.height - 240
+            flickMax: window.height - 200
 
             RowLayout
             {
