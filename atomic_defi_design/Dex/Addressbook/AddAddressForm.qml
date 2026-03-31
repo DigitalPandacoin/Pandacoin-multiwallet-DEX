@@ -21,7 +21,7 @@ Dex.Rectangle
     property string  addressKey
     property string  addressValue
 
-    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "BEP-20", "Smart Chain"]
+    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "TRC-20", "BEP-20", "Smart Chain"]
 
     // Return the asset type that will be used in the backend to validate the address
     function getTypeForAddressChecker(addressType)
@@ -31,6 +31,7 @@ Dex.Rectangle
             case "QRC-20":      return "QTUM"
             case "BEP-20":      return "BNB"
             case "ERC-20":      return "ETH"
+            case "TRC-20":      return "TRX"
             case "AVX-20":      return "AVAX"
             case "PLG-20":      return "POL"
             case "Smart Chain": return "KMD"
@@ -50,6 +51,7 @@ Dex.Rectangle
             case "QRC-20":      return true
             case "BEP-20":      return true
             case "ERC-20":      return true
+            case "TRC-20":      return true
             case "PLG-20":      return true
             case "AVX-20":      return true
             case "Smart Chain": return true

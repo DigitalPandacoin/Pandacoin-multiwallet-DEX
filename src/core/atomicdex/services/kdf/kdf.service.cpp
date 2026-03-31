@@ -2184,6 +2184,9 @@ namespace atomic_dex
             case CoinTypeGadget::ERC20:
                 out = construct_url_functor("ETH", "ETHR", "eth_tx_history", "erc20_tx_history", ticker, address);
                 break;
+            case CoinTypeGadget::TRC20:
+                out = construct_url_functor("TRX", "TRXT", "trx_tx_history", "trc20_tx_history", ticker, address);
+                break;
             case CoinTypeGadget::BEP20:
                 out = construct_url_functor("BNB", "BNBT", "bnb_tx_history", "bep20_tx_history", ticker, address);
                 break;

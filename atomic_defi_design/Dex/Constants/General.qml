@@ -254,6 +254,8 @@ QtObject {
                     return "Harmony (HRC20 token)"
                 case "ETH":
                     return "Ethereum (ERC20 token)"
+                case "TRX":
+                    return "Tron (TRC20 token)"
                 case "KCS":
                     return "KuCoin (KRC20 token)"
                 case "POL":
@@ -776,6 +778,7 @@ QtObject {
         if (prevent_coin_disabling.running) return false
         if (ticker === atomic_app_primary_coin || ticker === atomic_app_secondary_coin) return false
         if (ticker === "ETH") return !General.isParentCoinNeeded("ETH", "ERC-20")
+        if (ticker === "TRX") return !General.isParentCoinNeeded("TRX", "TRC-20")
         if (ticker === "POL") return !General.isParentCoinNeeded("POL", "PLG-20")
         if (ticker === "AVAX") return !General.isParentCoinNeeded("AVAX", "AVX-20")
         if (ticker === "BNB") return !General.isParentCoinNeeded("BNB", "BEP-20")
@@ -809,16 +812,17 @@ QtObject {
     function isERC20(current_ticker_infos) {
         return current_ticker_infos.type === "ERC-20"
             || current_ticker_infos.type === "BEP-20"
+            || current_ticker_infos.type === "TRC-20"
             || current_ticker_infos.type == "PLG-20"
             || current_ticker_infos.type == "AVX-20"
     }
 
     function isParentCoin(ticker) {
-        return ["KMD", "ETH", "POL", "AVAX", "QTUM", "BNB", "ONE", "KCS"].includes(ticker)
+        return ["KMD", "ETH", "POL", "AVAX", "QTUM", "BNB", "ONE", "KCS", "TRX"].includes(ticker)
     }
 
     function isTokenType(type) {
-        return ["ERC-20", "QRC-20", "PLG-20", "AVX-20"].includes(type)
+        return ["ERC-20", "QRC-20", "PLG-20", "AVX-20", "TRC-20"].includes(type)
     }
 
     function getFeesTicker(coin_info) {
@@ -829,6 +833,7 @@ QtObject {
     function getParentCoin(type) {
         if(type === "ERC-20") return "ETH"
         else if(type === "PLG-20") return "POL"
+        else if(type === "TRC-20") return "TRX"
         else if(type === "AVX-20") return "AVAX"
         else if(type === "QRC-20") return "QTUM"
         else if(type === "Smart Chain") return "KMD"

@@ -34,6 +34,11 @@ namespace
         {
             return CoinType::ERC20;
         }
+        }
+        if (coin_type == "TRC-20")
+        {
+            return CoinType::TRC20;
+        }
         if (coin_type == "EWT")
         {
             return CoinType::EWT;
@@ -273,6 +278,11 @@ namespace atomic_dex
         case CoinType::ERC20:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "ETHR" : "ETH";
+            cfg.is_erc_family          = true;
+            break;
+        case CoinType::TRC20:
+            cfg.has_parent_fees_ticker = true;
+            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "TRXT" : "TRX";
             cfg.is_erc_family          = true;
             break;
         case CoinType::BEP20:
