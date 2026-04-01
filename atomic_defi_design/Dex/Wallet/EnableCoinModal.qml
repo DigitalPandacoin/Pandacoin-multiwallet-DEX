@@ -109,7 +109,7 @@ MultipageModal
 
                 Layout.topMargin: 5
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: window.height - 300
+                Layout.preferredHeight: window.height - 400
                 Layout.fillWidth: true
 
                 Component.onCompleted: {
