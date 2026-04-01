@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.18)
+
+cmake_minimum_required(VERSION 3.30)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -9,9 +10,8 @@ include(build_type)
 include(compiler_prerequisites)
 include(vcpkg_prerequisites)
 include(qt_prerequisites)
-include(cfg_hash)
 
-project(${DEX_PROJECT_NAME} LANGUAGES CXX VERSION 0.8.2)
+project(${DEX_PROJECT_NAME} LANGUAGES CXX VERSION 0.9.9)
 message(STATUS "${PROJECT_NAME} is version ${PROJECT_VERSION}")
 
 include(cmake_default_options)
@@ -20,68 +20,35 @@ include(ipo_prerequisites)
 ##! Options
 option(WITH_HOTRELOAD "Enable to use qml Hot reload" OFF)
 
-if (NOT WITH_HOTRELOAD)
-    message(STATUS "Hot Reload is not active download SortFilterProxyModel")
-    include(FetchContent)
-
-    set(SFPM_REPOSITORY "https://github.com/OlivierLDff/SortFilterProxyModel.git" CACHE STRING "SortFilterProxyModel repository url")
-    set(SFPM_TAG master CACHE STRING "SortFilterProxyModel git tag")
-
-    FetchContent_Declare(
-            SortFilterProxyModel
-            GIT_REPOSITORY ${SFPM_REPOSITORY}
-            GIT_TAG        ${SFPM_TAG}
-            GIT_SHALLOW    1
-    )
-
-    set(SFPM_FOLDER_PREFIX "Dependencies" CACHE STRING "Prefix folder for all SortFilterProxyModel generated targets in generated project (only decorative)")
-    FetchContent_MakeAvailable(SortFilterProxyModel)
-endif()
-
 ##! Antara
 include(antara)
 ##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
 init_antara_env()
 
-
-##! We include the module from CMake for fetching dependencies
-include(FetchContent)
-
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(LINUX TRUE)
-endif ()
-
-if (UNIX AND NOT APPLE)
-    message("Forcing stdlib C++")
-    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif ()
 
 ##! We fetch our dependencies
 if (APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-mac-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-mac-x86-64.zip)
 elseif (UNIX AND NOT APPLE)
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-linux-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-linux-x86-64.zip)
 else ()
     FetchContent_Declare(kdf
-            URL https://devbuilds.gleec.com/dev/kdf_02a8a3c-win-x86-64.zip)
+            URL https://devbuilds.gleec.com/dev/kdf_a12695e-win-x86-64.zip)
 endif ()
-
-#FetchContent_Declare(qmaterial URL https://github.com/KomodoPlatform/Qaterial/archive/last-clang-working-2.zip)
 
 FetchContent_Declare(
         qmaterial
-        GIT_REPOSITORY https://github.com/KomodoPlatform/Qaterial.git
-        GIT_TAG 53669824261ae07bc0e8c2abb4b55431f65b2055
+        GIT_REPOSITORY https://github.com/OlivierLDff/Qaterial.git
+        GIT_TAG c2f32d23523baabe406a8de6809dc9d41f9a881e
 )
 
 FetchContent_Declare(jl777-coins
         URL https://github.com/cipig/coins/archive/nogeo.zip)
-
-#FetchContent_Declare(adex-generics-coins
-#        URL https://github.com/KomodoPlatform/komodo-wallet-desktop/archive/main.zip)
 
 FetchContent_MakeAvailable(kdf jl777-coins qmaterial)
 
@@ -89,14 +56,12 @@ FetchContent_MakeAvailable(kdf jl777-coins qmaterial)
 if (UNIX)
     configure_file(${jl777-coins_SOURCE_DIR}/utils/coins_config_tcp.json ${CMAKE_CURRENT_SOURCE_DIR}/assets/config/${PROJECT_VERSION}-coins.json COPYONLY)
     configure_file(${jl777-coins_SOURCE_DIR}/coins ${CMAKE_CURRENT_SOURCE_DIR}/assets/tools/kdf/coins COPYONLY)
-    configure_file(${kdf_SOURCE_DIR}/mm2 ${CMAKE_CURRENT_SOURCE_DIR}/assets/tools/kdf/${DEX_API} COPYONLY)
+    configure_file(${kdf_SOURCE_DIR}/kdf ${CMAKE_CURRENT_SOURCE_DIR}/assets/tools/kdf/${DEX_API} COPYONLY)
     file(COPY ${jl777-coins_SOURCE_DIR}/icons/ DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/atomic_defi_design/assets/images/coins/)
 else ()
     configure_file(${jl777-coins_SOURCE_DIR}/utils/coins_config_tcp.json ${CMAKE_BINARY_DIR}/bin/assets/config/${PROJECT_VERSION}-coins.json COPYONLY)
     configure_file(${jl777-coins_SOURCE_DIR}/coins ${CMAKE_BINARY_DIR}/bin/assets/tools/kdf/coins COPYONLY)
-    configure_file(${kdf_SOURCE_DIR}/mm2.exe ${CMAKE_BINARY_DIR}/bin/assets/tools/kdf/${DEX_API}.exe COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/windows_misc/msvcp140.dll ${CMAKE_BINARY_DIR}/bin/assets/tools/kdf/msvcp140.dll COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ci_tools_atomic_dex/windows_misc/vcruntime140.dll ${CMAKE_BINARY_DIR}/bin/assets/tools/kdf/vcruntime140.dll COPYONLY)
+    configure_file(${kdf_SOURCE_DIR}/kdf.exe ${CMAKE_BINARY_DIR}/bin/assets/tools/kdf/${DEX_API}.exe COPYONLY)
 endif ()
 
 
