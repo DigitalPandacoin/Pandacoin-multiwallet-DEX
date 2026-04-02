@@ -1885,14 +1885,7 @@ namespace atomic_dex
         {
             const auto& enabled_coins = get_enabled_coins();
             async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 4), [this, &enabled_coins](int x) {
-                try
-                {
-                    fetch_single_balance(enabled_coins[x]);
-                }
-                catch (const std::exception& error)
-                {
-                    SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
-                }
+                fetch_single_balance(enabled_coins[x]);
             });
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
