@@ -188,12 +188,12 @@ namespace atomic_dex::kdf
                 request.set_method(web::http::methods::POST);
                 request.set_body(batch_array.dump());
                 auto resp = generate_client().request(request, m_token_source.get_token());
-                return resp.get(); // Get the result from the pplx::task
+                return resp.get();
             }
             catch (const std::exception& error)
             {
                 SPDLOG_ERROR("exception in kdf_client::real_async_rpc_batch_standalone: {}", error.what());
-                throw; // Re-throw to propagate the exception through the task
+                throw;
             }
         });
     }

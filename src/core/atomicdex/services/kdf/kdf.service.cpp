@@ -1827,7 +1827,7 @@ namespace atomic_dex
 
         if (is_pin_cfg_enabled())
         {
-            std::shared_lock lock(m_balance_mutex); ///< shared_lock
+            std::shared_lock lock(m_balance_mutex);
             if (m_balance_informations.find(cfg_infos.ticker) != m_balance_informations.cend())
             {
                 SPDLOG_WARN("m_balance_informations not found for {} ", cfg_infos.ticker);
@@ -1844,7 +1844,7 @@ namespace atomic_dex
         {
             try
             {
-                auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
+                auto answers = kdf::basic_batch_answer(resp);
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
@@ -1864,10 +1864,10 @@ namespace atomic_dex
         };
 
         m_kdf_client.real_async_rpc_batch_standalone(batch_array)
-            .then([this, batch = batch_array, answer_functor](async::task<web::http::http_response> t) {
+            .then([this, batch = batch_array, answer_functor](web::http::http_response resp) {
                 try
                 {
-                    answer_functor(t.get());
+                    answer_functor(resp);
                 }
                 catch (const std::exception& e)
                 {
