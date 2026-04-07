@@ -15,7 +15,6 @@
  ******************************************************************************/
 
 #include <filesystem>
-#include <async++.h>
 #include <meta/detection/detection.hpp>
 
 #include "kdf.hpp"
