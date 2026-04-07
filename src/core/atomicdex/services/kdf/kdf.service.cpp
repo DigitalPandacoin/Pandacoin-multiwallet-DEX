@@ -459,11 +459,13 @@ namespace atomic_dex
         t_disable_coin_request request{.coin = ticker};
 
         auto                   answer = m_kdf_client.rpc_disable_coin(std::move(request));
-        SPDLOG_DEBUG("kdf_service::disable_coin: {} result: {}", ticker, answer.raw_result);
+        // SPDLOG_DEBUG("kdf_service::disable_coin: {} result: {}", ticker, answer.raw_result);
+        // kdf_service::disable_coin: BRZ-PLG20 result: {"result":{"coin":"BRZ-PLG20","cancelled_orders":[],"passivized":false}}
 
         if (answer.error.has_value())
         {
             std::string error = answer.error.value();
+            SPDLOG_ERROR("kdf_service::disable_coin disabling {} failed with error: {}", ticker, error);
             if (error.find("such coin") != std::string::npos)
             {
                 ec = dextop_error::disable_unknown_coin;

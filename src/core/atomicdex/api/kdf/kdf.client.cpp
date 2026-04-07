@@ -120,12 +120,12 @@ namespace atomic_dex::kdf
             {
                 if constexpr (doom::meta::is_detected_v<have_error_field, RpcReturnType>)
                 {
-                    // SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
+                    SPDLOG_DEBUG("kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command {} with resp.status_code {}: {}", rpc_command, resp.status_code(), body);
                     // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 404: Not Found
                     // kdf_client::rpc_process_answer: error field detected inside the RpcReturnType of rpc_command tx_history with resp.status_code 500:
                     if constexpr (std::is_same_v<std::optional<std::string>, decltype(answer.error)>)
                     {
-                        // SPDLOG_DEBUG("kdf_client::rpc_process_answer before trying parse(body) on body {}", body);
+                        SPDLOG_DEBUG("kdf_client::rpc_process_answer before trying parse(body) on body {}", body);
                         // kdf_client::rpc_process_answer before trying parse(body) on body  // aka empty
                         if (auto json_data = nlohmann::json::parse(body); json_data.at("error").is_string())
                         {
@@ -252,11 +252,11 @@ namespace atomic_dex::kdf
     {
         nlohmann::json json_data = kdf::template_request(rpc_command, is_v2);
         kdf::to_json(json_data, request);
-
         auto json_copy        = json_data;
         json_copy["userpass"] = "*******";
 
-        SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
+        // SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
+        // [debug] [kdf.client.cpp:259] [2323035]: UNUSED ?? request: {"coin":"DAI-PLG20","method":"disable_coin","userpass":"*******"}
 
         web::http::http_request rpc_request(web::http::methods::POST);
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
