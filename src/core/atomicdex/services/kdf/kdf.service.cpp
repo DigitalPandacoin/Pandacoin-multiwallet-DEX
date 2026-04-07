@@ -1865,12 +1865,12 @@ namespace atomic_dex
             }
         };
 
-        auto error_functor = [this, batch = batch_array](pplx::task<void> previous_task)
+        auto error_functor = [this, batch = batch_array](std::exception_ptr e)
         {
-            this->handle_exception_pplx_task(previous_task, "fetch_single_balance", batch);
+            this->handle_exception_async_task(e, "fetch_single_balance", batch);
         };
 
-        m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).then(error_functor);
+        m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).on_exception(error_functor);
     }
 
     void
@@ -2713,6 +2713,43 @@ namespace atomic_dex
             m_orders_and_swaps = orders_and_swaps{.current_page = current_page, .limit = limit, .filtering_infos = std::move(filter_infos)};
         }
         this->batch_fetch_orders_and_swap(true);
+    }
+
+    void
+    kdf_service::handle_exception_async_task(std::exception_ptr e, const std::string& from, nlohmann::json request)
+    {
+        try
+        {
+            std::rethrow_exception(e);
+        }
+        catch (const std::exception& ex)
+        {
+            for (auto&& cur: request) cur["userpass"] = "";
+
+            if (std::string(ex.what()).find("Operation canceled") != std::string::npos)
+            {
+                SPDLOG_INFO("exception in kdf_service::handle_exception_async_task from {}: {}", from, ex.what());
+            }
+            else if (std::string(ex.what()).find("mutex lock failed") != std::string::npos)
+            {
+                SPDLOG_WARN("exception in kdf_service::handle_exception_async_task from {}: {}", from, ex.what());
+            }
+            else if (std::string(ex.what()).find("Failed to read HTTP status line") != std::string::npos ||
+                std::string(ex.what()).find("Failed to connect to any resolved endpoint") != std::string::npos ||
+                std::string(ex.what()).find("Failed to write request headers") != std::string::npos ||
+                std::string(ex.what()).find("WinHttpReceiveResponse: 12002: The operation timed out") != std::string::npos ||
+                std::string(ex.what()).find("Request canceled by user") != std::string::npos ||
+                std::string(ex.what()).find("Error resolving address") != std::string::npos)
+            {
+                SPDLOG_WARN("exception in kdf_service::handle_exception_async_task from {}: {}", from, ex.what());
+                //this->dispatcher_.trigger<fatal_notification>("connection dropped");
+            }
+            else
+            {
+                SPDLOG_ERROR("exception in kdf_service::handle_exception_async_task from {} with request {} and error: {}", from, request.dump(4), ex.what());
+            }
+            using namespace std::chrono; std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
     }
 
     void
