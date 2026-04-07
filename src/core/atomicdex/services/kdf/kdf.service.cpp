@@ -452,14 +452,14 @@ namespace atomic_dex
         coin_config_t coin_info = get_coin_info(ticker);
         if (not coin_info.currently_enabled)
         {
-            // SPDLOG_DEBUG("[kdf_service::disable_coin]: {} not currently_enabled", ticker);
+            SPDLOG_ERROR("kdf_service::disable_coin: {} not currently_enabled", ticker);
             return true;
         }
 
         t_disable_coin_request request{.coin = ticker};
 
         auto                   answer = m_kdf_client.rpc_disable_coin(std::move(request));
-        // SPDLOG_DEBUG("kdf_service::disable_coin: {} result: {}", ticker, answer.raw_result);
+        SPDLOG_DEBUG("kdf_service::disable_coin: {} result: {}", ticker, answer.raw_result);
 
         if (answer.error.has_value())
         {
