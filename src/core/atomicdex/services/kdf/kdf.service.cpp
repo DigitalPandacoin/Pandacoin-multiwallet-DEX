@@ -1844,13 +1844,11 @@ namespace atomic_dex
         {
             try
             {
-                spdlog::stopwatch sw; using namespace std::chrono;
                 auto answers = kdf::basic_batch_answer(resp); // TODO start deadlock
                 if (!answers.contains("error") && !answers[0].contains("error"))
                 {
                     this->process_balance_answer(answers[0]);
                 }
-                if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
             }
             catch (const std::exception& error)
             {
