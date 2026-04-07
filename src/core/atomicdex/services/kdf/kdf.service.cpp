@@ -1887,8 +1887,8 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
-            for (auto x = 0; x < enabled_coins.size(); ++x) {
-                async::spawn([this, coin = enabled_coins[x]]() {
+            for (const auto& coin : enabled_coins) {
+                async::spawn([this, coin]() {
                     fetch_single_balance(coin);
                 });
             }
