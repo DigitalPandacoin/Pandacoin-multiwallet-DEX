@@ -1863,12 +1863,17 @@ namespace atomic_dex
             }
         };
 
-        auto error_functor = [this, batch = batch_array](std::exception_ptr e)
-        {
-            this->handle_exception_async_task(e, "fetch_single_balance", batch);
-        };
-
-        m_kdf_client.real_async_rpc_batch_standalone(batch_array).then(answer_functor).on_exception(error_functor);
+        m_kdf_client.real_async_rpc_batch_standalone(batch_array)
+            .then([this, batch = batch_array, answer_functor](async::task<web::http::http_response> t) {
+                try
+                {
+                    answer_functor(t.get());
+                }
+                catch (const std::exception& e)
+                {
+                    this->handle_exception_async_task(std::current_exception(), "fetch_single_balance", batch);
+                }
+            });
     }
 
     void
