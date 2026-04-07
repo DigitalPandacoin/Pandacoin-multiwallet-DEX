@@ -182,13 +182,11 @@ jobs:
         uses: gerlero/brew-install@v1
         with:
           packages: |
-            autoconf
             autoconf-archive
             automake
             coreutils
             gnu-getopt
             gnu-sed
-            libtool
             llvm
 
       - name: Install apt deps (Linux)
