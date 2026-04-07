@@ -188,7 +188,7 @@ namespace atomic_dex::kdf
                 request.set_method(web::http::methods::POST);
                 request.set_body(batch_array.dump());
                 auto resp = generate_client().request(request, m_token_source.get_token());
-                return resp;
+                return resp.get(); // Get the result from the pplx::task
             }
             catch (const std::exception& error)
             {
