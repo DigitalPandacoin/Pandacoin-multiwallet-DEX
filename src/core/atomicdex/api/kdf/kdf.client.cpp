@@ -15,7 +15,7 @@
  ******************************************************************************/
 
 #include <filesystem>
-
+#include <async++.h>
 #include <meta/detection/detection.hpp>
 
 #include "kdf.hpp"
@@ -162,23 +162,41 @@ namespace atomic_dex::kdf
         return answer;
     }
 
-    pplx::task<web::http::http_response>
+    //pplx::task<web::http::http_response>
+    //kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
+    //{
+    //    try
+    //    {
+    //        web::http::http_request request;
+    //        request.set_method(web::http::methods::POST);
+    //        request.set_body(batch_array.dump());
+    //        auto resp = generate_client().request(request, m_token_source.get_token());
+    //        return resp;
+    //    }
+    //    catch (const std::exception& error)
+    //    {
+    //        SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
+    //    }
+    //}
+
+    async::task<web::http::http_response>
     kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
-        try
-        {
-            web::http::http_request request;
-            request.set_method(web::http::methods::POST);
-            request.set_body(batch_array.dump());
-            auto resp = generate_client().request(request, m_token_source.get_token());
-            return resp;
-        }
-        catch (const std::exception& error)
-        {
-            SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
-        }
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_client::async_rpc_batch_standalone for coin {} and method {}: {}", batch_array[0].at("coin").get<std::string>(), batch_array[0].at("method").get<std::string>(), duration_cast<milliseconds>(sw.elapsed())); }
+        return async::spawn([this, batch_array]() {
+            try
+            {
+                web::http::http_request request;
+                request.set_method(web::http::methods::POST);
+                request.set_body(batch_array.dump());
+                auto resp = generate_client().request(request, m_token_source.get_token());
+                return resp;
+            }
+            catch (const std::exception& error)
+            {
+                SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
+                throw; // Re-throw to propagate the exception through the task
+            }
+        });
     }
 
     template <rpc Rpc>

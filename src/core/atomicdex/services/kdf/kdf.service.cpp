@@ -1850,7 +1850,7 @@ namespace atomic_dex
                 {
                     this->process_balance_answer(answers[0]);
                 }
-                if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
+                if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_single_balance for ticker {}: {}", cfg_infos.ticker, duration_cast<milliseconds>(sw.elapsed())); }
             }
             catch (const std::exception& error)
             {
