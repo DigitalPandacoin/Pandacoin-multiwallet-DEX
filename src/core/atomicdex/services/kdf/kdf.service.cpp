@@ -1887,10 +1887,11 @@ namespace atomic_dex
         else
         {
             const auto& enabled_coins = get_enabled_coins();
-            //async::parallel_for(static_partitioner(async::irange(0, enabled_coins.size()), 4), [this, &enabled_coins](int x) {
-            async::parallel_for(async::irange(0, enabled_coins.size()), [this, &enabled_coins](int x) {
-                fetch_single_balance(enabled_coins[x]);
-            });
+            for (int x = 0; x < enabled_coins.size(); ++x) {
+                async::spawn([this, coin = enabled_coins[x]]() {
+                    fetch_single_balance(coin);
+                });
+            }
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
         if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in kdf_service::fetch_infos_thread with is_a_refresh {} and only_tx {}: {}", is_a_refresh, only_tx, duration_cast<milliseconds>(sw.elapsed())); }
