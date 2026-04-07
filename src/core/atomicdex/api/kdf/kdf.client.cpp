@@ -161,25 +161,25 @@ namespace atomic_dex::kdf
         return answer;
     }
 
-    //pplx::task<web::http::http_response>
-    //kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
-    //{
-    //    try
-    //    {
-    //        web::http::http_request request;
-    //        request.set_method(web::http::methods::POST);
-    //        request.set_body(batch_array.dump());
-    //        auto resp = generate_client().request(request, m_token_source.get_token());
-    //        return resp;
-    //    }
-    //    catch (const std::exception& error)
-    //    {
-    //        SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
-    //    }
-    //}
+    pplx::task<web::http::http_response>
+    kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
+    {
+        try
+        {
+            web::http::http_request request;
+            request.set_method(web::http::methods::POST);
+            request.set_body(batch_array.dump());
+            auto resp = generate_client().request(request, m_token_source.get_token());
+            return resp;
+        }
+        catch (const std::exception& error)
+        {
+            SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
+        }
+    }
 
     async::task<web::http::http_response>
-    kdf_client::async_rpc_batch_standalone(nlohmann::json batch_array)
+    kdf_client::real_async_rpc_batch_standalone(nlohmann::json batch_array)
     {
         return async::spawn([this, batch_array]() {
             try
@@ -192,7 +192,7 @@ namespace atomic_dex::kdf
             }
             catch (const std::exception& error)
             {
-                SPDLOG_ERROR("exception in kdf_client::async_rpc_batch_standalone: {}", error.what());
+                SPDLOG_ERROR("exception in kdf_client::real_async_rpc_batch_standalone: {}", error.what());
                 throw; // Re-throw to propagate the exception through the task
             }
         });

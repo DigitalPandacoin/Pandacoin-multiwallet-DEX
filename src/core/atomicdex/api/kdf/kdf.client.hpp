@@ -28,8 +28,8 @@ namespace atomic_dex::kdf
         void stop();
 
         //! API
-        //pplx::task<web::http::http_response> async_rpc_batch_standalone(nlohmann::json batch_array);
-        async::task<web::http::http_response> async_rpc_batch_standalone(nlohmann::json batch_array);
+        pplx::task<web::http::http_response> async_rpc_batch_standalone(nlohmann::json batch_array);
+        async::task<web::http::http_response> real_async_rpc_batch_standalone(nlohmann::json batch_array);
 
         template <rpc Rpc>
         void process_rpc_async(const std::function<void(Rpc)>& on_rpc_processed);

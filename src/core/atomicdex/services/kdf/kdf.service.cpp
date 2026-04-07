@@ -1870,7 +1870,7 @@ namespace atomic_dex
             this->handle_exception_async_task(e, "fetch_single_balance", batch);
         };
 
-        m_kdf_client.async_rpc_batch_standalone(batch_array).then(answer_functor).on_exception(error_functor);
+        m_kdf_client.real_async_rpc_batch_standalone(batch_array).then(answer_functor).on_exception(error_functor);
     }
 
     void
