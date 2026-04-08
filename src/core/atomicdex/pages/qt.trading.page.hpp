@@ -110,7 +110,7 @@ namespace atomic_dex
         MarketMode                             m_market_mode{MarketModeGadget::Sell};
         bool                                   m_maker_mode{false};
         TradingError                           m_last_trading_error{TradingErrorGadget::None};
-        TradingMode                            m_current_trading_mode{TradingModeGadget::Pro};
+        TradingMode                            m_current_trading_mode{(TradingMode)-1};
         SelectedOrderStatus                    m_selected_order_status{SelectedOrderGadget::None};
         QString                                m_price{"0"};
         QString                                m_volume{"0"};
