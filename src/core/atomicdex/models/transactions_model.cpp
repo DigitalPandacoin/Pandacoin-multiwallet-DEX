@@ -278,7 +278,7 @@ namespace atomic_dex
         {
             this->init_transactions(to_init);
         }
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_or_insert_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in atomic_dex::transactions_model::update_or_insert_transactions: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int transactions_model::get_length() const

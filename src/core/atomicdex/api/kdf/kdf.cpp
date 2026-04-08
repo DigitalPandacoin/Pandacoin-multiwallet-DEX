@@ -681,7 +681,7 @@ namespace atomic_dex::kdf
             answer["error"] = err.what();
         }
 
-        if (sw.elapsed().count() > 0.07) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.08) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 

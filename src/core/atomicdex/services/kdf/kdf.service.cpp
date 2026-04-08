@@ -139,37 +139,39 @@ namespace
         {
             return;
         }
-
         if (tickers.empty())
         {
             SPDLOG_DEBUG("Tickers list empty, skipping update_coin_status");
             return;
         }
-
         SPDLOG_INFO("Update coins status to: {} - field_name: {} - tickers: {}", status, field_name, fmt::join(tickers, ", "));
-        std::filesystem::path	cfg_path		= atomic_dex::utils::get_atomic_dex_config_folder();
-        std::string		filename		= std::string(atomic_dex::get_raw_version()) + "-coins." + wallet_name + ".json";
-        std::string		custom_tokens_filename	= "custom-tokens." + wallet_name + ".json";
-        std::filesystem::path	custom_tokens_filepath	= cfg_path / custom_tokens_filename;
+        std::filesystem::path  cfg_path                = atomic_dex::utils::get_atomic_dex_config_folder();
+        std::string            filename                = std::string(atomic_dex::get_raw_version()) + "-coins." + wallet_name + ".json";
+        std::string            custom_tokens_filename  = "custom-tokens." + wallet_name + ".json";
+        std::filesystem::path  custom_tokens_filepath  = cfg_path / custom_tokens_filename;
 
         nlohmann::json config_json_data = atomic_dex::utils::read_json_file(cfg_path / filename);
         nlohmann::json custom_cfg_data = atomic_dex::utils::read_json_file(custom_tokens_filepath);
 
-        std::shared_lock lock(registry_mtx);
-        for (auto&& ticker: tickers)
         {
-            if (registry[ticker].is_custom_coin)
+            std::shared_lock lock(registry_mtx);
+            for (auto&& ticker: tickers)
             {
-                custom_cfg_data.at(ticker)[field_name] = status;
-            }
-            else
-            {
-                config_json_data.at(ticker)[field_name] = status;
-            }
-
-            if (field_name == "active")
-            {
-                registry[ticker].active = status;
+                if (registry[ticker].is_custom_coin)
+                {
+                    SPDLOG_DEBUG("Setting custom ticker: {} field {} to {}", ticker, field_name, status);
+                    custom_cfg_data.at(ticker)[field_name] = status;
+                }
+                else
+                {
+                    SPDLOG_DEBUG("Setting ticker: {} field {} to {}", ticker, field_name, status);
+                    config_json_data.at(ticker)[field_name] = status;
+                }
+                if (field_name == "active")
+                {
+                    SPDLOG_DEBUG("ticker: {} status active: {}", ticker, status);
+                    registry[ticker].active = status;
+                }
             }
         }
 
@@ -190,6 +192,7 @@ namespace
             ofs_custom.write(QString::fromStdString(custom_cfg_data.dump()).toUtf8());
             ofs_custom.close();
         }
+        SPDLOG_DEBUG("Coins file updated to set {}: {} | tickers: [{}]", field_name, status,  fmt::join(tickers, ", "));
     }
 }
 
@@ -304,7 +307,7 @@ namespace atomic_dex
             m_orders_clock = std::chrono::high_resolution_clock::now();
         }
 
-        if (s_activation >= 7s)
+        if (s_activation >= 6s)
         {
             auto                     coins = this->get_enabled_coins();
             std::vector<std::string> tickers;
@@ -340,7 +343,7 @@ namespace atomic_dex
             }
         }
 
-        if (s_info >= 77s)
+        if (s_info >= 67s)
         {
             std::unique_lock lock(m_activation_mutex);
             if (m_activation_queue.empty())
