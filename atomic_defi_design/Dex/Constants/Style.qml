@@ -193,8 +193,8 @@ QtObject {
             case 'RSK Smart Bitcoin': return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'UTXO':              return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'Ethereum Classic':  return dark_theme ? colorCoinDark["ETC"] : colorCoin["ETC"]
-            case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
-            case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
+            case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH-ARB20"] : colorCoin["ETH-ARB20"]
+            case 'Base':              return dark_theme ? colorCoinDark["ETH-BASE"] : colorCoin["ETH-BASE"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
@@ -236,8 +236,8 @@ QtObject {
             case 'RSK Smart Bitcoin': return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'UTXO':              return dark_theme ? colorCoinDark["UTXO"] : colorCoin["UTXO"]
             case 'Ethereum Classic':  return dark_theme ? colorCoinDark["ETC"] : colorCoin["ETC"]
-            case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
-            case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
+            case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH-ARB20"] : colorCoin["ETH-ARB20"]
+            case 'Base':              return dark_theme ? colorCoinDark["ETH-BASE"] : colorCoin["ETH-BASE"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
@@ -282,6 +282,8 @@ QtObject {
                                           "BCH": "#8DC351",
                                           "ETC": "#328432",
                                           "ETH": "#687DE3",
+                                          "ETH-ARB20": "#12aaff",
+                                          "ETH-BASE": "#0000ff",
                                           "EWT": "#A466FF",
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
@@ -307,6 +309,8 @@ QtObject {
                                           "BCH": "#8DC351",
                                           "ETC": "#328432",
                                           "ETH": "#687DE3",
+                                          "ETH-ARB20": "#12aaff",
+                                          "ETH-BASE": "#0000ff",
                                           "EWT": "#A466FF",
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
