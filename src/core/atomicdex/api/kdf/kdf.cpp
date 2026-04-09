@@ -667,12 +667,10 @@ namespace atomic_dex::kdf
     nlohmann::json
     basic_batch_answer(const web::http::http_response& resp)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         nlohmann::json answer;
-
         try
         {
-            std::string    body = TO_STD_STR(resp.extract_string(true).get()); // TODO deadlock for good
+            std::string    body = TO_STD_STR(resp.extract_string(true).get());
             answer = nlohmann::json::parse(body);
         }
         catch (const nlohmann::detail::parse_error& err)
@@ -680,8 +678,6 @@ namespace atomic_dex::kdf
             SPDLOG_ERROR("exception in basic_batch_answer: {}", err.what());
             answer["error"] = err.what();
         }
-
-        if (sw.elapsed().count() > 0.1) { SPDLOG_DEBUG("Time elapsed in basic_batch_answer: {}", duration_cast<milliseconds>(sw.elapsed())); }
         return answer;
     }
 
@@ -727,12 +723,10 @@ namespace atomic_dex::kdf
     RpcReturnType
     rpc_process_answer_batch(nlohmann::json& json_answer, const std::string& rpc_command)
     {
-        spdlog::stopwatch sw;
-        using namespace std::chrono;
         RpcReturnType answer;
-
         try
         {
+            spdlog::stopwatch sw; using namespace std::chrono;
             from_json(json_answer, answer);
             answer.rpc_result_code = 200;
             if (sw.elapsed().count() > 0.1) { SPDLOG_DEBUG("Time elapsed in rpc_process_answer_batch for rpc_command {}: {}", rpc_command, duration_cast<milliseconds>(sw.elapsed())); }
