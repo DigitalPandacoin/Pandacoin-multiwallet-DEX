@@ -462,7 +462,6 @@ namespace atomic_dex
     void
     orders_model::init_model(const orders_and_swaps& contents)
     {
-        spdlog::stopwatch sw;
         const auto size = contents.orders_and_swaps.size();
         if (size == 0)
             return;
@@ -476,8 +475,6 @@ namespace atomic_dex
         emit limitNbElementsChanged();
         emit nbPageChanged();
         this->set_average_events_time_registry(nlohmann_json_object_to_qt_json_object(m_model_data.average_events_time));
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orders_model::init_model for {} elements: {}", size, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -679,7 +676,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

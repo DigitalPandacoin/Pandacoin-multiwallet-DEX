@@ -722,7 +722,7 @@ namespace atomic_dex::kdf
         {
             SPDLOG_ERROR("exception in async_process_rpc_get: {}", error.what());
         }
-        if (sw.elapsed().count() > 0.04) { SPDLOG_INFO("Time elapsed in async_process_rpc_get for rpc_command {}, url {}, endpoint {}:", rpc_command, url, TO_STD_STR(client->base_uri().to_string()), duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in async_process_rpc_get for rpc_command {}, url {}, endpoint {}:", rpc_command, url, TO_STD_STR(client->base_uri().to_string()), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     template <typename RpcReturnType>

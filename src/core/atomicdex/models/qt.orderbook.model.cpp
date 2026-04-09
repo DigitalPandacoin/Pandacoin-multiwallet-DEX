@@ -343,8 +343,6 @@ namespace atomic_dex
     void
     orderbook_model::reset_orderbook(const t_orders_contents& orderbook)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
-
         this->beginResetModel();
         m_model_data = orderbook;
         m_orders_id_registry.clear();
@@ -376,8 +374,6 @@ namespace atomic_dex
                 this->m_model_proxy->sort(0, Qt::AscendingOrder);
             }
         }
-
-        if (sw.elapsed().count() > 0.08) { SPDLOG_DEBUG("Time elapsed in orderbook_model::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     int

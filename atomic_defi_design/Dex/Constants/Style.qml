@@ -197,6 +197,7 @@ QtObject {
             case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
+            case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
             case 'Moonbeam':          return dark_theme ? colorCoinDark["GLMR"] : colorCoin["GLMR"]
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
@@ -239,6 +240,7 @@ QtObject {
             case 'Base':              return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
+            case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
             case 'Moonbeam':          return dark_theme ? colorCoinDark["GLMR"] : colorCoin["GLMR"]
             case 'QRC-20':            return dark_theme ? colorCoinDark["QTUM"] : colorCoin["QTUM"]
@@ -289,6 +291,7 @@ QtObject {
                                           "POL": "#804EE1",
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
+                                          "TRX": "#EF002F",
                                           "UBQ": "#00EB90",
                                           "UTXO": "#349d5f",
                                           "default": "#2f2f2f",
@@ -313,6 +316,7 @@ QtObject {
                                           "POL": "#804EE1",
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
+                                          "TRX": "#EF002F",
                                           "UBQ": "#00EB90",
                                           "UTXO": "#349d5f",
                                           "default": "#c8c8c8",

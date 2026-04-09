@@ -255,9 +255,6 @@ namespace atomic_dex::kdf
         auto json_copy        = json_data;
         json_copy["userpass"] = "*******";
 
-        // SPDLOG_DEBUG("UNUSED ?? request: {}", json_copy.dump());
-        // [debug] [kdf.client.cpp:259] [2323035]: UNUSED ?? request: {"coin":"DAI-PLG20","method":"disable_coin","userpass":"*******"}
-
         web::http::http_request rpc_request(web::http::methods::POST);
         rpc_request.headers().set_content_type(FROM_STD_STR("application/json"));
         rpc_request.set_body(json_data.dump());

@@ -1092,7 +1092,6 @@ namespace atomic_dex
     bool
     trading_page::set_pair(bool is_left_side, const QString& requested_ticker)
     {
-        spdlog::stopwatch sw;
         const auto* market_pair      = get_market_pairs_mdl();
         auto        base             = market_pair->get_left_selected_coin();
         auto        rel              = market_pair->get_right_selected_coin();
@@ -1162,8 +1161,6 @@ namespace atomic_dex
         this->determine_pair_volume_24hr();
         emit priceChanged();
         emit priceReversedChanged();
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in trading_page::set_pair to ticker {}: {}", requested_ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         return true;
     }
 
@@ -1180,7 +1177,6 @@ namespace atomic_dex
 
     void trading_page::set_preferred_order(const QVariantMap& price_object)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         auto preferred_order = nlohmann::json::parse(QString(QJsonDocument(QJsonObject::fromVariantMap(price_object)).toJson()).toStdString());
         if (preferred_order == m_preferred_order)
         {
@@ -1205,7 +1201,6 @@ namespace atomic_dex
             this->determine_fees();
             emit preferredOrderChangeFinished();
         }
-        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in trading_page::set_preferred_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
