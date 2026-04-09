@@ -2239,13 +2239,8 @@ namespace atomic_dex
 
                     if (answer.rpc_result_code != 200)
                     {
-                        if (std::string(answer.raw_result).find("attempting to parse an empty input") != std::string::npos) {
-                            SPDLOG_WARN("answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: {}", answer.rpc_result_code);
-                            // answer is empty in kdf::async_process_rpc_get with answer.rpc_result_code: -1
-                        } else {
-                            SPDLOG_ERROR("answer.rpc_result_code is {} in kdf::async_process_rpc_get with answer.raw_result: {}", answer.rpc_result_code, answer.raw_result);
-                            // answer.rpc_result_code is -1 in kdf::async_process_rpc_get with answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
-                        }
+                        // SPDLOG_ERROR("answer.rpc_result_code is {} in kdf::async_process_rpc_get with answer.raw_result: {}", answer.rpc_result_code, answer.raw_result);
+                        // answer.rpc_result_code is -1 in kdf::async_process_rpc_get with answer.raw_result: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'N'
                         this->dispatcher_.trigger<tx_fetch_finished>(true, ticker);
                     }
                     else if (answer.rpc_result_code not_eq -1 and answer.result.has_value())
