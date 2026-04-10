@@ -762,7 +762,6 @@ namespace atomic_dex
         
         if (m_price != price)
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             m_price = std::move(price);
             if (this->m_preferred_order.has_value() && this->m_preferred_order->contains("locked"))
             {
@@ -788,15 +787,12 @@ namespace atomic_dex
             emit priceReversedChanged();
             emit get_orderbook_wrapper()->currentMinTakerVolChanged();
             get_orderbook_wrapper()->adjust_min_vol();
-            if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in trading_page::set_price: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
     void
     trading_page::clear_forms([[maybe_unused]] QString from)
     {
-        spdlog::stopwatch sw;
-
         if (!this->m_system_manager.has_system<kdf_service>())
         {
             SPDLOG_WARN("KDF service not available, required to clear forms - skipping");
@@ -827,8 +823,6 @@ namespace atomic_dex
         emit preferredOrderChanged();
         emit priceChanged();
         emit priceReversedChanged();
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.04) { SPDLOG_DEBUG("Time elapsed in trading_page::clear_forms called by {}: {}", from.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QString
@@ -878,7 +872,6 @@ namespace atomic_dex
     void
     trading_page::determine_max_volume()
     {
-        spdlog::stopwatch sw;
         if (this->m_market_mode == MarketMode::Sell)
         {
             //! In MarketMode::Sell mode max volume is just the base_max_taker_vol
@@ -987,8 +980,6 @@ namespace atomic_dex
                 }
             }
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_max_volume: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -1270,12 +1261,12 @@ namespace atomic_dex
     void
     trading_page::determine_fees()
     {
-        spdlog::stopwatch sw;
         if (!this->m_system_manager.has_system<kdf_service>())
         {
             SPDLOG_WARN("KDF Service not available, cannot determine fees - skipping");
             return;
         }
+
         const auto* market_pair = get_market_pairs_mdl();
         using namespace std::string_literals;
         auto&       kdf         = this->m_system_manager.get_system<kdf_service>();
@@ -1369,8 +1360,6 @@ namespace atomic_dex
             this->set_preimage_busy(false);
         };
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in trading_page::determine_fees: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

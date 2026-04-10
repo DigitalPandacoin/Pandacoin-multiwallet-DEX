@@ -480,7 +480,6 @@ namespace atomic_dex
     void
     orders_model::common_insert(const std::vector<t_order_swaps_data>& contents, const std::string& kind)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         auto& data = m_model_data.orders_and_swaps;
         beginInsertRows(QModelIndex(), rowCount(), rowCount() + static_cast<int>(contents.size()) - 1);
         data.insert(end(data), begin(contents), end(contents));
@@ -494,7 +493,6 @@ namespace atomic_dex
         {
             this->m_system_manager.get_system<kdf_service>().process_orderbook(true);
         }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::common_insert: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -529,7 +527,6 @@ namespace atomic_dex
     void
     orders_model::update_or_insert_orders(const orders_and_swaps& contents)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         const auto&                     data = contents.orders_and_swaps;
         std::unordered_set<std::string> are_present;
         if (contents.nb_orders > 0)
@@ -556,13 +553,11 @@ namespace atomic_dex
             }
         }
         remove_orders(are_present);
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orders_model::update_or_insert_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
     orders_model::remove_orders(const t_orders_id_registry& are_present)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         std::vector<std::string> to_remove;
         for (auto&& id: this->m_orders_id_registry)
         {
@@ -580,7 +575,6 @@ namespace atomic_dex
             }
         }
         for (auto&& cur_to_remove: to_remove) { m_orders_id_registry.erase(cur_to_remove); }
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::remove_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -615,25 +609,21 @@ namespace atomic_dex
     void
     orders_model::reset()
     {
-        spdlog::stopwatch sw;
         this->beginResetModel();
         reset_backend("reset");
         this->endResetModel();
         this->set_fetching_busy(false);
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::reset: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
     orders_model::reset_backend([[maybe_unused]] const std::string& from)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
+        SPDLOG_DEBUG("UNUSED ??");
         const auto limit     = this->m_model_data.limit;
         const auto filtering = this->m_model_data.filtering_infos;
         this->m_swaps_id_registry.clear();
         this->m_orders_id_registry.clear();
         this->m_model_data = {.limit = limit, .filtering_infos = filtering};
-        if (sw.elapsed().count() > 0.01) { SPDLOG_DEBUG("Time elapsed in orders_model::reset_backend initiated by {}: {}", from, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     bool
@@ -682,7 +672,6 @@ namespace atomic_dex
     void
     orders_model::set_filtering_infos(t_filtering_infos infos)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         if (this->is_fetching_busy())
         {
             SPDLOG_WARN("Fetching busy, skipping orders_model::set_filtering_infos");
@@ -710,7 +699,6 @@ namespace atomic_dex
         {
             this->set_current_page(1);
         }
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orders_model::set_filtering_infos: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     t_filtering_infos

@@ -104,7 +104,6 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::reset_orderbook(kdf::orderbook_result_rpc answer)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         this->m_asks->reset_orderbook(answer.asks);
         this->m_bids->reset_orderbook(answer.bids);
         this->set_both_taker_vol();
@@ -116,7 +115,6 @@ namespace atomic_dex
         }
         m_best_orders->clear_orderbook();                                                     ///< Remove all elements from the model
         this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders(); ///< re process the model
-        if (sw.elapsed().count() > 0.08) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::reset_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
@@ -173,7 +171,6 @@ namespace atomic_dex
     void
     qt_orderbook_wrapper::refresh_best_orders()
     {
-        spdlog::stopwatch sw;
         if (safe_float(m_system_manager.get_system<trading_page>().get_volume().toStdString()) > 0)
         {
             this->m_system_manager.get_system<orderbook_scanner_service>().process_best_orders();
@@ -182,8 +179,6 @@ namespace atomic_dex
         {
             get_best_orders()->clear_orderbook();
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in qt_orderbook_wrapper::refresh_best_orders: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

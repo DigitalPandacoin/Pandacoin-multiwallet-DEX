@@ -428,8 +428,6 @@ namespace atomic_dex
     void
     orderbook_model::update_order(const kdf::order_contents& order)
     {
-        spdlog::stopwatch sw;
-        using namespace std::chrono;
         if (const auto res = this->match(index(0, 0), UUIDRole, QString::fromStdString(order.uuid)); not res.isEmpty())
         {
             //! ID Found, update !
@@ -485,7 +483,6 @@ namespace atomic_dex
                     }
                 }
             }
-            if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in orderbook_model::update_order: {}", duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
@@ -585,14 +582,11 @@ namespace atomic_dex
     void
     orderbook_model::clear_orderbook()
     {
-        spdlog::stopwatch sw;
         this->beginResetModel();
         m_model_data = t_orders_contents{};
         m_orders_id_registry.clear();
         this->endResetModel();
         emit lengthChanged();
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in orderbook_model::clear_orderbook: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     orderbook_proxy_model*

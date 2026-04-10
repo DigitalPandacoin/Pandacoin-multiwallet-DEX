@@ -74,7 +74,6 @@ namespace atomic_dex
     void
     portfolio_page::on_update_portfolio_values_event(const update_portfolio_values& evt)
     {
-        spdlog::stopwatch sw;
         bool res = true;
         if (evt.with_update_model)
         {
@@ -91,8 +90,6 @@ namespace atomic_dex
             set_current_balance_fiat_all(QString::fromStdString(fiat_balance_std));
             m_portfolio_mdl->adjust_percent_current_currency(QString::fromStdString(fiat_balance_std));
         }
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.1) { SPDLOG_DEBUG("Time elapsed for portfolio_page::on_update_portfolio_values_event: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     QStringList

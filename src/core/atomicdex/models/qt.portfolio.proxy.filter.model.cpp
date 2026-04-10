@@ -165,11 +165,8 @@ namespace atomic_dex
     void
     portfolio_proxy_model::sort_by_currency_balance(bool is_ascending)
     {
-        spdlog::stopwatch sw;
         this->setSortRole(atomic_dex::portfolio_model::MainCurrencyBalanceRole);
         this->sort(0, is_ascending ? Qt::AscendingOrder : Qt::DescendingOrder);
-        using namespace std::chrono;
-        if (sw.elapsed().count() > 0.03) { SPDLOG_DEBUG("Time elapsed in portfolio_proxy_model::sort_by_currency_balance: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void

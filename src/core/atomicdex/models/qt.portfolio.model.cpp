@@ -501,7 +501,6 @@ namespace atomic_dex
     void
     portfolio_model::balance_update_handler(const QString& prev_balance, const QString& new_balance, const QString& ticker)
     {
-        spdlog::stopwatch sw; using namespace std::chrono;
         using namespace std::chrono;
         t_float_50 prev_balance_f = safe_float(prev_balance.toStdString());
         t_float_50 new_balance_f  = safe_float(new_balance.toStdString());
@@ -521,7 +520,6 @@ namespace atomic_dex
             this->m_dispatcher.trigger<balance_update_notification>(am_i_sender, amount, ticker, human_date, timestamp);
         }
         emit portfolioItemDataChanged();
-        if (sw.elapsed().count() > 0.02) { SPDLOG_DEBUG("Time elapsed in portfolio_model::balance_update_handler: {}", duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
