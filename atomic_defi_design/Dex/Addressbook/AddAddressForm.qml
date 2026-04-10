@@ -32,6 +32,7 @@ Dex.Rectangle
             case "BEP-20":      return "BNB"
             case "ERC-20":      return "ETH"
             case "TRC-20":      return "TRX"
+            case "GRC-20":      return "GLEEC"
             case "AVX-20":      return "AVAX"
             case "PLG-20":      return "POL"
             case "Smart Chain": return "KMD"
@@ -52,6 +53,7 @@ Dex.Rectangle
             case "BEP-20":      return true
             case "ERC-20":      return true
             case "TRC-20":      return true
+            case "GRC-20":      return true
             case "PLG-20":      return true
             case "AVX-20":      return true
             case "Smart Chain": return true

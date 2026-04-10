@@ -34,6 +34,10 @@ namespace
         {
             return CoinType::ERC20;
         }
+        if (coin_type == "GRC-20")
+        {
+            return CoinType::GRC20;
+        }
         if ((coin_type == "TRC-20") || (coin_type == "TRX"))
         {
             return CoinType::TRC20;
@@ -273,6 +277,11 @@ namespace atomic_dex
         case CoinType::ERC20:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "ETHR" : "ETH";
+            cfg.is_erc_family          = true;
+            break;
+        case CoinType::GRC20:
+            cfg.has_parent_fees_ticker = true;
+            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "GLEECT" : "GLEEC";
             cfg.is_erc_family          = true;
             break;
         case CoinType::TRC20:

@@ -196,6 +196,7 @@ QtObject {
             case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH-ARB20"] : colorCoin["ETH-ARB20"]
             case 'Base':              return dark_theme ? colorCoinDark["ETH-BASE"] : colorCoin["ETH-BASE"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
+            case 'GRC-20':            return dark_theme ? colorCoinDark["GLEEC"] : colorCoin["GLEEC"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
@@ -238,6 +239,7 @@ QtObject {
             case 'Arbitrum':          return dark_theme ? colorCoinDark["ETH-ARB20"] : colorCoin["ETH-ARB20"]
             case 'Base':              return dark_theme ? colorCoinDark["ETH-BASE"] : colorCoin["ETH-BASE"]
             case 'ERC-20':            return dark_theme ? colorCoinDark["ETH"] : colorCoin["ETH"]
+            case 'GRC-20':            return dark_theme ? colorCoinDark["GLEEC"] : colorCoin["GLEEC"]
             case 'TRC-20':            return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'TRX':               return dark_theme ? colorCoinDark["TRX"] : colorCoin["TRX"]
             case 'EWT':               return dark_theme ? colorCoinDark["EWT"] : colorCoin["EWT"]
@@ -283,6 +285,7 @@ QtObject {
                                           "ETH-ARB20": "#12aaff",
                                           "ETH-BASE": "#0000ff",
                                           "EWT": "#A466FF",
+                                          "GLEEC": "#431a80",
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
                                           "KCS": "#25AF90",
@@ -309,6 +312,7 @@ QtObject {
                                           "ETH-ARB20": "#12aaff",
                                           "ETH-BASE": "#0000ff",
                                           "EWT": "#A466FF",
+                                          "GLEEC": "#431a80",
                                           "GLMR": "#F6007C",
                                           "QTUM": "#2E9AD0",
                                           "KCS": "#25AF90",
