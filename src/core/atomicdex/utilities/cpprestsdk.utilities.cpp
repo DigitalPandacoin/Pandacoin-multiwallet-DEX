@@ -41,6 +41,6 @@ handle_exception_pplx_task(pplx::task<void> previous_task)
     }
     catch (const std::exception& e)
     {
-        SPDLOG_ERROR("pplx task error: {}", e.what());
+        SPDLOG_ERROR("exception in handle_exception_pplx_task: {}", e.what());
     }
 }

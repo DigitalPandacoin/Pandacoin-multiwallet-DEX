@@ -618,7 +618,6 @@ namespace atomic_dex
     void
     orders_model::reset_backend([[maybe_unused]] const std::string& from)
     {
-        SPDLOG_DEBUG("UNUSED ??");
         const auto limit     = this->m_model_data.limit;
         const auto filtering = this->m_model_data.filtering_infos;
         this->m_swaps_id_registry.clear();
@@ -666,7 +665,7 @@ namespace atomic_dex
             update_or_insert_orders(contents);
             update_or_insert_swaps(contents);
         }
-        if (sw.elapsed().count() > 0.06) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
+        if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in orders_model::refresh_or_insert with reset {}: {}", after_manual_reset, duration_cast<milliseconds>(sw.elapsed())); }
     }
 
     void
