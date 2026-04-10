@@ -208,7 +208,6 @@ QtObject {
             case 'Moonriver':         return dark_theme ? colorCoinDark["MOVR"] : colorCoin["MOVR"]
             case 'HRC-20':            return dark_theme ? colorCoinDark["ONE"] : colorCoin["ONE"]
             case 'SmartBCH':          return dark_theme ? colorCoinDark["SBCH"] : colorCoin["SBCH"]
-            case 'Ubiq':              return dark_theme ? colorCoinDark["UBQ"] : colorCoin["UBQ"]
             case 'Optimism':          return "#BB2100"
             case 'WALLET ONLY':       return dark_theme ? colorCoinDark["WALLET ONLY"] : colorCoin["WALLET ONLY"] 
             default:                  return dark_theme ? colorCoinDark["default"] : colorCoin["default"] 
@@ -251,7 +250,6 @@ QtObject {
             case 'Moonriver':         return dark_theme ? colorCoinDark["MOVR"] : colorCoin["MOVR"]
             case 'HRC-20':            return dark_theme ? colorCoinDark["ONE"] : colorCoin["ONE"]
             case 'SmartBCH':          return dark_theme ? colorCoinDark["SBCH"] : colorCoin["SBCH"]
-            case 'Ubiq':              return dark_theme ? colorCoinDark["UBQ"] : colorCoin["UBQ"]
             case 'Optimism':          return "#BB2100"
             case 'WALLET ONLY':       return dark_theme ? colorCoinDark["WALLET ONLY"] : colorCoin["WALLET ONLY"] 
             default:                  return dark_theme ? colorCoinDark["default"] : colorCoin["default"] 
@@ -294,7 +292,6 @@ QtObject {
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
                                           "TRX": "#EF002F",
-                                          "UBQ": "#00EB90",
                                           "UTXO": "#349d5f",
                                           "default": "#2f2f2f",
                                           "IDO": "#536E93",
@@ -321,7 +318,6 @@ QtObject {
                                           "ONE": "#00BEEE",
                                           "SBCH": "#74dd54",
                                           "TRX": "#EF002F",
-                                          "UBQ": "#00EB90",
                                           "UTXO": "#349d5f",
                                           "default": "#c8c8c8",
                                           "IDO": "#536E93",

@@ -82,10 +82,6 @@ namespace
         {
             return CoinType::HRC20;
         }
-        if (coin_type == "Ubiq")
-        {
-            return CoinType::Ubiq;
-        }
         if (coin_type == "KRC-20")
         {
             return CoinType::KRC20;
@@ -322,11 +318,6 @@ namespace atomic_dex
         case CoinType::HRC20:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "ONET" : "ONE";
-            cfg.is_erc_family          = true;
-            break;
-        case CoinType::Ubiq:
-            cfg.has_parent_fees_ticker = true;
-            cfg.fees_ticker            = cfg.is_testnet.value_or(false) ? "UBQT" : "UBQ";
             cfg.is_erc_family          = true;
             break;
         case CoinType::KRC20:
