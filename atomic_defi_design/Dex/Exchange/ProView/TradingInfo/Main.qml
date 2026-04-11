@@ -77,8 +77,7 @@ ColumnLayout
                 spacing: 7
                 visible: currentIndex === tabView.pair_chart_idx
                 enabled: visible
-                
-                // Ticker selectors.
+
                 TickerSelectors
                 {
                     id: selectors
@@ -88,26 +87,24 @@ ColumnLayout
                     Layout.rightMargin: 8
                 }
 
-                // Chart
                 Chart
                 {
                     id: chart
                     Layout.preferredWidth: 435
-                    Layout.preferredHeight: 240
+                    Layout.fillHeight: true
                     Layout.topMargin: 8
                     Layout.leftMargin: 5
                     Layout.rightMargin: 5
-                    Layout.fillHeight: true
                 }
 
                 PriceLineSimplified
                 {
                     id: price_line
                     Layout.preferredWidth: 435
+                    Layout.preferredHeight: 40  // Explicit height instead of fillHeight
                     Layout.bottomMargin: 12
                     Layout.leftMargin: 5
                     Layout.rightMargin: 5
-                    Layout.fillHeight: true
                 }
             }
 
