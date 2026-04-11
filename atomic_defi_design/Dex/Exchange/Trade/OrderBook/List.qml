@@ -12,14 +12,13 @@ Item
     id: _control
 
     property bool isAsk
-    width: parent.width
-    height: parent.height
+    implicitWidth: 100
+    implicitHeight: 200
 
     ListView
     {
         id: orderbook_list
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         model: isAsk ? API.app.trading_pg.orderbook.asks.proxy_mdl : API.app.trading_pg.orderbook.bids.proxy_mdl
         reuseItems: true
         spacing: 8
