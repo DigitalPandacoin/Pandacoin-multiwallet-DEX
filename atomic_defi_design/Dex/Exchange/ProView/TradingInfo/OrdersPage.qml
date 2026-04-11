@@ -85,7 +85,6 @@ Item {
 
     ColumnLayout
     {
-        anchors.horizontalCenter: parent.horizontalCenter
         anchors.fill: parent
         anchors.margins: 8
         anchors.bottomMargin: is_history ? 0 : 10
@@ -93,6 +92,9 @@ Item {
 
         RowLayout
         {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 29
+
             DefaultButton
             {
                 Layout.preferredHeight: 29
@@ -134,7 +136,7 @@ Item {
                 radius: 7
                 label.font: DexTypo.body2
                 text: qsTr("Export CSV")
-                enabled: list_model.length > 0 && ! General.privacy_mode
+                enabled: list_model.length > 0 && !General.privacy_mode
                 onClicked:
                 {
                     export_csv_dialog.folder = General.os_file_prefix + API.app.settings_pg.get_export_folder()
@@ -149,7 +151,7 @@ Item {
                 Layout.rightMargin: 6
                 radius: 7
                 label.font: DexTypo.body2
-                enabled: list_model.length > 0 && ! General.privacy_mode
+                enabled: list_model.length > 0 && !General.privacy_mode
                 text: qsTr("Cancel All")
                 iconSource: Qaterial.Icons.close
                 onClicked: API.app.trading_pg.orders.cancel_order(list_model_proxy.get_filtered_ids())
@@ -161,6 +163,8 @@ Item {
             id: settings
             visible: false
             spacing: 8
+            Layout.fillWidth: true
+            Layout.preferredHeight: implicitHeight
 
             // Coin Selection comboboxes
             RowLayout
