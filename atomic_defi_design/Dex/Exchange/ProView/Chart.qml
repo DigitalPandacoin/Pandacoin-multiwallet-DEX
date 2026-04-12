@@ -11,7 +11,8 @@ import AtomicDEX.MarketMode 1.0
 Item
 {
     id: root
-
+    implicitWidth: 400
+    implicitHeight: 200
     readonly property string theme: Dex.CurrentTheme.getColorMode() === Dex.CurrentTheme.ColorMode.Dark ? "dark" : "light"
     property string loaded_symbol
     property bool pair_supported: false
@@ -76,61 +77,36 @@ Item
         dashboard.webEngineView.loadHtml(chart_html)
     }
 
-    Component.onCompleted:
-    {
-        try
-        {
-            loadChart(left_ticker?? atomic_app_primary_coin,
-                      right_ticker?? atomic_app_secondary_coin)
-        }
-        catch (e) { console.error(e) }
+    Component.onCompleted: {
+        // A 0ms timer pushes the call to the end of the current event queue
+        Timer.singleShot(0, function() {
+            try {
+                loadChart(left_ticker ?? atomic_app_primary_coin,
+                          right_ticker ?? atomic_app_secondary_coin)
+            } catch (e) { console.error(e) }
+        })
     }
 
-// Currently chart should not resize, but in future it might be needed
-
-//    onWidthChanged: {
-//        try
-//        {
-//            loadChart(left_ticker?? atomic_app_primary_coin,
-//                      right_ticker?? atomic_app_secondary_coin)
-//        }
-//        catch (e) { console.error(e) }
-//    }
-
-    RowLayout
-    {
+    Item {
         anchors.fill: parent
         visible: !webEngineViewPlaceHolder.visible
 
-        DefaultBusyIndicator
-        {
-            visible: pair_supported
-            Layout.alignment: Qt.AlignHCenter
-            Layout.leftMargin: -15
-            Layout.rightMargin: Layout.leftMargin*0.75
-            scale: 0.5
-        }
+        Row {
+            anchors.centerIn: parent
+            spacing: 10
 
-        DexLabel
-        {
-            visible: pair_supported
-            text_value: qsTr("Loading pair chart data") + "..."
-        }
+            DefaultBusyIndicator {
+                visible: pair_supported
+                scale: 0.5
+            }
 
-        DexLabel
-        {
-            visible: !pair_supported && selected_testcoin == ""
-            text_value: qsTr("There is no chart data for this pair")
-            Layout.topMargin: 30
-            Layout.alignment: Qt.AlignCenter
-        }
-
-        DexLabel
-        {
-            visible: !pair_supported && selected_testcoin != ""
-            text_value: qsTr("There is no chart data for %1 (testcoin) pairs").arg(selected_testcoin)
-            Layout.topMargin: 30
-            Layout.alignment: Qt.AlignCenter
+            DexLabel {
+                text_value: {
+                    if (pair_supported) return qsTr("Loading pair chart data") + "..."
+                    if (selected_testcoin !== "") return qsTr("There is no chart data for %1 (testcoin) pairs").arg(selected_testcoin)
+                    return qsTr("There is no chart data for this pair")
+                }
+            }
         }
     }
 
