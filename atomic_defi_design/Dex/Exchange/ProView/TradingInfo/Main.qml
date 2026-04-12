@@ -57,7 +57,7 @@ ColumnLayout
     Rectangle
     {
         Layout.preferredWidth: 450
-        Layout.fillHeight: true
+        Layout.preferredHeight: parent.height - tabView.height - 32
         color: Dex.CurrentTheme.floatingBackgroundColor
         radius: 10
 
@@ -101,7 +101,7 @@ ColumnLayout
                 {
                     id: price_line
                     Layout.preferredWidth: 435
-                    Layout.preferredHeight: 40  // Explicit height instead of fillHeight
+                    Layout.preferredHeight: 40
                     Layout.bottomMargin: 12
                     Layout.leftMargin: 5
                     Layout.rightMargin: 5
