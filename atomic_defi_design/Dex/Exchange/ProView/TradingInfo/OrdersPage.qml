@@ -164,17 +164,16 @@ Item {
             visible: false
             spacing: 8
             Layout.fillWidth: true
-            Layout.preferredHeight: implicitHeight
 
-            // Coin Selection comboboxes
             RowLayout
             {
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
 
                 DefaultSweetComboBox
                 {
                     id: combo_base
-                    Layout.preferredWidth: parent.width / 2 - swapCoinFilterIcon.width
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1
                     model: API.app.portfolio_pg.global_cfg_mdl.all_proxy
                     valueRole: "ticker"
                     textRole: 'ticker'
@@ -186,6 +185,7 @@ Item {
                 Qaterial.ColorIcon
                 {
                     id: swapCoinFilterIcon
+                    Layout.preferredWidth: 24
                     source: Qaterial.Icons.swapHorizontal
                     color: Dex.CurrentTheme.foregroundColor
                     //Component.onCompleted: {
@@ -211,6 +211,7 @@ Item {
                 {
                     id: combo_rel
                     Layout.fillWidth: true
+                    Layout.preferredWidth: 1
                     model: API.app.portfolio_pg.global_cfg_mdl.all_proxy
                     valueRole: "ticker"
                     textRole: 'ticker'
@@ -220,13 +221,14 @@ Item {
                 }
             }
 
-            Row
-            {
+            RowLayout {
                 Layout.fillWidth: true
+                spacing: 0
                 DatePicker
                 {
                     id: min_date
-                    width: parent.width * 0.44
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 44
                     titleText: qsTr("From")
                     minimumDate: default_min_date
                     maximumDate:  default_max_date
@@ -234,12 +236,16 @@ Item {
                     onAccepted: applyDateFilter()
                 }
 
-                Item { width: parent.width * 0.1; height: 1 }
+                Item {
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 12
+                }
 
                 DatePicker
                 {
                     id: max_date
-                    width: parent.width * 0.44
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 44
                     titleText: qsTr("To")
                     minimumDate: default_min_date
                     maximumDate: default_max_date

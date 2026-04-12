@@ -28,6 +28,7 @@ ComboBox
     {
         id: bg_rect
         implicitHeight: 40
+        implicitWidth: 120
         color: comboBoxBackgroundColor
         radius: 20
     }
@@ -36,7 +37,7 @@ ComboBox
     {
         leftPadding: 10
         verticalAlignment: Text.AlignVCenter
-        width: bg_rect.width - leftPadding
+        //width: bg_rect.width - leftPadding
         height: bg_rect.height
         text: control.currentTicker
         elide: Text.ElideRight
@@ -77,23 +78,25 @@ ComboBox
         readonly property double max_height: 450
 
         width: control.width
+        implicitHeight: Math.min(contentLayout.implicitHeight + padding * 2, max_height)
         height: Math.min(contentItem.implicitHeight, max_height) + 20
 
         padding: 1
 
         contentItem: ColumnLayout
         {
-            anchors.rightMargin: 5
+            id: contentLayout
+            spacing: 0
+            //anchors.rightMargin: 5
 
             DexTextField
             {
                 id: input_coin_filter
-                placeholderText: qsTr("Search")
-
-                font.pixelSize: 16
                 Layout.fillWidth: true
-                Layout.leftMargin: 0
                 Layout.preferredHeight: 40
+                placeholderText: qsTr("Search")
+                font.pixelSize: 16
+                Layout.leftMargin: 0
                 Layout.rightMargin: 2
                 Layout.topMargin: Layout.leftMargin
 
@@ -147,9 +150,9 @@ ComboBox
 
             Item
             {
-                Layout.maximumHeight: popup.max_height - 100
                 Layout.fillWidth: true
-                implicitHeight: popup_list_view.contentHeight + 5
+                Layout.preferredHeight: Math.min(popup_list_view.contentHeight, combo_popup.max_height - 100)
+                clip: true
 
                 DefaultListView
                 {
@@ -170,7 +173,7 @@ ComboBox
 
                     delegate: ItemDelegate
                     {
-                        width: control.width + 50
+                        width: popup_list_view.width
                         highlighted: control.highlightedIndex === index
                         contentItem: DexLabel
                         {

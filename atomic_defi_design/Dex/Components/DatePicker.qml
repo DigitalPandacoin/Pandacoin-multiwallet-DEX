@@ -6,8 +6,7 @@ import Qaterial 1.0 as Qaterial
 import Dex.Themes 1.0 as Dex
 import "../Constants"
 
-DefaultMouseArea
-{
+DefaultMouseArea {
     id: control
 
     property alias titleText: title.text
@@ -17,43 +16,42 @@ DefaultMouseArea
 
     signal accepted()
 
-    width: 100
-    height: column.height
+    implicitWidth: 100
+    implicitHeight: column.implicitHeight
 
     onClicked: modal.open()
 
-    Column
-    {
+    Column {
         id: column
-        width: parent.width
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-        DexLabel
-        {
+        DexLabel {
             id: title
             text: qsTr("Date")
             font: DexTypo.overLine
             color: Dex.CurrentTheme.foregroundColor2
+            width: parent.width
         }
 
-        RowLayout
-        {
-            width: parent.width
+        RowLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 4
 
-            DexLabel
-            {
+            DexLabel {
                 id: label
                 text: selectedDate.toLocaleDateString(Locale.ShortFormat, "yyyy-MM-dd")
                 font: DexTypo.caption
+                Layout.fillWidth: true
             }
-            Item { Layout.fillWidth: true }
-            DefaultImage
-            {
+
+            DefaultImage {
                 Layout.preferredWidth: 25
                 Layout.preferredHeight: 25
                 source: Qaterial.Icons.calendarBlank
 
-                DefaultColorOverlay
-                {
+                DefaultColorOverlay {
                     source: parent
                     anchors.fill: parent
                     color: Dex.CurrentTheme.foregroundColor2
