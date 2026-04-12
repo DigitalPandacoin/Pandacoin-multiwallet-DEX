@@ -57,7 +57,7 @@ ColumnLayout
     Rectangle
     {
         Layout.preferredWidth: 450
-        Layout.preferredHeight: parent.height - tabView.height - 32
+        Layout.fillHeight: true
         color: Dex.CurrentTheme.floatingBackgroundColor
         radius: 10
 
