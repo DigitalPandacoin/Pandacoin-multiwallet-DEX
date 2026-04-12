@@ -23,6 +23,7 @@ Item
         reuseItems: true
         spacing: 8
         opacity: API.app.trading_pg.maker_mode ? 0.6 : 1
+        clip: true
 
         Component.onCompleted: {
             if (isAsk) { positionViewAtEnd() }
@@ -40,9 +41,9 @@ Item
 
         delegate: ListDelegate
         {
-            width: orderbook_list.width
+            width: _control.width
             height: 24
-            isAsk: _control.isAsk ? true : false
+            isAsk: _control.isAsk
         }
 
         Timer

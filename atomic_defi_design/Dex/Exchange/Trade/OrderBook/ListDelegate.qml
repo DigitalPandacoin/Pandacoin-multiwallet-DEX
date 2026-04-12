@@ -160,11 +160,6 @@ Item
                 radius: 3
                 opacity: 0.8
                 color: isAsk ? Dex.CurrentTheme.warningColor : Dex.CurrentTheme.okColor
-                // Component.onCompleted: {
-                    //console.log("parent.width = " + parent.width)
-                    //console.log("depth = " + depth)
-                    //console.log("width = " + width)
-                // }
             }
         }
 
@@ -173,7 +168,6 @@ Item
         {
             id: row
             anchors.fill: parent
-            onWidthChanged: depth_bar.width = parent.width * depth
             spacing: 3
 
             // Dot on the left side of the row to indicate own order
@@ -214,7 +208,6 @@ Item
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
-                onTextChanged: depth_bar.width = parent.width * depth
                 wrapMode: Text.NoWrap
             }
 

@@ -12,9 +12,8 @@ import "../../ProView"
 
 ColumnLayout {
     id: root
-    // Use fillWidth instead of preferredWidth if the parent allows
     Layout.fillWidth: true 
-    Layout.maximumWidth: 450 // Constrain the width here instead
+    Layout.maximumWidth: 450
     Layout.fillHeight: true
     spacing: 0
 
@@ -66,7 +65,6 @@ ColumnLayout {
             anchors.fill: parent
             clip: true
 
-            // WRAPPER ITEM: Breaks the recursion loop between SwipeView and ColumnLayout
             Item {
                 id: chartPageWrapper
                 implicitWidth: swipeView.width
@@ -76,7 +74,6 @@ ColumnLayout {
                     anchors.fill: parent
                     anchors.topMargin: 8
                     spacing: 7
-                    // Use opacity or visibility strictly for the layout logic
                     visible: swipeView.currentIndex === tabView.pair_chart_idx
 
                     TickerSelectors {

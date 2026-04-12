@@ -23,50 +23,44 @@ Widget
     visible: root.page_index === 0
     enabled: visible
 
-    Header
-    {
+    Header {
         Layout.topMargin: 6
         Layout.bottomMargin: 6
         Layout.fillWidth: true
     }
 
-    List
-    {
+    List {
+        id: asksList
         isAsk: true
         Layout.topMargin: 6
         Layout.bottomMargin: 4
+        Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.fillWidth: true
+        Layout.preferredHeight: 100
     }
 
-    Item
-    {
+    Rectangle {
+        Layout.fillWidth: true
         Layout.preferredHeight: 1
-        Layout.fillWidth: true
-        Rectangle
-        {
-            width: parent.width
-            height: parent.height
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: Dex.CurrentTheme.backgroundColor
-            opacity: 0.5
-        }
+        color: Dex.CurrentTheme.backgroundColor
+        opacity: 0.5
     }
 
-    List
-    {
+    List {
+        id: bidsList
         isAsk: false
         Layout.topMargin: 4
         Layout.bottomMargin: 6
-        Layout.fillHeight: true
         Layout.fillWidth: true
+        Layout.fillHeight: true
+        Layout.preferredHeight: 100
     }
 
-    DexLabel
-    {
+    DexLabel {
         id: volume_text
         visible: parseFloat(pair_volume_24hr) > 0
         Layout.topMargin: 6
+        Layout.bottomMargin: 6 // Add bottom margin for stability
         Layout.alignment: Qt.AlignHCenter
         color: Dex.CurrentTheme.foregroundColor2
         text_value: pair + qsTr(" 24hrs  |  %1  |  %2 trades").arg(General.convertUsd(pair_volume_24hr)).arg(pair_trades_24hr)
