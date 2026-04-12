@@ -16,14 +16,11 @@ Item {
 
     readonly property date default_min_date: new Date("2019-01-01")
     readonly property date default_max_date: new Date(new Date().setDate(new Date().getDate() + 30))
-
     property var list_model: API.app.orders_mdl
     property var list_model_proxy: API.app.orders_mdl.orders_proxy_mdl
     property int page_index: 0
-
     property alias title: order_list.title
     property alias items: order_list.items
-
     property bool is_history: false
 
     visible: root.page_index > 0
@@ -188,10 +185,6 @@ Item {
                     Layout.preferredWidth: 24
                     source: Qaterial.Icons.swapHorizontal
                     color: Dex.CurrentTheme.foregroundColor
-                    //Component.onCompleted: {
-                    //    console.log("width = " + width) // 24
-                    //    console.log("parent.width = " + parent.width) // 77
-                    //}
 
                     DefaultMouseArea
                     {
@@ -284,11 +277,9 @@ Item {
         onAccepted: {
             const path = currentFile.toString()
 
-            // Export
             console.log("Exporting to CSV: " + path)
             API.app.exporter_service.export_swaps_history_to_csv(path.replace(General.os_file_prefix, ""))
 
-            // Open the save folder
             const folder_path = path.substring(0, path.lastIndexOf("/"))
             Qt.openUrlExternally(folder_path)
         }

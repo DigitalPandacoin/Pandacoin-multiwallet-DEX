@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtWebEngine 1.10
-
 import "../../Components"
 import "../../Constants"
 import Dex.Themes 1.0 as Dex
@@ -18,6 +17,21 @@ Item
     property bool pair_supported: false
     property string selected_testcoin
     onPair_supportedChanged: if (!pair_supported) webEngineViewPlaceHolder.visible = false
+
+    Timer {
+        id: startupTimer
+        interval: 0
+        running: false
+        repeat: false
+        onTriggered: {
+            try {
+                loadChart(left_ticker ?? atomic_app_primary_coin,
+                          right_ticker ?? atomic_app_secondary_coin)
+            } catch (e) { console.error(e) }
+        }
+    }
+
+    Component.onCompleted: startupTimer.start()
 
     function loadChart(right_ticker, left_ticker, force = false, source="livecoinwatch")
     {
@@ -75,16 +89,6 @@ Item
         }
         // console.log(chart_html)
         dashboard.webEngineView.loadHtml(chart_html)
-    }
-
-    Component.onCompleted: {
-        // A 0ms timer pushes the call to the end of the current event queue
-        Timer.singleShot(0, function() {
-            try {
-                loadChart(left_ticker ?? atomic_app_primary_coin,
-                          right_ticker ?? atomic_app_secondary_coin)
-            } catch (e) { console.error(e) }
-        })
     }
 
     Item {
