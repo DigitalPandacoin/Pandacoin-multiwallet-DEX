@@ -681,6 +681,7 @@ namespace atomic_dex
     void
     application::on_ticker_balance_updated_event(const ticker_balance_updated& evt)
     {
+        SPDLOG_DEBUG("UNUSED ??");
         if (m_event_actions[events_action::about_to_exit_app])
         {
             SPDLOG_DEBUG("Ticker balance not updated because app is exiting.");

@@ -155,7 +155,6 @@ namespace atomic_dex
     bool
     portfolio_model::update_balance_values(const std::vector<std::string>& tickers)
     {
-        SPDLOG_DEBUG("UNUSED ??");
         for (auto&& ticker: tickers)
         {
             if (ticker.empty())

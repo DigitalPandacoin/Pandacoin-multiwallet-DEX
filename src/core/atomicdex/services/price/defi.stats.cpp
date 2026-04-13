@@ -115,16 +115,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                if (std::string(e.what()).find("Error resolving address") != std::string::npos ||
-                    std::string(e.what()).find("Error in SSL handshake") != std::string::npos ||
-                    std::string(e.what()).find("Request canceled by user") != std::string::npos)
-                {
-                    SPDLOG_WARN("exception in global_defi_stats_service::process_update: {}", e.what());
-                }
-                else
-                {
-                    SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
-                }
+                SPDLOG_ERROR("exception in global_defi_stats_service::process_update: {}", e.what());
             };
         };
         async_fetch_defi_stats_volumes()

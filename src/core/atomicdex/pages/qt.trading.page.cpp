@@ -622,6 +622,7 @@ namespace atomic_dex
                         {
                             if (m_post_clear_forms && this->m_current_trading_mode == TradingModeGadget::Pro)
                             {
+                                SPDLOG_DEBUG("UNUSED ??");
                                 this->determine_max_volume();
                                 this->set_volume(get_max_volume());
                                 this->set_min_trade_vol(wrapper->get_current_min_taker_vol());

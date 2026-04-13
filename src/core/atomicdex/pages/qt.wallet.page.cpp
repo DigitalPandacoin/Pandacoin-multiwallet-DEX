@@ -113,14 +113,12 @@ namespace atomic_dex
         auto  coin_info  = kdf_system.get_coin_info(ticker.toStdString());
         if (kdf_system.set_current_ticker(ticker.toStdString()) || force)
         {
-            spdlog::stopwatch sw; using namespace std::chrono;
             m_transactions_mdl->reset();
             this->set_tx_fetching_busy(true);
             kdf_system.fetch_infos_thread(true, true);
             emit currentTickerChanged();
             refresh_ticker_infos();
             check_send_availability();
-            if (sw.elapsed().count() > 0.05) { SPDLOG_DEBUG("Time elapsed in wallet_page::set_current_ticker for ticker {}: {}", ticker.toStdString(), duration_cast<milliseconds>(sw.elapsed())); }
         }
     }
 
