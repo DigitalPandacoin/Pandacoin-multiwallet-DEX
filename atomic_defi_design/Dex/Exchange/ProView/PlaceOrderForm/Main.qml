@@ -11,8 +11,11 @@ import AtomicDEX.TradingError 1.0
 
 ColumnLayout
 {
-    Layout.preferredWidth: 305
+    Layout.fillWidth: true
+    Layout.maximumWidth: 305
     Layout.fillHeight: true
+    spacing: 0
+
     property alias currentIndex: orderformTabView.currentIndex
     property int loop_count: 0
     property bool show_waiting_for_trade_preimage: false
@@ -104,8 +107,8 @@ ColumnLayout
     Qaterial.LatoTabBar
     {
         id: orderformTabView
-        background: null
         Layout.leftMargin: 8
+        background: null
 
         Qaterial.LatoTabButton
         {

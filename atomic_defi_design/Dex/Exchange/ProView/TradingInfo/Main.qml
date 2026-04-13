@@ -21,13 +21,13 @@ ColumnLayout {
 
     Qaterial.LatoTabBar {
         id: tabView
+        Layout.fillWidth: true
+        Layout.leftMargin: 6
+        background: null
+
         property int pair_chart_idx: 0
         property int order_idx: 1
         property int history_idx: 2
-
-        background: null
-        Layout.fillWidth: true
-        Layout.leftMargin: 6
 
         Qaterial.LatoTabButton {
             text: qsTr("Chart")
