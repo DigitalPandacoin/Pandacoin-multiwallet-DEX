@@ -101,7 +101,6 @@ ColumnLayout
         AmountField
         {
             id: input_price
-
             left_text: qsTr("Price")
             right_text: General.coinWithoutSuffix(right_ticker)
             right_fontsize: 10
@@ -312,14 +311,11 @@ ColumnLayout
 
     Item { Layout.fillHeight: true }
 
-    // Error messages
-    // TODO: Move to toasts
     Item
     {
         height: 55
         Layout.preferredWidth: parent.width
 
-        // Show errors
         Dex.Text
         {
             id: dexErrors
@@ -340,7 +336,6 @@ ColumnLayout
 
     Item { Layout.fillHeight: true }
 
-    // Order selected indicator
     Item
     {
         Layout.alignment: Qt.AlignHCenter
@@ -365,7 +360,7 @@ ColumnLayout
 
             Qaterial.FlatButton
             {
-                Layout.preferredHeight: parent.height
+                Layout.fillHeight: true
                 Layout.preferredWidth: 30
                 Layout.rightMargin: 5
                 foregroundColor: Dex.CurrentTheme.warningColor

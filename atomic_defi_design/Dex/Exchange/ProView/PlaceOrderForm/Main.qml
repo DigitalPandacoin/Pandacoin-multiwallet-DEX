@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../../../Components"
 import "../../../Constants"
 import Dex.Themes 1.0 as Dex
@@ -130,9 +128,9 @@ ColumnLayout
     Rectangle
     {
         Layout.fillHeight: true
+        Layout.preferredWidth: 305
         color: Dex.CurrentTheme.floatingBackgroundColor
         radius: 10
-        Layout.preferredWidth: 305
 
         Qaterial.SwipeView
         {
@@ -140,6 +138,7 @@ ColumnLayout
             interactive: false
             currentIndex: orderformTabView.currentIndex
             anchors.fill: parent
+            anchors.margins: 8
             clip: true
 
             Item
