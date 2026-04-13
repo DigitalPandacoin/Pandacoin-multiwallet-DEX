@@ -14,9 +14,9 @@ import AtomicDEX.MarketMode 1.0 as Dex
 ColumnLayout
 {
     id: root
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.fill: parent
-    anchors.margins: 10
+    Layout.fillWidth: true
+    Layout.fillHeight: true
+    Layout.margins: 10
     spacing: 8
 
     function focusVolumeField()
@@ -226,7 +226,8 @@ ColumnLayout
             height: 36
             radius: 18
             left_text: qsTr("Min Volume")
-            right_text: left_ticker
+            right_text: General.coinWithoutSuffix(left_ticker)
+            right_fontsize: 10
             placeholderText: sell_mode ? qsTr("Min amount to sell") : qsTr("Min amount to receive")
             text: API.app.trading_pg.min_trade_vol
             onTextChanged: if (API.app.trading_pg.min_trade_vol != text) setMinimumAmount(text)

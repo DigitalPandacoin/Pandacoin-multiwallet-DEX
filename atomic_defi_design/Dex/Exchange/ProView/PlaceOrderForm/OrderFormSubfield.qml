@@ -2,13 +2,11 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
-
 import "../../../Constants" as Dex
 import "../../../Components"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 
-// TODO: coding style is wrong, use camelCase.
 RowLayout
 {
     id: control
@@ -26,7 +24,7 @@ RowLayout
     property int    btn_width: 33
     spacing: 2
     height: 20
-    width: parent.width
+    Layout.fillWidth: true
 
     Item
     {

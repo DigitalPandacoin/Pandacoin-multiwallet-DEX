@@ -307,7 +307,7 @@ namespace atomic_dex
             m_orders_clock = std::chrono::high_resolution_clock::now();
         }
 
-        if (s_activation >= 6s)
+        if (s_activation >= 5s)
         {
             auto                     coins = this->get_enabled_coins();
             std::vector<std::string> tickers;
@@ -339,11 +339,11 @@ namespace atomic_dex
                 m_activation_clock = std::chrono::high_resolution_clock::now();
             }
             else {
-                m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(6));
+                m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(5));
             }
         }
 
-        if (s_info >= 67s)
+        if (s_info >= 61s)
         {
             std::unique_lock lock(m_activation_mutex);
             if (m_activation_queue.empty())
