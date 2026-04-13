@@ -65,10 +65,10 @@ ColumnLayout
     // Market mode selector
     RowLayout
     {
-        Layout.topMargin: 2
-        Layout.bottomMargin: 2
+        Layout.topMargin: 4
+        Layout.bottomMargin: 4
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         height: 28
         visible: !API.app.trading_pg.maker_mode
 
@@ -95,7 +95,7 @@ ColumnLayout
 
     Item
     {
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.preferredHeight: input_height
 
         AmountField
@@ -157,7 +157,7 @@ ColumnLayout
 
     Item
     {
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.preferredHeight: input_height
 
         AmountField
@@ -215,7 +215,7 @@ ColumnLayout
     Item
     {
         visible: _useCustomMinTradeAmountCheckbox.checked
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.preferredHeight: input_height
 
         AmountField
@@ -265,7 +265,7 @@ ColumnLayout
 
     Item
     {
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.preferredHeight: 24
         visible: !_useCustomMinTradeAmountCheckbox.checked
 
@@ -282,7 +282,7 @@ ColumnLayout
     {
         Layout.rightMargin: 2
         Layout.leftMargin: 2
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.preferredHeight: 28
         spacing: 5
 
@@ -314,7 +314,7 @@ ColumnLayout
     Item
     {
         height: 55
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
 
         Dex.Text
         {
@@ -393,7 +393,7 @@ ColumnLayout
     TotalView
     {
         height: 70
-        Layout.preferredWidth: parent.width
+        Layout.fillWidth: true
         Layout.alignment: Qt.AlignHCenter
     }
 
