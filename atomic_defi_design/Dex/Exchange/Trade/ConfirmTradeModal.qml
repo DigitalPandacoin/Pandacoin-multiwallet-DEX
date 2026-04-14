@@ -81,8 +81,8 @@ MultipageModal
         ColumnLayout
         {
             id: config_section
-            width: dex_pair_badges.width - 40
             Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: dex_pair_badges.width - 40
             Layout.topMargin: 4
             spacing: 5
 
@@ -107,15 +107,15 @@ MultipageModal
                         Layout.preferredHeight: 100
                         Layout.preferredWidth: 100
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.leftMargin: -15
-                        Layout.rightMargin: Layout.leftMargin * 0.75
+                        //Layout.leftMargin: -15
+                        //Layout.rightMargin: Layout.leftMargin * 0.75
                         scale: 0.8
                     }
 
                     DexLabel
                     {
                         text_value: qsTr("Loading fees...")
-                        Layout.bottomMargin: 8
+                        Layout.alignment: Qt.AlignHCenter
                     }
                 }
 
@@ -144,9 +144,10 @@ MultipageModal
 
                     Repeater
                     {
-                        model: root.fees.hasOwnProperty('base_transaction_fees_ticker') && !API.app.trading_pg.preimage_rpc_busy ? General.getFeesDetail(root.fees) : []
+                        model: visible ? General.getFeesDetail(root.fees) : []
                         delegate: DexLabel
                         {
+                            wrapMode: Text.NoWrap
                             font.pixelSize: Style.textSizeSmall1
                             text: General.getFeesDetailText(modelData.label, modelData.fee, modelData.ticker)
                         }
@@ -188,14 +189,15 @@ MultipageModal
             FloatingBackground
             {
                 Layout.alignment: Qt.AlignCenter
-                width: childrenRect.width
-                height: childrenRect.height
+                Layout.preferredWidth: margin_row.implicitWidth + 30
+                Layout.preferredHeight: margin_row.implicitHeight + 10
                 color: Style.colorRed2
                 visible: Math.abs(parseFloat(API.app.trading_pg.cex_price_diff)) >= 50
 
                 RowLayout
                 {
-                    Layout.fillWidth: true
+                    id: margin_row
+                    anchors.centerIn: parent
 
                     Item { width: 3 }
 
@@ -209,26 +211,23 @@ MultipageModal
                         boxWidth: 16
                         boxHeight: 16
                         boxRadius: 8
-                        label.wrapMode: Label.NoWrap
+                        label.wrapMode: Text.NoWrap
                         text: qsTr("Trade price is more than 50% different to CEX! Confirm?")
                         font: DexTypo.caption
                     }
+
+                    Item { width: 3 }
                 }
             }
             
             // Custom config section
-            Item
+            ColumnLayout
             {
+                id: use_custom
                 Layout.alignment: Qt.AlignCenter
                 Layout.preferredWidth: parent.width - 10
-                height: childrenRect.height
+                spacing: 5
                 visible: !buy_sell_rpc_busy
-
-                ColumnLayout
-                {
-                    id: use_custom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: 5
 
                     DefaultCheckBox
                     {
@@ -237,7 +236,7 @@ MultipageModal
                         boxWidth: 20
                         boxHeight: 20
                         checked: true
-                        height: 40
+                        Layout.preferredHeight: 40
                         text: qsTr("Cancel all existing orders for %1/%2?").arg(base_ticker).arg(rel_ticker)
                     }
 
@@ -248,8 +247,9 @@ MultipageModal
                         boxWidth: 20
                         boxHeight: 20
                         checked: true
-                        height: 40
+                        Layout.preferredHeight: 40
                         text: qsTr("Good until cancelled (order will remain on orderbook until filled or cancelled)")
+                        label.wrapMode: Text.WordWrap
                     }
                     
                     DefaultCheckBox
@@ -261,7 +261,6 @@ MultipageModal
                         boxHeight: 20
                         height: 40
                         label.wrapMode: Label.NoWrap
-
                         text: qsTr("Use custom protection settings for incoming %1 transactions", "TICKER").arg(rel_ticker)
                     }
 
@@ -310,7 +309,6 @@ MultipageModal
                             )
                         }
                     }
-                }
             }
 
             // Configuration settings
@@ -370,14 +368,13 @@ MultipageModal
                         width: dpow_off_warning.implicitWidth + 30
                         height: dpow_off_warning.implicitHeight + 10
                         color: Style.colorRed2
-                        visible: {
-                            enable_custom_config.checked && (config_section.is_dpow_configurable && !enable_dpow_confs.checked)
-                        }
+                        visible: enable_custom_config.checked && (config_section.is_dpow_configurable && !enable_dpow_confs.checked)
 
                         DexLabel
                         {
                             id: dpow_off_warning
-                            anchors.fill: parent
+                            anchors.centerIn: parent
+                            wrapMode: Text.NoWrap
                             font: DexTypo.body2
                             color: Style.colorWhite0
                             horizontalAlignment: Qt.AlignHCenter
