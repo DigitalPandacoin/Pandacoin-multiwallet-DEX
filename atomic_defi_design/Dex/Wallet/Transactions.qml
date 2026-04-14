@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import Qaterial 1.0 as Qaterial
-
 import "../Components"
 import "../Constants"
 import Dex.Themes 1.0 as Dex
@@ -20,15 +19,6 @@ Dex.ListView
     property real _dateColumnWidth: 170
 
     model: transactions_mdl.proxy_mdl
-
-    //function calculateHeight(): real {
-    //    console.log("parent.height: " + parent.height)
-    //    console.log("list.height: " + list.height)
-    //    console.log("list.row_height: " + list.row_height)
-    //    console.log("height: " + Math.floor(list.height / list.row_height) * list.row_height);
-    //    return Math.floor(list.height / list.row_height) * list.row_height;
-    //}
-    //height: calculateHeight()
 
     Component.onCompleted: {
         positionViewAtBeginning()

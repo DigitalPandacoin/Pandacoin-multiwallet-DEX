@@ -12,7 +12,7 @@ Dex.DefaultListView
     id: list
     interactive: false
     scrollbar_visible: false
-    model: Dex.API.app.portfolio_pg.portfolio_mdl.portfolio_proxy_mdl
+    model: null
 
     property real _assetRowHeight: 46
     property real _assetNameColumnWidth: 180
@@ -24,7 +24,14 @@ Dex.DefaultListView
 
     width: _assetNameColumnWidth + _assetBalanceColumnWidth + _fiatBalanceColumnWidth + _assetChange24hColumnWidth + _assetPriceColumWidth + _assetProviderColumnWidth
     Layout.fillHeight: true
-    //height: (count * _assetRowHeight) + 46
+
+    Timer {
+        id: delayModel
+        interval: 100
+        repeat: false
+        running: true
+        onTriggered: list.model = Dex.API.app.portfolio_pg.portfolio_mdl.portfolio_proxy_mdl
+    }
 
     header: Item
     {
