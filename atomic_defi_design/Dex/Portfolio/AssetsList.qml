@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
 import "../Constants" as Dex
 import "../Components" as Dex
 import "../String.js" as DexString
@@ -24,10 +23,9 @@ Dex.DefaultListView
     property real _assetProviderColumnWidth: 90
 
     width: _assetNameColumnWidth + _assetBalanceColumnWidth + _fiatBalanceColumnWidth + _assetChange24hColumnWidth + _assetPriceColumWidth + _assetProviderColumnWidth
-    height: (count * _assetRowHeight) + 46
+    Layout.fillHeight: true
+    //height: (count * _assetRowHeight) + 46
 
-
-    // Header
     header: Item
     {
         width: list.width
