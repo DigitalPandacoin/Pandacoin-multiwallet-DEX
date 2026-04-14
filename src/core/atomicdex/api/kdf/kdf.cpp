@@ -142,27 +142,19 @@ namespace
     }
 
     std::pair<std::string, std::string>
-    determine_amounts_in_current_currency(
-        const std::string& base_coin, const std::string& base_amount, const std::string& rel_coin, const std::string& rel_amount)
+    determine_amounts_in_current_currency(const std::string& base_coin, const std::string& base_amount, const std::string& rel_coin, const std::string& rel_amount)
     {
-        try
+        if (g_system_mgr != nullptr && g_system_mgr->has_systems<atomic_dex::settings_page, atomic_dex::global_price_service>())
         {
-            if (g_system_mgr != nullptr && g_system_mgr->has_systems<atomic_dex::settings_page, atomic_dex::global_price_service>())
-            {
-                const auto& settings_system     = g_system_mgr->get_system<atomic_dex::settings_page>();
-                const auto& current_currency    = settings_system.get_current_currency().toStdString();
-                const auto& global_price_system = g_system_mgr->get_system<atomic_dex::global_price_service>();
-                std::string base_amount_in_currency;
-                std::string rel_amount_in_currency;
+            const auto& settings_system     = g_system_mgr->get_system<atomic_dex::settings_page>();
+            const auto& current_currency    = settings_system.get_current_currency().toStdString();
+            const auto& global_price_system = g_system_mgr->get_system<atomic_dex::global_price_service>();
+            std::string base_amount_in_currency;
+            std::string rel_amount_in_currency;
 
-                base_amount_in_currency = global_price_system.get_price_as_currency_from_amount(current_currency, base_coin, base_amount);
-                rel_amount_in_currency  = global_price_system.get_price_as_currency_from_amount(current_currency, rel_coin, rel_amount);
-                return std::make_pair(base_amount_in_currency, rel_amount_in_currency);
-            }
-        }
-        catch (const std::exception& error)
-        {
-            SPDLOG_ERROR("exception in determine_amounts_in_current_currency: {}", error.what());
+            base_amount_in_currency = global_price_system.get_price_as_currency_from_amount(current_currency, base_coin, base_amount);
+            rel_amount_in_currency  = global_price_system.get_price_as_currency_from_amount(current_currency, rel_coin, rel_amount);
+            return std::make_pair(base_amount_in_currency, rel_amount_in_currency);
         }
         return {};
     }

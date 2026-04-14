@@ -269,7 +269,7 @@ namespace atomic_dex
             if (t_ec)
             {
                 ec = t_ec;
-                //SPDLOG_ERROR("get_balance_info error: {} {}", t_ec.message(), ticker);
+                SPDLOG_ERROR("get_balance_info error: {} {}", t_ec.message(), ticker);
                 return "0.00";
             }
 

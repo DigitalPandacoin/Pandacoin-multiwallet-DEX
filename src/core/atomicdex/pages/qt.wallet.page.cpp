@@ -513,7 +513,7 @@ namespace atomic_dex
         nlohmann::json     batch      = nlohmann::json::array();
         auto&              kdf_system = m_system_manager.get_system<kdf_service>();
         const auto&        ticker     = kdf_system.get_current_ticker();
-        auto               coin_info = kdf_system.get_coin_info(ticker);
+        auto               coin_info  = kdf_system.get_coin_info(ticker);
 
         if (coin_info.is_zhtlc_family)
         {

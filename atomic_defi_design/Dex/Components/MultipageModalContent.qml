@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
 import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -8,6 +7,10 @@ import Dex.Themes 1.0 as Dex
 ColumnLayout
 {
     id: root
+    Layout.fillWidth: true
+    visible: true
+    Layout.fillHeight: false
+    Layout.maximumHeight: flickMax
 
     property alias         title:               _title
     property alias         titleText:           _title.text
@@ -17,23 +20,12 @@ ColumnLayout
     property var           subtitleAlignment:   Qt.AlignLeft
     property int           titleTopMargin:      20
     property int           topMarginAfterTitle: 30
-    
     property alias         flickable:           modal_flickable
     property int           flickMax:            window.height - 280
     property alias         header:              _header.data
     default property alias content:             _innerLayout.data
     property alias         contentSpacing:      _innerLayout.spacing
     property alias         footer:              _footer.data
-
-    Layout.fillWidth: true
-    visible: true
-    Layout.fillHeight: false
-    Layout.maximumHeight: flickMax
-
-    //Component.onCompleted: {
-    //    console.log("MultipageModalContent root.flickMax =" + root.flickMax) // 500, 708, 1442
-    //    console.log("MultipageModalContent height = " + height) // 190
-    //}
 
     DexLabel
     {
@@ -53,8 +45,6 @@ ColumnLayout
         font.pixelSize: 13
         visible: text != ''
     }
-
-    // Header
 
     ColumnLayout
     {
@@ -84,7 +74,6 @@ ColumnLayout
         }
     }
 
-    // Footer
     RowLayout
     {
         id: _footer

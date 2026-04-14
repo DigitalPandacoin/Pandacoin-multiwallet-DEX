@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../../Components"
 import "../../Constants"
 import App 1.0
@@ -10,6 +9,8 @@ import Dex.Themes 1.0 as Dex
 ColumnLayout
 {
     Layout.fillWidth: true
+    spacing: 24
+
     readonly property string price: non_null_price
     readonly property string price_reversed: API.app.trading_pg.price_reversed
     readonly property string cex_price: API.app.trading_pg.cex_price
@@ -17,16 +18,13 @@ ColumnLayout
     readonly property string cexPriceDiff: API.app.trading_pg.cex_price_diff
     readonly property bool invalid_cex_price: API.app.trading_pg.invalid_cex_price
     readonly property bool price_entered: !General.isZero(non_null_price)
-
     readonly property int fontSize: Style.textSizeSmall1
     readonly property int fontSizeBigger: Style.textSizeSmall2
     readonly property int lineScale: General.getComparisonScale(cexPriceDiff)
 
-    spacing: 24
-
     RowLayout
     {
-    Layout.fillWidth: true
+        Layout.fillWidth: true
 
         ColumnLayout
         {
