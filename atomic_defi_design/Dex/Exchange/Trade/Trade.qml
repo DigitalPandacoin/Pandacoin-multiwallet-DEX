@@ -4,9 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import Qt.labs.settings 1.0
 import QtGraphicalEffects 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import AtomicDEX.MarketMode 1.0
 import AtomicDEX.TradingError 1.0
 import AtomicDEX.TradingMode 1.0
@@ -18,8 +16,6 @@ import App 1.0
 Item
 {
     id: exchange_trade
-
-    readonly property string total_amount: API.app.trading_pg.total_amount
 
     Component.onCompleted:
     {
@@ -34,18 +30,15 @@ Item
         dashboard.current_ticker = undefined
     }
 
+    readonly property string total_amount: API.app.trading_pg.total_amount
     readonly property bool block_everything: swap_cooldown.running
                                              || fetching_multi_ticker_fees_busy
-
     readonly property bool fetching_multi_ticker_fees_busy: false
-
     signal prepareMultiOrder
     property bool multi_order_values_are_valid: true
-
     readonly property string non_null_price: backend_price === '' ? '0' : backend_price
     readonly property string non_null_volume: backend_volume === '' ? '0' : backend_volume
     readonly property bool price_is_empty: parseFloat(non_null_price) <= 0
-
     readonly property string backend_price: API.app.trading_pg.price
     readonly property int last_trading_error: API.app.trading_pg.last_trading_error
     readonly property string max_volume: API.app.trading_pg.max_volume
@@ -72,7 +65,6 @@ Item
         API.app.trading_pg.market_mode = v
     }
 
-    
     Timer
     {
         id: swap_cooldown
@@ -86,10 +78,6 @@ Item
     }
 
     readonly property var preferred_order: API.app.trading_pg.preferred_order
-
-
-
-    // Cache Trade Info
     property bool valid_fee_info: API.app.trading_pg.fees.base_transaction_fees !== undefined
     readonly property var curr_fee_info: API.app.trading_pg.fees
     property var fees_data: []
@@ -112,19 +100,15 @@ Item
             General.initialized_orderbook_pair = true
         }
         setPair(true, ticker)
-        // triggers chart reload (why the duplication?)
-        // app.pairChanged(base_ticker, rel_ticker)
     }
 
     function setPair(is_left_side, changed_ticker, is_swap=false) {
         swap_cooldown.restart()
         if (API.app.trading_pg.set_pair(is_left_side, changed_ticker, is_swap))
-            // triggers chart reload
             app.pairChanged(base_ticker, rel_ticker)
     }
 
     function trade(options, default_config) {
-        // Will move to backend - nota, conf
         let nota = ""
         let confs = ""
 

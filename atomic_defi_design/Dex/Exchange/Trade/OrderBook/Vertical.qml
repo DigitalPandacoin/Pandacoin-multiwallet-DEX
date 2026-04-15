@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../../../Components"
 import "../../../Constants"
 import App 1.0
@@ -60,7 +58,7 @@ Widget
         id: volume_text
         visible: parseFloat(pair_volume_24hr) > 0
         Layout.topMargin: 6
-        Layout.bottomMargin: 6 // Add bottom margin for stability
+        Layout.bottomMargin: 6
         Layout.alignment: Qt.AlignHCenter
         color: Dex.CurrentTheme.foregroundColor2
         text_value: pair + qsTr(" 24hrs  |  %1  |  %2 trades").arg(General.convertUsd(pair_volume_24hr)).arg(pair_trades_24hr)

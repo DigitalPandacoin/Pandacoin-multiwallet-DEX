@@ -4,7 +4,6 @@ import Qaterial 1.0 as Qaterial
 import "../Constants" as Constants
 import App 1.0
 
-
 DefaultImage
 {
     property int iconSize: 24
