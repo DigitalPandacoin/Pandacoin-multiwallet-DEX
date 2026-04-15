@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../Constants" as Constants
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -11,12 +9,10 @@ import Dex.Themes 1.0 as Dex
 RowLayout
 {
     id: root
-
     spacing: 4
 
     property var pageSize: Constants.API.app.orders_mdl.nb_pages
     property var currentValue: Constants.API.app.orders_mdl.current_page
-
     property alias itemsPerPageComboBox: itemsPerPageComboBox
 
     function refreshBtn()
@@ -76,7 +72,7 @@ RowLayout
 
         readonly property int item_count: Constants.API.app.orders_mdl.limit_nb_elements
         readonly property
-        var options: [5, 10, 25]
+        var options: [10, 15, 20, 25, 30, 40]
 
         Layout.preferredWidth: (root.width / 100) * 13
         Layout.maximumWidth: 62
@@ -122,7 +118,6 @@ RowLayout
             refreshBtn()
         }
     }
-
 
     Repeater
     {
