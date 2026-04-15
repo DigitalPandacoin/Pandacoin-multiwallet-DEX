@@ -12,7 +12,7 @@ MultipageModal
     id: root
     width: 720
     horizontalPadding: 40
-    verticalPadding: 30
+    verticalPadding: 20
 
     property var details
 
@@ -26,7 +26,7 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr(" ")
+        titleText: qsTr("")
         title.font.pixelSize: Style.textSize2
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 0

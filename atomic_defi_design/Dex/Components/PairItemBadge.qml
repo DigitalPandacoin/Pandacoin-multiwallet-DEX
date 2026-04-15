@@ -1,11 +1,9 @@
 import bignumberjs 1.0
-
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Controls.Universal 2.15
-
 import "../Constants" as Dex
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -28,7 +26,7 @@ DefaultRectangle
     Layout.fillHeight: true
     Layout.fillWidth: true
     Layout.leftMargin: 10
-    Layout.rightMargin: 20
+    Layout.rightMargin: 10
 
     DexLabel
     {
