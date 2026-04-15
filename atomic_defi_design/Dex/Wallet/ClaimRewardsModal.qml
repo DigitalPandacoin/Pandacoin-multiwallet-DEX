@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -53,17 +52,14 @@ MultipageModal
              "tx_hex": ""
          }
      })
-    property var prepare_claim_rewards_result: General.clone(default_prepare_claim_rewards_result)
 
+    property var prepare_claim_rewards_result: General.clone(default_prepare_claim_rewards_result)
     // Override
     property var postClaim: () => {}
-
     // Local
     readonly property bool can_confirm: positive_claim_amount && has_eligible_utxo && !is_broadcast_busy
-
     readonly property bool can_claim: current_ticker_infos.is_claimable && !api_wallet_page.is_claiming_busy
     readonly property var claim_rpc_result: api_wallet_page.claiming_rpc_data
-
     readonly property bool is_broadcast_busy: api_wallet_page.is_broadcast_busy
     readonly property string broadcast_result: api_wallet_page.broadcast_rpc_data
 

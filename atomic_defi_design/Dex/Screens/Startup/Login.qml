@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../../Components"
 import "../../Constants"
 import App 1.0
@@ -100,7 +98,7 @@ SetupPage
         DexAppOutlineButton
         {
             Layout.alignment: Qt.AlignHCenter
-            radius: width
+            radius: 18
             width: 200
             text: qsTr("Log In")
             onClicked: _inputPassword.field.accepted()
@@ -119,7 +117,7 @@ SetupPage
         {
             text: qsTr("Cancel")
             height: 25
-            radius: 20
+            radius: 18
             width: 100
             Layout.alignment: Qt.AlignHCenter
             font: Qt.font(

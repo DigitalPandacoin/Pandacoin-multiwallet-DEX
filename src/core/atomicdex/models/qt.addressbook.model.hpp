@@ -36,16 +36,14 @@ namespace atomic_dex
     {
         // Tells QT this class uses signal/slots mechanisms and/or has GUI elements.
         Q_OBJECT
-        
+
         Q_ENUMS(AddressBookRoles)
 
     public:
         enum AddressBookRoles
         {
-            SubModelRole = Qt::UserRole + 1,
-            
+            SubModelRole = Qt::UserRole + 1,    // 257
             NameRole,
-          
             NameRoleAndCategoriesRole           // Used as search role.
         };
         Q_ENUM(AddressBookRoles);
@@ -80,9 +78,7 @@ namespace atomic_dex
 
     private:
         ag::ecs::system_manager&            m_system_manager;
-        
         addressbook_proxy_model*            m_addressbook_proxy;
-        
         QVector<addressbook_contact_model*> m_model_data;
     };
 } // namespace atomic_dex

@@ -391,7 +391,6 @@ MultipageModal
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
 
-
                 DexLabel
                 {
                     Layout.alignment: Qt.AlignHCenter
@@ -435,7 +434,7 @@ MultipageModal
                 padding: 10
                 leftPadding: 45
                 rightPadding: 45
-                radius: 10
+                radius: 18
                 onClicked: {
                     root.close()
                     API.app.trading_pg.reset_fees()
@@ -450,7 +449,7 @@ MultipageModal
                 padding: 10
                 leftPadding: 45
                 rightPadding: 45
-                radius: 10
+                radius: 18
                 enabled: General.is_swap_safe(allow_bad_trade)
                 onClicked:
                 {

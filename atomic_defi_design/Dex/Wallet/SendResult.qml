@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -112,7 +111,6 @@ MultipageModalContent
         title: qsTr("Date")
         text: result.withdraw_answer.date
     }
-
 
     // Buttons
     footer:

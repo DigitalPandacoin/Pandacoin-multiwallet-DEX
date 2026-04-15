@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -9,7 +8,6 @@ import App 1.0
 MultipageModal
 {
     id: root
-
     width: 800
 
     onClosed: input_password_suffix.reset()
@@ -23,7 +21,6 @@ MultipageModal
             id: warning_bg
             Layout.alignment: Qt.AlignHCenter
             Layout.bottomMargin: 10
-
             width: parent.width - 5
             height: warning_texts.height + 20
 
@@ -39,9 +36,8 @@ MultipageModal
                     width: parent.width - 40
                     horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-
-                    text_value: qsTr("Camouflage Password is a secret password for emergency situations.")
                     font: DexTypo.subtitle2
+                    text_value: qsTr("Camouflage Password is a secret password for emergency situations.")
                 }
 
                 DexLabel
@@ -83,16 +79,18 @@ MultipageModal
                 text: qsTr("Cancel")
                 leftPadding: 40
                 rightPadding: 40
-                radius: 20
+                radius: 18
                 onClicked: root.close()
             },
+
             Item { Layout.fillWidth: true },
+
             DexAppOutlineButton
             {
                 text: qsTr("Save")
                 leftPadding: 40
                 rightPadding: 40
-                radius: 20
+                radius: 18
                 enabled: input_password_suffix.isValid()
                 onClicked:
                 {

@@ -7,14 +7,13 @@ import Qaterial 1.0 as Qaterial
 RowLayout
 {
     id: control
+    anchors.horizontalCenter: parent.horizontalCenter
+
     property bool noBackground: false
-    
-    signal clicked()
-    
     property string title
     property string buttonText
 
-    anchors.horizontalCenter: parent.horizontalCenter
+    signal clicked()
 
     DexLabel
     {
@@ -24,7 +23,6 @@ RowLayout
     }
 
     Item { Layout.fillWidth: true }
-
 
     Item
     {
@@ -43,7 +41,7 @@ RowLayout
                 text: control.buttonText
                 color: containsMouse ? DexTheme.buttonColorHovered : 'transparent'
                 height: 40
-                radius: 20
+                radius: 18
                 padding: 20
                 font: DexTypo.body1
                 iconSource: Qaterial.Icons.logout
@@ -54,7 +52,7 @@ RowLayout
             {
                 height: 40
                 padding: 20
-                radius: 20
+                radius: 18
                 font: DexTypo.body1
                 visible: !control.noBackground
                 text: control.buttonText

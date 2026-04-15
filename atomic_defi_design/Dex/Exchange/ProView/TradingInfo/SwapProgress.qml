@@ -1,10 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Dex.Themes 1.0 as Dex
 import App 1.0
-
 import "../../../Components"
 import "../../../Constants"
 
@@ -15,7 +13,6 @@ ColumnLayout
 
     property var details
     property var lastEvent
-
     readonly property var all_events: !details
                             ? [] : has_error_event
                             ? details.events.map(e => e.state) : details.success_events
@@ -48,7 +45,6 @@ ColumnLayout
         return sum
     }
 
-
     // Total swap duration estimate
     readonly property double totalTimePassedEstimated:
     {
@@ -80,6 +76,7 @@ ColumnLayout
 
     // Simulated time of the running event
     property double simulatedTime: 0
+
     function updateSimulatedTime()
     {
         if (!details)

@@ -2,9 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
-
 import bignumberjs 1.0
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -13,13 +11,13 @@ import Dex.Themes 1.0 as Dex
 MultipageModal
 {
     id: root
+    width: 750
+    closePolicy: Popup.NoAutoClose
 
     readonly property bool empty_data: !send_result || !send_result.withdraw_answer
-
     property bool needFix: false
     property bool errorView: false
     property var address_data
-
     readonly property var default_send_result: ({ has_error: false, error_message: "",
                                                     withdraw_answer: {
                                                         total_amount_fiat: "", tx_hex: "",
@@ -28,20 +26,16 @@ MultipageModal
                                                     },
                                                     explorer_url: "", max: false })
     property var send_result: default_send_result
-
     readonly property bool is_send_busy: api_wallet_page.is_send_busy
     property var send_rpc_result: api_wallet_page.send_rpc_data
     readonly property bool is_validate_address_busy: api_wallet_page.validate_address_busy 
     readonly property bool is_convert_address_busy: api_wallet_page.convert_address_busy
     readonly property string address: api_wallet_page.converted_address
     readonly property string withdraw_status: api_wallet_page.withdraw_status
-
     readonly property bool auth_succeeded: api_wallet_page.auth_succeeded
-
     readonly property bool is_broadcast_busy: api_wallet_page.is_broadcast_busy
     property string broadcast_result: api_wallet_page.broadcast_rpc_data
     property bool async_param_max: false
-
     property alias address_field: input_address
     property alias amount_field: input_amount
 
@@ -147,10 +141,6 @@ MultipageModal
         input_amount.text = current_ticker_infos.balance
     }
 
-    width: 750
-
-    closePolicy: Popup.NoAutoClose
-
     onClosed:
     {
         reset()
@@ -248,33 +238,30 @@ MultipageModal
     MultipageModalContent
     {
         id: _preparePage
-
-        property bool cryptoSendMode: true
-
         titleText: qsTr("Prepare to send ") + current_ticker_infos.name
         titleAlignment: Qt.AlignHCenter
         flickMax: 600
 
+        property bool cryptoSendMode: true
+
         DefaultRectangle
         {
             enabled: !root.is_send_busy
-
             width: 500
             Layout.preferredHeight: 36
             Layout.alignment: Qt.AlignHCenter
-
             color: input_address.background.color
             radius: input_address.background.radius
 
             DexTextField
             {
                 id: input_address
-
                 width: 470
                 height: 36
                 placeholderText: qsTr("Address of the recipient")
                 forceFocus: true
                 font: General.isZhtlc(api_wallet_page.ticker) ? DexTypo.body3 : DexTypo.body2
+
                 onTextChanged: 
                 {
                     text = text.replace(/(\r\n|\n|\r)/gm,"").replace(" ", "")
@@ -290,7 +277,6 @@ MultipageModal
                 anchors.right: parent.right
                 anchors.rightMargin: 13
                 anchors.verticalCenter: parent.verticalCenter
-
                 color: addrbookIconMouseArea.containsMouse ? Dex.CurrentTheme.buttonColorHovered : "transparent"
 
                 DefaultMouseArea
@@ -390,7 +376,6 @@ MultipageModal
                     anchors.right: maxBut.left
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-
                     text: _preparePage.cryptoSendMode ? API.app.wallet_pg.ticker : API.app.settings_pg.current_currency
                     font.pixelSize: 16
                 }
@@ -438,7 +423,6 @@ MultipageModal
             {
                 enabled: equivalentAmount.enabled
                 visible: equivalentAmount.visible
-
                 radius: 16
                 Layout.preferredWidth: 150
                 Layout.preferredHeight: 36
@@ -516,7 +500,6 @@ MultipageModal
             DexLabel
             {
                 id: equivalentAmount
-
                 property string value: "0"
                 enabled: !(new BigNumber(current_ticker_infos.current_currency_ticker_price).isLessThanOrEqualTo(0))
                 visible: enabled
@@ -568,18 +551,15 @@ MultipageModal
         {
             visible: General.isCoinWithMemo(api_wallet_page.ticker)
             enabled: !root.is_send_busy
-
             Layout.preferredWidth: 500
             Layout.preferredHeight: 36
             Layout.alignment: Qt.AlignHCenter
-
             color: input_memo.background.color
             radius: input_memo.background.radius
 
             DexTextField
             {
                 id: input_memo
-
                 width: 470
                 height: 36
                 placeholderText: qsTr("Enter memo (optional)")
@@ -674,7 +654,6 @@ MultipageModal
         ColumnLayout
         {
             visible: custom_fees_switch.checked
-
             Layout.preferredWidth: parent.width
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: 8
@@ -699,19 +678,15 @@ MultipageModal
             ColumnLayout
             {
                 visible: General.getCustomFeeType(current_ticker_infos) == "Gas"
-
                 Layout.alignment: Qt.AlignHCenter
 
                 // Gas input
                 AmountIntField
                 {
                     id: input_custom_fees_gas
-
                     enabled: !root.is_send_busy
-
                     Layout.preferredWidth: 400
                     Layout.preferredHeight: 36
-
                     placeholderText: qsTr("Gas Limit")
                 }
 
@@ -720,28 +695,22 @@ MultipageModal
                 {
                     id: input_custom_fees_gas_price
                     allowFloat: current_ticker_infos.type === "TENDERMINT" ? true : "TENDERMINTTOKEN" ? true : false
-
                     enabled: !root.is_send_busy
-
                     Layout.preferredWidth: 400
                     Layout.preferredHeight: 36
-
                     placeholderText: qsTr("Gas price") + " [" + General.tokenUnitName(current_ticker_infos) + "]"
                 }
             }
-
 
             // Custom fees warning
             DexLabel
             {
                 visible: input_custom_fees.visible
-                
                 color: Dex.CurrentTheme.warningColor
                 font.pixelSize: 12
                 horizontalAlignment: DexLabel.AlignHCenter
                 Layout.alignment: Qt.AlignHCenter
                 wrapMode: Label.Wrap
-
                 text_value: qsTr("Only use custom fees if you know what you are doing! ")
             }
 
@@ -749,13 +718,11 @@ MultipageModal
             DexLabel
             {
                 visible: input_custom_fees_gas.visible
-
                 color: Dex.CurrentTheme.warningColor
                 font.pixelSize: 12
                 horizontalAlignment: DexLabel.AlignHCenter
                 Layout.alignment: Qt.AlignHCenter
                 wrapMode: Label.Wrap
-
                 text_value: qsTr("Only use custom fees if you know what you are doing! ") + General.cex_icon
                 DefaultInfoTrigger { triggerModal: gas_info_modal }
             }
@@ -765,13 +732,11 @@ MultipageModal
             {
                 id: fee_error
                 visible: feeIsHigherThanAmount()
-
                 color: Dex.CurrentTheme.warningColor
                 font.pixelSize: 12
                 horizontalAlignment: DexLabel.AlignHCenter
                 Layout.alignment: Qt.AlignHCenter
                 wrapMode: Label.Wrap
-
                 text_value: qsTr("Custom Fee can't be higher than the amount") + "\n"
                           + qsTr("You have %1", "AMT TICKER").arg(General.formatCrypto("", API.app.get_balance_info_qstr(General.getFeesTicker(current_ticker_infos)), General.getFeesTicker(current_ticker_infos)))
             }
@@ -785,9 +750,7 @@ MultipageModal
             horizontalAlignment: DexLabel.AlignHCenter
             wrapMode: Label.Wrap
             visible: !fee_error.visible && !hasFunds()
-
             color: Dex.CurrentTheme.warningColor
-
             text_value: qsTr("Not enough funds.") + "\n"
                       + qsTr("You have %1", "AMT TICKER").arg(General.formatCrypto("", API.app.get_balance_info_qstr(api_wallet_page.ticker), api_wallet_page.ticker))
         }
@@ -813,7 +776,6 @@ MultipageModal
             text_value: withdraw_status
         }
 
-
         // Footer
         RowLayout
         {
@@ -823,11 +785,9 @@ MultipageModal
             CancelButton
             {
                 text: qsTr("Cancel")
-
                 Layout.alignment: Qt.AlignLeft
                 Layout.preferredWidth: parent.width / 100 * 42
                 Layout.preferredHeight: 42
-
                 label.font.pixelSize: 16
                 radius: 18
 
@@ -839,10 +799,8 @@ MultipageModal
             OutlineButton
             {
                 enabled: fieldAreFilled() && hasFunds() && !errorView && !root.is_send_busy
-
                 Layout.alignment: Qt.AlignRight
                 Layout.preferredWidth: parent.width / 100 * 42
-
                 text: qsTr("Prepare")
 
                 onClicked: prepareSendCoin(

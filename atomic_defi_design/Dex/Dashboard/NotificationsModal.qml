@@ -4,9 +4,7 @@ import QtQuick.Controls 2.15
 import Qt.labs.platform 1.1
 import Qaterial 1.0 as Qaterial
 import ModelHelper 0.1
-
 import Dex.Themes 1.0 as Dex
-
 import "../Constants"
 import App 1.0
 import "../Components"
@@ -21,6 +19,7 @@ DexPopup
     backgroundColor: Dex.CurrentTheme.floatingBackgroundColor
 
     property var orders: API.app.orders_mdl.orders_proxy_mdl.ModelHelper
+    readonly property string check_internet_connection_text: qsTr("Please check your internet connection (e.g. VPN service or firewall might block it).")
 
     // Notification types.
     readonly property string updateSwapStatusNotification: "onUpdateSwapStatus"
@@ -29,8 +28,6 @@ DexPopup
     readonly property string enablingCoinFailedStatusNotification: "onEnablingCoinFailedStatus"
     readonly property string disablingCoinFailedStatus: "onDisablingCoinFailedStatus"
     readonly property string endpointNonReacheableStatus: "onEndpointNonReacheableStatus"
-
-    readonly property string check_internet_connection_text: qsTr("Please check your internet connection (e.g. VPN service or firewall might block it).")
 
     function reset(close_after_reset = false)
     {
@@ -386,9 +383,7 @@ DexPopup
             MenuItem
             {
                 text: qsTr("Quit")
-                //Component.onCompleted: {
-                //  console.log("NotificationsModal height = " + height) // 570
-                //}
+
                 onTriggered:
                 {
                     if (orders.count != 0) logout_modal.open()
@@ -412,12 +407,10 @@ DexPopup
 
             Qaterial.Icon
             {
-
                 anchors.centerIn: parent
                 icon: Qaterial.Icons.bellOutline
                 size: 166
                 opacity: 0.03
-
             }
 
             DexLabel
@@ -442,10 +435,6 @@ DexPopup
                 {
                     height: _column.height + 10
                     width: list.width
-                    //Component.onCompleted: {
-                    //  console.log("_column.height = " + _column.height) // 73
-                    //  console.log("height = " + height) // 83
-                    //}
 
                     Rectangle
                     {
@@ -614,9 +603,6 @@ DexPopup
             width: 260
             Layout.alignment: Qt.AlignHCenter
             onClicked: notifications_list.length !== 0 ? root.reset(false) : root.reset(true)
-            //Component.onCompleted: {
-            //   console.log("height = " + height) // 41
-            //}
         }
     }
 }

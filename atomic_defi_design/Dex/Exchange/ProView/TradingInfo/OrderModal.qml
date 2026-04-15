@@ -204,7 +204,7 @@ MultipageModal
             {
                 visible: swapProgress.visible
                 Layout.fillWidth: true
-                Layout.topMargin: 10
+                Layout.topMargin: 4
             }
 
             SwapProgress
@@ -237,8 +237,9 @@ MultipageModal
                     details.recoverable && details.order_status !== "refunding"
                 text: enabled ? qsTr("Recover Funds") : qsTr("Refunding...")
                 font: DexTypo.body2
+                Layout.preferredHeight: 40
+
                 onClicked: API.app.orders_mdl.recover_fund(details.order_id)
-                Layout.preferredHeight: 50
             },
 
             // Cancel button
@@ -251,8 +252,9 @@ MultipageModal
                 radius: 18
                 text: qsTr("Cancel Order")
                 font: DexTypo.body2
+                Layout.preferredHeight: 40
+
                 onClicked: cancelOrder(details.order_id)
-                Layout.preferredHeight: 50
             },
 
             Item { Layout.fillWidth: true },
@@ -260,13 +262,14 @@ MultipageModal
             DexAppOutlineButton
             {
                 id: explorer_button
+                visible: !details ? false : details.maker_payment_id !== '' || details.taker_payment_id !== ''
                 text: qsTr("View on Explorer")
                 font: DexTypo.body2
-                Layout.preferredHeight: 50
                 leftPadding: 15
                 rightPadding: 15
                 radius: 18
-                visible: !details ? false : details.maker_payment_id !== '' || details.taker_payment_id !== ''
+                Layout.preferredHeight: 40
+
                 onClicked:
                 {
                     if (!details) return
@@ -293,8 +296,9 @@ MultipageModal
                 leftPadding: 15
                 rightPadding: 15
                 radius: 18
+                Layout.preferredHeight: 40
+
                 onClicked: root.close()
-                Layout.preferredHeight: 50
             },
 
             Item

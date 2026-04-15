@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "./Trade"
 import App 1.0
@@ -13,7 +12,6 @@ Item
     width: 450
 
     property int current_page: idx_exchange_trade
-
     readonly property string left_ticker: API.app.trading_pg.market_pairs_mdl.left_selected_coin
     readonly property string right_ticker: API.app.trading_pg.market_pairs_mdl.right_selected_coin
     readonly property string base_ticker: API.app.trading_pg.market_pairs_mdl.base_selected_coin

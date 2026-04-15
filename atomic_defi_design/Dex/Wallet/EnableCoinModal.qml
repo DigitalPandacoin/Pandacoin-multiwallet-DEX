@@ -1,11 +1,7 @@
-//! Qt Imports
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
-//! Project Imports
 import Qaterial 1.0 as Qaterial
-
 import AtomicDEX.CoinType 1.0
 import "../Components"
 import "../Constants"
@@ -131,16 +127,16 @@ MultipageModal
                         DefaultCheckBox
                         {
                             id: listInnerRowCheckbox
-                            readonly property bool backend_checked: model.checked
-
                             Layout.fillWidth: true
-
                             spacing: 0
                             boxWidth: 20
                             boxHeight: 20
                             labelWidth: parent.width - 40
 
+                            readonly property bool backend_checked: model.checked
+
                             onBackend_checkedChanged: if (checked !== backend_checked) checked = backend_checked
+
                             onCheckStateChanged:
                             {
                                 if (checked !== backend_checked)
@@ -245,9 +241,10 @@ MultipageModal
             {
                 Layout.preferredWidth: 199
                 text: qsTr("Cancel")
-                radius: 20
+                radius: 18
                 onClicked: root.close()
             }
+
             Item { Layout.fillWidth: true }
 
             DexAppOutlineButton
@@ -256,7 +253,7 @@ MultipageModal
                 visible: coin_cfg_model.length > 0
                 enabled: coin_cfg_model.checked_nb > 0
                 text: qsTr("Enable")
-                radius: 20
+                radius: 18
 
                 onClicked:
                 {
