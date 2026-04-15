@@ -115,7 +115,8 @@ namespace atomic_dex
         {
             m_transactions_mdl->reset();
             this->set_tx_fetching_busy(true);
-            kdf_system.fetch_infos_thread(true, true);
+            //kdf_system.fetch_infos_thread(true, true);
+            kdf_system.batch_balance_and_tx(true, {}, false, true);
             emit currentTickerChanged();
             refresh_ticker_infos();
             check_send_availability();
@@ -895,7 +896,8 @@ namespace atomic_dex
                     {
                         kdf_system.decrease_fake_balance(ticker, amount.toStdString());
                     }
-                    kdf_system.fetch_infos_thread(true, true);
+                    //kdf_system.fetch_infos_thread(true, true);
+                    kdf_system.batch_balance_and_tx(true, {}, false, true);
                 }
                 else
                 {

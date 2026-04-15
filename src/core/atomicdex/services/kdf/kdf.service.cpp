@@ -1877,7 +1877,7 @@ namespace atomic_dex
             });
     }
 
-    void kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
+    void kdf_service::fetch_infos_thread(bool is_a_reset, bool only_tx)
     {
         const auto& enabled_coins = get_enabled_coins();
         for (const auto& coin : enabled_coins) {
@@ -1887,7 +1887,7 @@ namespace atomic_dex
         }
 
         if (m_wallet_page_active) {
-            batch_balance_and_tx(is_a_refresh, {}, false, true);
+            batch_balance_and_tx(is_a_reset, {}, false, true);
         }
     }
 
@@ -2147,7 +2147,7 @@ namespace atomic_dex
             .then([this, batch](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "batch_fetch_orders_and_swap", batch); });
     }
 
-    void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_refresh)
+    void kdf_service::process_tx_tokenscan(const std::string& ticker, [[maybe_unused]] bool is_a_reset)
     {
         std::error_code ec;
         using namespace std::string_literals;

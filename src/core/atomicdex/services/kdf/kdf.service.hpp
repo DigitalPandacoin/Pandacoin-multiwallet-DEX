@@ -128,7 +128,7 @@ namespace atomic_dex
        auto batch_balance_and_tx(bool is_a_reset, std::vector<std::string> tickers = {}, bool is_during_enabling = false, bool only_tx = false);
        void process_balance_answer(const nlohmann::json& answer);
        void process_tx_answer(const nlohmann::json& answer_json, std::string ticker);
-       void process_tx_tokenscan(const std::string& ticker, bool is_a_refresh);
+       void process_tx_tokenscan(const std::string& ticker, bool is_a_reset);
        void fetch_single_balance(const coin_config_t& cfg_infos);
 
        //!
@@ -164,7 +164,7 @@ namespace atomic_dex
        void spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg = false, std::string rpcpassword = "");
 
        //! Refresh the current info (internally call process_balance and process_tx)
-       void fetch_infos_thread(bool is_a_fresh = true, bool only_tx = false);
+       void fetch_infos_thread(bool is_a_reset = true, bool only_tx = false);
 
        // Coins enabling functions
        bool enable_default_coins(); // Enables required coins + coins enabled in the config
