@@ -4,9 +4,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
-
 import Qaterial 1.0 as Qaterial
-
 import "Screens"
 import "Constants"
 import "Components"
@@ -32,18 +30,14 @@ DefaultRectangle
     property var notification_modal: notifications_modal
     property var logout_confirm_modal: logout_modal
     property var notifications_list: _currentPage === App.ScreenType.Dashboard ? loader.item.notifications_list : []
-
     property var    _currentPage: API.app.wallet_mgr.log_status() ? App.ScreenType.Dashboard : App.ScreenType.Startup
     property var    _availablePages: [_startup, dashboard]
     property alias  pageLoader: loader
-
-
     property alias globalGradient: globalGradient
 
     // Preload Chart
     signal pairChanged(string base, string rel)
 
-    
     function return_to_login() {
         app.notifications_list = []
         userMenu.close()

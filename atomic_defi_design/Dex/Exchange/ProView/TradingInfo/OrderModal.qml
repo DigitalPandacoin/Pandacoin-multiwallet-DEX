@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import "../../../Components"
 import "../../../Constants"
@@ -12,11 +10,11 @@ import App 1.0
 MultipageModal
 {
     id: root
-
-    property var details
     width: 720
     horizontalPadding: 40
     verticalPadding: 30
+
+    property var details
 
     onDetailsChanged: { if (!details) root.close() }
     onOpened:
@@ -28,7 +26,7 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: !details ? "" : visible ? getStatusText(details.order_status) : ''
+        titleText: qsTr(" ")
         title.font.pixelSize: Style.textSize2
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 0
@@ -36,33 +34,11 @@ MultipageModal
         flickMax: window.height - 60
 
         header: [
-            // Complete image
-            DefaultImage
-            {
-                visible: !details ? false : details.is_swap && details.order_status === "successful"
-                Layout.alignment: Qt.AlignHCenter
-                source: General.image_path + "exchange-trade-complete.png"
-                Layout.preferredHeight: 60
-                Layout.preferredWidth: 60
-            },
-
-            // Loading symbol
-            DefaultBusyIndicator
-            {
-                visible: !details ? false :
-                            details.is_swap && !["successful", "failed"].includes(details.order_status)
-                running: visible && Qt.platform.os != "osx"
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: 60
-                Layout.preferredWidth: 60
-            },
-            
             RowLayout
             {
                 id: dex_pair_badges
                 Layout.preferredHeight: 70
                 Layout.fillWidth: true
-
 
                 PairItemBadge
                 {

@@ -9,13 +9,11 @@ ListView {
     }
 
     id: root
-
     z: Infinity
     spacing: 5
     anchors.fill: parent
     anchors.bottomMargin: 10
     verticalLayoutDirection: ListView.BottomToTop
-
     interactive: false
 
     displaced: Transition {

@@ -21,23 +21,17 @@ AnimatedRectangle {
     }
 
     id: root
-
     readonly property real defaultTime: 2000
     property real time: defaultTime
     readonly property real fadeTime: 300
-
     property real margin: 10
-
     anchors {
         horizontalCenter: !parent ? undefined : parent.horizontalCenter
         margins: margin
     }
-
     width: message.width + margin
     height: message.height + margin
-
     radius: margin / 3
-
     opacity: 0
     color: isError ? Dex.CurrentTheme.warningColor : "#3CC9BF"
     z: 1000
