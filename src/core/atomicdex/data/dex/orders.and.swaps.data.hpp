@@ -32,12 +32,11 @@ namespace atomic_dex
         nlohmann::json average_events_time;     ///< Time registry for each events
         std::size_t    total_finished_swaps{0}; ///< total number of finished swaps
 
-
         //! Pagination
         std::size_t nb_pages{1};     ///< number of page
         std::size_t current_page{1}; ///< index of the current page
         std::size_t total_swaps{0};  ///< total number of available swaps
-        std::size_t limit{25};       ///< nb_elements / page
+        std::size_t limit{20};       ///< nb_elements / page
 
         t_filtering_infos filtering_infos;
 

@@ -163,7 +163,7 @@ namespace atomic_dex
        void spawn_kdf_instance(std::string wallet_name, std::string passphrase, bool with_pin_cfg = false, std::string rpcpassword = "");
 
        //! Refresh the current info (internally call process_balance and process_tx)
-       void fetch_infos_thread(bool is_a_reset = true, bool only_tx = false);
+       void fetch_infos_thread();
        pplx::task<void> batch_balance_and_tx(bool is_a_reset, std::vector<std::string> tickers = {}, bool is_during_enabling = false, bool only_tx = false);
 
        // Coins enabling functions
@@ -282,7 +282,7 @@ namespace atomic_dex
        bool                      set_current_ticker(const std::string& ticker);
 
        //! Pagination
-       void set_orders_and_swaps_pagination_infos(std::size_t current_page = 1, std::size_t limit = 25, t_filtering_infos infos = {});
+       void set_orders_and_swaps_pagination_infos(std::size_t current_page = 1, std::size_t limit = 20, t_filtering_infos infos = {});
 
       signals:
         void zhtlcStatusChanged();

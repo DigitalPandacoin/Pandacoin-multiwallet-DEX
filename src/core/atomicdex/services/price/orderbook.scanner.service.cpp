@@ -15,7 +15,6 @@
  ******************************************************************************/
 
 #include <boost/algorithm/string/replace.hpp>
-//! Project Headers
 #include "atomicdex/api/kdf/rpc_v2/rpc2.bestorders.hpp"
 #include "atomicdex/pages/qt.trading.page.hpp"
 #include "atomicdex/services/kdf/kdf.service.hpp"
@@ -105,7 +104,7 @@ namespace atomic_dex
 
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        if (s >= 67s)
+        if (s >= 61s)
         {
             process_best_orders();
             m_update_clock = std::chrono::high_resolution_clock::now();

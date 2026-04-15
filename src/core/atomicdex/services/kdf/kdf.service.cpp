@@ -309,7 +309,7 @@ namespace atomic_dex
             m_orders_clock = std::chrono::high_resolution_clock::now();
         }
 
-        if (s_activation >= 5s)
+        if (s_activation >= 4s)
         {
             auto                     coins = this->get_enabled_coins();
             std::vector<std::string> tickers;
@@ -341,11 +341,11 @@ namespace atomic_dex
                 m_activation_clock = std::chrono::high_resolution_clock::now();
             }
             else {
-                m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(5));
+                m_activation_clock = std::chrono::high_resolution_clock::now() + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::seconds(4));
             }
         }
 
-        if (s_info >= 61s)
+        if (s_info >= 43s)
         {
             std::unique_lock lock(m_activation_mutex);
             if (m_activation_queue.empty())
@@ -1877,7 +1877,7 @@ namespace atomic_dex
             });
     }
 
-    void kdf_service::fetch_infos_thread(bool is_a_reset, bool only_tx)
+    void kdf_service::fetch_infos_thread()
     {
         const auto& enabled_coins = get_enabled_coins();
         for (const auto& coin : enabled_coins) {
@@ -1887,7 +1887,7 @@ namespace atomic_dex
         }
 
         if (m_wallet_page_active) {
-            batch_balance_and_tx(is_a_reset, {}, false, true);
+            batch_balance_and_tx(true, {}, false, true);
         }
     }
 
@@ -2090,7 +2090,6 @@ namespace atomic_dex
 
         auto answer_functor = [this, limit, filter_infos, after_manual_reset](web::http::http_response resp)
         {
-
             //! Parsing Resp
             orders_and_swaps result;
             auto             answers = kdf::basic_batch_answer(resp);
