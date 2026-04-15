@@ -8,7 +8,7 @@ QtObject {
     readonly property int width: 1280
     readonly property int height: 1080
     readonly property int minimumWidth: 1280
-    readonly property int minimumHeight: 720
+    readonly property int minimumHeight: 768
     readonly property int max_camo_pw_length: 256
     readonly property int max_std_pw_length: 256
     readonly property int max_pw_length: max_std_pw_length + max_camo_pw_length

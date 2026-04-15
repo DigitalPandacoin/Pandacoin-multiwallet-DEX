@@ -125,7 +125,7 @@ namespace atomic_dex
 
        //! Batch balance / tx
        std::tuple<nlohmann::json, std::vector<std::string>, std::vector<std::string>> prepare_batch_balance_and_tx(bool only_tx = false) const;
-       auto batch_balance_and_tx(bool is_a_reset, std::vector<std::string> tickers = {}, bool is_during_enabling = false, bool only_tx = false);
+       pplx::task<void> batch_balance_and_tx(bool is_a_reset, std::vector<std::string> tickers = {}, bool is_during_enabling = false, bool only_tx = false);
        void process_balance_answer(const nlohmann::json& answer);
        void process_tx_answer(const nlohmann::json& answer_json, std::string ticker);
        void process_tx_tokenscan(const std::string& ticker, bool is_a_reset);

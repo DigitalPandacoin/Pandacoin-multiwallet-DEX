@@ -1181,7 +1181,7 @@ namespace atomic_dex
         update_coin_status(this->m_current_wallet_name, tickers, false, m_coins_informations, m_coin_cfg_mutex);
     }
 
-    auto
+    pplx::task<void>
     kdf_service::batch_balance_and_tx(bool is_a_reset, std::vector<std::string> tickers, bool is_during_enabling, bool only_tx)
     {
         (void)tickers;
