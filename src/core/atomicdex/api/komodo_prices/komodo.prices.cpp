@@ -87,7 +87,7 @@ namespace atomic_dex::komodo_prices::api
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("exception in kdf_service::fetch_infos_thread: {}", error.what());
+            SPDLOG_ERROR("exception in async_market_infos: {}", error.what());
         }
     }
 } // namespace atomic_dex::komodo_prices::api

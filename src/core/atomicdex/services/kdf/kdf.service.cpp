@@ -276,6 +276,8 @@ namespace atomic_dex
         m_info_clock      = std::chrono::high_resolution_clock::now();
         dispatcher_.sink<gui_enter_trading>().connect<&kdf_service::on_gui_enter_trading>(*this);
         dispatcher_.sink<gui_leave_trading>().connect<&kdf_service::on_gui_leave_trading>(*this);
+        dispatcher_.sink<gui_enter_wallet>().connect<&kdf_service::on_gui_enter_wallet>(*this);
+        dispatcher_.sink<gui_leave_wallet>().connect<&kdf_service::on_gui_leave_wallet>(*this);
         dispatcher_.sink<refresh_orderbook_model_data>().connect<&kdf_service::on_refresh_orderbook_model_data>(*this);
         SPDLOG_INFO("kdf_service created");
     }
@@ -359,6 +361,8 @@ namespace atomic_dex
         SPDLOG_INFO("destroying kdf service...");
         dispatcher_.sink<gui_enter_trading>().disconnect<&kdf_service::on_gui_enter_trading>(*this);
         dispatcher_.sink<gui_leave_trading>().disconnect<&kdf_service::on_gui_leave_trading>(*this);
+        dispatcher_.sink<gui_enter_wallet>().disconnect<&kdf_service::on_gui_enter_wallet>(*this);
+        dispatcher_.sink<gui_leave_wallet>().disconnect<&kdf_service::on_gui_leave_wallet>(*this);
         dispatcher_.sink<refresh_orderbook_model_data>().disconnect<&kdf_service::on_refresh_orderbook_model_data>(*this);
         SPDLOG_INFO("kdf signals successfully disconnected");
         bool kdf_stopped = false;
@@ -678,7 +682,6 @@ namespace atomic_dex
                         m_coins_informations[coin.ticker].currently_enabled = false;
                         failed_tickers.push_back(coin.ticker);
                     }
-                    //fetch_infos_thread(false, false);
                 }
             }
             catch (const std::exception& error)
@@ -781,7 +784,6 @@ namespace atomic_dex
                         m_coins_informations[coin.ticker].currently_enabled = false;
                         failed_tickers.push_back(coin.ticker);
                     }
-                    //fetch_infos_thread(false, false);
                 }
             }
             catch (const std::exception& error)
@@ -1875,21 +1877,16 @@ namespace atomic_dex
             });
     }
 
-    void
-    kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
+    void kdf_service::fetch_infos_thread(bool is_a_refresh, bool only_tx)
     {
-        if (only_tx)
-        {
-            batch_balance_and_tx(is_a_refresh, {}, false, only_tx);
+        const auto& enabled_coins = get_enabled_coins();
+        for (const auto& coin : enabled_coins) {
+            async::spawn([this, coin]() {
+                fetch_single_balance(coin);
+            });
         }
-        else
-        {
-            const auto& enabled_coins = get_enabled_coins();
-            for (const auto& coin : enabled_coins) {
-                async::spawn([this, coin]() {
-                    fetch_single_balance(coin);
-                });
-            }
+
+        if (m_wallet_page_active) {
             batch_balance_and_tx(is_a_refresh, {}, false, true);
         }
     }
@@ -2330,6 +2327,16 @@ namespace atomic_dex
     kdf_service::on_gui_leave_trading([[maybe_unused]] const gui_leave_trading& evt)
     {
         m_orderbook_thread_active = false;
+    }
+
+    void kdf_service::on_gui_enter_wallet([[maybe_unused]] const gui_enter_wallet& evt)
+    {
+        m_wallet_page_active = true;
+    }
+
+    void kdf_service::on_gui_leave_wallet([[maybe_unused]] const gui_leave_wallet& evt)
+    {
+        m_wallet_page_active = false;
     }
 
     bool

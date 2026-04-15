@@ -94,7 +94,8 @@ namespace atomic_dex
 
        //! Atomicity / Threads
        std::atomic_bool m_kdf_running{false};
-       std::atomic_bool m_orderbook_thread_active{false};  // Only active when in trading view (pro and simple)
+       std::atomic_bool m_orderbook_thread_active{false};
+       std::atomic_bool m_wallet_page_active{false};
        std::thread      m_kdf_init_thread;
 
        //! Current wallet name

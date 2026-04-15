@@ -488,10 +488,17 @@ namespace atomic_dex
         return m_page_open;
     }
 
-    void
-    wallet_page::set_page_open(bool value)
+    void wallet_page::set_page_open(bool value)
     {
         m_page_open = value;
+        if (value)
+        {
+            dispatcher_.trigger<gui_enter_wallet>();
+        }
+        else
+        {
+            dispatcher_.trigger<gui_leave_wallet>();
+        }
         emit isPageOpenChanged();
     }
 } // namespace atomic_dex
@@ -888,7 +895,7 @@ namespace atomic_dex
                     {
                         kdf_system.decrease_fake_balance(ticker, amount.toStdString());
                     }
-                    kdf_system.fetch_infos_thread();
+                    kdf_system.fetch_infos_thread(true, true);
                 }
                 else
                 {

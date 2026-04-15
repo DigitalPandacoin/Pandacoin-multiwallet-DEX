@@ -29,6 +29,8 @@ namespace atomic_dex
     using post_login                = entt::tag<"post_login"_hs>;
     using gui_enter_trading         = entt::tag<"gui_enter_trading"_hs>;
     using gui_leave_trading         = entt::tag<"gui_leave_trading"_hs>;
+    using gui_enter_wallet          = entt::tag<"gui_enter_wallet"_hs>;
+    using gui_leave_wallet          = entt::tag<"gui_leave_wallet"_hs>;
     using kdf_initialized           = entt::tag<"kdf_running_and_enabling"_hs>;
     using default_coins_enabled     = entt::tag<"default_coins_enabled"_hs>;
     using current_currency_changed  = entt::tag<"update_orders_and_swap_values"_hs>;
