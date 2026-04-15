@@ -115,7 +115,6 @@ RowLayout
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignTop
-        spacing: 4
     }
 
     // Place order form.
