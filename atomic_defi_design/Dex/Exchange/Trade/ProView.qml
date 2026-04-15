@@ -4,34 +4,20 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtGraphicalEffects 1.15
 import Qt.labs.settings 1.0
-
 import Qaterial 1.0 as Qaterial
-
 import AtomicDEX.MarketMode 1.0
 import AtomicDEX.TradingError 1.0
-
 import "../../Components"
 import "../../Constants"
 import "../../Wallet"
-
 import App 1.0
-
-// Trade Form / Component import
 import "Trading/"
 import "Trading/Items/"
-
-// OrderBook / Component import
 import "OrderBook/" as OrderBook
-
-// Best Order
 import "BestOrder/" as BestOrder
-
-// Orders (orders, history)
 import "Orders/" as OrdersView
-
 import "../../Screens"
 import Dex.Themes 1.0 as Dex
-
 import "../ProView"
 import "../ProView/PlaceOrderForm" as PlaceOrderForm
 import "../ProView/TradingInfo" as TradingInfo

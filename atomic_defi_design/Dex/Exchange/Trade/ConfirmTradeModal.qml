@@ -25,7 +25,7 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 5
         topMarginAfterTitle: 5
-        flickMax: 720
+        flickMax: 740
 
         header: [
             RowLayout
@@ -107,8 +107,6 @@ MultipageModal
                         Layout.preferredHeight: 100
                         Layout.preferredWidth: 100
                         Layout.alignment: Qt.AlignHCenter
-                        //Layout.leftMargin: -15
-                        //Layout.rightMargin: Layout.leftMargin * 0.75
                         scale: 0.8
                     }
 
@@ -190,7 +188,7 @@ MultipageModal
             {
                 Layout.alignment: Qt.AlignCenter
                 Layout.preferredWidth: margin_row.implicitWidth + 30
-                Layout.preferredHeight: margin_row.implicitHeight + 10
+                Layout.preferredHeight: margin_row.implicitHeight + 8
                 color: Style.colorRed2
                 visible: Math.abs(parseFloat(API.app.trading_pg.cex_price_diff)) >= 50
 
@@ -237,6 +235,7 @@ MultipageModal
                         boxHeight: 20
                         checked: true
                         Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel all existing orders for %1/%2?").arg(base_ticker).arg(rel_ticker)
                     }
 
@@ -248,6 +247,7 @@ MultipageModal
                         boxHeight: 20
                         checked: true
                         Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Good until cancelled (order will remain on orderbook until filled or cancelled)")
                         label.wrapMode: Text.WordWrap
                     }
@@ -255,13 +255,13 @@ MultipageModal
                     DefaultCheckBox
                     {
                         id: enable_custom_config
-                        Layout.alignment: Qt.AlignCenter
                         spacing: 2
                         boxWidth: 20
                         boxHeight: 20
-                        height: 40
-                        label.wrapMode: Label.NoWrap
+                        Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Use custom protection settings for incoming %1 transactions", "TICKER").arg(rel_ticker)
+                        label.wrapMode: Label.NoWrap
                     }
 
                     DexSwitch
