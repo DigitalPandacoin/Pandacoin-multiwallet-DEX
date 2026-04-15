@@ -31,13 +31,14 @@ MultipageModal
         titleAlignment: Qt.AlignHCenter
         titleTopMargin: 0
         topMarginAfterTitle: 8
-        flickMax: window.height - 60
+        flickMax: window.height - 20
 
         header: [
             RowLayout
             {
                 id: dex_pair_badges
                 Layout.preferredHeight: 70
+                Layout.topMargin: 10
                 Layout.fillWidth: true
 
                 PairItemBadge
