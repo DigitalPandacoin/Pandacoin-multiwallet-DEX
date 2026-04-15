@@ -72,7 +72,7 @@ RowLayout
 
         readonly property int item_count: Constants.API.app.orders_mdl.limit_nb_elements
         readonly property
-        var options: [10, 15, 20, 25, 30, 40]
+        var options: [10, 15, 20, 25, 30]
 
         Layout.preferredWidth: (root.width / 100) * 13
         Layout.maximumWidth: 62

@@ -1,9 +1,6 @@
-//! Qt Imports
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
-//! Project Imports
 import "../Constants"
 import App 1.0
 
@@ -14,7 +11,6 @@ MultipageModal
     property double durationBeforeRestart: 5            // Duration in seconds before the modal restarts the application.
     property string reasonMsg: ""                       // A reason message to display to the user.
     property var    onTimerEnded: () => {}              // A callback to call when the modal is about to restart the application.
-
     property double _timeLeft: durationBeforeRestart    // Stores the current time left. It is calculated by `_restartTimer` object.
 
     function restartNow() { _timeLeft = 0 }             // Do not wait and restarts the application immediately.

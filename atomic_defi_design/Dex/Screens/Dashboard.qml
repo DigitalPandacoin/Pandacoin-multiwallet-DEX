@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import QtWebEngine 1.10
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -35,27 +34,21 @@ Item
 
     property var currentPage: Dashboard.PageType.Portfolio
     property var availablePages: [portfolio, wallet, exchange, addressbook]
-
     property alias webEngineView: webEngineView
-
     readonly property int idx_exchange_trade: 0
     readonly property int idx_exchange_orders: 1
     readonly property int idx_exchange_history: 2
-
     property var current_ticker
-
     property var notifications_list: ([])
-
     readonly property var portfolio_mdl: API.app.portfolio_pg.portfolio_mdl
     property var portfolio_coins: portfolio_mdl.portfolio_proxy_mdl
-
     readonly property var   api_wallet_page: API.app.wallet_pg
     readonly property var   current_ticker_infos: api_wallet_page.ticker_infos
     readonly property bool  can_disable_ticker: !api_wallet_page.tx_fetching_busy
-
     readonly property alias loader: loader
     readonly property alias current_component: loader.item
 
+    Layout.fillWidth: true
 
     function openLogsFolder()
     {
@@ -79,8 +72,6 @@ Item
         }
     }
 
-    Layout.fillWidth: true
-
     onCurrentPageChanged: {
         sidebar.currentLineType = currentPage
         if (currentPage == Dashboard.PageType.DEX)
@@ -93,21 +84,6 @@ Item
 
     // Al settings depends this modal
     SettingsPage.SettingModal { id: setting_modal }
-
-    // Force restart modal: opened when the user has more coins enabled than specified in its configuration
-    RestartModal {
-        focus: true
-        reasonMsg: qsTr("The current number of enabled coins does not match your configuration specification. Your assets configuration will be reset.")
-        Component.onCompleted: {
-            if (API.app.portfolio_pg.portfolio_mdl.length > atomic_settings2.value("MaximumNbCoinsEnabled")) {
-                open()
-                onTimerEnded = () => {
-                    API.app.reset_coin_cfg()
-                }
-            }
-        }
-    }
-
 
     // Right side
     AnimatedRectangle

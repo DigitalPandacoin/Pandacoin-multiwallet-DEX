@@ -6,10 +6,8 @@ import Qt.labs.settings 1.0
 import QtQml 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls.Universal 2.15
-
 import Qaterial 1.0 as Qaterial
 import ModelHelper 0.1
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -36,7 +34,6 @@ Qaterial.Dialog
     dim: true
     modal: true
     title: "Settings"
-
 
     header: Item
     {}
@@ -343,11 +340,11 @@ Qaterial.Dialog
                                         cancelButtonText: qsTr("Cancel"),
                                         onAccepted: function()
                                         {
-                                            //restart_modal.open()
-                                            //restart_modal.item.onTimerEnded = () =>
-                                            //{
+                                            restart_modal.open()
+                                            restart_modal.item.onTimerEnded = () =>
+                                            {
                                                 API.app.reset_coin_cfg()
-                                            //}
+                                            }
                                         }
                                     })
                                     reset_dialog.close()
@@ -360,7 +357,6 @@ Qaterial.Dialog
                     {
                         anchors.margins: 10
                     }
-
 
                     Item
                     {
@@ -802,9 +798,7 @@ Qaterial.Dialog
                     weight: Font.Normal
                 })
                 iconSource: Qaterial.Icons.logout
-                //Component.onCompleted: {
-                //     console.log("SettingModal height = " + height) // 48
-                //}
+
                 onClicked:
                 {
                     setting_modal.close()
