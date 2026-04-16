@@ -155,6 +155,7 @@ Dex.MultipageModal
                         RowLayout {
                             Layout.fillWidth: true
                             Layout.leftMargin: 35
+                            Layout.bottomMargin: 6
                             spacing: 5
 
                             Dex.Text {
@@ -170,7 +171,11 @@ Dex.MultipageModal
                                 Layout.preferredHeight: 16
                                 color: "transparent"
                                 iconSource: Qaterial.Icons.contentCopy
-                                onClicked: Dex.General.copyToClipboard(address_key)
+                                onClicked:
+                                {
+                                    Dex.API.qt_utilities.copy_text_to_clipboard(address_value)
+                                    app.notifyCopy(qsTr("Address Book"), qsTr("address copied to clipboard"))
+                                }
                             }
                         }
                     }
