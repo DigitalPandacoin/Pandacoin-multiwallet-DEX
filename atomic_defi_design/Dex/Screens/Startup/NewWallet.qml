@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../../Components"
 import "../../Constants"
 import App 1.0
@@ -317,7 +315,7 @@ SetupPage
                         x: 5
                         height: 40
                         width: 60
-                        radius: 20
+                        radius: 18
                         anchors.verticalCenter: parent.verticalCenter
                         color: Dex.CurrentTheme.inputLeftIconBackgroundColor
 
@@ -338,7 +336,7 @@ SetupPage
                     Layout.fillWidth: true
                     color: Dex.CurrentTheme.warningColor
                     height: warning_texts.height + 20
-                    radius: 20
+                    radius: 18
 
                     Column
                     {
@@ -472,7 +470,7 @@ SetupPage
                     {
                         id: nextButton
                         text: qsTr("Next")
-                        radius: 20
+                        radius: 18
                         leftPadding: 5
                         rightPadding: 5
                         padding: 16
@@ -512,7 +510,7 @@ SetupPage
                     Layout.bottomMargin: Layout.topMargin
                     Layout.fillWidth: true
                     height: 140
-                    radius: 20
+                    radius: 18
 
                     Column
                     {
@@ -568,7 +566,7 @@ SetupPage
                                 {
                                     width: (_insideFlow2.width - 30) / 4
                                     text: modelData ?? ""
-                                    radius: 20
+                                    radius: 18
                                     btnEnabledColor: Dex.CurrentTheme.buttonColorEnabled
                                     btnHoveredColor: Dex.CurrentTheme.accentColor
                                     font: DexTypo.body2
@@ -612,7 +610,7 @@ SetupPage
                         x: 5
                         height: 40
                         width: 50
-                        radius: 20
+                        radius: 18
                         color: Dex.CurrentTheme.inputLeftIconBackgroundColor
                         anchors.verticalCenter: parent.verticalCenter
 
@@ -647,7 +645,7 @@ SetupPage
                     {
                         id: checkForNext
                         text: qsTr("Check")
-                        radius: 20
+                        radius: 18
                         leftPadding: 5
                         rightPadding: 5
                         padding: 16
@@ -724,13 +722,11 @@ SetupPage
                         Layout.preferredHeight: 10
                     }
 
-
-
                     GradientButton
                     {
                         id: finalRegisterButton
                         text: qsTr("Continue")
-                        radius: 20
+                        radius: 18
                         leftPadding: 5
                         rightPadding: 5
                         padding: 16

@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import App 1.0
 import Dex.Themes 1.0 as Dex
 import "../Constants"
@@ -40,7 +38,7 @@ DexAppTextField
         x: 5
         height: 40
         width: 60
-        radius: 20
+        radius: 18
         color: Dex.CurrentTheme.inputLeftIconBackgroundColor
         border.width: _inputPassword.focus ? 2 : 0
 

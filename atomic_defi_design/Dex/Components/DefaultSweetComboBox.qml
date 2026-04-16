@@ -2,9 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.impl 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../Constants" as Constants
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -30,7 +28,7 @@ ComboBox
         implicitHeight: 40
         implicitWidth: 120
         color: comboBoxBackgroundColor
-        radius: 20
+        radius: 18
     }
 
     contentItem: DexLabel
@@ -87,7 +85,6 @@ ComboBox
         {
             id: contentLayout
             spacing: 0
-            //anchors.rightMargin: 5
 
             DexTextField
             {

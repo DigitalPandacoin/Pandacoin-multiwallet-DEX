@@ -415,7 +415,7 @@ ColumnLayout
             id: swap_btn
             height: 32
             anchors.fill: parent
-            radius: 16
+            radius: 18
             text: API.app.trading_pg.maker_mode ? qsTr("CREATE MAKER SWAP") : qsTr("START TAKER SWAP")
             font.weight: Font.Medium
             enabled: !General.privacy_mode

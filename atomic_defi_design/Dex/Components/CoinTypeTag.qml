@@ -4,7 +4,7 @@ import App 1.0
 
 AnimatedRectangle {
     property string type
-    radius: 20
+    radius: 18
 
     height: type_tag.font.pixelSize * 1.5
     width: type_tag.width + 8

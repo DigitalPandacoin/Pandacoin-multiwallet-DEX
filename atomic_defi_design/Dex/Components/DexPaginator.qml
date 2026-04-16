@@ -103,7 +103,7 @@ RowLayout
         Layout.preferredWidth: (root.width / 100) * 5
         Layout.preferredHeight: width
         font.pixelSize: 12
-        radius: 20
+        radius: 18
         opacity: enabled ? 1 : .5
         Qaterial.ColorIcon
         {
@@ -113,6 +113,7 @@ RowLayout
             source: Qaterial.Icons.skipPreviousOutline
         }
         enabled: currentValue > 1
+
         onClicked: {
             --Constants.API.app.orders_mdl.current_page
             refreshBtn()
@@ -122,16 +123,18 @@ RowLayout
     Repeater
     {
         id: btnGroup
+
         model:
         [{
             number: 1,
             selected: true
         }]
+
         delegate: DefaultButton
         {
             text: modelData.number === -1 ? "..." : ("" + modelData.number)
             font.pixelSize: 12
-            radius: 30
+            radius: 28
             Layout.preferredWidth: (root.width / 100) * 4
             Layout.preferredHeight: width
             Layout.alignment: Qt.AlignVCenter
@@ -150,7 +153,7 @@ RowLayout
         Layout.preferredWidth: (root.width / 100) * 5
         Layout.preferredHeight: width
         font.pixelSize: 12
-        radius: 20
+        radius: 18
         opacity: enabled ? 1 : .5
         Qaterial.ColorIcon
         {
@@ -160,6 +163,7 @@ RowLayout
             source: Qaterial.Icons.skipNextOutline
         }
         enabled: pageSize > 1 && currentValue < pageSize
+
         onClicked: {
             ++Constants.API.app.orders_mdl.current_page
             refreshBtn()

@@ -273,7 +273,7 @@ MultipageModal
             {
                 width: 30
                 height: 30
-                radius: 7
+                radius: 8
                 anchors.right: parent.right
                 anchors.rightMargin: 13
                 anchors.verticalCenter: parent.verticalCenter
@@ -387,8 +387,8 @@ MultipageModal
                     anchors.rightMargin: 11
                     anchors.verticalCenter: parent.verticalCenter
                     width: 46
-                    height: 23
-                    radius: 7
+                    height: 22
+                    radius: 8
                     color: maxButMouseArea.containsMouse ? Dex.CurrentTheme.buttonColorHovered : Dex.CurrentTheme.buttonColorEnabled
 
                     DexLabel
@@ -418,12 +418,11 @@ MultipageModal
                 }
             }
 
-
             Rectangle
             {
                 enabled: equivalentAmount.enabled
                 visible: equivalentAmount.visible
-                radius: 16
+                radius: 18
                 Layout.preferredWidth: 150
                 Layout.preferredHeight: 36
 

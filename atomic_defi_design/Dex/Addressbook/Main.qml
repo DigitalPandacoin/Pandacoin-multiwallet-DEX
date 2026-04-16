@@ -85,7 +85,7 @@ Item
                 Dex.GradientButton
                 {
                     height: 40
-                    radius: 15
+                    radius: 18
                     text: qsTr("+ NEW CONTACT")
 
                     onClicked: newContactPopup.open()
@@ -215,7 +215,7 @@ Item
                                     anchors.verticalCenter: parent.verticalCenter
                                     width: tagLabel.width + 12
                                     height: 21
-                                    radius: 20
+                                    radius: 18
                                     color: Dex.CurrentTheme.addressBookTagColors[_currentColorIndex]
 
                                     Dex.Text

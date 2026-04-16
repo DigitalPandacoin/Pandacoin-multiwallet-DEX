@@ -14,6 +14,7 @@ Popup {
     bottomPadding: 0
     leftPadding: 0
     rightPadding: 0
+    focus: true
 
     Overlay.modal: Item {
         DefaultRectangle {
@@ -22,8 +23,6 @@ Popup {
             opacity: .8
         }
     }
-
-    property bool warning: false
 
     signal accepted(string text)
     signal applied()
@@ -34,9 +33,8 @@ Popup {
     signal reset()
     signal checkValidator()
 
-    property
-    var validator: undefined
-
+    property var validator: undefined
+    property bool warning: false
     property string title: ""
     property string text: ""
     property string placeholderText: ""
@@ -60,12 +58,11 @@ Popup {
         }
     }
 
-    focus: true
-
     contentItem: Qaterial.ClipRRect {
         height: _insideColumn.height
         radius: 4
         focus: true
+
         Column {
             id: _insideColumn
             width: parent.width
@@ -73,6 +70,7 @@ Popup {
             topPadding: 10
             spacing: 0
             bottomPadding: 3
+
             Item {
                 id: _header
                 height: _label.height + 10
@@ -98,6 +96,7 @@ Popup {
                 bottomPadding: 10
                 topPadding: 10
                 leftPadding: 5
+
                 contentItem: Column {
                     Qaterial.IconLabel {
                         id: _insideLabel
@@ -148,9 +147,10 @@ Popup {
                             visible: dialog.isPassword
                             height: 40
                             width: 60
-                            radius: 20
+                            radius: 18
                             color: DexTheme.accentColor
                             anchors.verticalCenter: parent.verticalCenter
+
                             Qaterial.ColorIcon {
                                 anchors.centerIn: parent
                                 iconSize: 19
@@ -182,6 +182,7 @@ Popup {
                     }
                 }
             }
+
             DialogButtonBox {
                 id: _dialogButtonBox
                 visible: standardButtons !== Dialog.NoButton
@@ -189,8 +190,10 @@ Popup {
                 width: parent.width - 2
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 60
+                topPadding: 25
                 alignment: Qt.AlignRight
                 buttonLayout: DialogButtonBox.AndroidLayout
+
                 onAccepted: {
                     if (dialog.getText) {
                         dialog.accepted(_insideField.field.text)
@@ -199,24 +202,30 @@ Popup {
                     }
                     dialog.close()
                 }
+
                 onApplied: {
                     dialog.applied()
                     dialog.close()
                 }
+
                 onDiscarded: {
                     dialog.discarded()
                     dialog.close()
                 }
+
                 onHelpRequested: dialog.helpRequested()
+
                 onRejected: {
                     dialog.rejected()
                     dialog.close()
                 }
+
                 onReset: dialog.reset()
-                topPadding: 25
+
                 background: Rectangle {
                     color: DexTheme.backgroundDarkColor6
                 }
+
                 delegate: Qaterial.Button {
                     id: _dialogManagerButton
                     flat: DialogButtonBox.buttonRole === DialogButtonBox.RejectRole
@@ -226,6 +235,7 @@ Popup {
                     enabled: DialogButtonBox.buttonRole === DialogButtonBox.RejectRole ? true : dialog.enableAcceptButton
                     backgroundColor: DialogButtonBox.buttonRole === DialogButtonBox.RejectRole ? 'transparent' : dialog.warning ? DexTheme.warningColor : DexTheme.accentColor
                     property alias cursorShape: mouseArea.cursorShape
+
                     Component.onCompleted: {
                         if (text === "Yes" && dialog.yesButtonText !== "") {
                             text = dialog.yesButtonText

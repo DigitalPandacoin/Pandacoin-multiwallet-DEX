@@ -88,12 +88,12 @@ Item {
         RowLayout
         {
             Layout.fillWidth: true
-            Layout.preferredHeight: 29
+            Layout.preferredHeight: 30
 
             DefaultButton
             {
-                Layout.preferredHeight: 29
-                radius: 7
+                Layout.preferredHeight: 30
+                radius: 8
                 label.font: DexTypo.body2
                 text: qsTr("Filter")
                 iconSource: Qaterial.Icons.filter
@@ -103,9 +103,9 @@ Item {
             DefaultButton
             {
                 visible: settings.visible && root.is_history
-                Layout.preferredHeight: 29
+                Layout.preferredHeight: 30
                 enabled: list_model_proxy.can_i_apply_filtering
-                radius: 7
+                radius: 8
                 label.font: DexTypo.body2
                 text: qsTr("Apply Filter")
                 onClicked: list_model_proxy.apply_all_filtering()
@@ -127,8 +127,8 @@ Item {
             DefaultButton
             {
                 visible: root.is_history
-                Layout.preferredHeight: 29
-                radius: 7
+                Layout.preferredHeight: 30
+                radius: 8
                 label.font: DexTypo.body2
                 text: qsTr("Export CSV")
                 enabled: list_model.length > 0 && !General.privacy_mode
@@ -142,9 +142,9 @@ Item {
             DefaultButton
             {
                 visible: !root.is_history && list_model.length > 0
-                Layout.preferredHeight: 29
+                Layout.preferredHeight: 30
                 Layout.rightMargin: 6
-                radius: 7
+                radius: 8
                 label.font: DexTypo.body2
                 enabled: list_model.length > 0 && !General.privacy_mode
                 text: qsTr("Cancel All")

@@ -1,4 +1,3 @@
-//! Qt Imports
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
@@ -7,16 +6,11 @@ import Qt.labs.settings 1.0
 import QtQml 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls.Universal 2.15
-
-//! 3rdParty Imports
 import Qaterial 1.0 as Qaterial
-
-//! Project Imports
 import "../Components"
 import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
-
 
 Qaterial.Dialog
 {
@@ -51,7 +45,7 @@ Qaterial.Dialog
     {
         color: DexTheme.backgroundColor
         border.width: 0
-        radius: 16
+        radius: 18
     }
 
     ColumnLayout
@@ -93,7 +87,6 @@ Qaterial.Dialog
                 id: faq_column
                 width: parent.width - 5
                 spacing: 12
-
 
                 // FAQ Lines
                 FAQLine

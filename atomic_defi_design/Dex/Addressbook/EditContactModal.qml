@@ -71,15 +71,20 @@ Dex.MultipageModal
 
                         ColumnLayout
                         {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            spacing: 4 // Optional: helps organize the vertical spacing
+
                             property var coinInfo: Dex.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(address_type)
 
-                            Row
+                            RowLayout
                             {
                                 spacing: 10
+                                Layout.fillWidth: true
 
                                 Dex.Image
                                 {
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    Layout.alignment: Qt.AlignVCenter
                                     width: 25
                                     height: 25
                                     source: Dex.General.coinIcon(address_type.toLowerCase())
@@ -87,22 +92,24 @@ Dex.MultipageModal
 
                                 Dex.Text
                                 {
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    Layout.alignment: Qt.AlignVCenter
                                     text: address_type
                                 }
 
                                 Dex.Text
                                 {
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    Layout.alignment: Qt.AlignVCenter
                                     text: parent.parent.coinInfo.type
                                     color: Dex.Style.getCoinTypeColor(parent.parent.coinInfo.type)
                                     font: Dex.DexTypo.overLine
                                 }
 
+                                Item { Layout.fillWidth: true }
+
                                 Dex.Button
                                 {
                                     visible: addressRowMouseArea.containsMouse
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    Layout.alignment: Qt.AlignVCenter
                                     width: 9
                                     height: 9
                                     color: "transparent"
@@ -114,7 +121,7 @@ Dex.MultipageModal
                             Dex.Text
                             {
                                 Layout.leftMargin: 36
-                                Layout.maximumWidth: 330
+                                Layout.preferredWidth: 330
                                 text: address_key
                                 font: Dex.DexTypo.caption
                                 elide: Text.ElideRight
@@ -123,7 +130,7 @@ Dex.MultipageModal
                             Dex.Text
                             {
                                 Layout.leftMargin: 36
-                                Layout.maximumWidth: 330
+                                Layout.preferredWidth: 330
                                 text: address_value
                                 font: Dex.DexTypo.caption
                                 elide: Text.ElideRight
@@ -172,9 +179,9 @@ Dex.MultipageModal
                             Dex.Button
                             {
                                 anchors.verticalCenter: parent.verticalCenter
-                                width: 37
-                                height: 37
-                                radius: 18.5
+                                width: 36
+                                height: 36
+                                radius: 18
                                 visible: addressRowMouseArea.containsMouse
                                 iconSource: Qaterial.Icons.sendOutline
                                 onClicked:
@@ -236,8 +243,8 @@ Dex.MultipageModal
                         property int _currentColorIndex: contactTable._getCurrentTagColorId()
                         anchors.verticalCenter: parent.verticalCenter
                         width: tagLabel.width + 12
-                        height: 21
-                        radius: 20
+                        height: 20
+                        radius: 18
                         color: Dex.CurrentTheme.addressBookTagColors[_currentColorIndex]
 
                         Dex.Text

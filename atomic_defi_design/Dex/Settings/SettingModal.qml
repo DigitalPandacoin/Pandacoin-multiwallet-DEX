@@ -30,7 +30,6 @@ Qaterial.Dialog
     topPadding: 30
     bottomPadding: 30
     anchors.centerIn: parent
-
     dim: true
     modal: true
     title: "Settings"
@@ -52,7 +51,7 @@ Qaterial.Dialog
     {
         color: DexTheme.backgroundColor
         border.width: 0
-        radius: 16
+        radius: 18
     }
 
     Item
@@ -128,7 +127,7 @@ Qaterial.Dialog
                     {
                         width: parent.width
                         height: 60
-                        radius: 22
+                        radius: 18
                         border.width: 0
 
                         gradient: Gradient
@@ -472,6 +471,7 @@ Qaterial.Dialog
 
                         }
                     }
+
                     Item
                     {
                         Column
@@ -789,7 +789,7 @@ Qaterial.Dialog
                 text: qsTr("Logout")
                 color: containsMouse ? DexTheme.buttonColorHovered : 'transparent'
                 height: 48
-                radius: 20
+                radius: 18
                 font: Qt.font(
                 {
                     pixelSize: 19,

@@ -26,7 +26,7 @@ MultipageModal
         InnerBackground
         {
             id: eula_rect
-            Layout.preferredHeight: 400
+            Layout.fillHeight: true
             Layout.fillWidth: true
 
             DefaultFlickable

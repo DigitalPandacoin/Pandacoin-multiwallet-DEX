@@ -50,7 +50,7 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr(" ")
+        titleText: qsTr("")
         flickMax: window.height - 80
 
         DexLabel
@@ -102,7 +102,7 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr(" ")
+        titleText: qsTr("")
         titleTopMargin: 15
         topMarginAfterTitle: 15
         flickMax: window.height - 80

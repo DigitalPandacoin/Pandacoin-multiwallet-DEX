@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 import "../Components" as Dex
@@ -12,16 +10,19 @@ import "../Constants" as Dex
 Dex.Rectangle
 {
     id: root
+    width: 500
+    height: column.height + 26
+    radius: 10
 
     property var     contactModel
-
-    // Edition mode variables
     property bool    editionMode: false
     property string  addressType
     property string  addressKey
     property string  addressValue
+    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "AVX-20", "BEP-20", "PLG-20", "GRC-20", "Smart Chain"]
 
-    property var     availableNetworkStandards: ["QRC-20", "ERC-20", "TRC-20", "BEP-20", "Smart Chain"]
+    signal cancel()
+    signal addressCreated()
 
     // Return the asset type that will be used in the backend to validate the address
     function getTypeForAddressChecker(addressType)
@@ -61,13 +62,6 @@ Dex.Rectangle
         return false
     }
 
-    signal cancel()
-    signal addressCreated()
-
-    width: 500
-    height: column.height + 26
-    radius: 10
-
     onVisibleChanged:
     {
         if (!visible)
@@ -84,7 +78,6 @@ Dex.Rectangle
         else if (editionMode)
         {
             // Feeds form with the data we are currently editing.
-
             if (!isNetworkStandard(addressType))
             {
                 useStandardsCheckBox.checked = false
@@ -127,6 +120,7 @@ Dex.Rectangle
             RowLayout {
                 id: rowLayout
                 spacing: 4
+
                 Dex.DefaultCheckBox
                 {
                     id: useStandardsCheckBox
@@ -134,6 +128,7 @@ Dex.Rectangle
                     Layout.fillHeight: true
                     Layout.leftMargin: 4
                 }
+
                 Dex.DexLabel {
                     Layout.minimumWidth: 120
                     Layout.maximumWidth: 120
@@ -273,14 +268,13 @@ Dex.Rectangle
     Dex.ModalLoader
     {
         id: enableAssetModal
-
         property string assetTicker
-
         onLoaded: item.assetTicker = assetTicker
 
         sourceComponent: Dex.MultipageModal
         {
             property string assetTicker
+
             Dex.MultipageModalContent
             {
                 Layout.fillWidth: true
@@ -294,11 +288,9 @@ Dex.Rectangle
 
                 footer:
                 [
-                    // Enable button
                     Dex.Button
                     {
                         text: qsTr("Enable")
-
                         onClicked:
                         {
                             Dex.API.app.enable_coin(assetTicker)
@@ -306,12 +298,10 @@ Dex.Rectangle
                         }
                     },
 
-                    // Cancel button
                     Dex.CancelButton
                     {
                         Layout.rightMargin: 5
                         text: qsTr("Cancel")
-
                         onClicked: close()
                     }
                 ]

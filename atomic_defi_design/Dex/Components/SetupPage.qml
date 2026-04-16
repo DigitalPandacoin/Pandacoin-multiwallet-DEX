@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -18,6 +17,7 @@ Item
     property double image_margin: 5
     property color backgroundColor: 'transparent' //Dex.CurrentTheme.floatingBackgroundColor
     property int verticalCenterOffset: 0
+
     ColumnLayout
     {
         id: window_layout
@@ -50,7 +50,7 @@ Item
 
             background: DefaultRectangle
             {
-                radius: 20
+                radius: 18
                 color: _control.backgroundColor
             }
 
@@ -74,5 +74,4 @@ Item
         anchors.rightMargin: 24
         width: 72
     }
-
 }

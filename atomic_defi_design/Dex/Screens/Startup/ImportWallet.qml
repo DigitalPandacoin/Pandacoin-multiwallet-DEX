@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../../Components"
 import "../../Constants"
 import App 1.0
@@ -165,7 +163,7 @@ SetupPage
                         x: 5
                         height: 40
                         width: 60
-                        radius: 20
+                        radius: 18
                         anchors.verticalCenter: parent.verticalCenter
                         Qaterial.ColorIcon
                         {
@@ -281,8 +279,7 @@ SetupPage
                         id: nextButton
                         enabled: input_wallet_name.field.text !== "" && _seedField.field.text !== "" && text_error == ""
                         onClicked: tryPassLevel1()
-                        radius: 20
-
+                        radius: 18
                         text: qsTr("Next")
                         leftPadding: 5
                         rightPadding: 5
@@ -293,7 +290,6 @@ SetupPage
                     }
                 }
             }
-
 
             ColumnLayout
             {
@@ -348,7 +344,7 @@ SetupPage
                         id: submit_button
                         enabled: _keyChecker.isValid()
                         text: qsTr("Continue")
-                        radius: 20
+                        radius: 18
                         leftPadding: 5
                         rightPadding: 5
                         padding: 16
