@@ -74,23 +74,24 @@ namespace atomic_dex
                     return false;
                 }
             }
+            break;
         }
         default:
             SPDLOG_WARN("No filter behavior on role {}", role);
             break;
         }
-        
-        // If a type filter exists, checks if the contact has at least one address of equivalent type.
-        //  - If the contact address' type is a coin type (e.g. ERC20), checks if the filter type corresponds to this coin type (e.g. SmartChain and KMD).
-        //  - If type filter is a coin type (e.g. ERC20), checks if the contact address' type belongs to this coin type.
+
         if (!m_type_filter.isEmpty())
         {
             const auto& glb_coins_cfg = m_system_manager.get_system<portfolio_page>().get_global_cfg();
-            const auto& addresses     = qobject_cast<addressbook_contact_model*>(
-                                            qvariant_cast<QObject*>(idx.data(addressbook_model::SubModelRole))
-                                        )->get_address_entries();
-            
-            if (std::find_if(addresses.begin(), addresses.end(), [this, glb_coins_cfg](const auto& address)
+            QObject* contact_obj = qvariant_cast<QObject*>(idx.data(addressbook_model::SubModelRole));
+            auto* contact = qobject_cast<addressbook_contact_model*>(contact_obj);
+
+            if (!contact) return false;
+
+            const auto& addresses = contact->get_address_entries();
+
+            auto it = std::find_if(addresses.begin(), addresses.end(), [this, &glb_coins_cfg](const auto& address)
                 {
                     if (glb_coins_cfg->is_coin_type(address.type))
                     {
@@ -103,12 +104,15 @@ namespace atomic_dex
                                glb_coins_cfg->get_coin_info(address.type.toStdString()).type == m_type_filter.toStdString();
                     }
                     return address.type == m_type_filter;
-                }) == addresses.end())
+                });
+
+            if (it == addresses.end())
             {
                 return false;
             }
         }
-        return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+
+        return true;
     }
 } // namespace atomic_dex
 

@@ -389,7 +389,6 @@ ColumnLayout
         }
     }
 
-
     TotalView
     {
         height: 70
@@ -404,7 +403,8 @@ ColumnLayout
         indicatorSize: 28
         indicatorDotSize: 4
     }
-        Item
+
+    Item
     {
         Layout.alignment: Qt.AlignHCenter
         Layout.preferredWidth: parent.width - 16
