@@ -103,8 +103,8 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("")
-        titleTopMargin: 10
-        topMarginAfterTitle: 10
+        titleTopMargin: 0
+        topMarginAfterTitle: 0
         flickMax: window.height - 20
 
         Timer
@@ -278,7 +278,7 @@ MultipageModal
             visible: false
             enabled: false
             Layout.preferredWidth: parent.width
-            Layout.preferredHeight: 460
+            Layout.preferredHeight: 420
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
             radius: 10

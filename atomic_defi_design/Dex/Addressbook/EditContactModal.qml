@@ -53,7 +53,7 @@ Dex.MultipageModal
                 {
                     id: addressRowMouseArea
                     width: addressListView.width
-                    height: 80
+                    height: 90
                     hoverEnabled: true
 
                     Dex.Rectangle
@@ -70,7 +70,7 @@ Dex.MultipageModal
                         anchors.fill: parent
                         anchors.leftMargin: 15
                         anchors.rightMargin: 15
-                        spacing: 0
+                        spacing: 2
 
                         property var coinInfo: Dex.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(address_type)
 
@@ -144,10 +144,11 @@ Dex.MultipageModal
                         }
 
                         Dex.Text {
-                            text: address_label
+                            text: address_key
                             Layout.leftMargin: 35
                             Layout.fillWidth: true
                             font: Dex.DexTypo.caption
+                            color: Dex.CurrentTheme.foregroundColor2
                             elide: Text.ElideRight
                         }
 
@@ -157,7 +158,7 @@ Dex.MultipageModal
                             spacing: 5
 
                             Dex.Text {
-                                text: address_key
+                                text: address_value
                                 Layout.fillWidth: true
                                 font: Dex.DexTypo.caption
                                 elide: Text.ElideRight
