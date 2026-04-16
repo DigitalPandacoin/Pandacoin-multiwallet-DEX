@@ -78,8 +78,9 @@ ColumnLayout
     {
         id: _footer
         Layout.topMargin: Style.rowSpacing
+        Layout.fillWidth: true
+        Layout.preferredHeight: implicitHeight
         spacing: Style.buttonSpacing
-        height: childrenRect.height
-        visible: childrenRect.height > 0
+        visible: children.length > 0
     }
 }

@@ -42,6 +42,7 @@ Dex.MultipageModal
 
             Dex.ListView
             {
+                id: addressListView
                 visible: !addressList.contactAddAddressMode
                 model: contactModel.proxyFilter
                 spacing: 10
@@ -51,8 +52,8 @@ Dex.MultipageModal
                 delegate: Dex.MouseArea
                 {
                     id: addressRowMouseArea
-                    height: 82
-                    width: addressList.width - 10
+                    width: addressListView.width
+                    height: 80
                     hoverEnabled: true
 
                     Dex.Rectangle
@@ -63,18 +64,18 @@ Dex.MultipageModal
                         color: Dex.CurrentTheme.accentColor
                     }
 
-                    ColumnLayout {
+                    ColumnLayout
+                    {
                         id: delegateLayout
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 10
-                        anchors.rightMargin: 10
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.fill: parent
+                        anchors.leftMargin: 15
+                        anchors.rightMargin: 15
                         spacing: 0
 
                         property var coinInfo: Dex.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(address_type)
 
-                        RowLayout {
+                        RowLayout
+                        {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 30
                             spacing: 10
@@ -83,7 +84,6 @@ Dex.MultipageModal
                                 Layout.preferredWidth: 25
                                 Layout.preferredHeight: 25
                                 Layout.alignment: Qt.AlignVCenter
-
                                 Dex.Image {
                                     anchors.fill: parent
                                     source: Dex.General.coinIcon(address_type.toLowerCase())
@@ -91,98 +91,85 @@ Dex.MultipageModal
                             }
 
                             Dex.Text {
-                                Layout.alignment: Qt.AlignVCenter
                                 text: address_type
+                                Layout.alignment: Qt.AlignVCenter
                             }
 
                             Dex.Text {
-                                Layout.alignment: Qt.AlignVCenter
                                 text: delegateLayout.coinInfo ? delegateLayout.coinInfo.type : ""
                                 color: Dex.Style.getCoinTypeColor(text)
                                 font: Dex.DexTypo.overLine
+                                Layout.alignment: Qt.AlignVCenter
                             }
 
                             Item { Layout.fillWidth: true }
 
-                            Dex.Button {
+                            Dex.ClickableText
+                            {
+                                Layout.alignment: Qt.AlignVCenter
                                 visible: addressRowMouseArea.containsMouse
+                                text: qsTr("Edit")
+                                font.underline: true
+                                onClicked:
+                                {
+                                    addAddressForm.editionMode = true
+                                    addAddressForm.addressType = address_type
+                                    addAddressForm.addressKey = address_key
+                                    addAddressForm.addressValue = address_value
+                                    addressList.contactAddAddressMode = true
+                                }
+                            }
+
+                            Dex.Button
+                            {
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.preferredWidth: 30
+                                Layout.preferredHeight: 30
+                                radius: 15
+                                visible: addressRowMouseArea.containsMouse
+                                iconSource: Qaterial.Icons.sendOutline
+                                onClicked: trySend(address_value, address_type)
+                            }
+
+                            Dex.Button
+                            {
                                 Layout.alignment: Qt.AlignVCenter
                                 Layout.preferredWidth: 16
                                 Layout.preferredHeight: 16
                                 color: "transparent"
+                                visible: addressRowMouseArea.containsMouse
                                 iconSource: Qaterial.Icons.close
                                 onClicked: contactModel.removeAddressEntry(address_type, address_key)
                             }
                         }
 
                         Dex.Text {
+                            text: address_label
                             Layout.leftMargin: 35
                             Layout.fillWidth: true
-                            text: address_key
                             font: Dex.DexTypo.caption
                             elide: Text.ElideRight
                         }
 
-                        Dex.Text {
-                            Layout.leftMargin: 35
+                        RowLayout {
                             Layout.fillWidth: true
-                            text: address_value
-                            font: Dex.DexTypo.caption
-                            elide: Text.ElideRight
+                            Layout.leftMargin: 35
+                            spacing: 5
 
-                            Dex.Button
-                            {
-                                width: 18
-                                height: 20
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.right
-                                anchors.leftMargin: 3
+                            Dex.Text {
+                                text: address_key
+                                Layout.fillWidth: true
+                                font: Dex.DexTypo.caption
+                                elide: Text.ElideRight
+                            }
+
+                            Dex.Button {
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.preferredWidth: 16
+                                Layout.preferredHeight: 16
                                 color: "transparent"
                                 iconSource: Qaterial.Icons.contentCopy
-
-                                onClicked:
-                                {
-                                    Dex.API.qt_utilities.copy_text_to_clipboard(address_value)
-                                    app.notifyCopy(qsTr("Address Book"), qsTr("address copied to clipboard"))
-                                }
-                            }
-                        }
-                    }
-
-                    Row
-                    {
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 20
-
-                        Dex.ClickableText
-                        {
-                            anchors.verticalCenter: parent.verticalCenter
-                            visible: addressRowMouseArea.containsMouse
-                            text: qsTr("Edit")
-                            font.underline: true
-
-                            onClicked:
-                            {
-                                addAddressForm.editionMode = true
-                                addAddressForm.addressType = address_type
-                                addAddressForm.addressKey = address_key
-                                addAddressForm.addressValue = address_value
-                                addressList.contactAddAddressMode = true
-                            }
-                        }
-
-                        Dex.Button
-                        {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: 36
-                            height: 36
-                            radius: 18
-                            visible: addressRowMouseArea.containsMouse
-                            iconSource: Qaterial.Icons.sendOutline
-                            onClicked:
-                            {
-                                trySend(address_value, address_type)
+                                onClicked: Dex.General.copyToClipboard(address_key)
                             }
                         }
                     }
