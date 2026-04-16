@@ -63,18 +63,20 @@ Dex.MultipageModal
                         color: Dex.CurrentTheme.accentColor
                     }
 
-                    ColumnLayout
-                    {
-                        width: parent.width
-                        anchors.verticalCenter: parent.verticalCenter
+                    ColumnLayout {
+                        id: delegateLayout
                         anchors.left: parent.left
+                        anchors.right: parent.right
                         anchors.leftMargin: 10
+                        anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: 0
 
                         property var coinInfo: Dex.API.app.portfolio_pg.global_cfg_mdl.get_coin_info(address_type)
 
-                        RowLayout
-                        {
+                        RowLayout {
                             Layout.fillWidth: true
+                            Layout.preferredHeight: 30
                             spacing: 10
 
                             Item {
@@ -82,45 +84,38 @@ Dex.MultipageModal
                                 Layout.preferredHeight: 25
                                 Layout.alignment: Qt.AlignVCenter
 
-                                Dex.Image
-                                {
-                                    Layout.alignment: Qt.AlignVCenter
-                                    width: 25
-                                    height: 25
+                                Dex.Image {
+                                    anchors.fill: parent
                                     source: Dex.General.coinIcon(address_type.toLowerCase())
                                 }
                             }
 
-                            Dex.Text
-                            {
+                            Dex.Text {
                                 Layout.alignment: Qt.AlignVCenter
                                 text: address_type
                             }
 
-                            Dex.Text
-                            {
+                            Dex.Text {
                                 Layout.alignment: Qt.AlignVCenter
-                                text: coinInfo ? coinInfo.type : ""
+                                text: delegateLayout.coinInfo ? delegateLayout.coinInfo.type : ""
                                 color: Dex.Style.getCoinTypeColor(text)
                                 font: Dex.DexTypo.overLine
                             }
 
                             Item { Layout.fillWidth: true }
 
-                            Dex.Button
-                            {
+                            Dex.Button {
                                 visible: addressRowMouseArea.containsMouse
                                 Layout.alignment: Qt.AlignVCenter
-                                Layout.preferredWidth: 12
-                                Layout.preferredHeight: 12
+                                Layout.preferredWidth: 16
+                                Layout.preferredHeight: 16
                                 color: "transparent"
                                 iconSource: Qaterial.Icons.close
                                 onClicked: contactModel.removeAddressEntry(address_type, address_key)
                             }
                         }
 
-                        Dex.Text
-                        {
+                        Dex.Text {
                             Layout.leftMargin: 35
                             Layout.fillWidth: true
                             text: address_key
@@ -128,8 +123,7 @@ Dex.MultipageModal
                             elide: Text.ElideRight
                         }
 
-                        Dex.Text
-                        {
+                        Dex.Text {
                             Layout.leftMargin: 35
                             Layout.fillWidth: true
                             text: address_value

@@ -21,12 +21,13 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("Disclaimer & Terms of Service")
-        flickMax: window.height - 40
+        flickMax: window.height - 20
 
         InnerBackground
         {
             id: eula_rect
             Layout.preferredHeight: 600
+            Layout.fillHeight: true
             Layout.fillWidth: true
 
             DefaultFlickable

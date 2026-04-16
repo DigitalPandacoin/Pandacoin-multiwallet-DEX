@@ -51,7 +51,7 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("")
-        flickMax: window.height - 80
+        flickMax: window.height - 40
 
         DexLabel
         {
@@ -105,7 +105,7 @@ MultipageModal
         titleText: qsTr("")
         titleTopMargin: 10
         topMarginAfterTitle: 10
-        flickMax: window.height - 80
+        flickMax: window.height - 20
 
         Timer
         {
@@ -279,6 +279,7 @@ MultipageModal
             enabled: false
             Layout.preferredWidth: parent.width
             Layout.preferredHeight: 500
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
             radius: 10
             border.color: Dex.CurrentTheme.lineSeparatorColor
