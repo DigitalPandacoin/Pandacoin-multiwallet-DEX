@@ -103,8 +103,8 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("")
-        titleTopMargin: 15
-        topMarginAfterTitle: 15
+        titleTopMargin: 10
+        topMarginAfterTitle: 10
         flickMax: window.height - 80
 
         Timer
@@ -136,15 +136,15 @@ MultipageModal
             enabled: false
             spacing: 5
             width: parent.width
-            height: 150
+            height: 130
 
             // Logo
             DefaultImage
             {
                 source: Dex.CurrentTheme.bigLogoPath
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 144
-                Layout.preferredHeight: 144
+                Layout.preferredWidth: 120
+                Layout.preferredHeight: 120
             }
 
             ColumnLayout
@@ -278,7 +278,7 @@ MultipageModal
             visible: false
             enabled: false
             Layout.preferredWidth: parent.width
-            Layout.preferredHeight: 300
+            Layout.preferredHeight: 500
             Layout.alignment: Qt.AlignHCenter
             radius: 10
             border.color: Dex.CurrentTheme.lineSeparatorColor
@@ -326,7 +326,7 @@ MultipageModal
                         ColumnLayout
                         {
                             spacing: 5
-                            // Public Address
+
                             RowLayout
                             {
                                 Qaterial.RawMaterialButton

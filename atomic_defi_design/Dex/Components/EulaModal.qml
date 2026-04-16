@@ -26,7 +26,7 @@ MultipageModal
         InnerBackground
         {
             id: eula_rect
-            Layout.fillHeight: true
+            Layout.preferredHeight: 600
             Layout.fillWidth: true
 
             DefaultFlickable
@@ -47,7 +47,6 @@ MultipageModal
             }
         }
 
-        // Checkboxes
         DefaultCheckBox
         {
             id: accept_eula
@@ -66,7 +65,6 @@ MultipageModal
             text: qsTr("Accept Terms and Conditions")
         }
 
-        // Buttons
         footer: [
             RowLayout
             {

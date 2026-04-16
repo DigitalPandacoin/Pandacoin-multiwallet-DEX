@@ -413,6 +413,7 @@ namespace atomic_dex
             update_value(OrdersRoles::OrderTypeRole, contents.order_type, idx, *this);
             update_value(OrdersRoles::BaseCoinAmountCurrentCurrencyRole, contents.base_amount_fiat, idx, *this);
             update_value(OrdersRoles::RelCoinAmountCurrentCurrencyRole, contents.rel_amount_fiat, idx, *this);
+
             if (contents.order_type == "maker")
             {
                 update_value(OrdersRoles::BaseCoinAmountRole, contents.base_amount, idx, *this);
@@ -434,6 +435,7 @@ namespace atomic_dex
             update_value(OrdersRoles::UnixTimestampRole, contents.unix_timestamp, idx, *this);
             update_value(OrdersRoles::PaymentLockRole, contents.paymentLock, idx, *this);
             auto&& [prev_value_d, new_value_d, _] = update_value(OrdersRoles::HumanDateRole, contents.human_date, idx, *this);
+
             if (is_change)
             {
                 const QString& base_coin = data(idx, OrdersRoles::BaseCoinRole).toString();
@@ -443,6 +445,7 @@ namespace atomic_dex
                 auto& kdf = m_system_manager.get_system<kdf_service>();
                 kdf.process_orderbook(true);
             }
+
             update_value(OrdersRoles::MakerPaymentIdRole, contents.maker_payment_id, idx, *this);
             update_value(OrdersRoles::TakerPaymentIdRole, contents.taker_payment_id, idx, *this);
             update_value(OrdersRoles::OrderErrorStateRole, contents.order_error_state, idx, *this);
@@ -450,8 +453,6 @@ namespace atomic_dex
             update_value(OrdersRoles::EventsRole, contents.events, idx, *this);
             update_value(OrdersRoles::SuccessEventsRole, contents.success_events, idx, *this);
             update_value(OrdersRoles::ErrorEventsRole, contents.error_events, idx, *this);
-
-            //! Updates values in current currency of amounts traded.
             update_value(OrdersRoles::BaseCoinAmountCurrentCurrencyRole, contents.base_amount_fiat, idx, *this);
             update_value(OrdersRoles::RelCoinAmountCurrentCurrencyRole, contents.rel_amount_fiat, idx, *this);
 
@@ -679,9 +680,9 @@ namespace atomic_dex
 
         if (m_model_data.current_page == 1 && m_model_proxy->am_i_in_history())
         {
-            //! Filtering changed
             this->set_fetching_busy(true);
             this->reset();
+
             if (this->m_system_manager.has_system<kdf_service>())
             {
                 auto& kdf = this->m_system_manager.get_system<kdf_service>();
