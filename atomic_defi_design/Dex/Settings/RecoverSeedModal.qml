@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -12,10 +10,10 @@ import Dex.Themes 1.0 as Dex
 MultipageModal
 {
     id: root
+    width: 900
 
     property var portfolio_model: API.app.portfolio_pg.portfolio_mdl
     property var settings_page: API.app.settings_pg
-
     property bool _isPasswordWrong: false
 
     function tryViewKeysAndSeed()
@@ -40,8 +38,6 @@ MultipageModal
         }
     }
 
-    width: 900
-
     onClosed:
     {
         _isPasswordWrong = false
@@ -54,7 +50,8 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr("View seed and private keys")
+        titleText: qsTr(" ")
+        flickMax: window.height - 80
 
         DexLabel
         {
@@ -105,9 +102,10 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr("View seed and private keys")
+        titleText: qsTr(" ")
         titleTopMargin: 15
         topMarginAfterTitle: 15
+        flickMax: window.height - 80
 
         Timer
         {

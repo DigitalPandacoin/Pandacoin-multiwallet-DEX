@@ -1,8 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 import "../Constants" as Dex
@@ -19,6 +17,7 @@ Dex.MultipageModal
         titleTopMargin: 0
         titleAlignment: Qt.AlignHCenter
         contentSpacing: 24
+        flickMax: window.height - 40
 
         Dex.TextFieldWithTitle
         {
@@ -33,7 +32,6 @@ Dex.MultipageModal
         {
             id: addressList
             property bool contactAddAddressMode: false
-
             Layout.fillWidth: true
             spacing: 18
 
@@ -61,7 +59,7 @@ Dex.MultipageModal
                     {
                         visible: parent.containsMouse
                         anchors.fill: parent
-                        radius: 17
+                        radius: 18
                         color: Dex.CurrentTheme.accentColor
                     }
 
@@ -78,6 +76,7 @@ Dex.MultipageModal
                             Row
                             {
                                 spacing: 10
+
                                 Dex.Image
                                 {
                                     anchors.verticalCenter: parent.verticalCenter
@@ -287,8 +286,8 @@ Dex.MultipageModal
         [
             Dex.CancelButton
             {
-                Layout.preferredWidth: 199
-                Layout.preferredHeight: 48
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 40
                 radius: 18
                 text: qsTr("Cancel Updates")
                 onClicked: root.close()
@@ -298,8 +297,8 @@ Dex.MultipageModal
 
             Dex.GradientButton
             {
-                Layout.preferredWidth: 199
-                Layout.preferredHeight: 48
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 40
                 radius: 18
                 text: qsTr("Save Updates")
                 onClicked:

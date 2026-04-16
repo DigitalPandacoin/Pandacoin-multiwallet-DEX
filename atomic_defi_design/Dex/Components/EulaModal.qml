@@ -21,12 +21,12 @@ MultipageModal
     MultipageModalContent
     {
         titleText: qsTr("Disclaimer & Terms of Service")
+        flickMax: window.height - 40
 
         InnerBackground
         {
             id: eula_rect
-
-            height: 400
+            Layout.preferredHeight: 400
             Layout.fillWidth: true
 
             DefaultFlickable
@@ -34,7 +34,6 @@ MultipageModal
                 anchors.fill: parent
                 anchors.margins: 20
                 anchors.rightMargin: 0
-
                 contentWidth: eula_text.width - 10
                 contentHeight: eula_text.height
 
@@ -43,7 +42,6 @@ MultipageModal
                     id: eula_text
                     font: DexTypo.body1
                     text_value: getEula()
-
                     width: eula_rect.width - 40
                 }
             }
@@ -73,11 +71,10 @@ MultipageModal
             RowLayout
             {
                 width: root.width - 40
-                height: 50
+                height: 40
                 spacing: 10
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignRight
-
 
                 CancelButton
                 {
@@ -92,7 +89,6 @@ MultipageModal
                 {
                     height: 1
                     Layout.fillWidth: true
-
                 }
 
                 GradientButton
@@ -110,8 +106,6 @@ MultipageModal
                         root.close()
                     }
                 }
-
-
             }
         ]
     }
