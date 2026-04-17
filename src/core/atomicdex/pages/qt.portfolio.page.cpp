@@ -121,7 +121,7 @@ namespace atomic_dex
     bool
     atomic_dex::portfolio_page::is_coin_enabled(const QString& coin_name) const
     {
-        SPDLOG_DEBUG("UNUSED ??");
+        // SPDLOG_DEBUG("UNUSED ??");
         return get_all_enabled_coins().contains(coin_name);
     }
 
