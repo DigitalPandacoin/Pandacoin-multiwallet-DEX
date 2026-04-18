@@ -1,6 +1,6 @@
 <RCC>
     <qresource>
         <file>bignumberjs/qmldir</file>
-        <file>bignumberjs/bignumber.js/bignumber.js</file>
+        <file>bignumberjs/bignumber.js/dist/bignumber.js</file>
     </qresource>
 </RCC>

@@ -241,7 +241,6 @@ QtObject {
         }
     }
 
-
     function getProtocolText(ticker) {
         if(ticker === "" || ticker === "All" || ticker===undefined) {
             return ""
@@ -304,11 +303,8 @@ QtObject {
     readonly property string download_icon: '📥'
     readonly property string right_arrow_icon: "⮕"
     readonly property string privacy_text: "*****"
-
     readonly property string version_string: "Desktop v" + API.app.settings_pg.get_version()
-
     property bool privacy_mode: false
-
     readonly property var reg_pass_input: /[A-Za-z0-9@#$€£%{}[\]()\/\\'"`~,;:.<>+\-_=!^&*|?]+/
     readonly property var reg_pass_valid_low_security: /^(?=.{1,}).*$/
     readonly property var reg_pass_valid: /^(?=.{16,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%€£{}[\]()\/\\'"`~,;:.<>+\-_=!^&*|?]).*$/
@@ -318,14 +314,10 @@ QtObject {
     readonly property var reg_pass_special: /(?=.*[@#$%{}[\]()\/\\'"`~,€$£;:.<>+\-_=!^&*|?])/
     readonly property var reg_pass_count_low_security: /(?=.{1,})/
     readonly property var reg_pass_count: /(?=.{16,})/
-
     readonly property double time_toast_important_error: 10000
     readonly property double time_toast_basic_info: 3000
-
     readonly property var chart_times: (["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d", "3d"/*, "1w"*/])
     readonly property var time_seconds: ({ "1m": 60, "3m": 180, "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "2h": 7200, "4h": 14400, "6h": 21600, "12h": 43200, "1d": 86400, "3d": 259200, "1w": 604800 })
-
-
     property bool initialized_orderbook_pair: false
     readonly property string default_base: atomic_app_primary_coin
     readonly property string default_rel: atomic_app_secondary_coin
@@ -615,7 +607,6 @@ QtObject {
         return (show_prefix ? prefix : '') + parseFloat(value).toFixed(3) + ' %'
     }
 
-
     function formatCexRates(value) {
         if (value === "0") return "N/A"
         if (parseFloat(value) > 0) {
@@ -623,7 +614,6 @@ QtObject {
         }
         return formatNumber(value, 2)+"%"
     }
-     
 
     readonly property int defaultPrecision: 8
     readonly property int sliderDigitLimit: 9
@@ -755,7 +745,6 @@ QtObject {
         return !isFilled(v) || parseFloat(v) === 0
     }
 
-
     function exists(v) {
         return v !== undefined && v !== null
     }
@@ -774,7 +763,6 @@ QtObject {
         }
         return false
     }
-
 
     function canDisable(ticker) {
         if (prevent_coin_disabling.running) return false
