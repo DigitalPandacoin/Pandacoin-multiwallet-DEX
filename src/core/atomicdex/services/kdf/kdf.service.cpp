@@ -727,7 +727,6 @@ namespace atomic_dex
         enable_utxo_qrc20_coins(t_coins{std::move(coin_config)});
     }
 
-
     void kdf_service::enable_utxo_qrc20_coins(const t_coins& coins)
     {
         auto batch_array = nlohmann::json::array();
@@ -828,7 +827,6 @@ namespace atomic_dex
             .then(callback)
             .then([this, batch_array](pplx::task<void> previous_task) { this->handle_exception_pplx_task(previous_task, "enable_qrc_family_coins", batch_array); });
     }
-
 
     void kdf_service::enable_erc20_coin(coin_config_t coin_config, std::string parent_ticker)
     {
@@ -951,7 +949,6 @@ namespace atomic_dex
         SPDLOG_DEBUG("kdf_service::enable_erc20_coins done for {}", parent_ticker);
     }
 
-
     std::map<std::string, std::vector<coin_config_t>>
     kdf_service::groupByParentCoin(const std::vector<coin_config_t>& coins) {
         std::map<std::string, std::vector<coin_config_t>> groupedCoins;
@@ -960,7 +957,6 @@ namespace atomic_dex
         }
         return groupedCoins;
     }
-
 
     void kdf_service::enable_tendermint_coin(coin_config_t coin_config)
     {
@@ -1700,7 +1696,6 @@ namespace atomic_dex
         return orderbook;
     }
 
-
     nlohmann::json generate_req(std::string request_name, auto request, bool is_v2=false)
     {
         nlohmann::json current_request = kdf::template_request(std::move(request_name), is_v2);
@@ -1708,12 +1703,10 @@ namespace atomic_dex
         return current_request;
     }
 
-
     void kdf_service::process_orderbook(bool is_a_reset)
     {
         prepare_orderbook(is_a_reset);        
     }
-
 
     void kdf_service::prepare_orderbook(bool is_a_reset)
     {
@@ -2166,6 +2159,7 @@ namespace atomic_dex
             }
             return out;
         };
+
         auto retrieve_api_functor = [this, construct_url_functor](const std::string& ticker, const std::string& address) -> std::string
         {
             const auto  coin_info = this->get_coin_info(ticker);
@@ -2508,7 +2502,6 @@ namespace atomic_dex
         this->dispatcher_.trigger<tx_fetch_finished>(false, std::move(ticker));
     }
 
-
     void
     kdf_service::process_balance_answer(const nlohmann::json& answer)
     {
@@ -2751,5 +2744,4 @@ namespace atomic_dex
             using namespace std::chrono; std::this_thread::sleep_for(std::chrono::milliseconds(300));
         }
     }
-
 } // namespace atomic_dex
