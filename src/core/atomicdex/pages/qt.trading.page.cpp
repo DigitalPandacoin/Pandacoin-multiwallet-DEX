@@ -1344,7 +1344,10 @@ namespace atomic_dex
                     fees["fee_to_send_taker_fee"]        = QString::fromStdString(utils::adjust_precision(success_answer.fee_to_send_taker_fee.value().amount));
                     fees["fee_to_send_taker_fee_ticker"] = QString::fromStdString(success_answer.fee_to_send_taker_fee.value().coin);
 
-                    for (auto&& cur: success_answer.total_fees)
+                    auto total_fees_copy = success_answer.total_fees;
+                    fees["total_fees"] = atomic_dex::nlohmann_json_array_to_qt_json_array(total_fees_copy);
+
+                    for (auto&& cur: total_fees_copy)
                     {
                         if (!kdf.do_i_have_enough_funds(cur.at("coin").get<std::string>(), safe_float(cur.at("required_balance").get<std::string>())))
                         {
@@ -1352,13 +1355,14 @@ namespace atomic_dex
                             break;
                         }
                     }
-                    fees["total_fees"] = atomic_dex::nlohmann_json_array_to_qt_json_array(success_answer.total_fees);
 
                     this->set_fees(fees);
                 }
             }
+
             this->set_preimage_busy(false);
         };
+
         kdf.get_kdf_client().async_rpc_batch_standalone(batch).then(answer_functor).then(&handle_exception_pplx_task);
     }
 
