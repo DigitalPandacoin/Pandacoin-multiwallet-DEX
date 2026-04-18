@@ -58,9 +58,10 @@ namespace atomic_dex
         {
             if (m_ticker_registry.find(ticker) != m_ticker_registry.end())
             {
-                SPDLOG_WARN("ticker {} not in m_ticker_registry", ticker);
+                SPDLOG_WARN("ticker {} already in m_ticker_registry, skipping duplicate", ticker);
                 continue;
             }
+
             const auto& kdf_system    = this->m_system_manager.get_system<kdf_service>();
             const auto& price_service = this->m_system_manager.get_system<global_price_service>();
             const auto& provider      = this->m_system_manager.get_system<komodo_prices_provider>();
@@ -88,6 +89,7 @@ namespace atomic_dex
             datas.push_back(std::move(data));
             m_ticker_registry.emplace(ticker);
         }
+
         if (not datas.isEmpty())
         {
             beginInsertRows(QModelIndex(), this->m_model_data.count(), this->m_model_data.count() + tickers.size() - 1);
