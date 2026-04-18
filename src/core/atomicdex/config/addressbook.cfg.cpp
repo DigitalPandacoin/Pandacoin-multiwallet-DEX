@@ -50,7 +50,7 @@ namespace atomic_dex
             }
             catch (std::exception& ex)
             {
-                SPDLOG_ERROR(ex.what());
+                SPDLOG_ERROR("exception in load_addressbook_cfg: {}", ex.what());
                 out = nlohmann::json::array();
             }
             return out;
@@ -74,7 +74,7 @@ namespace atomic_dex
             }
             catch (std::exception& ex)
             {
-                SPDLOG_ERROR(ex.what());
+                SPDLOG_ERROR("exception in update_addressbook_cfg: {}", ex.what());
             }
         }
     }

@@ -488,6 +488,7 @@ MultipageModal
                 }
             }
         }
+
         // Crypto/fiat values
         RowLayout
         {

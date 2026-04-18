@@ -158,7 +158,7 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("Exception caught: {}", error.what());
+            SPDLOG_ERROR("exception in auto_update_maker_order_service::process_update_orders: {}", error.what());
         }
     }
 } // namespace atomic_dex

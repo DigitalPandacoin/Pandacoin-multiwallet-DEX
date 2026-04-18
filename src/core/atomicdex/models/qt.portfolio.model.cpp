@@ -58,7 +58,8 @@ namespace atomic_dex
         {
             if (m_ticker_registry.find(ticker) != m_ticker_registry.end())
             {
-                SPDLOG_WARN("ticker {} already in m_ticker_registry, skipping duplicate", ticker);
+                // see "already in vector" warning in src/app/app.cpp
+                // SPDLOG_WARN("ticker {} already in m_ticker_registry, skipping duplicate", ticker);
                 continue;
             }
 

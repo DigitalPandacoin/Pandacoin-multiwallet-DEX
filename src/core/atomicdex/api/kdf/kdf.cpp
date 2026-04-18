@@ -725,7 +725,7 @@ namespace atomic_dex::kdf
         {
             answer.rpc_result_code = -1;
             answer.raw_result      = error.what();
-            SPDLOG_ERROR("rpc_process_answer_batch exception caught for rpc_command {} and answer {}: {}", rpc_command, json_answer.dump(4), error.what());
+            SPDLOG_ERROR("exception in rpc_process_answer_batch for rpc_command {} and answer {}: {}", rpc_command, json_answer.dump(4), error.what());
         }
         return answer;
     }

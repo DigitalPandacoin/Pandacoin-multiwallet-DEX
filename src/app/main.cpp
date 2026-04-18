@@ -39,7 +39,7 @@ main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
     }
     catch (const std::exception& error)
     {
-        SPDLOG_ERROR("Exception caught: {}", error.what());
+        SPDLOG_ERROR("exception caught: {}", error.what());
     }
 
 #if defined(WINDOWS_RELEASE_MAIN)

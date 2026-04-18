@@ -214,7 +214,7 @@ namespace atomic_dex
                     }
                     catch (const std::exception& e)
                     {
-                        SPDLOG_ERROR("exception/pplx task error: {}", e.what());
+                        SPDLOG_ERROR("exception in trading_page::place_setprice_order: {}", e.what());
                         auto error_json = QJsonObject({{"error_code", web::http::status_codes::InternalError}, {"error_message", e.what()}});
                         this->set_buy_sell_last_rpc_data(error_json);
                         this->set_buy_sell_rpc_busy(false);
@@ -358,7 +358,7 @@ namespace atomic_dex
                     }
                     catch (const std::exception& e)
                     {
-                        SPDLOG_ERROR("exception/pplx task error: {}", e.what());
+                        SPDLOG_ERROR("exception in trading_page::place_buy_order: {}", e.what());
                         auto error_json = QJsonObject({{"error_code", web::http::status_codes::InternalError}, {"error_message", e.what()}});
                         this->set_buy_sell_last_rpc_data(error_json);
                         this->set_buy_sell_rpc_busy(false);
@@ -517,7 +517,7 @@ namespace atomic_dex
                     }
                     catch (const std::exception& e)
                     {
-                        SPDLOG_ERROR("exception/pplx task error: {}", e.what());
+                        SPDLOG_ERROR("exception in trading_page::place_sell_order: {}", e.what());
                         auto error_json = QJsonObject({{"error_code", 500}, {"error_message", e.what()}});
                         this->set_buy_sell_last_rpc_data(error_json);
                         this->set_buy_sell_rpc_busy(false);

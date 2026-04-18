@@ -218,7 +218,8 @@ init_timezone_db()
     }
     catch (const std::exception& error)
     {
-        SPDLOG_ERROR("Couldn't initialize timezone DB, you will get UTC time instead");
+        //SPDLOG_ERROR("Couldn't initialize timezone DB, you will get UTC time instead");
+        SPDLOG_ERROR("exception in init_timezone_db: {}", error.what());
     }
 #endif
 }

@@ -260,7 +260,7 @@ namespace atomic_dex
                 }
                 catch (const std::exception& error)
                 {
-                    SPDLOG_ERROR("Exception caught: {}", error.what());
+                    SPDLOG_ERROR("exception in atomic_dex::application::reset_coin_cfg: {}", error.what());
                 }
             }
 

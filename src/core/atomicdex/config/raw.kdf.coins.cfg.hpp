@@ -244,7 +244,7 @@ namespace atomic_dex
         }
         catch (const std::exception& error)
         {
-            SPDLOG_ERROR("parse error: {}", error.what());
+            SPDLOG_ERROR("exception in parse_raw_kdf_coins_file: {}", error.what());
             LOG_PATH("cannot parse kdf raw cfg file: {}", file_path);
         }
         return out;
