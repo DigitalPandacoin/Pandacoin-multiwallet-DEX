@@ -295,7 +295,6 @@ namespace atomic_dex
             }
         }
 
-
         if (current_currency.toStdString() != m_config.current_currency && can_proceed)
         {
             SPDLOG_INFO("change currency {} to {}", m_config.current_currency, current_currency.toStdString());
