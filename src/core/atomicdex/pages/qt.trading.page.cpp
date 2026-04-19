@@ -1618,9 +1618,6 @@ namespace atomic_dex
     void
     trading_page::set_min_trade_vol(QString min_trade_vol)
     {
-        //! KMD<->DOGE Buy -> base_min_vol, sell base_min_vol ->
-        //! base_min_vol -> 0.0001 KMD
-        //! rel_min_vol -> 10 DOGE
         t_float_50   min_trade_vol_f         = safe_float(min_trade_vol.toStdString());
         const auto&  base_min_taker_vol      = get_orderbook_wrapper()->get_base_min_taker_vol().toStdString();
         t_float_50   base_min_taker_vol_f    = safe_float(base_min_taker_vol);

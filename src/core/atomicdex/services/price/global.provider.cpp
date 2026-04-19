@@ -113,7 +113,7 @@ namespace atomic_dex
                     if (m_coin_rate_providers.contains(fiat))
                     {
                         std::shared_lock lock(m_coin_rate_mutex);
-                        rate = t_float_50(m_coin_rate_providers.at(fiat)); ///< Retrieve BTC or KMD rate let's say for USD
+                        rate = t_float_50(m_coin_rate_providers.at(fiat));
                     }
                 }
                 t_float_50 tmp_current_price = t_float_50(current_price) * rate;
