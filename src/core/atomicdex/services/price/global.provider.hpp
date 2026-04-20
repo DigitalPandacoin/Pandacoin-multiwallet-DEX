@@ -63,7 +63,7 @@ namespace atomic_dex
         bool is_currency_available(const std::string& currency) const;
 
         //! Events
-        void on_force_update_providers([[maybe_unused]] const force_update_providers& evt);
+        void on_force_update_providers(const force_update_providers&);
     };
 } // namespace atomic_dex
 

@@ -109,9 +109,9 @@ namespace atomic_dex
         using namespace std::chrono_literals;
         const auto now = std::chrono::high_resolution_clock::now();
         const auto s   = std::chrono::duration_cast<std::chrono::seconds>(now - m_update_clock);
-        if (s >= 5min)
+        if (s >= 60min)
         {
-            SPDLOG_INFO("global_price_service::update - 5min elapsed, updating rates");
+            SPDLOG_INFO("global_price_service::update - 60min elapsed, updating rates");
             this->on_force_update_providers({});
             m_update_clock = std::chrono::high_resolution_clock::now();
         }
@@ -356,9 +356,9 @@ namespace atomic_dex
     }
 
     void
-    global_price_service::on_force_update_providers([[maybe_unused]] const force_update_providers& evt)
+    global_price_service::on_force_update_providers(const force_update_providers&)
     {
-        auto error_functor = [this, evt](pplx::task<void> previous_task)
+        auto error_functor = [this](pplx::task<void> previous_task)
         {
             try
             {
