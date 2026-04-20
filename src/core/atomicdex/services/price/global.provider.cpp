@@ -359,8 +359,6 @@ namespace atomic_dex
     void
     global_price_service::on_force_update_providers([[maybe_unused]] const force_update_providers& evt)
     {
-        static std::atomic_size_t nb_try = 0;
-        nb_try += 1;
         SPDLOG_INFO("Forcing update providers");
         auto error_functor = [this, evt](pplx::task<void> previous_task)
         {
@@ -370,10 +368,7 @@ namespace atomic_dex
             }
             catch (const std::exception& e)
             {
-                SPDLOG_ERROR("exception in global_price_service::on_force_update_providers: {} - nb_try {}", e.what(), nb_try);
-                using namespace std::chrono_literals;
-                std::this_thread::sleep_for(1s);
-                this->on_force_update_providers(evt);
+                SPDLOG_ERROR("exception in global_price_service::on_force_update_providers: {}", e.what());
             };
         };
         async_fetch_fiat_rates()
@@ -381,8 +376,7 @@ namespace atomic_dex
                 [this](web::http::http_response resp)
                 {
                     this->m_other_fiats_rates = process_fetch_fiat_answer(resp);
-                    SPDLOG_INFO("Successfully retrieving rate after {} try", nb_try);
-                    nb_try = 0;
+                    SPDLOG_INFO("Successfully retrieved rate");
                 })
             .then(error_functor);
     }
