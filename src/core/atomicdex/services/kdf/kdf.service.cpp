@@ -1264,7 +1264,7 @@ namespace atomic_dex
         }
         else
         {
-            std::size_t     limit =  300;
+            std::size_t     limit =  250;
             bool            requires_v2 = false;
             std::string     method = "my_tx_history";
             if (coin_info.coin_type == CoinTypeGadget::ZHTLC || coin_info.coin_type == CoinTypeGadget::TENDERMINT || coin_info.coin_type == CoinTypeGadget::TENDERMINTTOKEN)
