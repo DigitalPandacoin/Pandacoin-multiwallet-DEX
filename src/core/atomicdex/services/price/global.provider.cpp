@@ -358,7 +358,7 @@ namespace atomic_dex
     void
     global_price_service::on_force_update_providers(const force_update_providers&)
     {
-        auto error_functor = [this](pplx::task<void> previous_task)
+        auto error_functor = [](pplx::task<void> previous_task)
         {
             try
             {

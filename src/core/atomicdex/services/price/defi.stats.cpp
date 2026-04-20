@@ -107,7 +107,7 @@ namespace atomic_dex
     void
     global_defi_stats_service::process_update()
     {
-        auto error_functor = [this](pplx::task<void> previous_task)
+        auto error_functor = [](pplx::task<void> previous_task)
         {
             try
             {

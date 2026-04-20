@@ -62,6 +62,7 @@ Item
 
             let rel_ticker = General.getChartTicker(right_ticker)
             let base_ticker = General.getChartTicker(left_ticker)
+            let fiat_ticker = API.app.settings_pg.current_currency
             if (rel_ticker != "" && base_ticker != "")
             {
                 pair_supported = true
@@ -83,7 +84,7 @@ Item
                     a { pointer-events: none; }
                 </style>
                 <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-                <div class="livecoinwatch-widget-1" lcw-coin="${rel_ticker}" lcw-base="${base_ticker}" lcw-secondary="USDC" lcw-period="w" lcw-color-tx="${Dex.CurrentTheme.foregroundColor}" lcw-color-pr="#58c7c5" lcw-color-bg="${Dex.CurrentTheme.comboBoxBackgroundColor}" lcw-border-w="0" lcw-digits="9" ></div>
+                <div class="livecoinwatch-widget-1" lcw-coin="${rel_ticker}" lcw-base="${base_ticker}" lcw-secondary="${fiat_ticker}" lcw-period="w" lcw-color-tx="${Dex.CurrentTheme.foregroundColor}" lcw-color-pr="#58c7c5" lcw-color-bg="${Dex.CurrentTheme.comboBoxBackgroundColor}" lcw-border-w="0" lcw-digits="9" ></div>
                 `
             }
         }
