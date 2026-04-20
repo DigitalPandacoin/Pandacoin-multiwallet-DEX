@@ -37,7 +37,6 @@ namespace
         web::http::http_request req;
         req.set_method(web::http::methods::GET);
         req.set_request_uri(FROM_STD_STR("v1/latest?base=USD"));
-        SPDLOG_DEBUG("req: {}", TO_STD_STR(req.to_string()));
         return g_openrates_client->request(req, g_token_source.get_token());
     }
 
@@ -359,7 +358,6 @@ namespace atomic_dex
     void
     global_price_service::on_force_update_providers([[maybe_unused]] const force_update_providers& evt)
     {
-        SPDLOG_INFO("Forcing update providers");
         auto error_functor = [this, evt](pplx::task<void> previous_task)
         {
             try
@@ -402,7 +400,7 @@ namespace atomic_dex
         if (fiat == "USD")
             return true;
         auto rates = m_other_fiats_rates.get();
-        SPDLOG_INFO("rates: {}", rates.dump(4));
+        //SPDLOG_DEBUG("rates: {}", rates.dump(4));
         return !rates.empty() && rates.contains("rates") && rates.at("rates").contains(fiat);
     }
 

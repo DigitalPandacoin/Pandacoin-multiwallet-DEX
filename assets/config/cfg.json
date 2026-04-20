@@ -41,7 +41,6 @@
     "AUD": "$A",
     "HUF": "Ft",
     "SEK": "kr",
-    "KMD": "KMD",
     "DOGE": "Ð",
     "ETH": "⟠",
     "ETH_ALT": "Ξ",
@@ -84,13 +83,12 @@
   "recommended_fiat": [
     "USD",
     "EUR",
-    "GBP",
+    "CHF",
     "CAD",
     "JPY",
     "SGD"
   ],
   "possible_currencies": [
-    "USD",
-    "EUR"
+    "USD"
   ]
 }

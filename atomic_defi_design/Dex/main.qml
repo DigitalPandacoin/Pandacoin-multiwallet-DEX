@@ -4,9 +4,7 @@ import QtQuick.Controls.Universal 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.settings 1.0
 import ModelHelper 0.1
-
 import Qaterial 1.0 as Qaterial
-
 import App 1.0
 import "Components"
 import Dex.Themes 1.0 as Dex
@@ -103,9 +101,6 @@ DexWindow
                     id: logout_area
                     hoverEnabled: true
                     anchors.fill: parent
-                    //Component.onCompleted: {
-                    //    console.log("main height = " + height) // 29
-                    //}
                     onClicked:
                     {
                         if (orders.count != 0) app.logout_confirm_modal.open()
@@ -276,21 +271,21 @@ DexWindow
                     visible: _label.visible
                     privacy: true
                     anchors.verticalCenter: parent.verticalCenter
-                    DefaultMouseArea
-                    {
-                        anchors.fill: parent
-                        onClicked:
-                        {
-                            const current_fiat = API.app.settings_pg.current_currency
-                            const available_fiats = API.app.settings_pg.get_available_currencies()
-                            const current_index = available_fiats.indexOf(
-                                current_fiat)
-                            const next_index = (current_index + 1) %
-                                available_fiats.length
-                            const next_fiat = available_fiats[next_index]
-                            API.app.settings_pg.current_currency = next_fiat
-                        }
-                    }
+                    //DefaultMouseArea
+                    //{
+                    //    anchors.fill: parent
+                    //    onClicked:
+                    //    {
+                    //        const current_fiat = API.app.settings_pg.current_currency
+                    //        const available_fiats = API.app.settings_pg.get_available_currencies()
+                    //        const current_index = available_fiats.indexOf(
+                    //            current_fiat)
+                    //        const next_index = (current_index + 1) %
+                    //            available_fiats.length
+                    //        const next_fiat = available_fiats[next_index]
+                    //        API.app.settings_pg.current_currency = next_fiat
+                    //    }
+                    //}
                 }
             }
 

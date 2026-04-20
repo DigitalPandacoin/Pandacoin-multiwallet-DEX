@@ -272,7 +272,7 @@ namespace atomic_dex
     {
         if (m_config.possible_currencies.empty())
         {
-            SPDLOG_ERROR("m_config.possible_currencies are empty!");
+            SPDLOG_ERROR("m_config.possible_currencies is empty!");
             return;
         }
 
@@ -424,7 +424,7 @@ namespace atomic_dex
         QStringList out;
         out.reserve(m_config.available_fiat.size());
         for (auto&& cur_fiat: m_config.available_fiat) { out.push_back(QString::fromStdString(cur_fiat)); }
-        out.sort();
+        //out.sort(); // list already sorted in config
         return out;
     }
 
