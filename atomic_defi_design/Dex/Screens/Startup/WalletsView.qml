@@ -14,24 +14,22 @@ SetupPage
 {
     // Override
     id: _setup
-
     property var wallets: API.app.wallet_mgr.get_wallets()
     readonly property int wallet_count: API.app.wallet_mgr.get_wallets().length
+    image_path: Dex.CurrentTheme.bigLogoPath
+    image_margin: 12
+    backgroundColor: Dex.CurrentTheme.backgroundColor
 
     signal newWalletClicked()
     signal importWalletClicked();
     signal walletSelected(string walletName);
-
-    image_path: Dex.CurrentTheme.bigLogoPath
-    image_margin: 12
-
-    backgroundColor: Dex.CurrentTheme.backgroundColor
 
     content: ColumnLayout
     {
         id: content_column
         width: 270
         spacing: 8
+
         RowLayout
         {
             Layout.fillWidth: true
@@ -60,7 +58,7 @@ SetupPage
             onClicked: newWalletClicked()
         }
 
-        OutlineButton
+        DexAppOutlineButton
         {
             text: qsTr("Import wallet")
             radius: 18

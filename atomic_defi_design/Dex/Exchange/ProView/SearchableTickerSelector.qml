@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 import "../../Components" as Dex
@@ -12,29 +10,19 @@ import "../../Constants" as Dex
 Dex.ComboBoxWithSearchBar
 {
     id: control
+    height: 85
+    enabled: !block_everything
+    textRole: "ticker"
+    valueRole: "ticker"
+    popupMaxHeight: Math.min(model.rowCount() * 85 + 85, 570)
+    popupForceMaxHeight: true
+    searchBar.visible: true
+    searchBar.searchModel: model
 
     property var    currentItem: model.index(currentIndex, 0)
     property bool   left_side: false
     property string ticker
     property bool   index_changed: false
-    
-    height: 85
-    enabled: !block_everything
-
-    textRole: "ticker"
-    valueRole: "ticker"
-
-    popupMaxHeight: Math.min(model.rowCount() * 85 + 85, 570)
-    popupForceMaxHeight: true
-
-    searchBar.visible: true
-    searchBar.searchModel: model
-
-    //Component.onCompleted: {
-    //    console.log("height = " + height) // 85
-    //    console.log("model.rowCount = " + model.rowCount()) // 228
-    //    console.log("popupMaxHeight = " + popupMaxHeight) // 570
-    //}
 
     delegate: ItemDelegate
     {
@@ -54,11 +42,10 @@ Dex.ComboBoxWithSearchBar
     contentItem: DexComboBoxLine
     {
         id: _contentRow
+        padding: 8
 
         property int update_count: 0
         property var prev_details
-
-        padding: 8
 
         function forceUpdateDetails()
         {

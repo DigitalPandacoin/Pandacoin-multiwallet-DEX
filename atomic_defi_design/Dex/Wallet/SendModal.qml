@@ -796,7 +796,7 @@ MultipageModal
 
             Item { Layout.fillWidth: true }
 
-            OutlineButton
+            DexAppOutlineButton
             {
                 enabled: fieldAreFilled() && hasFunds() && !errorView && !root.is_send_busy
                 Layout.alignment: Qt.AlignRight

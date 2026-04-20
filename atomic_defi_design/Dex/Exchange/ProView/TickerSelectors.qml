@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../../Components"
 import "../../Constants"
 
@@ -24,7 +23,7 @@ RowLayout
     SearchableTickerSelector
     {
         id: selectorLeft
-        Layout.preferredWidth: 195
+        Layout.preferredWidth: 230
         Layout.preferredHeight: 85
 
         left_side: true
@@ -68,7 +67,7 @@ RowLayout
     SearchableTickerSelector
     {
         id: selectorRight
-        Layout.preferredWidth: 195
+        Layout.preferredWidth: 230
         Layout.preferredHeight: 85
         left_side: false
         model: API.app.trading_pg.market_pairs_mdl.right_selection_box
