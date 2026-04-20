@@ -73,7 +73,6 @@ namespace
     }
 } // namespace
 
-
 namespace atomic_dex
 {
     timesync_checker_service::timesync_checker_service(entt::registry& registry, QObject* parent) : QObject(parent), system(registry)
@@ -130,8 +129,4 @@ namespace atomic_dex
     {
         return *m_timesync_status;
     }
-
 } // namespace atomic_dex
-
-            
-
