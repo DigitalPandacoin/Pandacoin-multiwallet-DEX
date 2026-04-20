@@ -15,15 +15,12 @@ import Dex.Themes 1.0 as Dex
 Qaterial.Dialog
 {
     id: support_modal
-    //readonly property bool update_needed: API.app.self_update_service.update_needed
-
     width: 950
     height: 720
     padding: 10
     topPadding: 20
     bottomPadding: 20
     anchors.centerIn: parent
-    
     dim: true
     modal: true
     title: "Support"
@@ -187,62 +184,10 @@ There is a toggle in settings where you can turn on/off the display of these tra
             Layout.preferredHeight: 70
             Layout.preferredWidth: faq_title.width
             Layout.leftMargin: 32
-            property var filler_width: (parent.width - links_row.width - changelog_button.width - logs_btn.width) / 2 - 14
 
             LinksRow { id: links_row }
 
-            Item { Layout.preferredWidth: bottom_row.filler_width }
-
-            DefaultMouseArea
-            {
-                id: changelog_button
-
-                Layout.preferredWidth: column_layout.width
-                Layout.preferredHeight: column_layout.height
-                hoverEnabled: true
-
-                onClicked: Qt.openUrlExternally("https://github.com/KomodoPlatform/komodo-wallet-desktop/pull/2388")
-
-                ColumnLayout
-                {
-                    id: column_layout
-                    RowLayout
-                    {
-                        Layout.alignment: Qt.AlignHCenter
-
-                        Circle
-                        {
-                            Layout.alignment: Qt.AlignVCenter
-                            //color: Qt.lighter(update_needed ? Style.colorOrange : Style.colorGreen, changelog_button.containsMouse ? Style.hoverLightMultiplier : 1.0)
-                        }
-
-                        DexLabel
-                        {
-                            Layout.alignment: Qt.AlignVCenter
-                            //text_value: //update_needed ? qsTr("Update available") : qsTr("Up to date")
-                            color: changelog_text.color
-                        }
-                    }
-
-                    DexLabel
-                    {
-                        Layout.alignment: Qt.AlignHCenter
-                        text_value: General.version_string
-                        font.pixelSize: Style.textSizeSmall3
-                        color: changelog_text.color
-                    }
-
-                    DexLabel
-                    {
-                        id: changelog_text
-                        Layout.alignment: Qt.AlignHCenter
-                        text_value: General.cex_icon + ' ' + qsTr('Changelog')
-                        font.pixelSize: Style.textSizeSmall2
-                    }
-                }
-            }
-
-            Item { Layout.preferredWidth: bottom_row.filler_width }
+            Item { Layout.fillWidth: true }
 
             DefaultButton
             {
