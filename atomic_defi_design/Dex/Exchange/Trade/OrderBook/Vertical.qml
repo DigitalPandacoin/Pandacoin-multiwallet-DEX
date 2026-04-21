@@ -11,7 +11,7 @@ Widget
 {
     id: root
     margins: 0
-    spacing: 6
+    spacing: 4
     collapsable: false
     visible: root.page_index === 0
     enabled: visible
@@ -23,17 +23,17 @@ Widget
     readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
     Header {
-        Layout.topMargin: 14
-        Layout.bottomMargin: 6
-        Layout.rightMargin: 6
+        Layout.topMargin: 12
+        Layout.bottomMargin: 4
+        Layout.rightMargin: 4
         Layout.fillWidth: true
     }
 
     List {
         id: asksList
         isAsk: true
-        Layout.topMargin: 6
-        Layout.bottomMargin: 4
+        Layout.topMargin: 4
+        Layout.bottomMargin: 6
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.preferredHeight: 100

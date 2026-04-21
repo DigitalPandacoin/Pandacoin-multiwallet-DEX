@@ -39,20 +39,6 @@
 #include "atomicdex/utilities/global.utilities.hpp"
 #include "atomicdex/utilities/qt.utilities.hpp"
 
-namespace
-{
-    void copy_icon(const QString icon_filepath, const QString icons_path_directory, const std::string& ticker)
-    {
-        if (not icon_filepath.isEmpty())
-        {
-            const std::filesystem::path& suffix = std::filesystem::path(icon_filepath.toStdString()).extension();
-            std::filesystem::copy_file(
-                icon_filepath.toStdString(), std::filesystem::path(icons_path_directory.toStdString()) / (boost::algorithm::to_lower_copy(ticker) + suffix.string()),
-                std::filesystem::copy_options::overwrite_existing);
-        }
-    }
-} // anonymous namespace
-
 namespace atomic_dex
 {
     settings_page::settings_page(entt::registry& registry, ag::ecs::system_manager& system_manager, std::shared_ptr<QApplication> app, QObject* parent) :

@@ -23,7 +23,7 @@ RowLayout
         font.weight: Font.Black
     }
 
-    Item { Layout.preferredWidth: (parent.width - 308) / 2 }
+    Item { Layout.preferredWidth: (parent.width - 300) / 2 }
 
     Dex.Text
     {
@@ -37,7 +37,7 @@ RowLayout
         font.weight: Font.Black
     }
 
-    Item { Layout.preferredWidth: (parent.width - 308) / 2 }
+    Item { Layout.preferredWidth: (parent.width - 300) / 2 }
 
     Dex.Text
     {

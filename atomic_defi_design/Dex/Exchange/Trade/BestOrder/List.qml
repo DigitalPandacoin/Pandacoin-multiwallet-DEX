@@ -13,7 +13,7 @@ Widget
 {
     id: _control
     margins: 0
-    spacing: 6
+    spacing: 4
     collapsable: false
     visible: _control.page_index === 1
     enabled: visible
@@ -23,9 +23,9 @@ Widget
     Header
     {
         visible: !warning_text.visible
-        Layout.topMargin: 14
-        Layout.bottomMargin: 6
-        Layout.rightMargin: 6
+        Layout.topMargin: 12
+        Layout.bottomMargin: 4
+        Layout.rightMargin: 4
         Layout.fillWidth: true
     }
 
@@ -33,8 +33,8 @@ Widget
     {
         id: warning_text
         visible: API.app.trading_pg.volume == 0
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        Layout.preferredWidth: parent.width
+        Layout.preferredHeight: parent.height
 
         DexLabel
         {
@@ -54,8 +54,10 @@ Widget
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.bottomMargin: 6
-        visible: !warning_text.visible
+        Layout.leftMargin: 4
+        Layout.rightMargin: 4
         spacing: 6
+        visible: !warning_text.visible
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl
         reuseItems: true
         scrollbar_visible: false
