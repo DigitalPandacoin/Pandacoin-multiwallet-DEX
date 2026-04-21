@@ -54,7 +54,6 @@ namespace
 {
     void check_for_reconfiguration(const std::string& wallet_name)
     {
-        //SPDLOG_DEBUG("UNUSED ??");
         try
         {
             using namespace std::string_literals;

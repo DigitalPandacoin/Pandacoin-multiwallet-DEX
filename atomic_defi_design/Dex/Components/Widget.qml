@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import "../Constants"
 
@@ -13,21 +11,16 @@ Item
 
     property bool           collapsable:                true
     property bool           collapsed:                  false
-
     property bool           resizable:                  true
-
     property alias          header:                     headerLoader.sourceComponent
     property alias          background:                 backgroundLoader.sourceComponent
-
     property int            margins:                    10
     property int            spacing:                    10
     property int            contentSpacing:             10
-
     property int            collapsedHeight:            70
     property int            minHeight:                  collapsedHeight
     property int            maxHeight:                  -1
     property int            _previousHeight
-
     default property alias  contentData:                content.data
 
     function isCollapsed() { return collapsed }

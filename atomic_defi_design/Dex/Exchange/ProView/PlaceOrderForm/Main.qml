@@ -107,7 +107,8 @@ ColumnLayout
     Qaterial.LatoTabBar
     {
         id: orderformTabView
-        Layout.leftMargin: 8
+        Layout.fillWidth: true
+        Layout.leftMargin: 6
         background: null
 
         Qaterial.LatoTabButton

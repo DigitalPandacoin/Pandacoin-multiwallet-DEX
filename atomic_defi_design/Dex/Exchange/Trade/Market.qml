@@ -20,7 +20,8 @@ ColumnLayout
     Qaterial.LatoTabBar
     {
         id: marketTabView
-        Layout.leftMargin: 8
+        Layout.fillWidth: true
+        Layout.leftMargin: 6
         background: null
 
         property int orderbook: 0

@@ -10,16 +10,17 @@ import Dex.Themes 1.0 as Dex
 Widget
 {
     id: root
-    readonly property string pair_trades_24hr: API.app.trading_pg.pair_trades_24hr
-    readonly property string pair_volume_24hr: API.app.trading_pg.pair_volume_24hr
-    readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
-
-    property int page_index: 0
-    margins: 4
+    margins: 0
     spacing: 6
     collapsable: false
     visible: root.page_index === 0
     enabled: visible
+
+    property int page_index: 0
+
+    readonly property string pair_trades_24hr: API.app.trading_pg.pair_trades_24hr
+    readonly property string pair_volume_24hr: API.app.trading_pg.pair_volume_24hr
+    readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
     Header {
         Layout.topMargin: 6

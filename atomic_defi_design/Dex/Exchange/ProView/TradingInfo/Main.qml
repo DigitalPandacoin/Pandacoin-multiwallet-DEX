@@ -80,8 +80,8 @@ ColumnLayout {
                         id: selectors
                         Layout.fillWidth: true
                         Layout.preferredHeight: 85
-                        Layout.leftMargin: 8
-                        Layout.rightMargin: 8
+                        Layout.leftMargin: 10
+                        Layout.rightMargin: 10
                     }
 
                     Chart {
@@ -89,8 +89,8 @@ ColumnLayout {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Layout.topMargin: 8
-                        Layout.leftMargin: 5
-                        Layout.rightMargin: 5
+                        Layout.leftMargin: 1
+                        Layout.rightMargin: 6
                     }
 
                     PriceLineSimplified {
@@ -98,8 +98,8 @@ ColumnLayout {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 40
                         Layout.bottomMargin: 12
-                        Layout.leftMargin: 5
-                        Layout.rightMargin: 5
+                        Layout.leftMargin: 10
+                        Layout.rightMargin: 10
                     }
                 }
             }
