@@ -1339,19 +1339,6 @@
     </message>
 </context>
 <context>
-    <name>FeeInfo</name>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/Items/FeeInfo.qml" line="54"/>
-        <source>Minimum fee</source>
-        <translation>Tarifa mínima</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/Items/FeeInfo.qml" line="55"/>
-        <source>Fees will be calculated</source>
-        <translation>Las tarifas se calcularán</translation>
-    </message>
-</context>
-<context>
     <name>GasInfoModal</name>
     <message>
         <location filename="../../Dex/Components/GasInfoModal.qml" line="14"/>

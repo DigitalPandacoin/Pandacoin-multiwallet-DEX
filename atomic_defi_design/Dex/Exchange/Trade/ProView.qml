@@ -11,8 +11,6 @@ import "../../Components"
 import "../../Constants"
 import "../../Wallet"
 import App 1.0
-import "Trading/"
-import "Trading/Items/"
 import "OrderBook/" as OrderBook
 import "BestOrder/" as BestOrder
 import "Orders/" as OrdersView

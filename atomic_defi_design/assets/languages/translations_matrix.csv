@@ -237,8 +237,6 @@
 1322,Dex/Dashboard/FatalErrorModal.qml,,1323,Fatal Error,1324,Schwerwiegender Fehler,Error Fatal,,
 1327,Dex/Dashboard/FatalErrorModal.qml,,1328,Connection has been lost. You have been disconnected.,1329,Die Verbindung wurde unterbrochen. Ihre Verbindung wurde getrennt.,Ha perdido la conexión. Has sido desconectado.,,
 1332,Dex/Dashboard/FatalErrorModal.qml,,1333,Close,1334,Schließen,Cerrar,,
-1340,Dex/Exchange/Trade/Trading/Items/FeeInfo.qml,,1341,Minimum fee,1342,Mindestgebühr,Tarifa mínima,,
-1345,Dex/Exchange/Trade/Trading/Items/FeeInfo.qml,,1346,Fees will be calculated,1347,Gebühren werden berechnet,Las tarifas se calcularán,,
 1353,Dex/Constants/General.qml,,1354,%n day(s),1355,,%n día(s),,
 1361,Dex/Constants/General.qml,day,1362,%nd,1364,,%nd,,
 1370,Dex/Constants/General.qml,hours,1371,%nh,1373,,%nh,,

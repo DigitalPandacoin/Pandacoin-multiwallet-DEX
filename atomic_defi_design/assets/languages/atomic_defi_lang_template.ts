@@ -1061,17 +1061,6 @@
     </message>
 </context>
 <context>
-    <name>FeeInfo</name>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/Items/FeeInfo.qml" line="54"/>
-        <source>Minimum fee</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/Items/FeeInfo.qml" line="55"/>
-        <source>Fees will be calculated</source>
-    </message>
-</context>
-<context>
     <name>General</name>
     <message numerus="yes">
         <location filename="../../Dex/Constants/General.qml" line="315"/>

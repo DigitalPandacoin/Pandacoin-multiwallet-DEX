@@ -10,7 +10,6 @@ import AtomicDEX.TradingError 1.0
 import AtomicDEX.TradingMode 1.0
 import "../../Components"
 import "../../Wallet"
-import "Trading/"
 import App 1.0
 
 Item

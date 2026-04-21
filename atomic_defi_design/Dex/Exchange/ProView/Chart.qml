@@ -10,8 +10,8 @@ import AtomicDEX.MarketMode 1.0
 Item
 {
     id: root
-    //implicitWidth: 400
-    //implicitHeight: 200
+    implicitWidth: 530
+    implicitHeight: 205
     readonly property string theme: Dex.CurrentTheme.getColorMode() === Dex.CurrentTheme.ColorMode.Dark ? "dark" : "light"
     property string loaded_symbol
     property bool pair_supported: false
@@ -87,7 +87,7 @@ Item
                 `
             }
         }
-        //console.log(chart_html)
+        console.log(chart_html)
         dashboard.webEngineView.loadHtml(chart_html)
     }
 
