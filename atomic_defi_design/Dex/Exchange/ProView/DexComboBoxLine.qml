@@ -3,13 +3,11 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Controls.Universal 2.15
-
 import "../../Constants" as Dex
 import "../../Components"
 import App 1.0
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
-
 
 RowLayout
 {
@@ -21,6 +19,9 @@ RowLayout
     property alias middle_text: middle_line.text_value
     property alias bottom_text: bottom_line.text_value
     property int activation_pct: General.zhtlcActivationProgress(API.app.get_zhtlc_status(details.ticker), details.ticker)
+
+    Behavior on color { ColorAnimation { duration: Style.animationDuration } }
+
     Connections
     {
         target: API.app.settings_pg
@@ -28,14 +29,13 @@ RowLayout
             activation_pct = General.zhtlcActivationProgress(API.app.get_zhtlc_status(details.ticker), details.ticker)
         }
     }
-    Behavior on color { ColorAnimation { duration: Style.animationDuration } }
 
     Dex.Image
     {
         id: icon
         source: General.coinIcon(details.ticker)
-        Layout.preferredWidth: 40
-        Layout.preferredHeight: 40
+        Layout.preferredWidth: 50
+        Layout.preferredHeight: 50
         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
         Layout.leftMargin: padding
         Layout.topMargin: Layout.leftMargin

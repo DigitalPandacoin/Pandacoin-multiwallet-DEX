@@ -12,7 +12,7 @@ Row
 
     Dex.Text
     {
-        width: parent.width * 0.31
+        width: parent.width * 0.30
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignRight
         text: qsTr("Price") + " (" + atomic_qt_utilities.retrieve_main_ticker(right_ticker) + ")"
@@ -26,7 +26,7 @@ Row
 
     Dex.Text
     {
-        width: parent.width * 0.37
+        width: parent.width * 0.35
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignRight
         text: qsTr("Quantity") + " (" +  atomic_qt_utilities.retrieve_main_ticker(left_ticker) + ")"
@@ -49,4 +49,6 @@ Row
         font.bold: true
         font.weight: Font.Black
     }
+
+    Item { width: parent.width * 0.01 }
 }
