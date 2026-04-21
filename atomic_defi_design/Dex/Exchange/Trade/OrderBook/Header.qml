@@ -49,6 +49,4 @@ Row
         font.bold: true
         font.weight: Font.Black
     }
-
-    Item { width: parent.width * 0.01 }
 }

@@ -34,8 +34,8 @@ RowLayout
     {
         id: icon
         source: General.coinIcon(details.ticker)
-        Layout.preferredWidth: 50
-        Layout.preferredHeight: 50
+        Layout.preferredWidth: 48
+        Layout.preferredHeight: 48
         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
         Layout.leftMargin: padding
         Layout.topMargin: Layout.leftMargin
