@@ -113,8 +113,6 @@ namespace atomic_dex
         Q_INVOKABLE [[nodiscard]] bool          get_use_sync_date() const;
         Q_INVOKABLE [[nodiscard]] int           get_pirate_sync_date() const;
         Q_INVOKABLE [[nodiscard]] int           get_pirate_sync_height(int sync_date, int checkpoint_height, int checkpoint_blocktime) const;
-        Q_INVOKABLE void                        process_token_add(const QString& contract_address, const QString& coingecko_id, const QString& icon_filepath, CoinType coin_type);
-        Q_INVOKABLE void                        process_qrc_20_token_add(const QString& contract_address, const QString& coingecko_id, const QString& icon_filepath);
         Q_INVOKABLE void                        submit();
         Q_INVOKABLE QStringList                 retrieve_seed(const QString& wallet_name, const QString& password);
         Q_INVOKABLE static QString              get_kdf_version();
