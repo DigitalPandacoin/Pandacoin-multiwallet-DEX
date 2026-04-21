@@ -2774,45 +2774,6 @@ They will be removed from the orderbook until you log in again.</source>
     </message>
 </context>
 <context>
-    <name>PriceLine</name>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="28"/>
-        <source>Set swap price for evaluation</source>
-        <translation>Legen Sie den Tausch-Preis für die Bewertung fest</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="41"/>
-        <source>Exchange rate</source>
-        <translation>Wechselkurs</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="41"/>
-        <source>Selected</source>
-        <translation>Ausgewählt</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>Expensive</source>
-        <translation>Teuer</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>Expedient</source>
-        <translation>Sinnvoll</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>%1 compared to CEX</source>
-        <comment>PRICE_DIFF%</comment>
-        <translation>%1 im Vergleich zu CEX</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="120"/>
-        <source>CEXchange rate</source>
-        <translation>CEX-Wechselkurs</translation>
-    </message>
-</context>
-<context>
     <name>PriceLineSimplified</name>
     <message>
         <location filename="../../Dex/Exchange/Trade/PriceLineSimplified.qml" line="40"/>

@@ -2767,45 +2767,6 @@ They will be removed from the orderbook until you log in again.</source>
     </message>
 </context>
 <context>
-    <name>PriceLine</name>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="28"/>
-        <source>Set swap price for evaluation</source>
-        <translation>Değerlendirme için takas fiyatı belirleyin</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="41"/>
-        <source>Exchange rate</source>
-        <translation>Döviz kuru</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="41"/>
-        <source>Selected</source>
-        <translation>Seçili</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>Expensive</source>
-        <translation>Pahalı</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>Expedient</source>
-        <translation>Uygun</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="100"/>
-        <source>%1 compared to CEX</source>
-        <comment>PRICE_DIFF%</comment>
-        <translation>CEX ile karşılaştırıldığında %1</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/ProView/TradingInfo/PriceLine.qml" line="120"/>
-        <source>CEXchange rate</source>
-        <translation>CEXchange kuru</translation>
-    </message>
-</context>
-<context>
     <name>PriceLineSimplified</name>
     <message>
         <location filename="../../Dex/Exchange/Trade/PriceLineSimplified.qml" line="40"/>
