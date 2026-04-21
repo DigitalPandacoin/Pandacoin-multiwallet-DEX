@@ -167,7 +167,6 @@ namespace atomic_dex
         cfg.coingecko_id         = j.contains("coingecko_id") ? j.at("coingecko_id").get<std::string>() : "test-coin";
         cfg.livecoinwatch_id     = j.contains("livecoinwatch_id") ? j.at("livecoinwatch_id").get<std::string>() : "test-coin";
         cfg.is_claimable         = j.count("is_claimable") > 0;
-        cfg.is_custom_coin       = j.contains("is_custom_coin") ? j.at("is_custom_coin").get<bool>() : false;
         cfg.is_testnet           = j.contains("is_testnet") ? j.at("is_testnet").get<bool>() : false;
         cfg.wallet_only          = is_wallet_only(cfg.ticker) ? is_wallet_only(cfg.ticker) : j.contains("wallet_only") ? j.at("wallet_only").get<bool>() : false;
         cfg.default_coin         = is_default_coin(cfg.ticker);

@@ -63,7 +63,6 @@ namespace atomic_dex
         bool                                              wallet_only{false};
         bool                                              is_claimable{false};
         bool                                              has_memos{false};
-        bool                                              is_custom_coin{false};
         bool                                              is_faucet_coin{false};
         bool                                              is_vote_coin{false};
         bool                                              currently_enabled{false};

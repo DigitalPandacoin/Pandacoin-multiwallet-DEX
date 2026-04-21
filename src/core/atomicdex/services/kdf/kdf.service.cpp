@@ -93,15 +93,6 @@ namespace
                     }
                 }
 
-                for (auto& [key, value]: precedent_config_json_data.items())
-                {
-                    if (value.contains("is_custom_coin") && value.at("is_custom_coin").get<bool>())
-                    {
-                        SPDLOG_INFO("{} is a custom coin, copying to new cfg", key);
-                        actual_config_data[key] = value;
-                    }
-                }
-
                 LOG_PATH("closing old version coins file: {}", precedent_version_cfg_path);
                 ifs.close();
                 LOG_PATH("closing new version coins file: {}", actual_version_filepath);
@@ -146,26 +137,16 @@ namespace
         SPDLOG_INFO("Update coins status to: {} - field_name: {} - tickers: {}", status, field_name, fmt::join(tickers, ", "));
         std::filesystem::path  cfg_path                = atomic_dex::utils::get_atomic_dex_config_folder();
         std::string            filename                = std::string(atomic_dex::get_raw_version()) + "-coins." + wallet_name + ".json";
-        std::string            custom_tokens_filename  = "custom-tokens." + wallet_name + ".json";
-        std::filesystem::path  custom_tokens_filepath  = cfg_path / custom_tokens_filename;
 
         nlohmann::json config_json_data = atomic_dex::utils::read_json_file(cfg_path / filename);
-        nlohmann::json custom_cfg_data = atomic_dex::utils::read_json_file(custom_tokens_filepath);
 
         {
             std::shared_lock lock(registry_mtx);
             for (auto&& ticker: tickers)
             {
-                if (registry[ticker].is_custom_coin)
-                {
-                    SPDLOG_DEBUG("Setting custom ticker: {} field {} to {}", ticker, field_name, status);
-                    custom_cfg_data.at(ticker)[field_name] = status;
-                }
-                else
-                {
-                    SPDLOG_DEBUG("Setting ticker: {} field {} to {}", ticker, field_name, status);
-                    config_json_data.at(ticker)[field_name] = status;
-                }
+                SPDLOG_DEBUG("Setting ticker: {} field {} to {}", ticker, field_name, status);
+                config_json_data.at(ticker)[field_name] = status;
+
                 if (field_name == "active")
                 {
                     SPDLOG_DEBUG("ticker: {} status active: {}", ticker, status);
@@ -181,16 +162,6 @@ namespace
         ofs.write(QString::fromStdString(config_json_data.dump()).toUtf8());
         ofs.close();
 
-        //! Write contents
-        if (!custom_cfg_data.empty())
-        {
-            //! Write contents
-            QFile ofs_custom;
-            ofs_custom.setFileName(atomic_dex::std_path_to_qstring(custom_tokens_filepath));
-            ofs_custom.open(QIODevice::Text | QIODevice::WriteOnly | QIODevice::Truncate);
-            ofs_custom.write(QString::fromStdString(custom_cfg_data.dump()).toUtf8());
-            ofs_custom.close();
-        }
         SPDLOG_DEBUG("Coins file updated to set {}: {} | tickers: [{}]", field_name, status,  fmt::join(tickers, ", "));
     }
 }
@@ -204,7 +175,6 @@ namespace atomic_dex
         check_for_reconfiguration(m_current_wallet_name);
         const auto  cfg_path               = atomic_dex::utils::get_atomic_dex_config_folder();
         std::string filename               = std::string(atomic_dex::get_raw_version()) + "-coins." + m_current_wallet_name + ".json";
-        std::string custom_tokens_filename = "custom-tokens." + m_current_wallet_name + ".json";
 
         LOG_PATH("Retrieving Wallet information of {}", (cfg_path / filename));
         auto retrieve_cfg_functor = [](std::filesystem::path path) -> std::unordered_map<std::string, atomic_dex::coin_config_t>
@@ -251,17 +221,6 @@ namespace atomic_dex
             {
                 std::unique_lock lock(m_coin_cfg_mutex);
                 m_coins_informations = std::move(official_cfg);
-            }
-        }
-
-        auto custom_cfg = retrieve_cfg_functor(cfg_path / custom_tokens_filename);
-        if (!custom_cfg.empty())
-        {
-            SPDLOG_INFO("Custom coins detected, adding them to the runtime configuration");
-            for (auto&& [key, value]: custom_cfg) { cfg.emplace_back(value); }
-            {
-                std::unique_lock lock(m_coin_cfg_mutex);
-                m_coins_informations.insert(custom_cfg.begin(), custom_cfg.end());
             }
         }
 
@@ -700,18 +659,17 @@ namespace atomic_dex
                 .swap_contract_address           = coin_config.swap_contract_address.value_or(""),
                 .with_tx_history                 = false
             };
+
             if (coin_config.fallback_swap_contract.value_or("") != "")
             {
                 request.fallback_swap_contract = coin_config.fallback_swap_contract;
             }
-            if (coin_config.is_custom_coin)
-            {
-                request.kdf = 1;
-            }
-            else if (coin_config.wallet_only)
+
+            if (coin_config.wallet_only)
             {
                 request.kdf = 0;
             }
+
             nlohmann::json j = kdf::template_request("enable");
             kdf::to_json(j, request);
             batch_array.push_back(j);
@@ -2555,56 +2513,6 @@ namespace atomic_dex
         return false;
     }
 
-    void
-    kdf_service::add_new_coin(const nlohmann::json& coin_cfg_json, const nlohmann::json& raw_coin_cfg_json)
-    {
-        //! Normal cfg part
-        SPDLOG_DEBUG("[{}], [{}]", coin_cfg_json.dump(4), raw_coin_cfg_json.dump(4));
-        if (not coin_cfg_json.empty() && not is_this_ticker_present_in_normal_cfg(coin_cfg_json.begin().key()))
-        {
-            SPDLOG_DEBUG("Adding entry : {} to adex current wallet coins file", coin_cfg_json.dump(4));
-            std::filesystem::path       cfg_path  = utils::get_atomic_dex_config_folder();
-            std::string    filename  = "custom-tokens." + m_current_wallet_name + ".json"; 
-            fs::path       file_path = cfg_path / filename;
-
-            SPDLOG_DEBUG("reading contents of custom tokens cfg");
-            nlohmann::json config_json_data = atomic_dex::utils::read_json_file(file_path);
-
-            //! Modify contents
-            config_json_data[coin_cfg_json.begin().key()] = coin_cfg_json.at(coin_cfg_json.begin().key());
-
-            //! Write contents
-            SPDLOG_DEBUG("writing contents of custom tokens cfg");
-            QFile ofs;
-            ofs.setFileName(std_path_to_qstring(file_path));
-            ofs.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-            ofs.write(QString::fromStdString(config_json_data.dump()).toUtf8());
-        }
-        if (not raw_coin_cfg_json.empty() && not is_this_ticker_present_in_raw_cfg(raw_coin_cfg_json.at("coin").get<std::string>()))
-        {
-            const fs::path coins_json_path{atomic_dex::utils::get_current_configs_path() / "coins.json"};
-            SPDLOG_DEBUG("Adding entry : {} to kdf coins file {}", raw_coin_cfg_json.dump(4), coins_json_path.string());
-            QFile ifs;
-            ifs.setFileName(std_path_to_qstring(coins_json_path));
-            ifs.open(QIODevice::ReadOnly | QIODevice::Text);
-            //! Read Contents
-            nlohmann::json config_json_data = atomic_dex::utils::read_json_file(coins_json_path);
-
-            //! Modify contents
-            config_json_data.push_back(raw_coin_cfg_json);
-
-            //! Close
-            ifs.close();
-
-            //! Write contents
-            QFile ofs;
-            ofs.setFileName(std_path_to_qstring(coins_json_path));
-            ofs.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-            ofs.write(QString::fromStdString(config_json_data.dump()).toUtf8());
-            ofs.close();
-        }
-    }
-
     bool
     kdf_service::is_this_ticker_present_in_raw_cfg(const std::string& ticker) const
     {
@@ -2617,64 +2525,6 @@ namespace atomic_dex
     {
         std::shared_lock lock(m_coin_cfg_mutex);
         return m_coins_informations.find(ticker) != m_coins_informations.end();
-    }
-
-    void
-    kdf_service::remove_custom_coin(const std::string& ticker)
-    {
-        //! Coin need to be disabled to be removed
-        assert(not get_coin_info(ticker).currently_enabled);
-
-        //! Remove from our cfg
-        if (is_this_ticker_present_in_normal_cfg(ticker))
-        {
-            SPDLOG_DEBUG("remove it from custom cfg: {}", ticker);
-            std::filesystem::path    cfg_path = utils::get_atomic_dex_config_folder();
-            std::string filename = "custom-tokens." + m_current_wallet_name + ".json";
-
-
-            SPDLOG_DEBUG("reading contents of custom tokens cfg");
-            nlohmann::json config_json_data = atomic_dex::utils::read_json_file(cfg_path / filename);
-            {
-                std::unique_lock lock(m_coin_cfg_mutex);
-                this->m_coins_informations.erase(ticker);
-            }
-            config_json_data.erase(config_json_data.find(ticker));
-
-            //! Write contents
-            QFile ofs;
-            ofs.setFileName(std_path_to_qstring((cfg_path / filename)));
-            ofs.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-            ofs.write(QString::fromStdString(config_json_data.dump()).toUtf8());
-            ofs.close();
-        }
-
-        if (is_this_ticker_present_in_raw_cfg(ticker))
-        {
-            SPDLOG_DEBUG("remove it from kdf cfg: {}", ticker);
-            fs::path coins_json_path{atomic_dex::utils::get_current_configs_path() / "coins.json"};
-            QFile    ifs;
-            ifs.setFileName(std_path_to_qstring(coins_json_path));
-            ifs.open(QIODevice::ReadOnly | QIODevice::Text);
-            nlohmann::json config_json_data;
-
-            //! Read Contents
-            config_json_data = nlohmann::json::parse(QString(ifs.readAll()).toStdString());
-
-            config_json_data.erase(std::find_if(
-                begin(config_json_data), end(config_json_data),
-                [ticker](nlohmann::json current_elem) { return current_elem.at("coin").get<std::string>() == ticker; }));
-
-            //! Close
-            ifs.close();
-
-            //! Write contents
-            QFile ofs;
-            ofs.setFileName(std_path_to_qstring(coins_json_path));
-            ofs.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-            ofs.write(QString::fromStdString(config_json_data.dump()).toUtf8());
-            ofs.close();
-        }
     }
 
     std::vector<electrum_server>

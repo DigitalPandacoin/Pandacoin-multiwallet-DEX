@@ -45,13 +45,12 @@ namespace atomic_dex
         // Available Qt roles.
         enum CoinsRoles
         {
-            TickerRole = Qt::UserRole + 1,
+            TickerRole = Qt::UserRole + 1, // 257
             NameRole,
             TickerAndNameRole,
             IsClaimable,
             CurrentlyEnabled,
-            Active,
-            IsCustomCoin,
+            Active,                        // 262
             Type,
             CoinType,
             Checked,
@@ -128,7 +127,7 @@ namespace atomic_dex
 
       private:
         std::vector<coin_config_t> m_model_data;    // Contains all the data
-        t_enabled_coins_registry m_enabled_coins; // Currently enabled_coins
+        t_enabled_coins_registry m_enabled_coins;   // Currently enabled_coins
 
         std::array<global_coins_cfg_proxy_model*, ::CoinType::Size> m_proxies;
 

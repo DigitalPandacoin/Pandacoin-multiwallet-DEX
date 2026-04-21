@@ -55,7 +55,6 @@ namespace atomic_dex
         void enablingCoinFailedStatus(QString coin, QString error, QString human_date, qint64 timestamp);
         void disablingCoinFailedStatus(QString coin, QString error, QString human_date, qint64 timestamp);
         void endpointNonReacheableStatus(QString base_uri, QString human_date, qint64 timestamp);
-        void mismatchCustomCoinConfiguration(QString asset, QString human_date, qint64 timestamp);
         void fatalNotification(QString message);
         void batchFailed(QString reason, QString from, QString human_date, qint64 timestamp);
 

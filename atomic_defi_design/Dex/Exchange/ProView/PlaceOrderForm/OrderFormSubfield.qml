@@ -87,7 +87,6 @@ RowLayout
 
     Item
     {
-
         width: btn_width
         height: parent.height
 

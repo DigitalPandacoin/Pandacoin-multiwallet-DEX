@@ -23,6 +23,7 @@ import AtomicDEX.TradingMode 1.0
 Item
 {
     id: dashboard
+    Layout.fillWidth: true
 
     enum PageType
     {
@@ -47,8 +48,6 @@ Item
     readonly property bool  can_disable_ticker: !api_wallet_page.tx_fetching_busy
     readonly property alias loader: loader
     readonly property alias current_component: loader.item
-
-    Layout.fillWidth: true
 
     function openLogsFolder()
     {
@@ -118,28 +117,24 @@ Item
         Component
         {
             id: portfolio
-
             Portfolio {}
         }
 
         Component
         {
             id: wallet
-
             Wallet {}
         }
 
         Component
         {
             id: exchange
-
             Exchange {}
         }
 
         Component
         {
             id: addressbook
-
             Addressbook.Main { }
         }
 
@@ -157,7 +152,6 @@ Item
         DefaultLoader
         {
             id: loader
-
             anchors.fill: parent
             transformOrigin: Item.Center
             asynchronous: true
@@ -168,7 +162,6 @@ Item
         Item
         {
             visible: !loader.visible
-
             anchors.fill: parent
 
             DefaultBusyIndicator
@@ -221,6 +214,7 @@ Item
                     onClicked: zcash_params_modal.open()
                 }
             }
+
             Connections
             {
                 target: API.app.zcash_params
@@ -255,19 +249,12 @@ Item
     Sidebar.Main
     {
         id: sidebar
-
         enabled: loader.status === Loader.Ready
 
         onLineSelected: currentPage = lineType;
         onAddCryptoClicked: enable_coin_modal.open()
         onSettingsClicked: setting_modal.open()
         onSupportClicked: support_modal.open()
-    }
-
-    ModalLoader
-    {
-        id: add_custom_coin_modal
-        sourceComponent: AddCustomCoinModal {}
     }
 
     // CEX Rates info

@@ -31,7 +31,6 @@ ColumnLayout
     property alias swap_btn_spinner: swap_btn_spinner
     property alias dexErrors: dexErrors
 
-
     // Will move to backend: Minimum Fee
     function getMaxBalance()
     {
@@ -65,11 +64,11 @@ ColumnLayout
     // Market mode selector
     RowLayout
     {
+        Layout.fillWidth: true
+        Layout.alignment: Qt.AlignHCenter
+        height: 28
         Layout.topMargin: 4
         Layout.bottomMargin: 4
-        Layout.alignment: Qt.AlignHCenter
-        Layout.fillWidth: true
-        height: 28
         visible: !API.app.trading_pg.maker_mode
 
         MarketModeSelector
@@ -125,6 +124,7 @@ ColumnLayout
             anchors.left: input_price.left
             anchors.topMargin: subfield_margin
             visible: !API.app.trading_pg.invalid_cex_price
+
             left_btn.onClicked:
             {
                 let price = General.formatDouble(parseFloat(input_price.text) - (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
@@ -132,12 +132,14 @@ ColumnLayout
                 setPrice(String(price))
                 reset_fees_state()
             }
+
             right_btn.onClicked:
             {
                 let price = General.formatDouble(parseFloat(input_price.text) + (General.formatDouble(API.app.trading_pg.cex_price)*0.01))
                 setPrice(String(price))
                 reset_fees_state()
             }
+
             middle_btn.onClicked:
             {
                 if (input_price.text == "0") setPrice("1")
@@ -145,6 +147,7 @@ ColumnLayout
                 setPrice(String(price))
                 reset_fees_state()
             }
+
             fiat_value: General.getFiatText(non_null_price, right_ticker)
             left_label: "-1%"
             middle_label: "0%"
@@ -214,9 +217,9 @@ ColumnLayout
 
     Item
     {
-        visible: _useCustomMinTradeAmountCheckbox.checked
         Layout.fillWidth: true
         Layout.preferredHeight: input_height
+        visible: _useCustomMinTradeAmountCheckbox.checked
 
         AmountField
         {
@@ -280,9 +283,9 @@ ColumnLayout
 
     RowLayout
     {
+        Layout.fillWidth: true
         Layout.rightMargin: 2
         Layout.leftMargin: 2
-        Layout.fillWidth: true
         Layout.preferredHeight: 28
         spacing: 5
 
@@ -313,8 +316,8 @@ ColumnLayout
 
     Item
     {
-        height: 55
         Layout.fillWidth: true
+        height: 55
 
         Dex.Text
         {
@@ -338,8 +341,8 @@ ColumnLayout
 
     Item
     {
+        Layout.fillWidth: true
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: parent.width - 16
         height: 28
 
         RowLayout
@@ -364,6 +367,7 @@ ColumnLayout
                 Layout.preferredWidth: 30
                 Layout.rightMargin: 5
                 foregroundColor: Dex.CurrentTheme.warningColor
+
                 onClicked: {
                     API.app.trading_pg.reset_order()
                     reset_fees_state()
@@ -391,9 +395,9 @@ ColumnLayout
 
     TotalView
     {
-        height: 70
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignHCenter
+        height: 70
     }
 
     DefaultBusyIndicator
@@ -406,8 +410,8 @@ ColumnLayout
 
     Item
     {
+        Layout.fillWidth: true
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: parent.width - 16
         height: 28
 
         GradientButton

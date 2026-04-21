@@ -126,14 +126,6 @@ namespace atomic_dex::utils
     }
 
     std::filesystem::path
-    get_runtime_coins_path()
-    {
-        const auto fs_coins_path = get_atomic_dex_data_folder() / "custom_coins_icons";
-        create_if_doesnt_exist(fs_coins_path);
-        return fs_coins_path;
-    }
-
-    std::filesystem::path
     get_atomic_dex_logs_folder()
     {
         const auto fs_logs_path = get_atomic_dex_data_folder() / "logs";

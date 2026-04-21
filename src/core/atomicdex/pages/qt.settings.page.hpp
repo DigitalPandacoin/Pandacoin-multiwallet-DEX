@@ -48,13 +48,10 @@ namespace atomic_dex
         Q_PROPERTY(bool     spamfilter_enabled              READ is_spamfilter_enabled              WRITE set_spamfilter_enabled                NOTIFY onSpamFilterEnabledChanged)
         Q_PROPERTY(bool     postorder_enabled               READ is_postorder_enabled               WRITE set_postorder_enabled                 NOTIFY onPostOrderEnabledChanged)
         Q_PROPERTY(bool     static_rpcpass_enabled          READ is_static_rpcpass_enabled          WRITE set_static_rpcpass_enabled            NOTIFY onStaticRpcPassEnabledChanged)
-        Q_PROPERTY(QVariant custom_token_data               READ get_custom_token_data              WRITE set_custom_token_data                 NOTIFY customTokenDataChanged)
-        Q_PROPERTY(bool     fetching_custom_token_data_busy READ is_fetching_custom_token_data_busy WRITE set_fetching_custom_token_data_busy   NOTIFY customTokenDataStatusChanged)
         Q_PROPERTY(bool     fetching_priv_keys_busy         READ is_fetching_priv_key_busy          WRITE set_fetching_priv_key_busy            NOTIFY privKeyStatusChanged)
         Q_PROPERTY(bool     fetchingPublicKey               READ is_fetching_public_key                                                         NOTIFY fetchingPublicKeyChanged)
         Q_PROPERTY(QString  publicKey                       READ get_public_key                                                                 NOTIFY publicKeyChanged)
         Q_PROPERTY(bool     zhtlcStatus                     READ get_zhtlc_status                   WRITE set_zhtlc_status                      NOTIFY onZhtlcStatusChanged)
-
 
         ag::ecs::system_manager&                    m_system_manager;
         std::shared_ptr<QApplication>               m_app;
@@ -65,7 +62,6 @@ namespace atomic_dex
         std::atomic_bool                            m_fetching_priv_keys_busy{false};
         std::atomic_bool                            fetching_public_key{false};
         QString                                     public_key;
-        boost::synchronized_value<nlohmann::json>   m_custom_token_data;
         boost::synchronized_value<nlohmann::json>   m_zhtlc_status;
 
       public:
@@ -99,10 +95,6 @@ namespace atomic_dex
         void                                    set_postorder_enabled(bool is_enabled);
         void                                    set_current_currency(const QString& current_currency);
         void                                    set_current_fiat(const QString& current_fiat);
-        [[nodiscard]] bool                      is_fetching_custom_token_data_busy() const;
-        void                                    set_fetching_custom_token_data_busy(bool status);
-        [[nodiscard]] QVariant                  get_custom_token_data() const;
-        void                                    set_custom_token_data(QVariant rpc_data);
         [[nodiscard]] bool                      is_fetching_priv_key_busy() const;
         void                                    set_fetching_priv_key_busy(bool status);
         [[nodiscard]] bool                      is_fetching_public_key() const;
@@ -112,14 +104,12 @@ namespace atomic_dex
         void                                    set_qml_engine(QQmlApplicationEngine* engine);
 
         // QML API
-        Q_INVOKABLE void                        remove_custom_coin(const QString& ticker);
         Q_INVOKABLE [[nodiscard]] QStringList   get_available_langs() const;
         Q_INVOKABLE [[nodiscard]] QStringList   get_available_fiats() const;
         Q_INVOKABLE [[nodiscard]] QStringList   get_recommended_fiats();
         Q_INVOKABLE [[nodiscard]] QStringList   get_available_currencies() const;
         Q_INVOKABLE [[nodiscard]] bool          is_this_ticker_present_in_raw_cfg(const QString& ticker) const;
         Q_INVOKABLE [[nodiscard]] bool          is_this_ticker_present_in_normal_cfg(const QString& ticker) const;
-        Q_INVOKABLE [[nodiscard]] QString       get_custom_coins_icons_path() const;
         Q_INVOKABLE [[nodiscard]] bool          get_use_sync_date() const;
         Q_INVOKABLE [[nodiscard]] int           get_pirate_sync_date() const;
         Q_INVOKABLE [[nodiscard]] int           get_pirate_sync_height(int sync_date, int checkpoint_height, int checkpoint_blocktime) const;
@@ -136,7 +126,6 @@ namespace atomic_dex
         Q_INVOKABLE void                        fetchPublicKey();
         Q_INVOKABLE nlohmann::json              get_zhtlc_status();
 
-
         // QML API Properties Signals
       signals:
         void onLangChanged();
@@ -149,8 +138,6 @@ namespace atomic_dex
         void onPostOrderEnabledChanged();
         void onSpamFilterEnabledChanged();
         void onStaticRpcPassEnabledChanged();
-        void customTokenDataChanged();
-        void customTokenDataStatusChanged();
         void privKeyStatusChanged();
         void fetchingPublicKeyChanged();
         void publicKeyChanged();

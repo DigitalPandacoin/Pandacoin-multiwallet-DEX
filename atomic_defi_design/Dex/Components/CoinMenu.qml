@@ -34,19 +34,6 @@ Menu {
     }
 
     MenuItem {
-        text: qsTr("Disable and Delete %1", "TICKER").arg(ticker)
-        onTriggered: {
-            const cloneTicker = General.clone(ticker)
-            API.app.disable_coins([ticker])
-            API.app.settings_pg.remove_custom_coin(cloneTicker)
-            restart_modal.open()
-        }
-        enabled: disable_action.enabled && API.app.portfolio_pg.global_cfg_mdl.get_coin_info(ticker).is_custom_coin
-        visible: enabled
-        height: enabled ? 40 : 0
-    }
-
-    MenuItem {
         height: 40
         enabled: !General.prevent_coin_disabling.running
         text: qsTr("Disable all %1 assets").arg(type)

@@ -70,8 +70,6 @@ namespace atomic_dex::utils
     /// \return An std::filesystem::path object.
     [[nodiscard]] std::filesystem::path get_atomic_dex_addressbook_folder();
 
-    std::filesystem::path get_runtime_coins_path() ;
-
     std::filesystem::path get_atomic_dex_logs_folder() ;
 
     ENTT_API std::filesystem::path get_atomic_dex_current_log_file();

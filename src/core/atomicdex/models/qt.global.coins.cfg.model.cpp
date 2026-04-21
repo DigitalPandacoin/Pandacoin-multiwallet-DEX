@@ -41,7 +41,6 @@ namespace
             {"tx_uri", QString::fromStdString(coin.tx_uri)},
             {"block_uri", QString::fromStdString(coin.block_uri)},
             {"address_uri", QString::fromStdString(coin.address_uri)},
-            {"is_custom_coin", coin.is_custom_coin},
             {"is_enabled", coin.currently_enabled},
             {"has_parent_fees_ticker", coin.has_parent_fees_ticker},
             {"is_testnet", coin.is_testnet.value_or(false)},
@@ -102,8 +101,6 @@ namespace atomic_dex
             return item.active;
         case ActivationStatus:
             return atomic_dex::nlohmann_json_object_to_qt_json_object(item.activation_status);
-        case IsCustomCoin:
-            return item.is_custom_coin;
         case Type:
             return QString::fromStdString(item.type);
         case CoinType:
@@ -177,8 +174,7 @@ namespace atomic_dex
     QHash<int, QByteArray>
     global_coins_cfg_model::roleNames() const
     {
-        return {{TickerRole, "ticker"}, {NameRole, "name"}, {IsClaimable, "is_claimable"}, {CurrentlyEnabled, "enabled"},
-                {Active, "active"}, {IsCustomCoin, "is_custom_coin"}, {Type, "type"}, {Checked, "checked"}};
+        return {{TickerRole, "ticker"}, {NameRole, "name"}, {IsClaimable, "is_claimable"}, {CurrentlyEnabled, "enabled"}, {Active, "active"}, {Type, "type"}, {Checked, "checked"}};
     }
 } // namespace atomic_dex
 

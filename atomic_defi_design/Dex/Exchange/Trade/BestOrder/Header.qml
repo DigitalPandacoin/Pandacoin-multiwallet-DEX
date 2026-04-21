@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import Qaterial 1.0 as Qaterial
 import App 1.0
 import "../../../Components"
@@ -24,7 +23,7 @@ RowLayout
         font.weight: Font.Black
     }
 
-    Item { Layout.preferredWidth: (parent.width - 300) / 2 }
+    Item { Layout.preferredWidth: (parent.width - 308) / 2 }
 
     Dex.Text
     {
@@ -38,7 +37,7 @@ RowLayout
         font.weight: Font.Black
     }
 
-    Item { Layout.preferredWidth: (parent.width - 300) / 2 }
+    Item { Layout.preferredWidth: (parent.width - 308) / 2 }
 
     Dex.Text
     {

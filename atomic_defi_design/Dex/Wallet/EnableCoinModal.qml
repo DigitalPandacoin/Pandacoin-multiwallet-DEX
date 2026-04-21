@@ -210,25 +210,6 @@ MultipageModal
             }
         }
 
-        Item
-        {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
-            Layout.preferredHeight: 40
-
-            DexTransparentButton
-            {
-                anchors.right: parent.right
-                text: qsTr("Add a custom asset")
-                Layout.preferredHeight: 35
-                iconSource: Qaterial.Icons.plus
-                onClicked: {
-                    root.close()
-                    add_custom_coin_modal.open()
-                }
-            }
-        }
-
         // Footer
         RowLayout
         {

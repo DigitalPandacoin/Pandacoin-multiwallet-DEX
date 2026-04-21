@@ -15,8 +15,10 @@ import Dex.Themes 1.0 as Dex
 Item
 {
     id: root
-    property alias send_modal: send_modal
+    Layout.fillHeight: true
+    Layout.fillWidth: true
 
+    property alias send_modal: send_modal
     readonly property int       layout_margin: 20
     readonly property string    headerTitleColor: Style.colorText2
     readonly property string    headerTitleFont: Style.textSizeMid1
@@ -26,6 +28,8 @@ Item
     readonly property string    headerSmallFont: Style.textSizeSmall2
     readonly property string    addressURL: General.getAddressExplorerURL(api_wallet_page.ticker, current_ticker_infos.address)
     property int activation_pct: General.zhtlcActivationProgress(API.app.get_zhtlc_status(api_wallet_page.ticker), api_wallet_page.ticker)
+    readonly property var transactions_mdl: api_wallet_page.transactions_mdl
+
     Connections
     {
         target: API.app.settings_pg
@@ -38,11 +42,6 @@ Item
     {
         return General.formatPercent((100 * (1 - parseFloat(remaining)/parseFloat(current_ticker_infos.current_block))).toFixed(3), false)
     }
-
-    readonly property var transactions_mdl: api_wallet_page.transactions_mdl
-
-    Layout.fillHeight: true
-    Layout.fillWidth: true
 
     // TODO: Move this section for the coin summary bar at the top to its own component
     ColumnLayout

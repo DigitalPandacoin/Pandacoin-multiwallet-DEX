@@ -191,9 +191,6 @@ namespace atomic_dex
        void process_balance_answer(const kdf::enable_erc20_rpc& rpc);
 
      public:
-       //! Add a new coin in the coin_info cfg add_new_coin(normal_cfg, kdf_cfg)
-       void                         add_new_coin(const nlohmann::json& coin_cfg_json, const nlohmann::json& raw_coin_cfg_json);
-       void                         remove_custom_coin(const std::string& ticker);
        void                         update_sync_ticker_pair(std::string base, std::string rel);
        [[nodiscard]] bool           is_this_ticker_present_in_raw_cfg(const std::string& ticker) const;
        [[nodiscard]] bool           is_this_ticker_present_in_normal_cfg(const std::string& ticker) const;

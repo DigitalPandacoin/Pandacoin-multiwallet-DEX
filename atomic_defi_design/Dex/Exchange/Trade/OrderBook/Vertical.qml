@@ -23,7 +23,7 @@ Widget
     readonly property string pair: atomic_qt_utilities.retrieve_main_ticker(left_ticker) + "/" + atomic_qt_utilities.retrieve_main_ticker(right_ticker)
 
     Header {
-        Layout.topMargin: 10
+        Layout.topMargin: 14
         Layout.bottomMargin: 6
         Layout.rightMargin: 6
         Layout.fillWidth: true
