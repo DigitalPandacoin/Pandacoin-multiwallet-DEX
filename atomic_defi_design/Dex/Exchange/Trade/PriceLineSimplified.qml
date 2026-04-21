@@ -16,6 +16,8 @@ ColumnLayout
     readonly property string cex_price: API.app.trading_pg.cex_price
     readonly property string cex_price_reversed: API.app.trading_pg.cex_price_reversed
     readonly property string cexPriceDiff: API.app.trading_pg.cex_price_diff
+    readonly property string l_ticker: General.coinWithoutSuffix(left_ticker)
+    readonly property string r_ticker: General.coinWithoutSuffix(right_ticker)
     readonly property bool invalid_cex_price: API.app.trading_pg.invalid_cex_price
     readonly property bool price_entered: !General.isZero(non_null_price)
     readonly property int fontSize: Style.textSizeSmall1
@@ -44,7 +46,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 horizontalAlignment: invalid_cex_price ? Text.AlignHCenter : Text.AlignLeft
-                text_value: General.formatCrypto("", "1", right_ticker) + " = " + General.formatCrypto("", price_reversed, left_ticker)
+                text_value: General.formatCrypto("", "1", r_ticker) + " = " + General.formatCrypto("", price_reversed, l_ticker)
                 font.pixelSize: fontSize
             }
 
@@ -54,7 +56,7 @@ ColumnLayout
                 visible: price != 1
                 Layout.fillWidth: true
                 horizontalAlignment: invalid_cex_price ? Text.AlignHCenter : Text.AlignLeft
-                text_value: General.formatCrypto("", price, right_ticker) + " = " + General.formatCrypto("", "1", left_ticker)
+                text_value: General.formatCrypto("", price, r_ticker) + " = " + General.formatCrypto("", "1", l_ticker)
                 font.pixelSize: fontSize
             }
         }
@@ -78,7 +80,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignRight
-                text_value: General.formatCrypto("", "1", right_ticker) + " = " + General.formatCrypto("", cex_price_reversed, left_ticker)
+                text_value: General.formatCrypto("", "1", r_ticker) + " = " + General.formatCrypto("", cex_price_reversed, l_ticker)
                 font.pixelSize: fontSize
             }
 
@@ -87,7 +89,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignRight
-                text_value: General.formatCrypto("", cex_price, right_ticker) + " = " + General.formatCrypto("", "1", left_ticker)
+                text_value: General.formatCrypto("", cex_price, r_ticker) + " = " + General.formatCrypto("", "1", l_ticker)
                 font.pixelSize: fontSize
             }
         }

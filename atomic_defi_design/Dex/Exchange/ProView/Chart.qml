@@ -11,7 +11,7 @@ Item
 {
     id: root
     implicitWidth: 530
-    implicitHeight: 200
+    implicitHeight: 300
 
     readonly property string theme: Dex.CurrentTheme.getColorMode() === Dex.CurrentTheme.ColorMode.Dark ? "dark" : "light"
     property string loaded_symbol
