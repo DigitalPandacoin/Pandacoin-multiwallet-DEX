@@ -3656,47 +3656,6 @@ There is a toggle in settings where you can turn on/off the display of these tra
     </message>
 </context>
 <context>
-    <name>TradeViewHeader</name>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="96"/>
-        <source>Pro View Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="121"/>
-        <source>Display Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="129"/>
-        <source>Order Book</source>
-        <translation type="unfinished">Ордербук</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="133"/>
-        <source>Order Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="125"/>
-        <source>Trading Information</source>
-        <translation type="unfinished">Торговая информация</translation>
-    </message>
-</context>
-<context>
-    <name>TradingViewChart</name>
-    <message>
-        <location filename="../../Dex/Portfolio/TradingViewChart.qml" line="126"/>
-        <source>Loading market data</source>
-        <translation type="unfinished">Загрузка рыночных данных</translation>
-    </message>
-    <message>
-        <location filename="../../Dex/Portfolio/TradingViewChart.qml" line="132"/>
-        <source>There is no chart data for this ticker yet</source>
-        <translation type="unfinished">Для данного актива пока еще нет графиков данных</translation>
-    </message>
-</context>
-<context>
     <name>TransactionDetailsModal</name>
     <message>
         <location filename="../../Dex/Wallet/TransactionDetailsModal.qml" line="31"/>

@@ -68,7 +68,6 @@ QtObject {
 
     property bool dark_theme: Dex.CurrentTheme.getColorMode() === Dex.CurrentTheme.ColorMode.Dark
 
-
     function applyOpacity(hex, opacity="00") {
         return "#" + opacity + hex.substr(hex.length - 6)
     }
@@ -161,7 +160,6 @@ QtObject {
     readonly property string colorRectangleBorderGradient2:  dark_theme ? "#0D1021" : "#EFEFEF"
 
     readonly property string colorLineBasic:  dark_theme ? "#303344" : "#303344"
-
 
     readonly property string colorText: dark_theme ? Style.colorWhite1 : "#405366"
     readonly property string colorText2: dark_theme ? "#79808C" : "#3C5368"

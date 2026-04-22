@@ -1,7 +1,5 @@
 pragma Singleton
-
 import QtQuick 2.15
-
 import Dex.Themes 1.0 as Dex
 
 QtObject {
@@ -14,7 +12,6 @@ QtObject {
     property color backgroundColor: Dex.CurrentTheme.backgroundColor
     property color foregroundColor: Dex.CurrentTheme.foregroundColor
     property color primaryColor: accentColor
-
 
     property color backgroundLightColor0: backgroundColor
     property color backgroundLightColor1: Qt.darker(backgroundColor, 0.9)
@@ -99,11 +96,9 @@ QtObject {
     property color comboBoxBorderColor: rectangleBorderColor
     property color comboBoxBackgroundColor: backgroundDarkColor6
 
-
     property color leftSidebarBorderColor: rectangleBorderColor
     property color sideBarRightBorderColor: rectangleBorderColor
     property int sidebarHightLightHeight: 44
-
 
     property color contentColorTop: backgroundColor
     property color contentColorTopBold: backgroundColor
@@ -143,9 +138,6 @@ QtObject {
     property color buttonGradientEnabled2: DexTheme.buttonColorEnabled
     property color buttonGradientTextEnabled: DexTheme.foregroundColor
 
-
-
-
     property color textSelectionColor: Dex.CurrentTheme.textSelectionColor
     property color textPlaceHolderColor: Dex.CurrentTheme.textPlaceholderColor
     property color textSelectedColor: Dex.CurrentTheme.textSelectedColor
@@ -166,8 +158,6 @@ QtObject {
 
     property int rectangleRadius: Style.rectangleCornerRadius
 
-
-
     // Old
 
     function setQaterialStyle() {
@@ -176,7 +166,6 @@ QtObject {
     }
 
     onDark_themeChanged: setQaterialStyle()
-
 
     readonly property string listItemPrefix:  " ⚬   "
     readonly property string successCharacter:  "✓"
@@ -219,7 +208,6 @@ QtObject {
     readonly property double hoverOpacity: 0.6
 
     property bool dark_theme: true
-
 
     function applyOpacity(hex, opacity="00") {
         return "#" + opacity + hex.substr(hex.length - 6)
@@ -312,7 +300,6 @@ QtObject {
 
     readonly property string colorLineBasic:  dark_theme ? "#303344" : "#303344"
 
-
     readonly property string colorText: dark_theme ? Style.colorWhite1 : "#405366"
     readonly property string colorText2: dark_theme ? "#79808C" : "#3C5368"
     readonly property string colorTextDisabled: dark_theme ? Style.colorWhite8 : "#B5B9C1"
@@ -330,5 +317,4 @@ QtObject {
 
         return Style.colorWhite4
     }
-
 }

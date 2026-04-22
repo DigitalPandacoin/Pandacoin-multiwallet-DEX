@@ -2836,37 +2836,6 @@ Network fees can vary greatly depending on your selected trading pair.</source>
     </message>
 </context>
 <context>
-    <name>TradeViewHeader</name>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="96"/>
-        <source>Pro View Settings</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="121"/>
-        <source>Display Settings</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="125"/>
-        <source>Ticker Selectors</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="129"/>
-        <source>Trading Information</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="133"/>
-        <source>Order Book</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="137"/>
-        <source>Best Orders</source>
-    </message>
-    <message>
-        <location filename="../../Dex/Exchange/Trade/Trading/TradeViewHeader.qml" line="141"/>
-        <source>Place Order</source>
-    </message>
-</context>
-<context>
     <name>TransactionDetailsModal</name>
     <message>
         <location filename="../../Dex/Wallet/TransactionDetailsModal.qml" line="30"/>

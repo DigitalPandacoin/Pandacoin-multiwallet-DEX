@@ -6,7 +6,6 @@ Rectangle
 
     property bool   isExpanded: false
     property real   padding: 10
-
     property alias  header: headerLoader.sourceComponent
     property alias  content: contentLoader.sourceComponent
 

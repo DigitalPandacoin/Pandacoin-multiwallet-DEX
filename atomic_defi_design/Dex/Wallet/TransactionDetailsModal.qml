@@ -25,7 +25,7 @@ MultipageModal
 
     MultipageModalContent
     {
-        titleText: qsTr(" ")
+        titleText: qsTr("")
         flickMax: window.height - 40
 
         // Warning for spam/poison transactions
