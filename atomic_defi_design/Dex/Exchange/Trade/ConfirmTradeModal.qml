@@ -434,7 +434,6 @@ MultipageModal
                 padding: 10
                 leftPadding: 45
                 rightPadding: 45
-                rightMargin
                 radius: 18
                 onClicked: {
                     root.close()
