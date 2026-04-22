@@ -12,7 +12,7 @@ import Dex.Components 1.0 as Dex
 Widget
 {
     id: _control
-    margins: 0
+    margins: 4
     spacing: 4
     collapsable: false
     visible: _control.page_index === 1
@@ -25,7 +25,6 @@ Widget
         visible: !warning_text.visible
         Layout.topMargin: 12
         Layout.bottomMargin: 4
-        Layout.rightMargin: 8
         Layout.fillWidth: true
     }
 
@@ -54,8 +53,6 @@ Widget
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.bottomMargin: 6
-        Layout.leftMargin: 4
-        Layout.rightMargin: 8
         spacing: 6
         visible: !warning_text.visible
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl
