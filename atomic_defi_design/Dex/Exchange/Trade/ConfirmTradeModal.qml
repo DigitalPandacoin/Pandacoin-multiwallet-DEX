@@ -35,7 +35,7 @@ MultipageModal
                 Layout.preferredHeight: 70
                 Layout.preferredWidth: 480
 
-                Item { Layout.fillWidth: true }
+                Item { Layout.preferredWidth: 40 }
 
                 PairItemBadge
                 {
@@ -46,7 +46,7 @@ MultipageModal
                     Layout.fillHeight: true
                 }
 
-                Item { Layout.fillWidth: true }
+                Item { Layout.preferredWidth: 20 }
 
                 Qaterial.Icon
                 {
@@ -56,7 +56,7 @@ MultipageModal
                     Layout.fillHeight: true
                 }
 
-                Item { Layout.fillWidth: true }
+                Item { Layout.preferredWidth: 20 }
 
                 PairItemBadge
                 {
@@ -66,14 +66,14 @@ MultipageModal
                     Layout.fillHeight: true
                 }
 
-                Item { Layout.fillWidth: true }
+                Item { Layout.preferredWidth: 40 }
             },
 
             PriceLineSimplified
             {
                 id: price_line
-                Layout.leftMargin: 20
-                Layout.rightMargin: 20
+                Layout.leftMargin: 40
+                Layout.rightMargin: 40
                 Layout.fillWidth: true
             }
         ]
@@ -143,6 +143,7 @@ MultipageModal
                     Repeater
                     {
                         model: visible ? General.getFeesDetail(root.fees) : []
+
                         delegate: DexLabel
                         {
                             wrapMode: Text.NoWrap
@@ -153,7 +154,9 @@ MultipageModal
 
                     Repeater
                     {
+                        Layout.alignment: Qt.AlignHCenter
                         model: root.fees.hasOwnProperty('base_transaction_fees_ticker')  && !API.app.trading_pg.preimage_rpc_busy ? root.fees.total_fees : []
+
                         delegate: DexLabel
                         {
                             text: General.getFeesDetailText(
@@ -161,7 +164,6 @@ MultipageModal
                                     modelData.required_balance,
                                     modelData.coin)
                         }
-                        Layout.alignment: Qt.AlignHCenter
                     }
 
                     DexLabel
@@ -227,88 +229,88 @@ MultipageModal
                 spacing: 5
                 visible: !buy_sell_rpc_busy
 
-                    DefaultCheckBox
+                DefaultCheckBox
+                {
+                    id: _cancelPreviousCheckbox
+                    visible: API.app.trading_pg.maker_mode
+                    boxWidth: 20
+                    boxHeight: 20
+                    checked: true
+                    Layout.preferredHeight: 40
+                    Layout.alignment: Qt.AlignCenter
+                    text: qsTr("Cancel all existing orders for %1/%2?").arg(base_ticker).arg(rel_ticker)
+                }
+
+                DefaultCheckBox
+                {
+                    id: _goodUntilCanceledCheckbox
+                    visible: !API.app.trading_pg.maker_mode
+                    boxWidth: 20
+                    boxHeight: 20
+                    checked: true
+                    Layout.preferredHeight: 40
+                    Layout.alignment: Qt.AlignCenter
+                    text: qsTr("Good until cancelled (order will remain on orderbook until filled or cancelled)")
+                    label.wrapMode: Text.WordWrap
+                }
+
+                DefaultCheckBox
+                {
+                    id: enable_custom_config
+                    spacing: 2
+                    boxWidth: 20
+                    boxHeight: 20
+                    Layout.preferredHeight: 40
+                    Layout.alignment: Qt.AlignCenter
+                    text: qsTr("Use custom protection settings for incoming %1 transactions", "TICKER").arg(rel_ticker)
+                    label.wrapMode: Label.NoWrap
+                }
+
+                DexSwitch
+                {
+                    id: enable_dpow_confs
+                    visible: enable_custom_config.checked && config_section.is_dpow_configurable
+                    checked: true
+                    Layout.preferredWidth: 260
+                    Layout.alignment: Qt.AlignCenter
+                    mouseArea.hoverEnabled: true
+                    labelWidth: 200
+                    label.wrapMode: Label.NoWrap
+                    label.text: qsTr("Enable Komodo dPoW security")
+                    label2.text: General.cex_icon + ' <a href="https://komodoplatform.com/security-delayed-proof-of-work-dpow/">' + qsTr('Read more about dPoW') + '</a>'
+                }
+
+                ColumnLayout
+                {
+                    height: 50
+                    Layout.alignment: Qt.AlignCenter
+                    spacing: 5
+
+                    DexLabel
                     {
-                        id: _cancelPreviousCheckbox
-                        visible: API.app.trading_pg.maker_mode
-                        boxWidth: 20
-                        boxHeight: 20
-                        checked: true
-                        Layout.preferredHeight: 40
+                        height: 16
                         Layout.alignment: Qt.AlignCenter
-                        text: qsTr("Cancel all existing orders for %1/%2?").arg(base_ticker).arg(rel_ticker)
+                        visible: !enable_custom_config.checked
+                        text_value: qsTr("Security configuration")
+                        font.weight: Font.Medium
                     }
 
-                    DefaultCheckBox
+                    DexLabel
                     {
-                        id: _goodUntilCanceledCheckbox
-                        visible: !API.app.trading_pg.maker_mode
-                        boxWidth: 20
-                        boxHeight: 20
-                        checked: true
-                        Layout.preferredHeight: 40
+                        height: 12
+                        font: DexTypo.caption
                         Layout.alignment: Qt.AlignCenter
-                        text: qsTr("Good until cancelled (order will remain on orderbook until filled or cancelled)")
-                        label.wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        visible: !enable_custom_config.checked
+                        text_value: "✅ " + (
+                            config_section.is_dpow_configurable
+                            ? '<a href="https://komodoplatform.com/security-delayed-proof-of-work-dpow/">'
+                            + qsTr("dPoW protected ") + General.cex_icon +  '</a>'
+                            : qsTr("%1 confirmations for incoming %2 transactions")
+                            .arg(config_section.default_config.required_confirmations || 1).arg(rel_ticker)
+                        )
                     }
-                    
-                    DefaultCheckBox
-                    {
-                        id: enable_custom_config
-                        spacing: 2
-                        boxWidth: 20
-                        boxHeight: 20
-                        Layout.preferredHeight: 40
-                        Layout.alignment: Qt.AlignCenter
-                        text: qsTr("Use custom protection settings for incoming %1 transactions", "TICKER").arg(rel_ticker)
-                        label.wrapMode: Label.NoWrap
-                    }
-
-                    DexSwitch
-                    {
-                        id: enable_dpow_confs
-                        visible: enable_custom_config.checked && config_section.is_dpow_configurable
-                        checked: true
-                        Layout.preferredWidth: 260
-                        Layout.alignment: Qt.AlignCenter
-                        mouseArea.hoverEnabled: true
-                        labelWidth: 200
-                        label.wrapMode: Label.NoWrap
-                        label.text: qsTr("Enable Komodo dPoW security")
-                        label2.text: General.cex_icon + ' <a href="https://komodoplatform.com/security-delayed-proof-of-work-dpow/">' + qsTr('Read more about dPoW') + '</a>'
-                    }
-
-                    ColumnLayout
-                    {
-                        height: 50
-                        Layout.alignment: Qt.AlignCenter
-                        spacing: 5
-
-                        DexLabel
-                        {
-                            height: 16
-                            Layout.alignment: Qt.AlignCenter
-                            visible: !enable_custom_config.checked
-                            text_value: qsTr("Security configuration")
-                            font.weight: Font.Medium
-                        }
-
-                        DexLabel
-                        {
-                            height: 12
-                            font: DexTypo.caption
-                            Layout.alignment: Qt.AlignCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            visible: !enable_custom_config.checked
-                            text_value: "✅ " + (
-                                config_section.is_dpow_configurable
-                                ? '<a href="https://komodoplatform.com/security-delayed-proof-of-work-dpow/">'
-                                + qsTr("dPoW protected ") + General.cex_icon +  '</a>'
-                                : qsTr("%1 confirmations for incoming %2 transactions")
-                                .arg(config_section.default_config.required_confirmations || 1).arg(rel_ticker)
-                            )
-                        }
-                    }
+                }
             }
 
             // Configuration settings
@@ -347,9 +349,7 @@ MultipageModal
                         {
                             id: required_confirmation_count
                             height: 24
-
                             Layout.alignment: Qt.AlignCenter
-
                             visible: enable_custom_config.checked && (!config_section.is_dpow_configurable || !enable_dpow_confs.checked)
                             readonly property int default_confirmation_count: 3
                             stepSize: 1

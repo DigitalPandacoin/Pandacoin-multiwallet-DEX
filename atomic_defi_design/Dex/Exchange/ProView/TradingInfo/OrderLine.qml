@@ -2,34 +2,29 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import Qaterial 1.0 as Qaterial
-
 import QtGraphicalEffects 1.15
-
 import bignumberjs 1.0
-
 import App 1.0
-
 import "../../../Components"
 import Dex.Themes 1.0 as Dex
 
 FloatingBackground
 {
     Layout.fillWidth: true
+    height: 50
+    radius: 0
+    color: mouseArea.containsMouse ? Dex.CurrentTheme.accentColor : Dex.CurrentTheme.floatingBackgroundColor
 
     property var            details
     property alias          clickable: mouseArea.enabled
     readonly property bool  is_placed_order: !details ? false : details.order_id !== ''
-
-    height: 50
-
-    color: mouseArea.containsMouse ? Dex.CurrentTheme.accentColor : Dex.CurrentTheme.floatingBackgroundColor
-    radius: 0
 
     DefaultMouseArea
     {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: enabled
+
         onClicked:
         {
             order_modal.open()
@@ -53,7 +48,6 @@ FloatingBackground
             {
                 id: statusText
                 anchors.centerIn: parent
-
                 visible: clickable ? !details ? false : (details.is_swap || !details.is_maker) : false
                 font.pixelSize: getStatusFontSize(details.order_status)
                 color: !details ? Dex.CurrentTheme.foregroundColor : getStatusColor(details.order_status)
@@ -63,7 +57,6 @@ FloatingBackground
             Qaterial.ColorIcon
             {
                 anchors.centerIn: parent
-
                 visible: !statusText.visible ? clickable ? true : false : false
                 iconSize: 16
                 color: Dex.CurrentTheme.foregroundColor
@@ -89,7 +82,6 @@ FloatingBackground
                     id: baseAmountLabel
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.pixelSize: 12
                     text_value:
                     {
@@ -108,7 +100,6 @@ FloatingBackground
                     anchors.left: baseAmountLabel.right
                     anchors.leftMargin: 3
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.pixelSize: 12
                     text_value: !details ? "" : "(%1 %2)".arg(details.base_amount_current_currency).arg(API.app.settings_pg.current_fiat_sign)
                     privacy: true
@@ -120,7 +111,6 @@ FloatingBackground
                 {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-
                     source: Qaterial.Icons.swapHorizontal
                     color: Dex.CurrentTheme.foregroundColor
                     iconSize: 18
@@ -131,7 +121,6 @@ FloatingBackground
                     anchors.right: relAmountInCurrCurrency.left
                     anchors.rightMargin: 3
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.pixelSize: 12
                     text_value:
                     {
@@ -140,7 +129,6 @@ FloatingBackground
                         BigNumber.config({ DECIMAL_PLACES: 6 })
                         return new BigNumber(details.rel_amount).toString(10)
                     }
-
                     privacy: true
                     elide: Text.ElideRight
                     maximumLineCount: 1
@@ -149,10 +137,8 @@ FloatingBackground
                 DexLabel
                 {
                     id: relAmountInCurrCurrency
-
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.pixelSize: 12
                     text_value: !details ? "" : "(%1 %2)".arg(details.rel_amount_current_currency).arg(API.app.settings_pg.current_fiat_sign)
                     privacy: true
@@ -169,13 +155,10 @@ FloatingBackground
                 DefaultImage
                 {
                     id: baseIcon
-
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-
                     width: 15
                     height: 15
-
                     source: General.coinIcon(!details ? atomic_app_primary_coin : details.base_coin ?? atomic_app_primary_coin)
                 }
 
@@ -184,7 +167,6 @@ FloatingBackground
                     anchors.left: baseIcon.right
                     anchors.leftMargin: 2
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.weight: Font.Bold
                     font.pixelSize: 12
                     text_value: !details ? "" : details.base_coin
@@ -196,10 +178,8 @@ FloatingBackground
                 DexLabel
                 {
                     visible: clickable
-
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.pixelSize: 11
                     text_value: !details ? "" : details.date ?? ""
                     elide: Text.ElideRight
@@ -212,7 +192,6 @@ FloatingBackground
                     anchors.right: relCoin.left
                     anchors.rightMargin: 2
                     anchors.verticalCenter: parent.verticalCenter
-
                     font.weight: Font.Bold
                     font.pixelSize: 12
                     text_value: !details ? "" : details.rel_coin
@@ -224,13 +203,10 @@ FloatingBackground
                 DefaultImage
                 {
                     id: relCoin
-
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-
                     width: 15
                     height: 15
-
                     source: General.coinIcon(!details ? atomic_app_primary_coin : details.rel_coin ?? atomic_app_secondary_coin)
                 }
             }
@@ -245,7 +221,6 @@ FloatingBackground
             DexLabel
             {
                 anchors.centerIn: parent
-
                 visible: !details || details.recoverable === undefined ? false : details.recoverable && details.order_status !== "refunding"
                 font.pixelSize: baseAmountLabel.font.pixelSize
                 text_value: Style.warningCharacter
@@ -268,9 +243,7 @@ FloatingBackground
                 id: cancel_button_text
                 anchors.centerIn: parent
                 anchors.fill: parent
-
                 visible: (!is_history ? details.cancellable ?? false : false) === true ? (mouseArea.containsMouse || hovered) ? true : false : false
-
                 outlinedColor: Dex.CurrentTheme.warningColor
                 hoverEnabled: true
 
@@ -283,6 +256,7 @@ FloatingBackground
                         duration: 200
                     }
                 }
+
                 Qaterial.ColorIcon
                 {
                     anchors.centerIn: parent
@@ -294,6 +268,7 @@ FloatingBackground
             }
         }
     }
+
     // Separator
     HorizontalLine
     {

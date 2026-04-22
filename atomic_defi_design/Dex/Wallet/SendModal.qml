@@ -786,7 +786,7 @@ MultipageModal
             {
                 text: qsTr("Cancel")
                 Layout.alignment: Qt.AlignLeft
-                Layout.preferredWidth: parent.width / 100 * 42
+                Layout.preferredWidth: 200
                 Layout.preferredHeight: 42
                 label.font.pixelSize: 16
                 radius: 18
@@ -800,7 +800,7 @@ MultipageModal
             {
                 enabled: fieldAreFilled() && hasFunds() && !errorView && !root.is_send_busy
                 Layout.alignment: Qt.AlignRight
-                Layout.preferredWidth: parent.width / 100 * 42
+                Layout.preferredWidth: 200
                 text: qsTr("Prepare")
 
                 onClicked: prepareSendCoin(

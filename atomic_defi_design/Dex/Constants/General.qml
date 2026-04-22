@@ -401,7 +401,7 @@ QtObject {
     function getCustomFeeType(ticker_infos)
     {
         if (["ZHTLC", "Moonbeam", "QRC-20"].includes(ticker_infos.type)) return ""
-        if (!General.isSpecialToken(ticker_infos) && !General.isParentCoin(ticker_infos.ticker) ||  ["KMD"].includes(ticker_infos.ticker))
+        if (!General.isSpecialToken(ticker_infos) && !General.isParentCoin(ticker_infos.ticker) || ["KMD"].includes(ticker_infos.ticker))
         {
             return "UTXO"
         }

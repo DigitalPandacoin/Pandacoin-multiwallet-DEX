@@ -1,11 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import QtGraphicalEffects 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import App 1.0
 import "../../../Components"
 import "../../../Constants"
@@ -32,7 +29,6 @@ RowLayout
                 Layout.preferredWidth: 35
                 Layout.preferredHeight: 35
                 Layout.alignment: Qt.AlignVCenter
-
                 source: General.coinIcon(!details ? atomic_app_primary_coin : details.base_coin)
             }
 
@@ -43,6 +39,7 @@ RowLayout
                 {
                     Layout.fillWidth: true
                     spacing: 5
+
                     DexLabel
                     {
                         Layout.fillWidth: true
@@ -75,7 +72,6 @@ RowLayout
     {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignVCenter
-
         color: Dex.CurrentTheme.foregroundColor
         icon: Qaterial.Icons.swapHorizontal
     }
@@ -97,7 +93,6 @@ RowLayout
                 Layout.preferredWidth: 35
                 Layout.preferredHeight: 35
                 Layout.alignment: Qt.AlignVCenter
-
                 source: General.coinIcon(!details ? atomic_app_primary_coin : details.rel_coin)
             }
 
@@ -108,6 +103,7 @@ RowLayout
                 {
                     Layout.fillWidth: true
                     spacing: 5
+
                     DexLabel
                     {
                         Layout.fillWidth: true

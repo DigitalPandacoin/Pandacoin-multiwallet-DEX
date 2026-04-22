@@ -321,7 +321,6 @@ namespace atomic_dex
                 bool add_to_init(true);
                 m_portfolio_queue.pop(ticker_cstr);
                 std::string ticker(ticker_cstr);
-                // TODO: why this?
                 if (ticker == g_primary_dex_coin)
                 {
                     this->m_primary_coin_fully_enabled = true;

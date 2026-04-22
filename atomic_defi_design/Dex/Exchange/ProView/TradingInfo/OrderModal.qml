@@ -229,8 +229,8 @@ MultipageModal
             DefaultButton
             {
                 id: refund_button
-                leftPadding: 15
-                rightPadding: 15
+                leftPadding: 20
+                rightPadding: 20
                 radius: 18
                 enabled: !API.app.orders_mdl.recover_fund_busy
                 visible: !details ? false :
@@ -247,8 +247,8 @@ MultipageModal
             {
                 id: cancel_order_button
                 visible: !details ? false : details.cancellable
-                leftPadding: 15
-                rightPadding: 15
+                leftPadding: 20
+                rightPadding: 20
                 radius: 18
                 text: qsTr("Cancel Order")
                 font: DexTypo.body2
@@ -265,8 +265,8 @@ MultipageModal
                 visible: !details ? false : details.maker_payment_id !== '' || details.taker_payment_id !== ''
                 text: qsTr("View on Explorer")
                 font: DexTypo.body2
-                leftPadding: 15
-                rightPadding: 15
+                leftPadding: 20
+                rightPadding: 20
                 radius: 18
                 Layout.preferredHeight: 40
 
@@ -293,8 +293,8 @@ MultipageModal
                 id: close_order_button
                 text: qsTr("Close")
                 font: DexTypo.body2
-                leftPadding: 15
-                rightPadding: 15
+                leftPadding: 30
+                rightPadding: 30
                 radius: 18
                 Layout.preferredHeight: 40
 
