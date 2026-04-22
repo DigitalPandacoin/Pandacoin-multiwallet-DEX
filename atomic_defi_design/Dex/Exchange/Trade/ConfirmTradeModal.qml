@@ -426,12 +426,15 @@ MultipageModal
 
         footer:
         [
+            Item { Layout.preferredWidth: 100 },
+
             CancelButton
             {
                 text: qsTr("Cancel")
                 padding: 10
                 leftPadding: 45
                 rightPadding: 45
+                rightMargin
                 radius: 18
                 onClicked: {
                     root.close()
@@ -460,7 +463,9 @@ MultipageModal
                             config_section.default_config)
                     API.app.trading_pg.reset_fees()
                 }
-            }
+            },
+
+            Item { Layout.preferredWidth: 100 }
         ]
     }
 }

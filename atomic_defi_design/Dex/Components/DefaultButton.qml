@@ -1,10 +1,5 @@
-//! Qt Imports
 import QtQuick 2.15
-
-//! 3rdParty Imports
 import Qaterial 1.0 as Qaterial
-
-//! Project Imports
 import Dex.Themes 1.0 as Dex
 import "../Constants"
 import App 1.0

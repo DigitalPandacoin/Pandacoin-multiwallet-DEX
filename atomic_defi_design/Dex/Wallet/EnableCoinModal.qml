@@ -216,7 +216,7 @@ MultipageModal
 
             CancelButton
             {
-                Layout.preferredWidth: 199
+                Layout.preferredWidth: 200
                 text: qsTr("Cancel")
                 radius: 18
                 onClicked: root.close()
@@ -226,7 +226,7 @@ MultipageModal
 
             DexAppOutlineButton
             {
-                Layout.preferredWidth: 199
+                Layout.preferredWidth: 200
                 visible: coin_cfg_model.length > 0
                 enabled: coin_cfg_model.checked_nb > 0
                 text: qsTr("Enable")

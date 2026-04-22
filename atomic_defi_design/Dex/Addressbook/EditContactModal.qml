@@ -125,7 +125,7 @@ Dex.MultipageModal
                                 Layout.alignment: Qt.AlignVCenter
                                 Layout.preferredWidth: 30
                                 Layout.preferredHeight: 30
-                                radius: 15
+                                radius: 18
                                 visible: addressRowMouseArea.containsMouse
                                 iconSource: Qaterial.Icons.sendOutline
                                 onClicked: trySend(address_value, address_type)

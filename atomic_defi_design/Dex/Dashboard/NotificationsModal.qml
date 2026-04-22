@@ -466,6 +466,7 @@ DexPopup
                     RowLayout
                     {
                         anchors.fill: parent
+
                         Item
                         {
                             Layout.fillHeight: true
@@ -475,7 +476,7 @@ DexPopup
                             {
                                 width: 23
                                 height: 23
-                                radius: 12
+                                radius: 10
                                 anchors.right: parent.right
                                 y: 10
                                 

@@ -73,21 +73,20 @@ Item
                 InnerBackground
                 {
                     id: list_bg
-                    Layout.preferredWidth: 145
+                    Layout.preferredWidth: 150
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter
                     color: 'transparent'
+
                     content: Dex.ListView
                     {
                         id: list
                         height: list_bg.height
                         model: portfolio_coins
                         scrollbar_visible: false
-
                         reuseItems: true
 
                         delegate: SidebarItemDelegate { }
-
                     }
                 }
             }

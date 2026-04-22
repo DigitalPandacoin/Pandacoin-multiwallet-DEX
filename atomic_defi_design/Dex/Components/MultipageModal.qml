@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
 import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -8,14 +7,17 @@ import Dex.Themes 1.0 as Dex
 DefaultModal
 {
     id: root
+    width: 676
+    height: columnLayout.height + verticalPadding * 2
 
     property alias         currentIndex: stackLayout.currentIndex
     property int           targetPageIndex: currentIndex
     property alias         count: stackLayout.count
     default property alias pages: stackLayout.data
-
     readonly property int  _modalWidth: width
     readonly property int  _modalPadding: padding
+
+    onOpened: stackLayout.opacity = 1
 
     function nextPage()
     {
@@ -38,11 +40,6 @@ DefaultModal
             changePageAnim.start()
         }
     }
-
-    width: 676
-    height: columnLayout.height + verticalPadding * 2
-
-    onOpened: stackLayout.opacity = 1
 
     SequentialAnimation
     {
@@ -78,7 +75,7 @@ DefaultModal
                     {
                         width: 24
                         height: 24
-                        radius: width / 2
+                        radius: 18
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         gradient: Gradient
@@ -93,7 +90,7 @@ DefaultModal
                     {
                         width: 20
                         height: 20
-                        radius: width / 2
+                        radius: 18
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         gradient: Gradient

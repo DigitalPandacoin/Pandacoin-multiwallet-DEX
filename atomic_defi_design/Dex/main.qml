@@ -313,7 +313,7 @@ DexWindow
                     height: width
                     color: Dex.CurrentTheme.gradientButtonPressedStartColor
                     opacity: 0.8
-                    radius: width / 2
+                    radius: 8
                     visible: app.notifications_list !== undefined ? app.notifications_list.length > 0 : false
                     z: 1
                 }

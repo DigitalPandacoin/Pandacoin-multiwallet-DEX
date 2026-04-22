@@ -3,9 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.impl 2.15
 import QtQuick.Controls.Universal 2.15
-
 import QtGraphicalEffects 1.15
-
 import "../Constants"
 import App 1.0
 import Dex.Themes 1.0 as Dex
@@ -15,9 +13,8 @@ DefaultComboBox
     id: control
     model: API.app.settings_pg.get_available_langs()
     height: 50
-
-    displayText: API.app.settings_pg.lang
     leftPadding: 5
+    displayText: API.app.settings_pg.lang
 
     // Each dropdown item
     delegate: ItemDelegate
@@ -48,7 +45,7 @@ DefaultComboBox
         background: Rectangle
         {
             anchors.fill: combo_item
-            radius: 6
+            radius: 8
             color: combo_item.highlighted ? Dex.CurrentTheme.comboBoxDropdownItemHighlightedColor : Dex.CurrentTheme.comboBoxBackgroundColor
         }
 
@@ -81,7 +78,7 @@ DefaultComboBox
 
     background: FloatingBackground
     {
-        radius: 20
+        radius: 18
         color: Dex.CurrentTheme.comboBoxBackgroundColor
     }
 

@@ -387,7 +387,7 @@ ColumnLayout
         {
             visible: API.app.trading_pg.preferred_order.price !== undefined
             anchors.fill: parent
-            radius: 8
+            radius: 18
             color: 'transparent'
             border.color: Dex.CurrentTheme.warningColor
         }
