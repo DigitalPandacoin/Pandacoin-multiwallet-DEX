@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -72,13 +71,13 @@ MultipageModal {
         footer: [
             CancelButton {
                 text: qsTr("Cancel")
-                Layout.fillWidth: true
                 onClicked: root.close()
             },
 
+            Item { Layout.fillWidth: true },
+
             DefaultButton {
                 text: qsTr("Delete")
-                Layout.fillWidth: true
                 enabled: input_password.isValid()
                 onClicked: {
                     if(API.app.wallet_mgr.confirm_password(API.app.wallet_mgr.wallet_default_name, input_password.field.text)) {

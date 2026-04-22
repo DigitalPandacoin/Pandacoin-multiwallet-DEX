@@ -251,7 +251,7 @@ MultipageModal
             Layout.preferredHeight: 36
             Layout.alignment: Qt.AlignHCenter
             color: input_address.background.color
-            radius: input_address.background.radius
+            radius: 18
 
             DexTextField
             {
@@ -273,7 +273,7 @@ MultipageModal
             {
                 width: 30
                 height: 30
-                radius: 8
+                radius: 18
                 anchors.right: parent.right
                 anchors.rightMargin: 13
                 anchors.verticalCenter: parent.verticalCenter
@@ -388,7 +388,7 @@ MultipageModal
                     anchors.verticalCenter: parent.verticalCenter
                     width: 46
                     height: 22
-                    radius: 8
+                    radius: 18
                     color: maxButMouseArea.containsMouse ? Dex.CurrentTheme.buttonColorHovered : Dex.CurrentTheme.buttonColorEnabled
 
                     DexLabel
@@ -433,7 +433,7 @@ MultipageModal
                     id: cryptoFiatSwitchIcon
                     width: 28
                     height: 28
-                    radius: width / 2
+                    radius: 18
                     anchors.left: parent.left
                     anchors.leftMargin: 3
                     anchors.verticalCenter: parent.verticalCenter
@@ -442,7 +442,7 @@ MultipageModal
                     DexLabel
                     {
                         id: fiat_symbol
-                        visible: _preparePage.cryptoSendMode // && API.app.settings_pg.current_currency_sign != "KMD"
+                        visible: _preparePage.cryptoSendMode
                         font.pixelSize: API.app.settings_pg.current_currency_sign.length == 1 ? 18 : 18 - API.app.settings_pg.current_currency_sign.length * 2
                         anchors.centerIn: parent
                         text: API.app.settings_pg.current_currency_sign
@@ -555,7 +555,7 @@ MultipageModal
             Layout.preferredHeight: 36
             Layout.alignment: Qt.AlignHCenter
             color: input_memo.background.color
-            radius: input_memo.background.radius
+            radius: 18
 
             DexTextField
             {
@@ -930,16 +930,14 @@ MultipageModal
         // Buttons
         footer:
         [
-            Item { Layout.fillWidth: true },
-
             DefaultButton
             {
                 text: qsTr("Back")
                 leftPadding: 40
                 rightPadding: 40
                 radius: 18
-                onClicked: root.currentIndex = 0
                 enabled: !root.is_broadcast_busy
+                onClicked: root.currentIndex = 0
             },
 
             Item { Layout.fillWidth: true },
@@ -947,14 +945,12 @@ MultipageModal
             DexAppOutlineButton
             {
                 text: qsTr("Send")
-                onClicked: sendCoin()
                 leftPadding: 40
                 rightPadding: 40
                 radius: 18
                 enabled: !root.is_broadcast_busy
-            },
-
-            Item { Layout.fillWidth: true }
+                onClicked: sendCoin()
+            }
         ]
     }
 

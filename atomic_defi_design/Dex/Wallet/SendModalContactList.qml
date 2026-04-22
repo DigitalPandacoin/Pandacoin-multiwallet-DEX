@@ -102,15 +102,13 @@ MultipageModal
 
         footer:
         [
-            Item { Layout.fillWidth: true },
             DefaultButton // Back to Send Modal Button
             {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 280
                 text: qsTr("Back")
                 onClicked: close()
-            },
-            Item { Layout.fillWidth: true }
+            }
         ]
     }
 
@@ -205,14 +203,13 @@ MultipageModal
 
         footer:
         [
-            Item { Layout.fillWidth: true },
             DefaultButton
             {
+                Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 280
                 text: qsTr("Back")
                 onClicked: currentIndex = 0
-            },
-            Item { Layout.fillWidth: true }
+            }
         ]
     }
 }

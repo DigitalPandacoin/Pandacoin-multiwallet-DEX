@@ -126,7 +126,6 @@ MultipageModal
             label.font.pixelSize: 13
         }
 
-
         // Confirmations
         TextEditWithTitle
         {
@@ -142,7 +141,6 @@ MultipageModal
             text: !details ? "" : details.blockheight
             label.font.pixelSize: 13
         }
-
 
         // Notes
         TextAreaWithTitle
@@ -172,7 +170,6 @@ MultipageModal
         [
             CancelButton
             {
-                Layout.fillWidth: true
                 text: qsTr("Close")
                 leftPadding: 40
                 rightPadding: 40
@@ -180,9 +177,10 @@ MultipageModal
                 onClicked: root.close()
             },
 
+            Item { Layout.fillWidth: true },
+
             DexAppOutlineButton
             {
-                Layout.fillWidth: true
                 text: qsTr("View on Explorer")
                 leftPadding: 40
                 rightPadding: 40

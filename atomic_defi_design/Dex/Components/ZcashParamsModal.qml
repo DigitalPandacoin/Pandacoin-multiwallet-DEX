@@ -1,9 +1,6 @@
-// Qt Imports
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
-// Project Imports
 import "../Constants" as Dex
 import "../Components" as Dex
 import App 1.0
@@ -60,7 +57,6 @@ Dex.MultipageModal
 
         footer:
         [
-            Item { Layout.fillWidth: true },
             Dex.DefaultButton
             {
                 id: download_button
@@ -71,19 +67,22 @@ Dex.MultipageModal
                     Dex.API.app.zcash_params.download_zcash_params()
                 }
             },
+
             Item { Layout.fillWidth: true },
+
             Dex.DefaultButton
             {
                 text: qsTr("More Info")
                 onClicked: Qt.openUrlExternally("https://www.coinbureau.com/education/zcash-ceremony/")
             },
+
             Item { Layout.fillWidth: true },
+
             Dex.CancelButton
             {
                 text: qsTr("Close")
                 onClicked: close()
-            },
-            Item { Layout.fillWidth: true }
+            }
         ]
 
         Connections

@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
 import "../Constants" as Dex
 import Dex.Components 1.0 as Dex
 

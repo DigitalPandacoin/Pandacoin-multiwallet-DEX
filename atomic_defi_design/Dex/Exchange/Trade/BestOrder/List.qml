@@ -12,7 +12,7 @@ import Dex.Components 1.0 as Dex
 Widget
 {
     id: _control
-    margins: 4
+    margins: 6
     spacing: 4
     collapsable: false
     visible: _control.page_index === 1
@@ -23,7 +23,7 @@ Widget
     Header
     {
         visible: !warning_text.visible
-        Layout.topMargin: 12
+        Layout.topMargin: 8
         Layout.bottomMargin: 4
         Layout.fillWidth: true
     }

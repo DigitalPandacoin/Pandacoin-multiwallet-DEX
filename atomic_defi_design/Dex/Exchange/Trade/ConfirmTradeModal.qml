@@ -426,8 +426,6 @@ MultipageModal
 
         footer:
         [
-            Item { Layout.fillWidth: true },
-
             CancelButton
             {
                 text: qsTr("Cancel")
@@ -462,9 +460,7 @@ MultipageModal
                             config_section.default_config)
                     API.app.trading_pg.reset_fees()
                 }
-            },
-
-            Item { Layout.fillWidth: true }
+            }
         ]
     }
 }

@@ -117,14 +117,15 @@ MultipageModalContent
     [
         CancelButton
         {
-            Layout.fillWidth: true
             text: qsTr("Close")
             radius: 18
             onClicked: close()
         },
+
+        Item { Layout.fillWidth: true },
+
         DexAppOutlineButton
         {
-            Layout.fillWidth: true
             text: qsTr("View on Explorer")
             radius: 18
             onClicked: General.viewTxAtExplorer(api_wallet_page.ticker, tx_hash.text_value)

@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import ModelHelper 0.1
-
 import App 1.0
 import Dex.Themes 1.0 as Dex
 import "../Constants"
@@ -45,10 +44,6 @@ MultipageModal {
                 }
                 return ""
             }
-            //Component.onCompleted: {
-            //      console.log("LogoutModal orders.count = " + orders.count)
-            //      console.log("LogoutModal height = " + height) // 40
-            //}
         }
 
         // Buttons
@@ -61,11 +56,13 @@ MultipageModal {
                     return_to_login()
                 }
             },
+
             DefaultButton {
                 text: qsTr("Exit")
                 Layout.fillWidth: true
                 onClicked: Qt.quit()
             },
+
             DefaultButton {
                 text: qsTr("Cancel")
                 Layout.fillWidth: true

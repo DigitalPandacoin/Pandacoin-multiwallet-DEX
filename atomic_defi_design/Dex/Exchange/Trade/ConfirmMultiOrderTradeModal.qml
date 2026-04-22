@@ -1,24 +1,17 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../../Components"
 import "../../Constants"
 import ".."
-
 import "Orders/"
-
 
 MultipageModal {
     id: root
 
     width: 1100
-
     onOpened: reset()
-
-    function reset() {
-
-    }
+    function reset() {}
 
     MultipageModalContent {
         titleText: qsTr("Confirm Multi Order Details")
@@ -103,13 +96,13 @@ MultipageModal {
         footer: [
             CancelButton {
                 text: qsTr("Cancel")
-                Layout.fillWidth: true
                 onClicked: root.close()
             },
 
+            Item { Layout.fillWidth: true },
+
             DefaultButton {
                 text: qsTr("Confirm")
-                Layout.fillWidth: true
                 onClicked: {
                     console.log("Submitting multiple sell order")
                     API.app.trading_pg.place_multiple_sell_order()

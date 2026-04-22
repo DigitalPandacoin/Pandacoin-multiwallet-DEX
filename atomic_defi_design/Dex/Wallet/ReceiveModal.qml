@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-
 import "../Components"
 import "../Constants"
 import App 1.0
@@ -55,14 +54,12 @@ MultipageModal
         // Buttons
         footer:
         [
-            Item { Layout.fillWidth: true },
             CancelButton
             {
                 text: qsTr("Close")
                 Layout.fillWidth: true
                 onClicked: root.close()
-            },
-            Item { Layout.fillWidth: true }
+            }
         ]
     }
 }
