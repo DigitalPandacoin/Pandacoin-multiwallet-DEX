@@ -1,8 +1,5 @@
-// Qt Imports
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-
-// Project Imports
 import "../Components"
 import "../Constants"
 import Dex.Components 1.0 as Dex
@@ -52,6 +49,7 @@ Dex.Popup
             text: qsTr("Save")
             height: 30
             anchors.horizontalCenter: parent.horizontalCenter
+
             onClicked:
             {
                 if (nameField.text.length === 0)

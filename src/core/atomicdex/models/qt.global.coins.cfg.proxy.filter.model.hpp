@@ -35,9 +35,6 @@ namespace atomic_dex
         //! Destructor
         ~global_coins_cfg_proxy_model()  final = default;
 
-        //////// QML API
-        ////////////////
-        
         Q_INVOKABLE void set_all_state(bool checked); // Checks/Unchecks all coins
       
       private:
@@ -49,12 +46,9 @@ namespace atomic_dex
       signals:
         void lengthChanged();
         
-        ////////////////
-        
       protected:
         //! Override member functions
         bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
-    
         bool lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const final;
     };
 } // namespace atomic_dex

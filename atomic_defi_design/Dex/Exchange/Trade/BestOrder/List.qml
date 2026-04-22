@@ -25,7 +25,7 @@ Widget
         visible: !warning_text.visible
         Layout.topMargin: 12
         Layout.bottomMargin: 4
-        Layout.rightMargin: 4
+        Layout.rightMargin: 8
         Layout.fillWidth: true
     }
 
@@ -55,7 +55,7 @@ Widget
         Layout.fillHeight: true
         Layout.bottomMargin: 6
         Layout.leftMargin: 4
-        Layout.rightMargin: 4
+        Layout.rightMargin: 8
         spacing: 6
         visible: !warning_text.visible
         model: API.app.trading_pg.orderbook.best_orders.proxy_mdl

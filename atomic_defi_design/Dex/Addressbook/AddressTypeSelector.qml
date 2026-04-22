@@ -1,9 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import Qaterial 1.0 as Qaterial
-
 import Dex.Themes 1.0 as Dex
 import Dex.Components 1.0 as Dex
 import "../Components" as Dex
@@ -40,25 +38,21 @@ Dex.ComboBoxWithSearchBar
         {
             _contentRow.ticker = model.data ? model.data(model.index(index, 0), Qt.UserRole + 1) : ""
             _contentRow.name = model.data ? model.data(model.index(index, 0), Qt.UserRole + 2) : ""
-            _contentRow.type = model.data ? model.data(model.index(index, 0), Qt.UserRole + 8) : ""
+            _contentRow.type = model.data ? model.data(model.index(index, 0), Qt.UserRole + 7) : ""
         }
     }
 
     popupForceMaxHeight: true
     popupMaxHeight: 220
-
     model: showAssetStandards ? assetStandards : Dex.API.app.portfolio_pg.global_cfg_mdl.all_proxy
     textRole: showAssetStandards ? "" : "ticker"
-
     searchBar.visible: !showAssetStandards
     searchBar.searchModel: model
 
     delegate: ItemDelegate
     {
         id: _delegate
-
         visible: model.ticker !== "All"
-
         width: control.width
         height: visible ? 40 : 0
         highlighted: control.highlightedIndex === index
@@ -80,7 +74,6 @@ Dex.ComboBoxWithSearchBar
     contentItem: AssetRow
     {
         id: _contentRow
-
         anchors.left: parent.left
         anchors.leftMargin: 13
         anchors.verticalCenter: parent.verticalCenter
@@ -91,6 +84,7 @@ Dex.ComboBoxWithSearchBar
         if (!showAssetStandards && currentIndex === 0 && searchBar.textField.text == "") currentIndex = 1
         setContentItem(currentIndex)
     }
+
     onActivated: setContentItem(index)
     onShowAssetStandardsChanged: resetList()
     onVisibleChanged: if (!visible) resetList()
