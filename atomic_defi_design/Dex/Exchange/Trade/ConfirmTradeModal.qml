@@ -159,6 +159,7 @@ MultipageModal
 
                         delegate: DexLabel
                         {
+                            wrapMode: Text.NoWrap
                             text: General.getFeesDetailText(
                                     qsTr("<b>Total %1 fees:</b>").arg(modelData.coin),
                                     modelData.required_balance,
