@@ -54,10 +54,11 @@ namespace atomic_dex
             EWT             = 20,
             TRC20           = 21,
             GRC20           = 22,
-            Disabled        = 23,
-            Invalid         = 24,
-            All             = 25,
-            Size            = 26
+            Gnosis          = 23,
+            Disabled        = 24,
+            Invalid         = 25,
+            All             = 26,
+            Size            = 27
         };
 
         Q_ENUM(CoinTypeEnum)

@@ -229,44 +229,18 @@ QtObject {
                     return "https://explorer.kcc.io/en/token/" + coinContractAddress(ticker)
                 case "ETH":
                     return "https://etherscan.io/token/" + coinContractAddress(ticker)
+                case "ETH-ARB20":
+                    return "https://arbiscan.io/token/" + coinContractAddress(ticker)
+                case "ETH-BASE":
+                    return "https://basescan.org/token/" + coinContractAddress(ticker)
+                case "XDAI":
+                    return "https://gnosisscan.io/token/" + coinContractAddress(ticker)
                 case "ONE":
                     return "https://explorer.harmony.one/address/" + coinContractAddress(ticker)
                 case "MOVR":
                     return "https://moonriver.moonscan.io/token/" + coinContractAddress(ticker)
                 default:
                     return ""
-            }
-        }
-    }
-
-    function getProtocolText(ticker) {
-        if(ticker === "" || ticker === "All" || ticker===undefined) {
-            return ""
-        } else {
-            let token_platform = coinPlatform(ticker)
-            switch(token_platform) {
-                case "BNB":
-                    return "Binance Smart Chain (BEP20 token)"
-                case "ONE":
-                    return "Harmony (HRC20 token)"
-                case "ETH":
-                    return "Ethereum (ERC20 token)"
-                case "GLEEC":
-                    return "Gleec (GRC20 token)"
-                case "TRX":
-                    return "Tron (TRC20 token)"
-                case "KCS":
-                    return "KuCoin (KRC20 token)"
-                case "POL":
-                    return "Polygon (PLG20 token)"
-                case "AVAX":
-                    return "Avalanche (AVX20 token)"
-                case "MOVR":
-                    return "Moonriver (MVR20 token)"
-                case "QTUM":
-                    return "QTUM (QRC20 token)"
-                default:
-                    return ticker + " (" + token_platform + ")"
             }
         }
     }
@@ -804,30 +778,18 @@ QtObject {
             || current_ticker_infos.type === "GRC-20"
             || current_ticker_infos.type == "PLG-20"
             || current_ticker_infos.type == "AVX-20"
+            || current_ticker_infos.type == "Gnosis"
+            || current_ticker_infos.type == "Base"
+            || current_ticker_infos.type == "Arbitrum"
     }
 
     function isParentCoin(ticker) {
-        return ["ETH", "POL", "AVAX", "QTUM", "BNB", "ONE", "KCS", "TRX", "GLEEC"].includes(ticker)
-    }
-
-    function isTokenType(type) {
-        return ["ERC-20", "QRC-20", "PLG-20", "AVX-20", "TRC-20", "GRC-20"].includes(type)
+        return ["ETH", "ETH-ARB20", "ETH-BASE", "POL", "AVAX", "QTUM", "BNB", "ONE", "KCS", "TRX", "GLEEC", "XDAI"].includes(ticker)
     }
 
     function getFeesTicker(coin_info) {
         if (coin_info.has_parent_fees_ticker)
             return coin_info.fees_ticker
-    }
-
-    function getParentCoin(type) {
-        if(type === "ERC-20") return "ETH"
-        else if(type === "PLG-20") return "POL"
-        else if(type === "TRC-20") return "TRX"
-        else if(type === "GRC-20") return "GLEEC"
-        else if(type === "AVX-20") return "AVAX"
-        else if(type === "QRC-20") return "QTUM"
-        else if(type === "Smart Chain") return "KMD"
-        return "?"
     }
 
     function getRandomInt(min, max) {

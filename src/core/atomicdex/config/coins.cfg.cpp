@@ -78,6 +78,10 @@ namespace
         {
             return CoinType::Base;
         }
+        if (coin_type == "Gnosis")
+        {
+            return CoinType::Gnosis;
+        }
         if (coin_type == "AVX-20")
         {
             return CoinType::AVX20;
@@ -311,6 +315,11 @@ namespace atomic_dex
         case CoinType::Base:
             cfg.has_parent_fees_ticker = true;
             cfg.fees_ticker            = "ETH-BASE";
+            cfg.is_erc_family          = true;
+            break;
+        case CoinType::Gnosis:
+            cfg.has_parent_fees_ticker = true;
+            cfg.fees_ticker            = "XDAI";
             cfg.is_erc_family          = true;
             break;
         case CoinType::EWT:

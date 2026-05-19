@@ -36,6 +36,9 @@ Dex.Rectangle
             case "GRC-20":      return "GLEEC"
             case "AVX-20":      return "AVAX"
             case "PLG-20":      return "POL"
+            case "Base":        return "ETH-BASE"
+            case "Arbitrum":    return "ETH-ARB20"
+            case "Gnosis":      return "XDAI"
             case "Smart Chain": return "KMD"
         }
 
@@ -57,6 +60,9 @@ Dex.Rectangle
             case "GRC-20":      return true
             case "PLG-20":      return true
             case "AVX-20":      return true
+            case "Base":        return true
+            case "Arbitrum":    return true
+            case "Gnosis":      return true
             case "Smart Chain": return true
         }
         return false
