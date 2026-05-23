@@ -62,8 +62,8 @@ Item
                 return
             }
 
-            let rel_ticker = General.getChartTicker(right_ticker)
-            let base_ticker = General.getChartTicker(left_ticker)
+            let rel_ticker = General.getChartID(right_ticker)
+            let base_ticker = General.getChartID(left_ticker)
             if (rel_ticker != "" && base_ticker != "")
             {
                 pair_supported = true
@@ -78,14 +78,17 @@ Item
                 chart_html = `
                 <style>
                     body { margin: auto; }
-                    .livecoinwatch-widget-1 {
+                    //.livecoinwatch-widget-1 {
+                    .coinpaprika-currency-widget {
                         transform: scale(${Math.min(scale_x, scale_y)});
                         transform-origin: top left;
                     }
                     a { pointer-events: none; }
                 </style>
-                <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-                <div class="livecoinwatch-widget-1" lcw-coin="${rel_ticker}" lcw-base="${API.app.settings_pg.current_currency}" lcw-secondary="${base_ticker}" lcw-period="m" lcw-color-tx="${Dex.CurrentTheme.foregroundColor}" lcw-color-pr="#58c7c5" lcw-color-bg="${Dex.CurrentTheme.comboBoxBackgroundColor}" lcw-border-w="0" lcw-digits="9" ></div>
+                //<script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+                //<div class="livecoinwatch-widget-1" lcw-coin="${rel_ticker}" lcw-base="${API.app.settings_pg.current_currency}" lcw-secondary="${base_ticker}" lcw-period="m" lcw-color-tx="${Dex.CurrentTheme.foregroundColor}" lcw-color-pr="#58c7c5" lcw-color-bg="${Dex.CurrentTheme.comboBoxBackgroundColor}" lcw-border-w="0" lcw-digits="9" ></div>
+                <script defer type="text/javascript" src="https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js"></script>
+                <div class="coinpaprika-currency-widget cp-widget__night-mode" data-primary-currency="usd" data-currency="${base_ticker}" data-custom-date="false" data-start-date="0" data-end-date="0" data-modules='["market_details","chart"]' data-update-active="false"></div>
                 `
             }
         }
