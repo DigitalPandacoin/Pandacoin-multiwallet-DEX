@@ -84,7 +84,7 @@ Item
                     }
                     a { pointer-events: none; }
                 </style>
-                <script defer type="text/javascript" src="https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js"></script>
+                <script defer src="https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js"></script>
                 <div class="coinpaprika-currency-widget cp-widget__night-mode" data-primary-currency="usd" data-currency="${base_ticker}" data-custom-date="false" data-start-date="0" data-end-date="0" data-modules='["market_details","chart"]' data-update-active="false"></div>
                 `
                     //.livecoinwatch-widget-1 {
