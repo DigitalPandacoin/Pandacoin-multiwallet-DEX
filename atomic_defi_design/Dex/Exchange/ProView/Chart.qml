@@ -39,7 +39,8 @@ Item
     {
         let chart_html = ""
         let symbol = ""
-        let widget_x = 390
+        //let widget_x = 390
+        let widget_x = 570
         let widget_y = 200
         let scale_x = root.implicitWidth / widget_x
         let scale_y = root.implicitHeight / widget_y
