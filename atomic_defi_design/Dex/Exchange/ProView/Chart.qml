@@ -93,7 +93,7 @@ Item
                 //<div class="coinpaprika-currency-widget cp-widget__night-mode" data-primary-currency="usd" data-currency="${base_ticker}" data-custom-date="false" data-start-date="0" data-end-date="0" data-modules='["market_details","chart"]' data-update-active="false"></div>
             }
         }
-        console.log(chart_html)
+        //console.log(chart_html)
         dashboard.webEngineView.loadHtml(chart_html)
     }
 
